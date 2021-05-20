@@ -84,11 +84,11 @@ Partial Public Class ChangeFamily
         lblCHFIDToChange.Text = ""
         lblMsg.Text = ""
 
-        If HttpContext.Current.Request.QueryString("f") IsNot Nothing Then
-            eFamily.FamilyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("f"))
-            eFamily.FamilyID = familyBI.GetFamilyIdByUUID(eFamily.FamilyUUID)
-        End If
-
+        'If HttpContext.Current.Request.QueryString("f") IsNot Nothing Then
+        '    eFamily.FamilyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("f"))
+        '    eFamily.FamilyID = familyBI.GetFamilyIdByUUID(eFamily.FamilyUUID)
+        'End If
+        eFamily.FamilyID = HttpContext.Current.Request.QueryString("f")
         If IsPostBack = True Then Return
         FormatForm()
         RunPageSecurity()
@@ -132,6 +132,9 @@ Partial Public Class ChangeFamily
                 txtPermanentAddress.Text = eFamily.FamilyAddress
                 txtConfirmationNo1.Text = eFamily.ConfirmationNo
                 txtConfirmationType.Text = eFamily.ConfirmationType
+                If (eFamily.ConfirmationType Is "Normal") Then
+                    rfConfirmationNo.Enabled = False
+                End If
                 ddlRegion.SelectedValue = eFamily.RegionId
                 ddlDistrict.SelectedValue = eFamily.DistrictID
                 If dtRegions.Rows.Count > 0 Then
@@ -248,7 +251,8 @@ Partial Public Class ChangeFamily
         If Not userBI.RunPageSecurity(IMIS_EN.Enums.Pages.OverviewFamily, Page) Then
             Response.Redirect("FindFamily.aspx")
         ElseIf btnSave.Visible Then
-            Response.Redirect("OverviewFamily.aspx?f=" & eFamily.FamilyUUID.ToString())
+            'Response.Redirect("OverviewFamily.aspx?f=" & eFamily.FamilyUUID.ToString())
+            Response.Redirect("OverviewFamily.aspx?f=" & eFamily.FamilyID)
         Else
             Response.Redirect("FindFamily.aspx")
         End If
@@ -281,7 +285,8 @@ Partial Public Class ChangeFamily
             'EventLog.WriteEntry("IMIS", Page.Title & " : " & imisgen.getLoginName(Session("User")) & " : " & ex.Message, EventLogEntryType.Error, 999)
             Return
         End Try
-        Response.Redirect("OverviewFamily.aspx?f=" & eFamily.FamilyUUID.ToString())
+        'Response.Redirect("OverviewFamily.aspx?f=" & eFamily.FamilyUUID.ToString())
+        Response.Redirect("OverviewFamily.aspx?f=" & eFamily.FamilyID)
     End Sub
     Private Sub txtCHFIDToChange_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles B_CHECK.Click
 
@@ -337,7 +342,8 @@ Partial Public Class ChangeFamily
             'EventLog.WriteEntry("IMIS", Page.Title & " : " & imisgen.getLoginName(Session("User")) & " : " & ex.Message, EventLogEntryType.Error, 999)
             Return
         End Try
-        Response.Redirect("OverviewFamily.aspx?f=" & eFamily.FamilyUUID.ToString())
+        'Response.Redirect("OverviewFamily.aspx?f=" & eFamily.FamilyUUID.ToString())
+        Response.Redirect("OverviewFamily.aspx?f=" & eFamily.FamilyID)
 
     End Sub
 
@@ -450,12 +456,12 @@ Partial Public Class ChangeFamily
             Return
         End Try
 
-        Dim FamilyUUID As Guid
-        If HttpContext.Current.Request.QueryString("f") IsNot Nothing Then
-            FamilyUUID = familyBI.GetFamilyUUIDByID(hfFamilyIDValue.Value)
-        End If
+        'Dim FamilyUUID As Guid
+        'If HttpContext.Current.Request.QueryString("f") IsNot Nothing Then
+        '    FamilyUUID = familyBI.GetFamilyUUIDByID(hfFamilyIDValue.Value)
+        'End If
 
-        Response.Redirect("OverviewFamily.aspx?f=" & FamilyUUID.ToString())
+        Response.Redirect("OverviewFamily.aspx?f=" & hfFamilyIDValue.Value)
 
     End Sub
     Private Sub B_CHECKMOVE_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles B_CHECKMOVE.Click

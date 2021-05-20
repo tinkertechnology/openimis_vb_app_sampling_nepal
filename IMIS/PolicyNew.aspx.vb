@@ -75,26 +75,27 @@ Partial Public Class PolicyNew
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         CalendarExtender2.EndDate = DateTime.Now
-        If HttpContext.Current.Request.QueryString("f") IsNot Nothing Then
-            efamily.FamilyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("f"))
-            efamily.FamilyID = If(efamily.FamilyUUID.Equals(Guid.Empty), 0, familyBI.GetFamilyIdByUUID(efamily.FamilyUUID))
-        End If
+        'If HttpContext.Current.Request.QueryString("f") IsNot Nothing Then
+        '    efamily.FamilyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("f"))
+        '    efamily.FamilyID = If(efamily.FamilyUUID.Equals(Guid.Empty), 0, familyBI.GetFamilyIdByUUID(efamily.FamilyUUID))
+        'End If
 
-        If HttpContext.Current.Request.QueryString("po") IsNot Nothing Then
-            ePolicy.PolicyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("po"))
-            ePolicy.PolicyID = If(ePolicy.PolicyUUID.Equals(Guid.Empty), 0, Policy.GetPolicyIdByUUID(ePolicy.PolicyUUID))
-        End If
-
+        'If HttpContext.Current.Request.QueryString("po") IsNot Nothing Then
+        '    ePolicy.PolicyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("po"))
+        '    ePolicy.PolicyID = If(ePolicy.PolicyUUID.Equals(Guid.Empty), 0, Policy.GetPolicyIdByUUID(ePolicy.PolicyUUID))
+        'End If
+        efamily.FamilyID = HttpContext.Current.Request.QueryString("f")
+        ePolicy.PolicyID = HttpContext.Current.Request.QueryString("po")
         ePolicy.tblFamilies = efamily
         If IsPostBack = True Then Return
         
         FormatForm()
 
-        If HttpContext.Current.Request.QueryString("pd") IsNot Nothing Then
-            eProduct.ProdUUID = Guid.Parse(HttpContext.Current.Request.QueryString("pd"))
-            eProduct.ProdID = If(eProduct.ProdUUID.Equals(Guid.Empty), 0, productBI.GetProdIdByUUID(eProduct.ProdUUID))
-        End If
-
+        'If HttpContext.Current.Request.QueryString("pd") IsNot Nothing Then
+        '    eProduct.ProdUUID = Guid.Parse(HttpContext.Current.Request.QueryString("pd"))
+        '    eProduct.ProdID = If(eProduct.ProdUUID.Equals(Guid.Empty), 0, productBI.GetProdIdByUUID(eProduct.ProdUUID))
+        'End If
+        eProduct.ProdID = Request.QueryString("pd")
         ePolicy.tblProduct = eProduct
         hfPolicyStage.Value = Request.QueryString("stage")
         If hfPolicyStage.Value = "N" Then
@@ -280,7 +281,7 @@ Partial Public Class PolicyNew
 
             Dim PreviousPolicyId As Integer = 0
 
-
+            'FillProductsd()
             'Addition for Nepal >> Start
             If sender.ID = txtEnrollmentDate.ID And hfPolicyStage.Value <> "R" Then
                 FillProductsd()
@@ -488,8 +489,9 @@ Partial Public Class PolicyNew
                 OrderNumberRenewal = Policy.GetRenewalCount(eProduct.ProdID, efamily.FamilyID)
                 If hfPolicyStage.Value = "R" Then
                     If Request.QueryString("rpo") IsNot Nothing Then
-                        Dim UUID As Guid = Guid.Parse(Request.QueryString("rpo"))
-                        PreviousPolicyId = If(UUID.Equals(Guid.Empty), 0, Policy.GetPolicyIdByUUID(UUID))
+                        'Dim UUID As Guid = Guid.Parse(Request.QueryString("rpo"))
+                        'PreviousPolicyId = If(UUID.Equals(Guid.Empty), 0, Policy.GetPolicyIdByUUID(UUID))
+                        PreviousPolicyId = Request.QueryString("rpo")
                         If PreviousPolicyId > 0 Then
                             ePolicy.RenewalOrder = OrderNumberRenewal + 1
                         Else
@@ -504,15 +506,26 @@ Partial Public Class PolicyNew
 
                 'Check if renewal is late or not
 
-                Dim rpo As Integer
-                If Request.QueryString("rpo") IsNot Nothing Then
-                    Dim UUID As Guid = Guid.Parse(Request.QueryString("rpo"))
-                    rpo = If(UUID.Equals(Guid.Empty), 0, Policy.GetPolicyIdByUUID(UUID))
-                End If
+                'Dim rpo As Integer
+                'If Request.QueryString("rpo") IsNot Nothing Then
+                '    Dim UUID As Guid = Guid.Parse(Request.QueryString("rpo"))
+                '    rpo = If(UUID.Equals(Guid.Empty), 0, Policy.GetPolicyIdByUUID(UUID))
+                'End If
 
-                If IsNumeric(rpo) Then
+                'If IsNumeric(rpo) Then
+                '    If hfIsRenewalLate.Value = 1 Then
+                '        Dim chk1 As Boolean = Policy.IsRenewalLate(rpo, Date.ParseExact(txtEnrollmentDate.Text, "dd/MM/yyyy", Nothing))
+                '        If chk1 = True Then
+                '            Dim Msg As String = imisgen.getMessage("M_LATEPOLICYRENEWAL", True)
+                '            imisgen.Confirm(Msg, pnlButtons, "promptPolicyRenewal", "", AcceptButtonText:=imisgen.getMessage("L_YES", True), RejectButtonText:=imisgen.getMessage("L_NO", True))
+                '            Exit Sub
+                '        End If
+                '    End If
+                'End If
+
+                If IsNumeric(Request.QueryString("rpo")) Then
                     If hfIsRenewalLate.Value = 1 Then
-                        Dim chk1 As Boolean = Policy.IsRenewalLate(rpo, Date.ParseExact(txtEnrollmentDate.Text, "dd/MM/yyyy", Nothing))
+                        Dim chk1 As Boolean = Policy.IsRenewalLate(Request.QueryString("rpo"), Date.ParseExact(txtEnrollmentDate.Text, "dd/MM/yyyy", Nothing))
                         If chk1 = True Then
                             Dim Msg As String = imisgen.getMessage("M_LATEPOLICYRENEWAL", True)
                             imisgen.Confirm(Msg, pnlButtons, "promptPolicyRenewal", "", AcceptButtonText:=imisgen.getMessage("L_YES", True), RejectButtonText:=imisgen.getMessage("L_NO", True))
@@ -597,19 +610,21 @@ Partial Public Class PolicyNew
             End Try
         End If
 
-        Dim PolicyUUID As Guid
-        PolicyUUID = Policy.GetPolicyUUIDByID(ePolicy.PolicyID)
+        'Dim PolicyUUID As Guid
+        'PolicyUUID = Policy.GetPolicyUUIDByID(ePolicy.PolicyID)
 
         If HttpContext.Current.Request.QueryString("f") = Nothing Then
-            Response.Redirect("FindPolicy.aspx?po=" & PolicyUUID.ToString())
+            'Response.Redirect("FindPolicy.aspx?po=" & PolicyUUID.ToString())
+            Response.Redirect("FindPolicy.aspx?po=" & ePolicy.PolicyID)
 
         Else
-            Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString() & "&po=" & PolicyUUID.ToString())
+            Response.Redirect("OverviewFamily.aspx?f=" & hfFamilyID.Value & "&po=" & ePolicy.PolicyID)
         End If
     End Sub
 
     Private Sub B_CANCEL_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles B_CANCEL.Click
-        Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString())
+        'Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString())
+        Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyID)
     End Sub
 
     Private Sub B_SAVE_Command(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.CommandEventArgs) Handles B_SAVE.Command

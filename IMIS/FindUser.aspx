@@ -28,7 +28,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 <asp:Content ID="headContent" ContentPlaceHolderID="head" runat="server">
-<script type="text/javascript" language="javascript">
+    <script type="text/javascript" language="javascript">
     $(document).ready(function () {
         bindRowSelection();
     });
@@ -95,18 +95,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                 <td>
                     <table>
                         <tr>
-            
-               <td class="FormLabel">
-                            <asp:Label 
-                            ID="L_LASTNAME"
-                            runat="server" 
-                            Text='<%$ Resources:Resource,L_LASTNAME %>'>
-                            </asp:Label>
-                        </td>
-                <td class ="DataEntry">
-                    <asp:TextBox ID="txtLastName" runat="server">
-                    </asp:TextBox></td>
-                <td class="FormLabel">
+            <td class="FormLabel">
                             <asp:Label 
                             ID="L_OTHERNAMES"
                             runat="server" 
@@ -117,6 +106,17 @@ In case of dispute arising out or in relation to the use of the program, it is s
                     <asp:TextBox ID="txtOtherNames" runat="server">
                     </asp:TextBox>
                     </td>
+               <td class="FormLabel">
+                            <asp:Label 
+                            ID="L_LASTNAME"
+                            runat="server" 
+                            Text='<%$ Resources:Resource,L_LASTNAME %>'>
+                            </asp:Label>
+                        </td>
+                <td class ="DataEntry">
+                    <asp:TextBox ID="txtLastName" runat="server">
+                    </asp:TextBox></td>
+                
                  <td class ="FormLabel">
                      <asp:Label ID="L_REGION" runat="server" Text="<%$ Resources:Resource,L_REGION %>"></asp:Label>
                  </td>
@@ -276,12 +276,12 @@ In case of dispute arising out or in relation to the use of the program, it is s
             <asp:BoundField DataField="IsAssociated" HeaderText="IsAssociated" HeaderStyle-Width ="110px"> <ItemStyle CssClass="hidecol"/><HeaderStyle CssClass="hidecol" />
                 <HeaderStyle Width="110px" />
             </asp:BoundField> 
-            <asp:BoundField DataField="LastName"  HeaderText='<%$ Resources:Resource,L_LASTNAME %>' SortExpression="LastName" HeaderStyle-Width ="110px"> 
-                <HeaderStyle Width="110px" />
-            </asp:BoundField> 
             <asp:BoundField DataField="OtherNames"  HeaderText='<%$ Resources:Resource,L_OTHERNAMES %>'     SortExpression="OtherNames" HeaderStyle-Width ="110px"> 
                 <HeaderStyle Width="110px" />
             </asp:BoundField> 
+            <asp:BoundField DataField="LastName"  HeaderText='<%$ Resources:Resource,L_LASTNAME %>' SortExpression="LastName" HeaderStyle-Width ="110px"> 
+                <HeaderStyle Width="110px" />
+            </asp:BoundField>             
             <asp:BoundField DataField="Phone" HeaderText='<%$ Resources:Resource,L_PHONE %>' SortExpression="Phone" HeaderStyle-Width="100px">  
                 <HeaderStyle Width="100px" />
             </asp:BoundField>
@@ -289,6 +289,9 @@ In case of dispute arising out or in relation to the use of the program, it is s
                 <HeaderStyle Width="70px" />
             </asp:BoundField>
             <asp:BoundField DataField="ValidityTo" DataFormatString="{0:d}" HeaderText='<%$ Resources:Resource,L_VALIDTO %>' SortExpression="ValidityTo" HeaderStyle-Width="70px">  
+                <HeaderStyle Width="70px" />
+            </asp:BoundField>
+            <asp:BoundField DataField="EmailId" DataFormatString="{0:d}" HeaderText='<%$ Resources:Resource,L_EMAIL %>' SortExpression="EmailId" HeaderStyle-Width="70px">  
                 <HeaderStyle Width="70px" />
             </asp:BoundField>
             <asp:BoundField DataField="UserId" ><ItemStyle CssClass="hidecol"/><HeaderStyle CssClass="hidecol" />  </asp:BoundField>
@@ -357,6 +360,6 @@ In case of dispute arising out or in relation to the use of the program, it is s
                   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Footer" Runat="Server">
-<asp:label id="lblMsg" runat="server"></asp:label><asp:ValidationSummary ID="validationSummary" runat="server" HeaderText='<%$ Resources:Resource,V_SUMMARY%>' ValidationGroup="check" />
+    <asp:label id="lblMsg" runat="server"></asp:label><asp:ValidationSummary ID="validationSummary" runat="server" HeaderText='<%$ Resources:Resource,V_SUMMARY%>' ValidationGroup="check" />
 </asp:Content>
 

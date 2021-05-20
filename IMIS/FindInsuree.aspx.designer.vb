@@ -41,24 +41,6 @@ Partial Public Class FindInsuree
     Protected WithEvents pnlTop As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
-    '''L_LASTNAME control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents L_LASTNAME As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''txtLastName control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtLastName As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
     '''L_OTHERNAMES control.
     '''</summary>
     '''<remarks>
@@ -75,6 +57,24 @@ Partial Public Class FindInsuree
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtOtherNames As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''L_LASTNAME control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents L_LASTNAME As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''txtLastName control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtLastName As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''L_REGION control.
@@ -327,6 +327,24 @@ Partial Public Class FindInsuree
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlMarital As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''lblConfirmationType control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblConfirmationType As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''ddlConfirmationType control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlConfirmationType As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''chkOffline control.

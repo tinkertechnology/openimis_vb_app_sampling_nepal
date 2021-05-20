@@ -149,9 +149,12 @@ Public Class FamilyNew
         FormatForm()
         CalendarExtender1.EndDate = DateTime.Now
 
+        'If HttpContext.Current.Request.QueryString("f") IsNot Nothing Then
+        '    eFamily.FamilyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("f"))
+        '    eFamily.FamilyID = Family.GetFamilyIdByUUID(eFamily.FamilyUUID)
+        'End If
         If HttpContext.Current.Request.QueryString("f") IsNot Nothing Then
-            eFamily.FamilyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("f"))
-            eFamily.FamilyID = Family.GetFamilyIdByUUID(eFamily.FamilyUUID)
+            eFamily.FamilyID = HttpContext.Current.Request.QueryString("f")
         End If
 
         RunPageSecurity()
@@ -189,10 +192,10 @@ Public Class FamilyNew
             'ddlCardIssued.DataTextField = "Status"
             'ddlCardIssued.DataBind()
 
-            ddlType.DataSource = Family.GetTypes
-            ddlType.DataValueField = "FamilyTypeCode"
-            ddlType.DataTextField = If(Request.Cookies("CultureInfo").Value = "en", "FamilyType", "AltLanguage") '"FamilyType"
-            ddlType.DataBind()
+            'ddlType.DataSource = Family.GetTypes
+            'ddlType.DataValueField = "FamilyTypeCode"
+            'ddlType.DataTextField = If(Request.Cookies("CultureInfo").Value = "en", "FamilyType", "AltLanguage") '"FamilyType"
+            'ddlType.DataBind()
 
             ddlProfession.DataSource = Family.GetProfession
             ddlProfession.DataValueField = "ProfessionId"
@@ -268,7 +271,7 @@ Public Class FamilyNew
                 txtOtherNames.Text = eFamily.tblInsuree.OtherNames
                 txtPassport.Text = eFamily.tblInsuree.passport
                 txtPhone.Text = eFamily.tblInsuree.Phone
-                ddlType.SelectedValue = eFamily.FamilyType
+                'ddlType.SelectedValue = eFamily.FamilyType
                 txtAddress.Text = eFamily.FamilyAddress
                 txtConfirmationNo.Text = eFamily.ConfirmationNo
 
@@ -519,7 +522,7 @@ Public Class FamilyNew
             ePhotos.CHFID = eInsuree.CHFID.Trim
             ePhotos.PhotoFolder = IMIS_EN.AppConfiguration.UpdatedFolder
 
-            If ddlType.SelectedValue <> "" Then eFamily.FamilyType = ddlType.SelectedValue
+            'If ddlType.SelectedValue <> "" Then eFamily.FamilyType = ddlType.SelectedValue
             eFamily.FamilyAddress = txtAddress.Text
             eFamily.ConfirmationNo = txtConfirmationNo.Text
 
@@ -584,16 +587,18 @@ Public Class FamilyNew
             Return
         End Try
 
-        FamilyUUID = Family.GetFamilyUUIDByID(eFamily.FamilyID)
+        'FamilyUUID = Family.GetFamilyUUIDByID(eFamily.FamilyID)
 
-        Response.Redirect("OverviewFamily.aspx?f=" & FamilyUUID.ToString())
+        'Response.Redirect("OverviewFamily.aspx?f=" & FamilyUUID.ToString())
+        Response.Redirect("OverviewFamily.aspx?f=" & eFamily.FamilyID)
 
     End Sub
     Private Sub B_CANCEL_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles B_CANCEL.Click
 
         If Not eFamily.FamilyID = 0 And B_SAVE.Visible Then
-            FamilyUUID = Family.GetFamilyUUIDByID(eFamily.FamilyID)
-            Response.Redirect("OverviewFamily.aspx?f=" & FamilyUUID.ToString())
+            'FamilyUUID = Family.GetFamilyUUIDByID(eFamily.FamilyID)
+            'Response.Redirect("OverviewFamily.aspx?f=" & FamilyUUID.ToString())
+            Response.Redirect("OverviewFamily.aspx?f=" & eFamily.FamilyID)
         Else
             Response.Redirect("FindFamily.aspx")
         End If

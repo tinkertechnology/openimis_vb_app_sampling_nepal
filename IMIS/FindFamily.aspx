@@ -68,15 +68,6 @@ title='<%$ Resources:Resource,L_Family%>'%>
                 <td>
                    <table>
             <tr>
-               <td class="FormLabel">
-                            <asp:Label 
-                            ID="L_LASTNAME"
-                            runat="server" 
-                            Text='<%$ Resources:Resource,L_LASTNAME %>'>
-                            </asp:Label>
-                        </td>
-                <td class ="DataEntry">
-                    <asp:TextBox ID="txtLastName" runat="server" style="direction: ltr"></asp:TextBox></td>
                 <td class="FormLabel">
                             <asp:Label 
                             ID="L_OTHERNAMES"
@@ -86,6 +77,15 @@ title='<%$ Resources:Resource,L_Family%>'%>
                         </td>
                 <td class ="DataEntry">
                     <asp:TextBox ID="txtOtherNames" runat="server"></asp:TextBox></td>
+               <td class="FormLabel">
+                            <asp:Label 
+                            ID="L_LASTNAME"
+                            runat="server" 
+                            Text='<%$ Resources:Resource,L_LASTNAME %>'>
+                            </asp:Label>
+                        </td>
+                <td class ="DataEntry">
+                    <asp:TextBox ID="txtLastName" runat="server" style="direction: ltr"></asp:TextBox></td>                
                  <td class ="FormLabel">
                      <asp:Label ID="L_REGION" runat="server" Text="<%$ Resources:Resource,L_REGION %>"></asp:Label>
                  </td>
@@ -112,7 +112,7 @@ title='<%$ Resources:Resource,L_Family%>'%>
                     <asp:Label 
                         ID="L_BIRTHDATEFROM"
                         runat="server" 
-                        Text='<%$ Resources:Resource,L_BIRTHDATEFROM %>'>
+                        Text='Enroll Date From'>
                     </asp:Label>
                 </td>
                 <td class ="DataEntry">
@@ -163,7 +163,7 @@ title='<%$ Resources:Resource,L_Family%>'%>
                     <asp:Label 
                         ID="L_BIRTHDATETO"
                         runat="server" 
-                        Text='<%$ Resources:Resource,L_BIRTHDATETO %>'>
+                        Text='Enroll Date To'>
                     </asp:Label>
                 </td>
                 <td class ="DataEntry">
@@ -303,14 +303,21 @@ title='<%$ Resources:Resource,L_Family%>'%>
                         <HeaderStyle CssClass="HideButton" />
                         <ItemStyle CssClass="HideButton" />
                     </asp:CommandField>
-                    <asp:HyperLinkField DataNavigateUrlFields = "FamilyUUID" DataTextField="CHFID" DataNavigateUrlFormatString = "OverviewFamily.aspx?f={0}" HeaderText='<%$ Resources:Resource,L_CHFID %>' HeaderStyle-Width ="100px" >
+                  <%--   <asp:HyperLinkField DataNavigateUrlFields = "FamilyUUID" DataTextField="CHFID" DataNavigateUrlFormatString = "OverviewFamily.aspx?f={0}" HeaderText='<%$ Resources:Resource,L_CHFID %>' HeaderStyle-Width ="100px" >
 
                         <HeaderStyle Width="100px" />
 
-                    </asp:HyperLinkField>                
-                    <asp:BoundField DataField="LastName"  HeaderText='<%$ Resources:Resource,L_LASTNAME %>' SortExpression="LastName" ><HeaderStyle Width="130px"></HeaderStyle>
-                    </asp:BoundField> <asp:BoundField DataField="OtherNames"  HeaderText='<%$ Resources:Resource,L_OTHERNAMES %>'     SortExpression="OtherNames" ><HeaderStyle Width="130px"></HeaderStyle>
+                    </asp:HyperLinkField>   
+                      --%>
+                    <asp:HyperLinkField DataNavigateUrlFields = "FamilyId" DataTextField="CHFID" DataNavigateUrlFormatString = "OverviewFamily.aspx?f={0}" HeaderText='<%$ Resources:Resource,L_CHFID %>' HeaderStyle-Width ="100px" >
+
+                        <HeaderStyle Width="100px" />
+
+                    </asp:HyperLinkField> 
+                    <asp:BoundField DataField="OtherNames"  HeaderText='<%$ Resources:Resource,L_OTHERNAMES %>'     SortExpression="OtherNames" ><HeaderStyle Width="130px"></HeaderStyle>
                     </asp:BoundField>
+                    <asp:BoundField DataField="LastName"  HeaderText='<%$ Resources:Resource,L_LASTNAME %>' SortExpression="LastName" ><HeaderStyle Width="130px"></HeaderStyle>
+                    </asp:BoundField>                     
                      <asp:BoundField DataField="RegionName"  HeaderText='<%$ Resources:Resource,L_REGION %>'     SortExpression="RegionName" ><HeaderStyle Width="80px"></HeaderStyle>
                     </asp:BoundField>
                     <asp:BoundField DataField="DistrictName"  HeaderText='<%$ Resources:Resource,L_DISTRICT %>'     SortExpression="DistrictName" ><HeaderStyle Width="80px"></HeaderStyle>

@@ -85,7 +85,7 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
         }
         .backentry
         {
-            height: 655px;
+            height: 685px;
         }
         .footer
         {
@@ -94,6 +94,7 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
         .auto-style1 {
             height: 27px;
         }
+        
 
 </style>
 </asp:Content>
@@ -364,7 +365,7 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
        
  
 
-        <asp:Panel ID="pnlTop" runat="server"  CssClass="panelTop"  Height="165px"  GroupingText='<%$ Resources:Resource,L_CLAIMDETAILS %>' oncontextmenu="return false;">
+        <asp:Panel ID="pnlTop" runat="server"  CssClass="panelTop"  Height="200px"  GroupingText='<%$ Resources:Resource,L_CLAIMDETAILS %>' oncontextmenu="return false;">
                
            
       <table > 
@@ -387,7 +388,7 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
                      <asp:Label ID="lblVisitDateFrom" runat="server" Text='<%$ Resources:Resource,L_VISITDATEFROM%>'></asp:Label>
                 </td>
             <td class ="DataEntry" style="width:190px">
-                <asp:TextBox ID="txtVisitDateFrom" runat="server" Text="" width="100px" CssClass="dateCheck"></asp:TextBox>
+                <asp:TextBox ID="txtVisitDateFrom" runat="server" Text="" width="100px" CssClass="dateCheck claimPageFrom"></asp:TextBox>
                   <asp:Button ID="btnClaimFrom" runat="server"  padding-bottom="3px" 
                        Class="dateButton" />
                     <ajax:CalendarExtender ID="CalendarExtender1" runat="server" 
@@ -397,7 +398,7 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
                     <asp:Label ID="lblVisitDateTo" runat="server" Text='<%$ Resources:Resource,L_TO%>' class ="FormLabel" style="margin-left:15px"></asp:Label>
                   </td>
              <td class ="DataEntry">
-                  <asp:TextBox ID="txtVisitDateTo" runat="server" Text="" width="100px" CssClass="dateCheck"></asp:TextBox>
+                  <asp:TextBox ID="txtVisitDateTo" runat="server" Text="" width="100px" CssClass="dateCheck claimPageTo"></asp:TextBox>
                   
                  <asp:Button ID="btnClaimTo" runat="server"  Class="dateButton" padding-bottom="3px" 
                        />
@@ -427,7 +428,7 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
                     <asp:Label ID="lblClaimedDateFrom" runat="server" Text='<%$ Resources:Resource,L_CLAIMDATEFROM%>'></asp:Label>
                </td>
                <td class="DataEntry" style="width:190px">
-                   <asp:TextBox ID="txtClaimedDateFrom" runat="server" Text="" width="100px" CssClass="dateCheck"></asp:TextBox>
+                   <asp:TextBox ID="txtClaimedDateFrom" runat="server" Text="" width="100px" CssClass="dateCheck claimPageFrom"></asp:TextBox>
                    <asp:Button ID="btnClaimedDateFrom" runat="server"  padding-bottom="3px" 
                         Class="dateButton" />
                     <ajax:CalendarExtender ID="CalendarExtender2" runat="server" 
@@ -436,7 +437,7 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
                      <asp:Label ID="lblClaimedDateTo" runat="server" Text='<%$ Resources:Resource,L_TO%>' class ="FormLabel" style="margin-left:15px"></asp:Label>
                </td>
                <td class ="DataEntry">
-                  <asp:TextBox ID="txtClaimedDateTo" runat="server" Text="" width="100px" CssClass="dateCheck"></asp:TextBox>                  
+                  <asp:TextBox ID="txtClaimedDateTo" runat="server" Text="" width="100px" CssClass="dateCheck claimPageTo"></asp:TextBox>                  
                    <asp:Button ID="btnClaimedDateTo" runat="server"  Class="dateButton" padding-bottom="3px" 
                        />
                     <ajax:CalendarExtender ID="CalendarExtender3" runat="server" 
@@ -495,7 +496,8 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
                      <asp:DropDownList ID="ddlBatchRun" runat="server" >
                      </asp:DropDownList>
                  </td>
-              <td class="FormLabel">                
+              <td class="FormLabel">   
+                  <asp:Label ID="lblAttachment" runat="server" Text="Attachment"></asp:Label>  <asp:CheckBox ID="chkAttachment" runat="server" />
                    <%--<asp:Button class="button" ID="btnSearch" runat="server" 
                           Text='<%$ Resources:Resource,B_SEARCH %>' >
                     </asp:Button>--%>
@@ -513,7 +515,7 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
                     <asp:Label ID="lblClaimCode0" runat="server" Text="<%$ Resources:Resource,L_CLAIMCODE%>"></asp:Label>
                 </td>
                 <td class="DataEntry">
-                    <asp:TextBox ID="txtClaimCode" runat="server" MaxLength="8"></asp:TextBox>
+                    <asp:TextBox ID="txtClaimCode" runat="server" MaxLength="10"></asp:TextBox>
                 </td>
                 <td class="FormLabel">
                     
@@ -574,7 +576,9 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
                 SelectedRowStyle-CssClass="srs" PageSize="15" >
                 <Columns>
                   
-                    <asp:HyperLinkField DataNavigateUrlFields = "ClaimUUID" DataTextField="ClaimCode" DataNavigateUrlFormatString = "Claim.aspx?c={0}" HeaderText='<%$ Resources:Resource,L_CLAIMCODE %>' HeaderStyle-Width ="100px"  >
+                   <%--  <asp:HyperLinkField DataNavigateUrlFields = "ClaimUUID" DataTextField="ClaimCode" DataNavigateUrlFormatString = "Claim.aspx?c={0}" HeaderText='<%$ Resources:Resource,L_CLAIMCODE %>' HeaderStyle-Width ="100px"  >
+                         <HeaderStyle Width="50px" /> --%>
+                        <asp:HyperLinkField DataNavigateUrlFields = "ClaimID" DataTextField="ClaimCode" DataNavigateUrlFormatString = "Claim.aspx?c={0}" HeaderText='<%$ Resources:Resource,L_CLAIMCODE %>' HeaderStyle-Width ="100px"  >
                          <HeaderStyle Width="50px" />
                      </asp:HyperLinkField>
                       <asp:BoundField DataField="HFName"  HeaderText='<%$ Resources:Resource,L_HFName %>' SortExpression="HFName" HeaderStyle-Width="150px">  
@@ -614,6 +618,7 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
                <asp:BoundField DataField="RowID" > <ItemStyle CssClass="hidecol" /><HeaderStyle CssClass="hidecol"  /></asp:BoundField >
                <asp:BoundField DataField="HfID" > <ItemStyle CssClass="hidecol" /><HeaderStyle CssClass="hidecol"  /></asp:BoundField >
                <asp:TemplateField  ><ItemTemplate ><asp:Image runat="server" /> </ItemTemplate><ItemStyle Width="15px"   /></asp:TemplateField> 
+               <asp:BoundField DataField="Attachment" > <ItemStyle CssClass="hidecol" /><HeaderStyle CssClass="hidecol"  /></asp:BoundField >
                 </Columns>
                 <PagerStyle CssClass="pgr" />
                 <SelectedRowStyle CssClass="srs" />
@@ -657,7 +662,7 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
                         Text='<%$ Resources:Resource,B_DELETE%>'
                           />
                     </td>
-                     <td  align="center">
+                     <td  align="center" class="hidebtnsubmit">
                        <asp:Button 
                         ID="B_SUBMIT" 
                         runat="server" style="font-weight:bold; color:Red" 

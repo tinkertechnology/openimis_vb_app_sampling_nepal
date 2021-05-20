@@ -71,26 +71,29 @@ Partial Public Class Policy
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        If HttpContext.Current.Request.QueryString("f") IsNot Nothing Then
-            efamily.FamilyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("f"))
-            efamily.FamilyID = If(efamily.FamilyUUID.Equals(Guid.Empty), 0, familyBI.GetFamilyIdByUUID(efamily.FamilyUUID))
-        End If
+        'If HttpContext.Current.Request.QueryString("f") IsNot Nothing Then
+        '    efamily.FamilyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("f"))
+        '    efamily.FamilyID = If(efamily.FamilyUUID.Equals(Guid.Empty), 0, familyBI.GetFamilyIdByUUID(efamily.FamilyUUID))
+        'End If
 
-        If HttpContext.Current.Request.QueryString("po") IsNot Nothing Then
-            ePolicy.PolicyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("po"))
-            ePolicy.PolicyID = If(ePolicy.PolicyUUID.Equals(Guid.Empty), 0, Policy.GetPolicyIdByUUID(ePolicy.PolicyUUID))
-        End If
-
+        'If HttpContext.Current.Request.QueryString("po") IsNot Nothing Then
+        '    ePolicy.PolicyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("po"))
+        '    ePolicy.PolicyID = If(ePolicy.PolicyUUID.Equals(Guid.Empty), 0, Policy.GetPolicyIdByUUID(ePolicy.PolicyUUID))
+        'End If
+        efamily.FamilyID = HttpContext.Current.Request.QueryString("f")
+        ePolicy.PolicyID = HttpContext.Current.Request.QueryString("po")
+        ePolicy.tblFamilies = efamily
         ePolicy.tblFamilies = efamily
         If IsPostBack = True Then Return
 
         FormatForm()
 
-        If HttpContext.Current.Request.QueryString("pd") IsNot Nothing Then
-            eProduct.ProdUUID = Guid.Parse(HttpContext.Current.Request.QueryString("pd"))
-            eProduct.ProdID = If(eProduct.ProdUUID.Equals(Guid.Empty), 0, productBI.GetProdIdByUUID(eProduct.ProdUUID))
-        End If
+        'If HttpContext.Current.Request.QueryString("pd") IsNot Nothing Then
+        '    eProduct.ProdUUID = Guid.Parse(HttpContext.Current.Request.QueryString("pd"))
+        '    eProduct.ProdID = If(eProduct.ProdUUID.Equals(Guid.Empty), 0, productBI.GetProdIdByUUID(eProduct.ProdUUID))
+        'End If
 
+        eProduct.ProdID = Request.QueryString("pd")
         ePolicy.tblProduct = eProduct
         hfPolicyStage.Value = Request.QueryString("stage")
         RunPageSecurity()
@@ -284,10 +287,11 @@ Partial Public Class Policy
 
             If hfPolicyStage.Value = "R" Then
                 ' SetProductForRenewal()
-                If Request.QueryString("rpo") IsNot Nothing Then
-                    Dim UUID As Guid = Guid.Parse(Request.QueryString("rpo"))
-                    PreviousPolicyId = If(UUID.Equals(Guid.Empty), 0, Policy.GetPolicyIdByUUID(UUID))
-                End If
+                'If Request.QueryString("rpo") IsNot Nothing Then
+                '    Dim UUID As Guid = Guid.Parse(Request.QueryString("rpo"))
+                '    PreviousPolicyId = If(UUID.Equals(Guid.Empty), 0, Policy.GetPolicyIdByUUID(UUID))
+                'End If
+                PreviousPolicyId = Request.QueryString("rpo")
             End If
 
             If ddlProduct.SelectedValue > 0 Then
@@ -484,8 +488,10 @@ Partial Public Class Policy
                 OrderNumberRenewal = Policy.GetRenewalCount(eProduct.ProdID, efamily.FamilyID)
                 If hfPolicyStage.Value = "R" Then
                     If Request.QueryString("rpo") IsNot Nothing Then
+                        'Dim UUID As Guid = Guid.Parse(Request.QueryString("rpo"))
+                        'PreviousPolicyId = If(UUID.Equals(Guid.Empty), 0, Policy.GetPolicyIdByUUID(UUID))
                         Dim UUID As Guid = Guid.Parse(Request.QueryString("rpo"))
-                        PreviousPolicyId = If(UUID.Equals(Guid.Empty), 0, Policy.GetPolicyIdByUUID(UUID))
+                        PreviousPolicyId = Request.QueryString("rpo")
                         If PreviousPolicyId > 0 Then
                             ePolicy.RenewalOrder = OrderNumberRenewal + 1
                         Else
@@ -502,8 +508,9 @@ Partial Public Class Policy
 
                 Dim rpo As Integer
                 If Request.QueryString("rpo") IsNot Nothing Then
-                    Dim UUID As Guid = Guid.Parse(Request.QueryString("rpo"))
-                    rpo = If(UUID.Equals(Guid.Empty), 0, Policy.GetPolicyIdByUUID(UUID))
+                    'Dim UUID As Guid = Guid.Parse(Request.QueryString("rpo"))
+                    'rpo = If(UUID.Equals(Guid.Empty), 0, Policy.GetPolicyIdByUUID(UUID))
+                    rpo = Request.QueryString("rpo")
                 End If
 
                 If IsNumeric(rpo) Then
@@ -548,19 +555,22 @@ Partial Public Class Policy
             End Try
         End If
 
-        Dim PolicyUUID As Guid
-        PolicyUUID = Policy.GetPolicyUUIDByID(ePolicy.PolicyID)
+        'Dim PolicyUUID As Guid
+        'PolicyUUID = Policy.GetPolicyUUIDByID(ePolicy.PolicyID)
 
         If HttpContext.Current.Request.QueryString("f") = Nothing Then
-            Response.Redirect("FindPolicy.aspx?po=" & PolicyUUID.ToString())
+            'Response.Redirect("FindPolicy.aspx?po=" & PolicyUUID.ToString())
+            Response.Redirect("FindPolicy.aspx?po=" & ePolicy.PolicyID)
 
         Else
-            Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString() & "&po=" & PolicyUUID.ToString())
+            'Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString() & "&po=" & PolicyUUID.ToString())
+            Response.Redirect("OverviewFamily.aspx?f=" & hfFamilyID.Value & "&po=" & ePolicy.PolicyID)
         End If
     End Sub
 
     Private Sub B_CANCEL_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles B_CANCEL.Click
-        Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString())
+        'Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString())
+        Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyID)
     End Sub
 
     Private Sub B_SAVE_Command(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.CommandEventArgs) Handles B_SAVE.Command

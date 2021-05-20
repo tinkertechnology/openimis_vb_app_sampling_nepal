@@ -49,7 +49,7 @@ Partial Public Class FindOfficer
         Next
     End Sub
 
-    
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         RunPageSecurity()
@@ -111,7 +111,7 @@ Partial Public Class FindOfficer
 
         End If
     End Sub
-   
+
     Private Sub loadGrid() Handles B_SEARCH.Click, chkLegacy.CheckedChanged, gvOfficers.PageIndexChanged
         Try
             lblMsg.Text = ""
@@ -125,7 +125,7 @@ Partial Public Class FindOfficer
                     Return
                 End If
             End If
-           
+
             If txtDOBTo.Text.Length > 0 Then
                 If IsDate(txtDOBTo.Text) Then
                     eofficer.DOBTo = Date.Parse(txtDOBTo.Text)
@@ -134,7 +134,7 @@ Partial Public Class FindOfficer
                     Return
                 End If
             End If
-          
+
 
             eofficer.Phone = txtPhone.Text
 
@@ -157,8 +157,7 @@ Partial Public Class FindOfficer
             End If
 
             eLocations.RegionId = RegionId
-            eLocations.DistrictID = DistrictId
-
+            eLocations.DistrictId = DistrictId
             eofficer.tblLocations = eLocations
             eofficer.OtherNames = txtOtherNames.Text
             eofficer.AuditUserID = imisGen.getUserId(Session("User"))
@@ -207,11 +206,11 @@ Partial Public Class FindOfficer
 
 
     End Sub
-  
+
     Protected Sub B_EDIT_Click(ByVal sender As Object, ByVal e As EventArgs) Handles B_EDIT.Click
         Response.Redirect("Officer.aspx?o=" & hfOfficerId.Value)
 
-        
+
 
     End Sub
 
@@ -294,7 +293,7 @@ Partial Public Class FindOfficer
     '    end if
     'end sub
 
-   
+
     Private Sub ddlRegion_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlRegion.SelectedIndexChanged
         FillDistrict()
     End Sub

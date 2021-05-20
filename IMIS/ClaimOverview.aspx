@@ -79,7 +79,8 @@ Title = '<%$ Resources:Resource,L_CLAIMOVERVIEW %>'%>
          }
      }
     function fillSelectedRowData($row) {
-        var claimId = $row.find("td").eq(9).html();
+        //var claimId = $row.find("td").eq(9).html();
+        var claimId = $row.find("td").eq(10).html();
         $("#<%=hfClaimID.ClientID%>").val(claimId);
     }
     /** Ruzo Grid Row Selection 29 Aug 2014 >> End **/
@@ -671,7 +672,7 @@ Title = '<%$ Resources:Resource,L_CLAIMOVERVIEW %>'%>
             </tr>
         </table>
        
-        <asp:Panel ID="pnlTop" runat="server"  CssClass="panelTop" Height="165px"  GroupingText='<%$ Resources:Resource,L_CLAIMDETAILS%>' oncontextmenu="return false;">
+        <asp:Panel ID="pnlTop" runat="server"  CssClass="panelTop" Height="225px"  GroupingText='<%$ Resources:Resource,L_CLAIMDETAILS%>' oncontextmenu="return false;">
        <table >
             <tr>
             <td class ="FormLabel">
@@ -693,7 +694,7 @@ Title = '<%$ Resources:Resource,L_CLAIMOVERVIEW %>'%>
                      <asp:Label ID="lblVisitDateFrom" runat="server" Text='<%$ Resources:Resource,L_VISITDATEFROM%>'></asp:Label>
                 </td>
                 <td class ="DataEntry">
-                <asp:TextBox ID="txtClaimFrom" runat="server" Text="" width="100px" CssClass="dateCheck"></asp:TextBox>
+                <asp:TextBox ID="txtClaimFrom" runat="server" Text="" width="100px" CssClass="dateCheck claimPageFrom"></asp:TextBox>
                   <asp:Button ID="btnClaimFrom" runat="server"   Class="dateButton" padding-bottom="3px" 
                          />
                     <ajax:CalendarExtender ID="CalendarExtender1" runat="server" 
@@ -703,7 +704,7 @@ Title = '<%$ Resources:Resource,L_CLAIMOVERVIEW %>'%>
                     <asp:Label ID="lblVisitDateTo" runat="server" Text='<%$ Resources:Resource,L_TO%>' class ="FormLabel" style="margin-left:5px"></asp:Label>
                   </td>
                   <td >
-                  <asp:TextBox ID="txtClaimTo" runat="server" Text="" width="100px" CssClass="dateCheck" ></asp:TextBox>
+                  <asp:TextBox ID="txtClaimTo" runat="server" Text="" width="100px" CssClass="dateCheck claimPageTo" ></asp:TextBox>
                   
                  <asp:Button ID="btnClaimTo" runat="server"  padding-bottom="3px" 
                         Class="dateButton" />
@@ -736,7 +737,7 @@ Title = '<%$ Resources:Resource,L_CLAIMOVERVIEW %>'%>
 
                </td>
                <td class="DataEntry">
-               <asp:TextBox ID="txtClaimedDateFrom" runat="server" Text="" width="100px" CssClass="dateCheck" ></asp:TextBox>
+               <asp:TextBox ID="txtClaimedDateFrom" runat="server" Text="" width="100px" CssClass="dateCheck claimPageFrom" ></asp:TextBox>
                <asp:Button ID="btnClaimedDateFrom" runat="server"  padding-bottom="3px" 
                          Class="dateButton"  />
                     <ajax:CalendarExtender ID="CalendarExtender2" runat="server" 
@@ -745,7 +746,7 @@ Title = '<%$ Resources:Resource,L_CLAIMOVERVIEW %>'%>
                      <asp:Label ID="lblClaimedDateTo" runat="server" Text='<%$ Resources:Resource,L_TO%>' class ="FormLabel" style="margin:5px"></asp:Label>
                </td>
                <td >
-                  <asp:TextBox ID="txtClaimedDateTo" runat="server" Text="" width="100px" CssClass="dateCheck"></asp:TextBox>
+                  <asp:TextBox ID="txtClaimedDateTo" runat="server" Text="" width="100px" CssClass="dateCheck claimPageTo"></asp:TextBox>
                   
                  <asp:Button ID="btnClaimedDateTo" runat="server"  Class="dateButton" padding-bottom="3px" 
                           />
@@ -828,7 +829,7 @@ Title = '<%$ Resources:Resource,L_CLAIMOVERVIEW %>'%>
                     <asp:Label ID="Label2" runat="server" Text="<%$ Resources:Resource,L_CLAIMCODE%>"></asp:Label>
                 </td>
                 <td class="DataEntry">
-                    <asp:TextBox ID="txtClaimCode" runat="server" MaxLength="8"></asp:TextBox>
+                    <asp:TextBox ID="txtClaimCode" runat="server" MaxLength="10"></asp:TextBox>
                 </td>
                 <td class="FormLabel">
                     <asp:Label ID="lblVisitType0" runat="server" Text="<%$ Resources:Resource,L_VISITTYPE %>"></asp:Label>
@@ -838,11 +839,40 @@ Title = '<%$ Resources:Resource,L_CLAIMOVERVIEW %>'%>
                     </asp:DropDownList>
                 </td>
                 <td class="FormLabel">
+                  
+                </td>
+            </tr> 
+           <tr>
+              <td class="FormLabel">
+                    
+                    <asp:Label ID="lblMinAmount" runat="server" Text="Amount"></asp:Label>
+                    
+                 </td>
+              <td class="DataEntry">
+                  <asp:TextBox ID="txtMinAmount" runat="server" MaxLength="7" Width="60px">
+                  </asp:TextBox> To <asp:TextBox ID="txtMaxAmount" runat="server" MaxLength="7" Width="60px"></asp:TextBox> 
+
+              </td>
+                <td class="FormLabel">
+                   <asp:Label ID="L_GENDER" runat="server" Text="<%$ Resources:Resource,L_GENDER %>">
+                                </asp:Label>
+                </td>
+                <td class="DataEntry">
+                    <asp:DropDownList ID="ddlGender" runat="server" Width="150px">
+                                </asp:DropDownList>
+                </td>
+                <td class="FormLabel">
+                    
+                </td>
+                <td class="FormLabel">
+                    <asp:Label ID="lblAttachment" runat="server" Text="Attachment"></asp:Label>  <asp:CheckBox ID="chkAttachment" runat="server" />
+                </td>
+                <td class="FormLabel">
                    <asp:Button class="button" ID="btnSearch" runat="server" 
                           Text='<%$ Resources:Resource,B_SEARCH %>' >
                     </asp:Button>
                 </td>
-            </tr>    
+          </tr>           
        </table>               
         </asp:Panel>
         
@@ -958,9 +988,12 @@ Title = '<%$ Resources:Resource,L_CLAIMOVERVIEW %>'%>
                     <%--<asp:HyperLinkField DataNavigateUrlFields = "ClaimID" DataTextField="ClaimCode" DataNavigateUrlFormatString = "ClaimReview.aspx?c={0}" HeaderText='<%$ Resources:Resource,L_CLAIMCODE %>' HeaderStyle-Width ="30px" > 
                     <HeaderStyle Width="30px" />
                     </asp:HyperLinkField>--%>
-                    <asp:BoundField DataField="ClaimCode"   HeaderText='<%$ Resources:Resource,L_CLAIMCODE %>' SortExpression="ClaimCode" HeaderStyle-Width="30px">  
+                    <asp:HyperLinkField DataTextField="ClaimCode" DataNavigateUrlFields = "ClaimID" DataNavigateUrlFormatString = "ClaimReviewNew.aspx?c={0}"  HeaderText='<%$ Resources:Resource,L_CLAIMCODE %>' SortExpression="ClaimCode" HeaderStyle-Width="30px">  
                        <HeaderStyle Width="30px" />
-                    </asp:BoundField>
+                    </asp:HyperLinkField>
+                         <asp:BoundField DataField="CHFID"   HeaderText='NSHI Number' SortExpression="CHFID" HeaderStyle-Width="30px" >  
+                       <HeaderStyle Width="30px" /> 
+                    </asp:BoundField>                    
                      <asp:BoundField DataField="HFName"   HeaderText='<%$ Resources:Resource,L_HFNAME %>' SortExpression="HFName" HeaderStyle-Width="70px">  
                        <HeaderStyle Width="95px" />
                     </asp:BoundField>                   
@@ -1011,6 +1044,14 @@ Title = '<%$ Resources:Resource,L_CLAIMOVERVIEW %>'%>
                      </asp:TemplateField> 
                 <asp:BoundField DataField="ClaimID" > <ItemStyle CssClass="hidecol" /><HeaderStyle CssClass="hidecol"  /></asp:BoundField >
                 <asp:BoundField DataField="RowID" > <ItemStyle CssClass="hidecol" /><HeaderStyle CssClass="hidecol"  /></asp:BoundField >
+                    <asp:TemplateField  >
+                                    <ItemTemplate >
+                                   <asp:Image runat="server" CssClass="attachment" />
+                                       
+                                    </ItemTemplate>
+                       <ItemStyle Width="15px"   />
+                     </asp:TemplateField>
+                    <asp:BoundField DataField="Attachment" > <ItemStyle CssClass="hidecol" /><HeaderStyle CssClass="hidecol"  /></asp:BoundField >
                 </Columns>
                 <PagerStyle CssClass="pgr" />
                 <SelectedRowStyle CssClass="srs" />

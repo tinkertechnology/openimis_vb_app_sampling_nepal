@@ -79,7 +79,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                     <asp:TextBox 
                         ID="txtEnrolmentDateFrom" 
                         runat="server" 
-                        Width="85px" CssClass="dateCheck"></asp:TextBox >
+                        Width="85px" CssClass="dateCheck policyPageFrom"></asp:TextBox >
                     <asp:Button  
                         ID="btnEnrollDateFrom" 
                         runat="server" 
@@ -98,7 +98,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                     <td class="FormLabel">
                         <asp:Label ID="lblEffectiveDateFrom" runat="server" Text='<%$ Resources:Resource,L_EFFECTIVEDATEFROM %>'></asp:Label></td>
                 <td class ="DataEntry">
-                     <asp:TextBox ID="txtEffectiveDateFrom" runat="server" Width="85px" CssClass="dateCheck"></asp:TextBox >
+                     <asp:TextBox ID="txtEffectiveDateFrom" runat="server" Width="85px" CssClass="dateCheck policyPageFrom"></asp:TextBox >
                     <asp:Button ID="btnEffectiveDateFrom" runat="server" Height="18px" Width="18px" padding-bottom="3px" />
                         
                     <ajax:CalendarExtender 
@@ -127,7 +127,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                     <asp:TextBox 
                         ID="txtEnrolmentDateTo" 
                         runat="server" 
-                        Width="85px" CssClass="dateCheck"></asp:TextBox >
+                        Width="85px" CssClass="dateCheck policyPageTo"></asp:TextBox >
                     <asp:Button  
                         ID="btnEnrollDateTo" 
                         runat="server" 
@@ -146,7 +146,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                <td class="FormLabel">
                         <asp:Label ID="lblEffectiveDateTo" runat="server" Text='<%$ Resources:Resource,L_EFFECTIVEDATETO %>'></asp:Label></td>
                 <td class ="DataEntry">
-                     <asp:TextBox ID="txtEffectiveDateTo" runat="server" Width="85px" CssClass="dateCheck"></asp:TextBox >
+                     <asp:TextBox ID="txtEffectiveDateTo" runat="server" Width="85px" CssClass="dateCheck policyPageTo"></asp:TextBox >
                     <asp:Button ID="btnEffectiveDateTo" runat="server" Height="18px" Width="18px" padding-bottom="3px" />
                         
                     <ajax:CalendarExtender 
@@ -178,7 +178,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                     <asp:Label ID="lblStartDateFrom" runat="server" Text='<%$ Resources:Resource,L_STARTDATEFrom %>'></asp:Label>
                 </td>
                 <td class ="DataEntry">
-                    <asp:TextBox ID="txtStartDateFrom" runat="server" Width="85px" CssClass="dateCheck"></asp:TextBox >
+                    <asp:TextBox ID="txtStartDateFrom" runat="server" Width="85px" CssClass="dateCheck policyPageFrom"></asp:TextBox >
                     <asp:Button  
                         ID="btnStartDateFrom" 
                         runat="server" 
@@ -197,7 +197,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                        <td class="FormLabel">
                         <asp:Label ID="lblExpiryDateFrom" runat="server" Text='<%$ Resources:Resource,L_EXPIRYDATEFROM %>'></asp:Label></td>
                 <td class ="DataEntry">
-                     <asp:TextBox ID="txtExpiryDateFrom" runat="server" Width="85px" CssClass="dateCheck"></asp:TextBox >
+                     <asp:TextBox ID="txtExpiryDateFrom" runat="server" Width="85px" CssClass="dateCheck policyPageFrom"></asp:TextBox >
                     <asp:Button ID="btnExpiryDateFrom" runat="server" CssClass="dateButton"   padding-bottom="3px" />
                         
                     <ajax:CalendarExtender 
@@ -224,7 +224,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                     <asp:Label ID="lblStartDateTo" runat="server" Text='<%$ Resources:Resource,L_STARTDATETO %>'></asp:Label>
                 </td>
                 <td class ="DataEntry">
-                    <asp:TextBox ID="txtStartDateTo" runat="server" Width="85px" CssClass="dateCheck"></asp:TextBox >
+                    <asp:TextBox ID="txtStartDateTo" runat="server" Width="85px" CssClass="dateCheck policyPageTo"></asp:TextBox >
                     <asp:Button  
                         ID="btnStartDateTo" 
                         runat="server" 
@@ -243,7 +243,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                    <td class="auto-style1">
                         <asp:Label ID="lblExpiryDateTo" runat="server" Text='<%$ Resources:Resource,L_EXPIRYDATETO %>'></asp:Label></td>
                 <td class ="DataEntry">
-                     <asp:TextBox ID="txtExpiryDateTo" runat="server" Width="85px" CssClass="dateCheck"></asp:TextBox >
+                     <asp:TextBox ID="txtExpiryDateTo" runat="server" Width="85px" CssClass="dateCheck policyPageTo"></asp:TextBox >
                     <asp:Button ID="btnExpiryDateTo" runat="server" CssClass="dateButton"   padding-bottom="3px" />
                         
                     <ajax:CalendarExtender 
@@ -296,8 +296,13 @@ In case of dispute arising out or in relation to the use of the program, it is s
                         <asp:DropDownList ID="ddlPolicyStatus" runat="server">
                         </asp:DropDownList>
                     </td>
-                    <td class="FormLabel">&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td class="FormLabel">
+                              <asp:Label ID="lblConfirmationType" runat="server" Text="<%$ Resources:Resource,L_CONFIRMATIONTYPE %>"></asp:Label>
+                          </td>
+                    <td class="DataEntry">
+                              <asp:DropDownList ID="ddlConfirmationType" runat="server" Width="150px">
+                              </asp:DropDownList>
+                          </td>
                     <td class="FormLabel">&nbsp;</td>
                     <td class="DataEntry">&nbsp;</td>
                 </tr>
@@ -354,7 +359,14 @@ In case of dispute arising out or in relation to the use of the program, it is s
                         <HeaderStyle CssClass="HideButton" />
                         <ItemStyle CssClass="HideButton" />
                     </asp:CommandField>
-                    <asp:HyperLinkField DataNavigateUrlFields="FamilyUUID,PolicyUUID" 
+<%--                    <asp:HyperLinkField DataNavigateUrlFields="FamilyUUID,PolicyUUID" 
+                        DataNavigateUrlFormatString="OverViewFamily.aspx?f={0}&po={1}" 
+                        DataTextField="EnrollDate" DataTextFormatString="{0:d}" 
+                       HeaderText='<%$ Resources:Resource,L_ENROLDATE %>' 
+                        HeaderStyle-Width ="60px">                      
+                        <HeaderStyle Width="60px" />
+                    </asp:HyperLinkField>--%>
+                    <asp:HyperLinkField DataNavigateUrlFields="FamilyID,PolicyID" 
                         DataNavigateUrlFormatString="OverViewFamily.aspx?f={0}&po={1}" 
                         DataTextField="EnrollDate" DataTextFormatString="{0:d}" 
                        HeaderText='<%$ Resources:Resource,L_ENROLDATE %>' 

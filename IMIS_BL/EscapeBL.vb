@@ -44,6 +44,13 @@ Public Class EscapeBL
         Return False
 #ElseIf BEPHA Then
         Return InsuranceNumber.Length.Equals(11)
+#ElseIf HIB Then
+        If Not InsuranceNumber.ToString.Length = 9 Then Return False
+        Dim n As String = Left(InsuranceNumber.ToString, 8)
+        Dim Checksum As String = Right(InsuranceNumber.ToString, 1)
+        If CInt(n) = Checksum And Checksum = 0 Then Return False
+        If Checksum = n - (Int(n / 7) * 7) Then Return True
+        Return False
 #Else
         Return True
 #End If

@@ -29,5 +29,6 @@
 Partial Public Class tblLocations
     Public Property RegionId As Integer?
     Public Property DistrictId As Integer?
+    Public Property WardId As Integer?
 
 End Class

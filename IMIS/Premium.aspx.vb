@@ -76,20 +76,34 @@ Partial Public Class Premium
         RunPageSecurity()
         Try
 
-            If HttpContext.Current.Request.QueryString("po") IsNot Nothing Then
-                ePolicy.PolicyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("po"))
-                ePolicy.PolicyID = policyBI.GetPolicyIdByUUID(ePolicy.PolicyUUID)
+            'If HttpContext.Current.Request.QueryString("po") IsNot Nothing Then
+            '    ePolicy.PolicyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("po"))
+            '    ePolicy.PolicyID = policyBI.GetPolicyIdByUUID(ePolicy.PolicyUUID)
+            '    hfPolicyID.Value = ePolicy.PolicyID
+            'End If
+
+            'If HttpContext.Current.Request.QueryString("f") IsNot Nothing Then
+            '    eFamily.FamilyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("f"))
+            '    eFamily.FamilyID = familyBI.GetFamilyIdByUUID(eFamily.FamilyUUID)
+            'End If
+
+            'If HttpContext.Current.Request.QueryString("p") IsNot Nothing Then
+            '    ePremium.PremiumUUID = Guid.Parse(HttpContext.Current.Request.QueryString("p"))
+            '    ePremium.PremiumId = Premium.GetPremiumIdByUUID(ePremium.PremiumUUID)
+            'End If
+            If Not HttpContext.Current.Request.QueryString("po") Is Nothing Then
+                ePolicy.PolicyID = Request.QueryString("po")
                 hfPolicyID.Value = ePolicy.PolicyID
             End If
 
-            If HttpContext.Current.Request.QueryString("f") IsNot Nothing Then
-                eFamily.FamilyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("f"))
-                eFamily.FamilyID = familyBI.GetFamilyIdByUUID(eFamily.FamilyUUID)
+            If Not HttpContext.Current.Request.QueryString("f") Is Nothing Then
+
+                eFamily.FamilyID = HttpContext.Current.Request.QueryString("f")
+
             End If
 
-            If HttpContext.Current.Request.QueryString("p") IsNot Nothing Then
-                ePremium.PremiumUUID = Guid.Parse(HttpContext.Current.Request.QueryString("p"))
-                ePremium.PremiumId = Premium.GetPremiumIdByUUID(ePremium.PremiumUUID)
+            If Not HttpContext.Current.Request.QueryString("p") Is Nothing Then
+                ePremium.PremiumId = HttpContext.Current.Request.QueryString("p")
             End If
 
             If Request.Form("__EVENTTARGET") = B_SAVE.ClientID Then
@@ -277,6 +291,7 @@ Partial Public Class Premium
                     ePremium.isPhotoFee = 1
                 Else
                     ePremium.isPhotoFee = 0
+                    txtPremiumPaid.Enabled = False
                 End If
 
                 Dim PayDate As Date = Date.ParseExact(txtPaymentDate.Text, "dd/MM/yyyy", Nothing)
@@ -332,6 +347,7 @@ Partial Public Class Premium
                                 End If
                             End If
                     End Select
+
                 End If
 
                 ePolicy.isOffline = CBool(hfPolicyIsOffline.Value)
@@ -362,15 +378,18 @@ Partial Public Class Premium
                 Return
             End Try
         End If
-        Dim PremiumUUID As Guid
-        PremiumUUID = Premium.GetPremiumnUUIDByID(ePremium.PremiumId)
-        Response.Redirect("OverviewFamily.aspx?f=" & eFamily.FamilyUUID.ToString() & "&p=" & PremiumUUID.ToString() & "&po=" & ePolicy.PolicyUUID.ToString())
+        'Dim PremiumUUID As Guid
+        'PremiumUUID = Premium.GetPremiumnUUIDByID(ePremium.PremiumId)
+        'Response.Redirect("OverviewFamily.aspx?f=" & eFamily.FamilyUUID.ToString() & "&p=" & PremiumUUID.ToString() & "&po=" & ePolicy.PolicyUUID.ToString())
+        Response.Redirect("OverviewFamily.aspx?f=" & eFamily.FamilyID & "&p=" & ePremium.PremiumId & "&po=" & ePolicy.PolicyID)
     End Sub
     Private Sub B_CANCEL_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles B_CANCEL.Click
         If B_SAVE.Visible = False Then 'HttpContext.Current.Request.QueryString("po") Is Nothing
-            Response.Redirect("FindPremium.aspx?p=" & ePremium.PremiumUUID.ToString())
+            'Response.Redirect("FindPremium.aspx?p=" & ePremium.PremiumUUID.ToString())
+            Response.Redirect("FindPremium.aspx?p=" & ePremium.PremiumId)
         Else
-            Response.Redirect("OverviewFamily.aspx?f=" & eFamily.FamilyUUID.ToString() & "&p=" & ePremium.PremiumUUID.ToString() & "&po=" & ePolicy.PolicyUUID.ToString())
+            'Response.Redirect("OverviewFamily.aspx?f=" & eFamily.FamilyUUID.ToString() & "&p=" & ePremium.PremiumUUID.ToString() & "&po=" & ePolicy.PolicyUUID.ToString())
+            Response.Redirect("OverviewFamily.aspx?f=" & eFamily.FamilyID & "&p=" & ePremium.PremiumId & "&po=" & HttpContext.Current.Request.QueryString("po"))
         End If
     End Sub
 End Class

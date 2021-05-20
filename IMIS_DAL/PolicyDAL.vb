@@ -199,7 +199,7 @@ Public Class PolicyDAL
     Public Function GetPolicybyFamily(ByVal FamilyId As Integer, ByVal status As DataTable) As DataTable
 
 
-        data.setSQLCommand("SELECT PolicyId,PolicyUUID,EnrollDate,EffectiveDate,StartDate,ExpiryDate,Status.name As PolicyStatus ,PolicyValue,tblPolicy.isOffline,tblPolicy.ValidityFrom,tblPolicy.ValidityTo,tblPolicy.PolicyStage,ProductCode,LastName + ' ' + OtherNames OfficerName, tblPolicy.ProdID,tblPolicy.FamilyId,F.FamilyUUID, tblProduct.ProdUUID, tblPolicy.PolicyStatus as PolicyStatusID" &
+        data.setSQLCommand("SELECT PolicyId,PolicyUUID,EnrollDate,EffectiveDate,StartDate,ExpiryDate,Status.name As PolicyStatus ,PolicyValue,tblPolicy.isOffline,tblPolicy.ValidityFrom,tblPolicy.ValidityTo,tblPolicy.PolicyStage,ProductCode,OtherNames + ' ' + LastName  OfficerName, tblPolicy.ProdID,tblPolicy.FamilyId,F.FamilyUUID, tblProduct.ProdUUID, tblPolicy.PolicyStatus as PolicyStatusID" &
                            " FROM tblPolicy INNER JOIN tblProduct ON tblPolicy.ProdID = tblProduct.ProdId" &
                            " INNER JOIN tblFamilies F On F.FamilyID = tblPolicy.FamilyID " &
                            " LEFT OUTER JOIN tblOfficer ON tblPolicy.OfficerId = tblOfficer.OfficerID" &
@@ -322,7 +322,9 @@ Public Class PolicyDAL
                 sSQL += " and PL.isOffline = 1"
             End If
         End If
-
+        If Not ePolicy.tblFamilies.ConfirmationType = 0 Then
+            sSQL += " AND F.ConfirmationType = @ConfirmationType"
+        End If
 
         sSQL += " GROUP BY PL.isOffline, PL.PolicyId, F.FamilyId, PL.EnrollDate, I.LastName, I.OtherNames, PL.EffectiveDate,"
         sSQL += " PL.StartDate, PL.ExpiryDate, PL.PolicyStage, PL.PolicyValue, Prod.ProductCode, O.OtherNames, O.LastName,"
@@ -343,6 +345,7 @@ Public Class PolicyDAL
         data.setSQLCommand(sSQL, CommandType.Text)
         data.params("@UserId", SqlDbType.Int, ePolicy.AuditUserID)
         data.params("@RegionId", SqlDbType.Int, ePolicy.tblFamilies.RegionId)
+        data.params("@ConfirmationType", SqlDbType.Char, 1, ePolicy.tblFamilies.ConfirmationType)
         data.params("@DistrictID", SqlDbType.Int, ePolicy.tblFamilies.DistrictID)
 
         data.params("@EnrollDateFrom", SqlDbType.Date, ePolicy.EnrollDateFrom)

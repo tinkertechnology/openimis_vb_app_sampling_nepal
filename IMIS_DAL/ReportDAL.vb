@@ -302,6 +302,9 @@ Public Class ReportDAL
 
         Dim Data As New ExactSQL
         Dim sSQL As String = "uspSSRSGetClaimOverview"
+#If HIB Then
+        sSQL = "uspSSRSGetClaimOverviewHIB"
+#End If
         Data.setSQLCommand(sSQL, CommandType.StoredProcedure)
         Data.params("@HfID", SqlDbType.Int, HfID)
         Data.params("@LocationId", SqlDbType.Int, LocationId)

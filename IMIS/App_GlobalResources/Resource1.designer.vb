@@ -578,7 +578,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Enrolment Officers Details.
+        '''  Looks up a localized string similar to Enrolment Assitant Details.
         '''</summary>
         Friend Shared ReadOnly Property G_OFFICER() As String
             Get
@@ -821,7 +821,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to openIMIS.
+        '''  Looks up a localized string similar to IMIS.
         '''</summary>
         Friend Shared ReadOnly Property L_ALERTPOPUPTITLE() As String
             Get
@@ -1802,7 +1802,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Current Region.
+        '''  Looks up a localized string similar to Current Province.
         '''</summary>
         Friend Shared ReadOnly Property L_CREGION() As String
             Get
@@ -1856,7 +1856,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Current Village.
+        '''  Looks up a localized string similar to Current Ward.
         '''</summary>
         Friend Shared ReadOnly Property L_CWARD() As String
             Get
@@ -2018,7 +2018,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Display.
+        '''  Looks up a localized string similar to Relative Indexes.
         '''</summary>
         Friend Shared ReadOnly Property L_DISPLAY() As String
             Get
@@ -2351,7 +2351,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Enrolment Officer.
+        '''  Looks up a localized string similar to Enrolment Assistant.
         '''</summary>
         Friend Shared ReadOnly Property L_ENROLMENTOFFICERS() As String
             Get
@@ -2936,7 +2936,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Find Enrolment Officers.
+        '''  Looks up a localized string similar to Find Enrolment Assistant.
         '''</summary>
         Friend Shared ReadOnly Property L_FINDOFFICER() As String
             Get
@@ -3224,7 +3224,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Region of FSP.
+        '''  Looks up a localized string similar to Province of FSP.
         '''</summary>
         Friend Shared ReadOnly Property L_FSPREGION() As String
             Get
@@ -3350,7 +3350,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Guarantee No.
+        '''  Looks up a localized string similar to NMC/Council No.
         '''</summary>
         Friend Shared ReadOnly Property L_GUARANTEE() As String
             Get
@@ -4394,7 +4394,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to No of Enrolment Officers.
+        '''  Looks up a localized string similar to No of Enrolment Assistants.
         '''</summary>
         Friend Shared ReadOnly Property L_NOOFENROLMENTOFFICERS() As String
             Get
@@ -4529,7 +4529,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Enrolment Officers.
+        '''  Looks up a localized string similar to Enrolment Assistants.
         '''</summary>
         Friend Shared ReadOnly Property L_OFFICER() As String
             Get
@@ -4538,7 +4538,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Enrolment Officers Code.
+        '''  Looks up a localized string similar to Enrolment Assistant Code.
         '''</summary>
         Friend Shared ReadOnly Property L_OFFICERCODE() As String
             Get
@@ -4547,7 +4547,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Enrolment Officers Last Name.
+        '''  Looks up a localized string similar to Enrolment Assistants Last Name.
         '''</summary>
         Friend Shared ReadOnly Property L_OFFICERLASTNAME() As String
             Get
@@ -4565,7 +4565,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Enrolment Officers First Name.
+        '''  Looks up a localized string similar to Enrolment Assistants First Name.
         '''</summary>
         Friend Shared ReadOnly Property L_OFFICEROTHERNAMES() As String
             Get
@@ -4646,7 +4646,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Given Name.
+        '''  Looks up a localized string similar to First Name.
         '''</summary>
         Friend Shared ReadOnly Property L_OTHERNAME() As String
             Get
@@ -4655,7 +4655,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Given names.
+        '''  Looks up a localized string similar to First name.
         '''</summary>
         Friend Shared ReadOnly Property L_OTHERNAMES() As String
             Get
@@ -5906,7 +5906,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Region.
+        '''  Looks up a localized string similar to Province.
         '''</summary>
         Friend Shared ReadOnly Property L_REGION() As String
             Get
@@ -5915,7 +5915,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Region Code.
+        '''  Looks up a localized string similar to Province Code.
         '''</summary>
         Friend Shared ReadOnly Property L_REGIONCODE() As String
             Get
@@ -5924,7 +5924,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Region Name.
+        '''  Looks up a localized string similar to Province Name.
         '''</summary>
         Friend Shared ReadOnly Property L_REGIONNAME() As String
             Get
@@ -5933,7 +5933,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Region Total.
+        '''  Looks up a localized string similar to Province Total.
         '''</summary>
         Friend Shared ReadOnly Property L_REGIONTOTAL() As String
             Get
@@ -7022,7 +7022,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Village.
+        '''  Looks up a localized string similar to Ward.
         '''</summary>
         Friend Shared ReadOnly Property L_VILLAGE() As String
             Get
@@ -7031,7 +7031,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Village Code.
+        '''  Looks up a localized string similar to Ward Code.
         '''</summary>
         Friend Shared ReadOnly Property L_VILLAGECODE() As String
             Get
@@ -7040,7 +7040,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Village Name.
+        '''  Looks up a localized string similar to Ward Name.
         '''</summary>
         Friend Shared ReadOnly Property L_VillageName() As String
             Get
@@ -8012,7 +8012,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Are you sure you want to delete Region?.
+        '''  Looks up a localized string similar to Are you sure you want to delete Province?.
         '''</summary>
         Friend Shared ReadOnly Property M_DELETEREGIONPROMPT() As String
             Get
@@ -8030,7 +8030,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Are you sure you want to delete village.
+        '''  Looks up a localized string similar to Are you sure you want to delete Ward.
         '''</summary>
         Friend Shared ReadOnly Property M_DELETEVILLAGEPROMPT() As String
             Get
@@ -8075,7 +8075,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to District Code specified in Ward Does not exists in Either Database or District Excel.
+        '''  Looks up a localized string similar to District Code specified in Ward does not exists in Either Database or District Excel.
         '''</summary>
         Friend Shared ReadOnly Property M_DISTRICTCODENOTEXISTSINEXCELORDB() As String
             Get
@@ -8084,7 +8084,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Please delete District in region first.
+        '''  Looks up a localized string similar to Please delete District in province first.
         '''</summary>
         Friend Shared ReadOnly Property M_DISTRICTINREGION() As String
             Get
@@ -8147,7 +8147,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Duplicate Region Code in excel.
+        '''  Looks up a localized string similar to Duplicate Province Code in excel.
         '''</summary>
         Friend Shared ReadOnly Property M_DUPLICATEREGIONCODEINEXCEL() As String
             Get
@@ -8165,7 +8165,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Duplicate Village Code in excel.
+        '''  Looks up a localized string similar to Duplicate Ward Code in excel.
         '''</summary>
         Friend Shared ReadOnly Property M_DUPLICATEVILLAGECODEINEXCEL() As String
             Get
@@ -9065,7 +9065,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Invalid Region File(Either Tab name or Column names or inputs are invalid)!.
+        '''  Looks up a localized string similar to Invalid Province File(Either Tab name or Column names or inputs are invalid)!.
         '''</summary>
         Friend Shared ReadOnly Property M_INVALIDREGIONFILEINEXCEL() As String
             Get
@@ -9083,7 +9083,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Invalid Village File(Either Tab name or Column names or inputs are invalid).
+        '''  Looks up a localized string similar to Invalid Ward File(Either Tab name or Column names or inputs are invalid).
         '''</summary>
         Friend Shared ReadOnly Property M_INVALIDVILLAGEFILEINEXCEL() As String
             Get
@@ -9092,7 +9092,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Village population must be numeric in excel.
+        '''  Looks up a localized string similar to Ward population must be numeric in excel.
         '''</summary>
         Friend Shared ReadOnly Property M_INVALIDVILLAGEPOPULATIONINEXCEL() As String
             Get
@@ -9299,7 +9299,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Missing Region name or Code in Excel.
+        '''  Looks up a localized string similar to Missing Province name or Code in Excel.
         '''</summary>
         Friend Shared ReadOnly Property M_MISSINGREGIONCODEORNAMEINEXCEL() As String
             Get
@@ -9308,7 +9308,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Missing Village name or Code in Excel.
+        '''  Looks up a localized string similar to Missing Ward name or Code in Excel.
         '''</summary>
         Friend Shared ReadOnly Property M_MISSINGVILLAGECODEORNAMEINEXCEL() As String
             Get
@@ -9335,7 +9335,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Wardcode in Village Excel Does not exist in Either  Database or Ward Excel.
+        '''  Looks up a localized string similar to Wardcode in Ward Excel does not exist in Either Database or Ward Excel.
         '''</summary>
         Friend Shared ReadOnly Property M_MUNICIPALITYCODENOTEXISTSINEXCELORDB() As String
             Get
@@ -9578,7 +9578,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to No regions found.
+        '''  Looks up a localized string similar to No provinces found.
         '''</summary>
         Friend Shared ReadOnly Property M_NOREGIONS() As String
             Get
@@ -9695,7 +9695,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to No wards found.
+        '''  Looks up a localized string similar to No municipalities found.
         '''</summary>
         Friend Shared ReadOnly Property M_NOWARD() As String
             Get
@@ -9911,7 +9911,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Please select a Region.
+        '''  Looks up a localized string similar to Please select a Province.
         '''</summary>
         Friend Shared ReadOnly Property M_PLEASESELECTAREGION() As String
             Get
@@ -9965,7 +9965,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Please select an enrolment officer.
+        '''  Looks up a localized string similar to Please select an enrolment assistant.
         '''</summary>
         Friend Shared ReadOnly Property M_PLEASESELECTOFFICER() As String
             Get
@@ -10325,7 +10325,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Regional.
+        '''  Looks up a localized string similar to Provincial.
         '''</summary>
         Friend Shared ReadOnly Property M_REGION() As String
             Get
@@ -10352,7 +10352,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Region saved successfully.
+        '''  Looks up a localized string similar to Province saved successfully.
         '''</summary>
         Friend Shared ReadOnly Property M_REGIONSAVED() As String
             Get
@@ -11045,7 +11045,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Village Code in excel Already Exists in Database.
+        '''  Looks up a localized string similar to Ward Code in excel Already Exists in Database.
         '''</summary>
         Friend Shared ReadOnly Property M_VILLAGECODEEXISTSINDB() As String
             Get
@@ -11054,7 +11054,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Village saved successfully.
+        '''  Looks up a localized string similar to Ward saved successfully.
         '''</summary>
         Friend Shared ReadOnly Property M_VILLAGESAVED() As String
             Get
@@ -11225,7 +11225,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to No region specified.
+        '''  Looks up a localized string similar to No province specified.
         '''</summary>
         Friend Shared ReadOnly Property NOREGIONSPECIFIED() As String
             Get
@@ -11234,7 +11234,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to No village specified.
+        '''  Looks up a localized string similar to No Ward specified.
         '''</summary>
         Friend Shared ReadOnly Property NOVILLAGESPECIFIED() As String
             Get
@@ -11297,7 +11297,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Enrolment Officers Control Panel.
+        '''  Looks up a localized string similar to Enrolment Assistant Control Panel.
         '''</summary>
         Friend Shared ReadOnly Property P_FINDOFFICER() As String
             Get
@@ -11801,7 +11801,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Enrollment Officer.
+        '''  Looks up a localized string similar to Enrollment Assistant.
         '''</summary>
         Friend Shared ReadOnly Property R_ENROLLMENTOFFICER() As String
             Get
@@ -11810,7 +11810,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Enrollment Officers.
+        '''  Looks up a localized string similar to Enrollment Assistants.
         '''</summary>
         Friend Shared ReadOnly Property R_ENROLMENTOFFICER() As String
             Get
@@ -14152,7 +14152,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to --Select Region--.
+        '''  Looks up a localized string similar to --Select Province--.
         '''</summary>
         Friend Shared ReadOnly Property T_SELECREGION() As String
             Get
@@ -14386,7 +14386,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to -- Select Enrolment Officer --.
+        '''  Looks up a localized string similar to -- Select Enrolment Assistant --.
         '''</summary>
         Friend Shared ReadOnly Property T_SELECTOFFICER() As String
             Get
@@ -14818,7 +14818,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Please enter Given Names..
+        '''  Looks up a localized string similar to Please enter First Name..
         '''</summary>
         Friend Shared ReadOnly Property V_OTHERNAMES() As String
             Get
@@ -15030,15 +15030,6 @@ Namespace Resources
         Friend Shared ReadOnly Property X_MANUAL() As String
             Get
                 Return ResourceManager.GetString("X_MANUAL", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to क्रियाशिल.
-        '''</summary>
-        Friend Shared ReadOnly Property X_NP_ACTIVE() As String
-            Get
-                Return ResourceManager.GetString("X_NP_ACTIVE", resourceCulture)
             End Get
         End Property
     End Class

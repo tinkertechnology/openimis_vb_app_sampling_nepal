@@ -31,6 +31,7 @@ Partial Public Class FindInsuree
 
     Private Insuree As New IMIS_BI.FindInsureeBI
     Private eInsuree As New IMIS_EN.tblInsuree
+    Private Family As New IMIS_BI.FindFamilyBI
     Protected imisgen As New IMIS_Gen
     Private userBI As New IMIS_BI.UserBI
 
@@ -92,6 +93,10 @@ Partial Public Class FindInsuree
             ddlPhotoAssigned.DataTextField = "PhotoAssignedText"
             ddlPhotoAssigned.DataBind()
 
+            ddlConfirmationType.DataSource = Family.GetSubsidy
+            ddlConfirmationType.DataValueField = "ConfirmationTypeCode"
+            ddlConfirmationType.DataTextField = If(Request.Cookies("CultureInfo").Value = "en", "ConfirmationType", "AltLanguage")
+            ddlConfirmationType.DataBind()
 
             Session("ParentUrl") = "FindInsuree.aspx"
 
@@ -176,7 +181,10 @@ Partial Public Class FindInsuree
             If Not Val(ddlWard.SelectedValue) = 0 Then
                 eFamily.WardID = ddlWard.SelectedValue
             End If
-           
+            If Not Val(ddlConfirmationType.SelectedValue) = 0 Then
+                eFamily.ConfirmationType = ddlConfirmationType.SelectedValue
+            End If
+
             eInsuree.tblFamilies1 = eFamily
 
 

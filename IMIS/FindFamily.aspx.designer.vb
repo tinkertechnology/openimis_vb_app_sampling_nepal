@@ -41,24 +41,6 @@ Partial Public Class FindFamily
     Protected WithEvents pnlTop As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
-    '''L_LASTNAME control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents L_LASTNAME As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''txtLastName control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtLastName As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
     '''L_OTHERNAMES control.
     '''</summary>
     '''<remarks>
@@ -75,6 +57,24 @@ Partial Public Class FindFamily
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtOtherNames As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''L_LASTNAME control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents L_LASTNAME As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''txtLastName control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtLastName As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''L_REGION control.

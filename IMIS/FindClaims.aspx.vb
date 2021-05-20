@@ -182,7 +182,7 @@ Partial Public Class FindClaims
                 Server.Transfer("Redirect.aspx?perm=0&page=" & IMIS_EN.Enums.Pages.FindClaim.ToString & "&retUrl=" & RefUrl)
             End If
         ElseIf which = 2 Then
-            If Not FindClaimsB.checkRights(IMIS_EN.Enums.Rights.ClaimReview, UserID) Then
+            If Not FindClaimsB.checkRights(IMIS_EN.Enums.Rights.ClaimSubmit, UserID) Then
                 Server.Transfer("Redirect.aspx?perm=0&page=" & IMIS_EN.Enums.Pages.FindClaim.ToString & "&retUrl=" & RefUrl)
             End If
         End If
@@ -321,6 +321,10 @@ Partial Public Class FindClaims
                 ddlBatchRun.SelectedValue = If(eBatchRun.RunID = Nothing, Nothing, eBatchRun.RunID)
                 ddlClaimAdmin.SelectedValue = eClaim.tblClaimAdmin.ClaimAdminId
                 ddlVisitType.SelectedValue = eClaim.VisitType
+                'chkAttachment.Checked = If(eClaim.Attachment > 1, True, False)
+                If chkAttachment.Checked = True Then
+                    eClaim.Attachment = 1
+                End If
 
                 '''''clear Session("FindClaimsFilter")....
                 Session.Remove("FindClaimsFilter")
@@ -372,9 +376,13 @@ Partial Public Class FindClaims
                     eClaimAdmin.ClaimAdminId = ddlClaimAdmin.SelectedValue
                 End If
                 eClaim.VisitType = ddlVisitType.SelectedValue
+                eClaim.Attachment = 0
+                If chkAttachment.Checked = True Then
+                    eClaim.Attachment = 1
+                End If
             End If
 
-            eClaim.tblBatchRun = eBatchRun
+                eClaim.tblBatchRun = eBatchRun
             eClaim.tblHF = eHF
             eClaim.tblInsuree = eInsuree
             eClaim.tblICDCodes = eICDCodes
@@ -457,15 +465,17 @@ Partial Public Class FindClaims
         Session("HFID") = ddlHFCode.SelectedValue
         Session("RegionSelected") = ddlRegion.SelectedValue
 
-        Dim HfUUID As Guid = hfBI.GetHfUUIDByID(ddlHFCode.SelectedValue)
-        Dim ClaimAdminUUID As Guid = claimAdminBI.GetClaimAdminUUIDByID(ddlClaimAdmin.SelectedValue)
+        'Dim HfUUID As Guid = hfBI.GetHfUUIDByID(ddlHFCode.SelectedValue)
+        'Dim ClaimAdminUUID As Guid = claimAdminBI.GetClaimAdminUUIDByID(ddlClaimAdmin.SelectedValue)
 
-        Response.Redirect("Claim.aspx?h=" & HfUUID.ToString() & "&a=" & ClaimAdminUUID.ToString())
+        'Response.Redirect("Claim.aspx?h=" & HfUUID.ToString() & "&a=" & ClaimAdminUUID.ToString())
+        Response.Redirect("Claim.aspx?h=" & ddlHFCode.SelectedValue & "&a=" & ddlClaimAdmin.SelectedValue)
     End Sub
     Private Sub B_LOAD_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles B_LOAD.Click
         GetFilterCriteria()
-        Dim ClaimUUID As Guid = claimBI.GetClaimUUIDByID(hfClaimID.Value)
-        Response.Redirect("Claim.aspx?c=" & ClaimUUID.ToString())
+        'Dim ClaimUUID As Guid = claimBI.GetClaimUUIDByID(hfClaimID.Value)
+        'Response.Redirect("Claim.aspx?c=" & ClaimUUID.ToString())
+        Response.Redirect("Claim.aspx?c=" & hfClaimID.Value)
     End Sub
     Private Sub B_DELETE_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles B_DELETE.Click
 
@@ -601,8 +611,12 @@ Partial Public Class FindClaims
     End Sub
     Protected Sub gvClaims_DataBound(sender As Object, e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles gvClaims.RowDataBound
         If e.Row.RowType = DataControlRowType.DataRow Then
-            Dim ImgClaimDocumentURL = CType(e.Row.Cells(12).Controls(1), Image)
-            ImgClaimDocumentURL.ImageUrl = System.Configuration.ConfigurationManager.AppSettings("ClaimDocumentURL").ToString() + e.Row.Cells(9).Text.ToString()
+            Dim ImgClaimDocumentURL = CType(e.Row.Cells(12).Controls(0), Image)
+            'ImgClaimDocumentURL.ImageUrl = System.Configuration.ConfigurationManager.AppSettings("ClaimDocumentURL").ToString() + e.Row.Cells(9).Text.ToString()
+            ImgClaimDocumentURL.ImageUrl = "Images/blank.png"
+            If e.Row.Cells(13).Text.ToString = "True" Then
+                ImgClaimDocumentURL.ImageUrl = "Images/attach.png"
+            End If
         End If
     End Sub
 End Class

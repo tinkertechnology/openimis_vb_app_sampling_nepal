@@ -93,7 +93,7 @@ Partial Public Class InsureeProfile
 
         If e.Row.RowType = DataControlRowType.DataRow Then
             Dim statusCell As TableCell = e.Row.Cells(3)
-            If statusCell.Text = imisgen.getMessage("X_NP_ACTIVE") Then
+            If statusCell.Text = "क्रियाशिल" Then
                 statusCell.ForeColor = Drawing.Color.Green
             Else
                 statusCell.ForeColor = Drawing.Color.Red

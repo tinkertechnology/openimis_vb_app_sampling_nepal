@@ -29,6 +29,7 @@
 Partial Public Class FindPolicy
     Inherits System.Web.UI.Page
     Private ePolicy As New IMIS_EN.tblPolicy
+    Private Family As New IMIS_BI.FindFamilyBI
     Private Policy As New IMIS_BI.FindPolicyBI
     Protected imisgen As New IMIS_Gen
     Private userBI As New IMIS_BI.UserBI
@@ -145,6 +146,7 @@ Partial Public Class FindPolicy
             ePolicy.isOffline = chkOffline.Checked
             Dim eFamilies As New IMIS_EN.tblFamilies
             eFamilies.RegionId = Val(ddlRegion.SelectedValue)
+            If Val(ddlConfirmationType.SelectedValue) > 0 Then eFamilies.ConfirmationType = Val(ddlConfirmationType.SelectedValue) Else eFamilies.ConfirmationType = 0
             If Val(ddlDistrict.SelectedValue) > 0 Then eFamilies.DistrictId = Val(ddlDistrict.SelectedValue) Else eFamilies.DistrictId = 0
             ePolicy.tblFamilies = eFamilies
             ePolicy.AuditUserID = imisgen.getUserId(Session("User"))
@@ -249,6 +251,10 @@ Partial Public Class FindPolicy
            ' ddlRegion.SelectedValue = -1
             LoadOfficers()
             FillProducts()
+            ddlConfirmationType.DataSource = Family.GetSubsidy
+            ddlConfirmationType.DataValueField = "ConfirmationTypeCode"
+            ddlConfirmationType.DataTextField = If(Request.Cookies("CultureInfo").Value = "en", "ConfirmationType", "AltLanguage")
+            ddlConfirmationType.DataBind()
             Session("ParentUrl") = "FindPolicy.aspx"
         Catch ex As Exception
             'lblMsg.Text = imisgen.getMessage("M_ERRORMESSAGE")

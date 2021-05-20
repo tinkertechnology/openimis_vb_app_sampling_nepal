@@ -29,6 +29,7 @@
 Public Partial Class ClaimOverview
     Inherits System.Web.UI.Page
     Private eClaim As New IMIS_EN.tblClaim
+    Private Family As New IMIS_BI.FamilyBI
     Private ClaimOverviews As New IMIS_BI.ClaimOverviewBI
     Protected imisgen As New IMIS_Gen
     Private eUsers As New IMIS_EN.tblUsers
@@ -72,8 +73,9 @@ Public Partial Class ClaimOverview
         FormatForm()
 
         If Request.QueryString("c") IsNot Nothing Then
-            ClaimUUID = Guid.Parse(Request.QueryString("c"))
-            ClaimID = If(ClaimUUID.Equals(Guid.Empty), 0, claimBI.GetClaimIdByUUID(ClaimUUID))
+            'ClaimUUID = Guid.Parse(Request.QueryString("c"))
+            'ClaimID = If(ClaimUUID.Equals(Guid.Empty), 0, claimBI.GetClaimIdByUUID(ClaimUUID))            
+            ClaimID = If(ClaimUUID.Equals(Guid.Empty), 0, Request.QueryString("c"))
         End If
 
         Try
@@ -88,7 +90,14 @@ Public Partial Class ClaimOverview
             If dtRegions.Rows.Count = 1 Then
                 FillDistrict()
             End If
-         
+            ' add by Purushottam Sapkota
+            ddlGender.DataSource = Family.GetGender
+            ddlGender.DataValueField = "Code"
+            ddlGender.DataTextField = "Gender"
+            ddlGender.DataBind()
+            txtMinAmount.Text = 0
+            txtMaxAmount.Text = 1000000
+            ' add by Purushottam Sapkota
 
             ddlSelectionType.DataSource = ClaimOverviews.GetReviewSelection(True)
             ddlSelectionType.DataTextField = "ReviewText"
@@ -257,9 +266,9 @@ Public Partial Class ClaimOverview
         dt2 = ClaimOverviews.GetFeedbackStatus(31)
         Dim ddl, ddl2 As New DropDownList
 
-
+        Dim duplicateCHFIDCheck As String = ""
         For Each row As GridViewRow In gv.Rows
-            ddl = CType(row.Cells(4).Controls(1), DropDownList)
+            ddl = CType(row.Cells(5).Controls(1), DropDownList)
             ddl.DataSource = dt
             ddl.DataTextField = "Status"
             ddl.DataValueField = "Code"
@@ -269,13 +278,30 @@ Public Partial Class ClaimOverview
             FilterStatusCombination(ddl)
 
 
-            ddl2 = CType(row.Cells(3).Controls(1), DropDownList)
+            ddl2 = CType(row.Cells(4).Controls(1), DropDownList)
             ddl2.DataSource = dt2
             ddl2.DataTextField = "Status"
             ddl2.DataValueField = "Code"
             ddl2.DataBind()
             ddl2.SelectedValue = gvClaims.DataKeys(row.RowIndex).Values("FeedbackStatus")
-
+            'Start of color coding by Nirmal
+            Dim claimAmount As Double
+            claimAmount = Convert.ToDouble(row.Cells(6).Text)
+            If claimAmount >= 5000 Then
+                row.BackColor = System.Drawing.Color.FromArgb(255, 170, 255)
+            End If
+            Dim ImgClaimDocumentURL = CType(row.Cells(12).Controls(1), Image)
+            'ImgClaimDocumentURL.ImageUrl = System.Configuration.ConfigurationManager.AppSettings("ClaimDocumentURL").ToString() + row.Cells(10).Text.ToString()
+            ImgClaimDocumentURL.ImageUrl = "Images/blank.png"
+            If row.Cells(13).Text.ToString = "True" Then
+                ImgClaimDocumentURL.ImageUrl = "Images/attach.png"
+            End If
+            If String.Equals(row.Cells(1).Text, duplicateCHFIDCheck) Then
+                row.BackColor = System.Drawing.Color.FromArgb(170, 255, 200)
+                gv.Rows(row.RowIndex - 1).BackColor = System.Drawing.Color.FromArgb(170, 255, 200)
+            End If
+            duplicateCHFIDCheck = row.Cells(1).Text
+            'End of color coding by Nirmal
             FilterStatusCombination(ddl2)
         Next
     End Sub
@@ -338,6 +364,21 @@ Public Partial Class ClaimOverview
                 If dic("VisitType") IsNot Nothing AndAlso dic("VisitType").Trim <> String.Empty Then
                     eClaim.VisitType = dic("VisitType")
                 End If
+                ' puru
+                If Not dic("Min") = "" Then
+                    eClaim.Claimed = dic("Min")
+                End If
+                If Not dic("Max") = "" Then
+                    eClaim.Adjuster = dic("Max")
+                End If
+
+                If Not dic("Gender") = "" Then
+                    eClaim.ClaimCategory = dic("Gender") ' used as carrier for Gender
+                End If
+                'If Not dic("Age") = "" Then
+                'eClaim.Reinsured = dic("Age") ' used as carrier for Age
+                'End If
+                ' puru
                 eClaim.tblClaimAdmin = eClaimAdmin
                 ddlDistrict.SelectedValue = eClaim.LegacyID
                 ddlHFCode.SelectedValue = eHF.HfID
@@ -357,6 +398,9 @@ Public Partial Class ClaimOverview
                 ddlBatchRun.SelectedValue = If(eBatchRun.RunID = Nothing, Nothing, eBatchRun.RunID)
                 ddlClaimAdmin.SelectedValue = eClaim.tblClaimAdmin.ClaimAdminId
                 ddlVisitType.SelectedValue = eClaim.VisitType
+                ddlGender.SelectedValue = eClaim.ClaimCategory
+                txtMinAmount.Text = If(eClaim.Claimed Is Nothing, "", eClaim.Claimed)
+                txtMaxAmount.Text = If(eClaim.Adjuster Is Nothing, "", eClaim.Adjuster)
                 '''''clear Session("ClaimOverviewCriteria")....
                 Session.Remove("ClaimOverviewCriteria")
 
@@ -414,9 +458,28 @@ Public Partial Class ClaimOverview
                 If ddlVisitType.SelectedIndex > 0 Then
                     eClaim.VisitType = ddlVisitType.SelectedValue
                 End If
+                ' Change By Purushottam Starts
+                If Not txtMinAmount.Text = "" Then
+                    eClaim.Claimed = txtMinAmount.Text ' Used as a carrier for Claimed Amount
+                End If
+                If Not txtMaxAmount.Text = "" Then
+                    eClaim.Adjuster = txtMaxAmount.Text ' Used as a carrier for Claimed Amount
+                End If
+                If Not ddlGender.Text = "" Then
+                    eClaim.ClaimCategory = ddlGender.Text ' Used as a carrier for Gender
+                End If
+                eClaim.Attachment = 0
+                If chkAttachment.Checked = True Then
+                    eClaim.Attachment = 1
+                End If
+                'If Not txtMinAge.Text = "" Then
+                'eClaim.Reinsured = ddlAgeGroup.SelectedValue 
+                'End If
+
+                'Change By Purushottam Ends
             End If
 
-            eClaim.tblHF = eHF
+                eClaim.tblHF = eHF
             eClaim.tblInsuree = eInsuree
             eClaim.tblICDCodes = eICDCodes
             eClaim.tblBatchRun = eBatchRun
@@ -487,18 +550,22 @@ Public Partial Class ClaimOverview
         dic.Add("ClaimedDateTo", If(txtClaimedDateTo.Text = "", "", txtClaimedDateTo.Text))
         dic.Add("ClaimAdminID", ddlClaimAdmin.SelectedValue)
         dic.Add("VisitType", ddlVisitType.SelectedValue)
+        dic.Add("Min", txtMinAmount.Text)
+        dic.Add("Max", txtMaxAmount.Text)
+        dic.Add("Gender", ddlGender.SelectedValue)
         Session("ClaimOverviewCriteria") = dic
     End Sub
     Private Sub B_REVIEW_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles B_REVIEW.Click
         GetFilterCriteria()
-        If Not hfReview.Value = "" Then Session("ReviewPage") = hfReview.Value
-        Dim ClaimUUID As Guid = claimBI.GetClaimUUIDByID(hfClaimID.Value)
-        Response.Redirect("ClaimReviewNew.aspx?c=" & ClaimUUID.ToString())
+        'If Not hfReview.Value = "" Then Session("ReviewPage") = hfReview.Value
+        'Dim ClaimUUID As Guid = claimBI.GetClaimUUIDByID(hfClaimID.Value)
+        Response.Redirect("ClaimReviewNew.aspx?c=" & hfClaimID.Value)
     End Sub
     Private Sub B_FEEDBACK_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles B_FEEDBACK.Click
         GetFilterCriteria()
-        Dim ClaimUUID As Guid = claimBI.GetClaimUUIDByID(hfClaimID.Value)
-        Response.Redirect("ClaimFeedback.aspx?c=" & ClaimUUID.ToString())
+        'Dim ClaimUUID As Guid = claimBI.GetClaimUUIDByID(hfClaimID.Value)
+        'Response.Redirect("ClaimFeedback.aspx?c=" & ClaimUUID.ToString())
+        Response.Redirect("ClaimFeedback.aspx?c=" & hfClaimID.Value)
     End Sub
 
     Public Function CheckDifferenceForUpdate(ByVal grid As GridView, ByVal RowIndex As Integer, ByRef ddl As DropDownList, ByVal ItemStatus As String) As Boolean

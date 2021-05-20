@@ -192,15 +192,15 @@ title='<%$ Resources:Resource,L_FAMILY%>'%>
                    <tr>
 
                        <td class="FormLabel">
-                           <asp:Label
-                               ID="lblHeadLastName"
-                               runat="server"
-                               Text='<%$ Resources:Resource,L_LASTNAME %>'>
-                           </asp:Label>
-                       </td>
-                       <td class="ReadOnlyText">
-                           <asp:Label ID="txtHeadLastName" runat="server" />
-                       </td>
+                            <asp:Label 
+                                ID="lblHeadOtherNames"
+                                runat="server" 
+                                Text='<%$ Resources:Resource,L_OTHERNAMES %>'>
+                            </asp:Label>
+                        </td>
+                        <td class="ReadOnlyText">
+                            <asp:Label ID="txtHeadOtherNames" runat="server"  />
+                        </td>
                        <td class="FormLabel">
                            <asp:Label ID="L_DISTRICT0" runat="server" Text="<%$ Resources:Resource,L_DISTRICT %>">
                             </asp:Label>
@@ -219,17 +219,17 @@ title='<%$ Resources:Resource,L_FAMILY%>'%>
                        </td>
                    </tr>
                     <tr>
-                     
-                        <td class="FormLabel">
-                            <asp:Label 
-                                ID="lblHeadOtherNames"
-                                runat="server" 
-                                Text='<%$ Resources:Resource,L_OTHERNAMES %>'>
-                            </asp:Label>
-                        </td>
-                        <td class="ReadOnlyText">
-                            <asp:Label ID="txtHeadOtherNames" runat="server"  />
-                        </td>
+                     <td class="FormLabel">
+                           <asp:Label
+                               ID="lblHeadLastName"
+                               runat="server"
+                               Text='<%$ Resources:Resource,L_LASTNAME %>'>
+                           </asp:Label>
+                       </td>
+                       <td class="ReadOnlyText">
+                           <asp:Label ID="txtHeadLastName" runat="server" />
+                       </td>
+                        
                           <td class="FormLabel">
                               <asp:Label ID="L_WARD" runat="server" Text="<%$ Resources:Resource,L_WARD %>"></asp:Label>
                         </td>
@@ -277,7 +277,7 @@ title='<%$ Resources:Resource,L_FAMILY%>'%>
     <table class="catlabel">
                     <tr>
                         <td >
-                            <asp:Label  ID="Label2" runat="server"  Text='<%$ Resources:Resource,L_INSUREES %>'></asp:Label>   
+                            <asp:Label  ID="Label2" runat="server"  Text='<%$ Resources:Resource,L_INSUREES %>'></asp:Label>   <asp:Label ID="lblCount" runat="server"></asp:Label>
                         </td>
                         <td  align="right" style="padding-left:10px; vertical-align:bottom">
                         
@@ -301,9 +301,10 @@ title='<%$ Resources:Resource,L_FAMILY%>'%>
                        
                     <Columns>
                         <asp:CommandField  SelectText ="Select" ShowSelectButton="true" ItemStyle-CssClass = "HideButton" HeaderStyle-CssClass ="HideButton" >  <HeaderStyle CssClass="HideButton" /> <ItemStyle CssClass="HideButton" />  </asp:CommandField>
-                        <asp:HyperLinkField DataNavigateUrlFields="InsureeUUID,FamilyUUID" DataNavigateUrlFormatString="InsureeNew.aspx?i={0}&f={1}" DataTextField="CHFID" HeaderText='<%$ Resources:Resource,L_CHFID %>' HeaderStyle-Width="60px"/>
-                        <asp:BoundField DataField="LastName" HeaderStyle-Width="110px" HeaderText='<%$ Resources:Resource,L_LASTNAME %>' SortExpression="LastName">   </asp:BoundField>
+                        <%--<asp:HyperLinkField DataNavigateUrlFields="InsureeUUID,FamilyUUID" DataNavigateUrlFormatString="InsureeNew.aspx?i={0}&f={1}" DataTextField="CHFID" HeaderText='<%$ Resources:Resource,L_CHFID %>' HeaderStyle-Width="60px"/>                        --%>
+                        <asp:HyperLinkField DataNavigateUrlFields="InsureeID,FamilyId" DataNavigateUrlFormatString="InsureeNew.aspx?i={0}&f={1}" DataTextField="CHFID" HeaderText='<%$ Resources:Resource,L_CHFID %>' HeaderStyle-Width="60px"/>                        
                         <asp:BoundField DataField="OtherNames" HeaderStyle-Width="110px" HeaderText='<%$ Resources:Resource,L_OTHERNAMES %>' SortExpression="OtherNames"> </asp:BoundField>
+                        <asp:BoundField DataField="LastName" HeaderStyle-Width="110px" HeaderText='<%$ Resources:Resource,L_LASTNAME %>' SortExpression="LastName">   </asp:BoundField>
                         <asp:BoundField DataField="Gender" HeaderStyle-Width="50px" HeaderText='<%$ Resources:Resource,L_GENDER %>' SortExpression="Gender"> </asp:BoundField>
                         <asp:BoundField DataField="DOB" DataFormatString="{0:d}"  HeaderStyle-Width="70px" HeaderText='<%$ Resources:Resource,L_BIRTHDATE %>' SortExpression="DOB"> </asp:BoundField>
                        <%--  <asp:CheckBoxField DataField="CardIssued" HeaderStyle-Width="50px" HeaderText='<%$ Resources:Resource,L_CARD %>' SortExpression="CardIssued"> </asp:CheckBoxField> --%>
@@ -358,14 +359,19 @@ title='<%$ Resources:Resource,L_FAMILY%>'%>
                         <HeaderStyle CssClass="HideButton" />
                         <ItemStyle CssClass="HideButton" />
                         </asp:CommandField>--%>
-                         <asp:HyperLinkField DataNavigateUrlFields="PolicyUUID,FamilyUUID" 
+                        <%-- <asp:HyperLinkField DataNavigateUrlFields="PolicyUUID,FamilyUUID" 
+                        DataNavigateUrlFormatString="Policy.aspx?po={0}&f={1}" 
+                        DataTextField="EnrollDate" DataTextFormatString="{0:d}" 
+                        HeaderText='<%$ Resources:Resource,L_ENROLDATE %>' />--%>
+                        <asp:HyperLinkField DataNavigateUrlFields="PolicyID,FamilyID" 
                         DataNavigateUrlFormatString="Policy.aspx?po={0}&f={1}" 
                         DataTextField="EnrollDate" DataTextFormatString="{0:d}" 
                         HeaderText='<%$ Resources:Resource,L_ENROLDATE %>' />
                     <asp:BoundField DataField="EffectiveDate" HeaderText='<%$ Resources:Resource,L_EFFECTIVEDATE %>'  SortExpression="EffectiveDate" DataFormatString="{0:d}" ></asp:BoundField>
                     <asp:BoundField DataField="StartDate" DataFormatString="{0:d}" HeaderText='<%$ Resources:Resource,L_STARTDATE %>' SortExpression="StartDate" />
                     <asp:BoundField DataField="ExpiryDate" DataFormatString="{0:d}" HeaderText='<%$ Resources:Resource,L_EXPIRYDATE %>' SortExpression="ExpiryDate" />
-                    <asp:HyperLinkField DataNavigateUrlFields = "ProdUUID"  DataTextField="ProductCode" DataNavigateUrlFormatString = "Product.aspx?p={0}&x=1" HeaderText='<%$ Resources:Resource,L_PRODUCT %>'  HeaderStyle-Width ="80px" >  </asp:HyperLinkField> 
+                    <%--<asp:HyperLinkField DataNavigateUrlFields = "ProdUUID"  DataTextField="ProductCode" DataNavigateUrlFormatString = "Product.aspx?p={0}&x=1" HeaderText='<%$ Resources:Resource,L_PRODUCT %>'  HeaderStyle-Width ="80px" >  </asp:HyperLinkField> --%>
+                     <asp:HyperLinkField DataNavigateUrlFields = "ProdID"  DataTextField="ProductCode" DataNavigateUrlFormatString = "Product.aspx?p={0}&x=1" HeaderText='<%$ Resources:Resource,L_PRODUCT %>'  HeaderStyle-Width ="80px" >  </asp:HyperLinkField> 
                     <%--<asp:BoundField DataField="ProductCode"  HeaderText="PRODUCT" SortExpression="ProductCode" />--%>
                     <asp:BoundField DataField="OfficerName"  HeaderText='<%$ Resources:Resource,L_ENROLMENTOFFICERS %>' SortExpression="OfficerName" />                 
                     <asp:BoundField DataField="PolicyStatus" HeaderText='<%$ Resources:Resource,L_POLICYSTATUS %>' SortExpression="PolicyStatus" ></asp:BoundField>
@@ -414,9 +420,11 @@ title='<%$ Resources:Resource,L_FAMILY%>'%>
                             <ItemStyle CssClass="HideButton" />
                         </asp:CommandField>--%>
                         <%--<asp:BoundField DataField="PayDate" DataFormatString="{0:d}" HeaderText="PAY DATE" SortExpression="PayDate" />--%>
-                         <asp:HyperLinkField DataNavigateUrlFields = "PremiumUUID,FamilyUUID,PolicyUUID" DataTextField="PayDate" DataTextFormatString="{0:d}" DataNavigateUrlFormatString = "Premium.aspx?p={0}&f={1}&po={2}" HeaderText='<%$ Resources:Resource,L_PAYDATE %>'  ></asp:HyperLinkField>  
-                         <asp:HyperLinkField DataNavigateUrlFields = "PayerUUID,FamilyUUID" Target="_search" DataTextField="PayerName" DataNavigateUrlFormatString = "Payer.aspx?p={0}&f={1}&x=1" HeaderText='<%$ Resources:Resource,L_PAYER %>'  ></asp:HyperLinkField>  
-                      
+                         <%--<asp:HyperLinkField DataNavigateUrlFields = "PremiumUUID,FamilyUUID,PolicyUUID" DataTextField="PayDate" DataTextFormatString="{0:d}" DataNavigateUrlFormatString = "Premium.aspx?p={0}&f={1}&po={2}" HeaderText='<%$ Resources:Resource,L_PAYDATE %>'  ></asp:HyperLinkField>  
+                         <asp:HyperLinkField DataNavigateUrlFields = "PayerUUID,FamilyUUID" Target="_search" DataTextField="PayerName" DataNavigateUrlFormatString = "Payer.aspx?p={0}&f={1}&x=1" HeaderText='<%$ Resources:Resource,L_PAYER %>'  ></asp:HyperLinkField>--%>  
+                         <asp:HyperLinkField DataNavigateUrlFields = "PremiumID,FamilyID,PolicyId" DataTextField="PayDate" DataTextFormatString="{0:d}" DataNavigateUrlFormatString = "Premium.aspx?p={0}&f={1}&po={2}" HeaderText='<%$ Resources:Resource,L_PAYDATE %>'  ></asp:HyperLinkField>  
+                         <asp:HyperLinkField DataNavigateUrlFields = "PayerID,FamilyID" Target="_search" DataTextField="PayerName" DataNavigateUrlFormatString = "Payer.aspx?p={0}&f={1}&x=1" HeaderText='<%$ Resources:Resource,L_PAYER %>'  ></asp:HyperLinkField>  
+ 
                         
                       <%--  <asp:BoundField DataField="PayerName"  HeaderText="PAID BY" 
                             SortExpression="PayerName" />--%>

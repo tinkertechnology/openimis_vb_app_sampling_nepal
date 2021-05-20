@@ -62,24 +62,36 @@ Partial Public Class Claim
     End Sub
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         lblMsg.Text = ""
+        'Dim firstDay_PrevMonth As DateTime
+        'Dim lastDay_PrevMonth As DateTime
+        'Dim Current_Month As New DateTime(DateTime.Today.Year, DateTime.Today.Month, 1)
 
+        'firstDay_PrevMonth = Current_Month.AddMonths(-1)
+        hfCompareDate.Value = Date.Today.AddDays(-36)
+        'txtSTARTData_CalendarExtender.StartDate = firstDay_PrevMonth
         '  ddlHFCode.Attributes.Add("oncontextmenu", "RightClickJSFunction(this.id);")
         If IsPostBack = True Then Return
         RunPageSecurity()
         FormatForm()
         Try
+            'If Request.QueryString("c") IsNot Nothing Then
+            'Dim hfClaimUUID As Guid = Guid.Parse(HttpContext.Current.Request.QueryString("c"))
+            'hfClaimID.Value = If(hfClaimUUID.Equals(Guid.Empty), 0, claimBI.GetClaimIdByUUID(hfClaimUUID))
+            'Else
+            'hfClaimID.Value = 0
+            'End If
             If Request.QueryString("c") IsNot Nothing Then
-                Dim hfClaimUUID As Guid = Guid.Parse(HttpContext.Current.Request.QueryString("c"))
-                hfClaimID.Value = If(hfClaimUUID.Equals(Guid.Empty), 0, claimBI.GetClaimIdByUUID(hfClaimUUID))
+                hfClaimID.Value = CType(Request.QueryString("c"), Integer)
             Else
                 hfClaimID.Value = 0
             End If
 
             eClaim.ClaimID = hfClaimID.Value
             If eClaim.ClaimID = 0 Then
-                hfHFID.Value = hfBI.GetHfIdByUUID(Guid.Parse(Request.QueryString("h")))
+                'hfHFID.Value = hfBI.GetHfIdByUUID(Guid.Parse(Request.QueryString("h")))
+                hfHFID.Value = CType(Request.QueryString("h"), Integer)
                 eHF.HfID = hfHFID.Value
-                eHF.HfUUID = Guid.Parse(Request.QueryString("h"))
+                'eHF.HfUUID = Guid.Parse(Request.QueryString("h"))
                 claim.getHFCodeAndName(eHF)
 
                 eClaim.tblHF = eHF
@@ -88,13 +100,21 @@ Partial Public Class Claim
                 txtHFName.Text = eHF.HFName
                 lnkUploadDocument.NavigateUrl = System.Configuration.ConfigurationManager.AppSettings("ClaimDocumentHome").ToString() + "upload_documents?claim_code=" + txtCLAIMCODEData.Text.ToString() + "&token=" + System.Configuration.ConfigurationManager.AppSettings("ClaimDocumentToken").ToString() + "&hf_id=" + Request.QueryString("h")
                 txtClaimDate.Text = DateTime.Today.Date.ToString("dd/MM/yyyy")
+                'If Request.QueryString("a") IsNot Nothing Then
+                'Dim ClaimAdminId As Integer = claimAdminBI.GetClaimAdminIdByUUID(Guid.Parse(Request.QueryString("a")))
+                'If IsNumeric(ClaimAdminId) Then
+                'hfClaimAdminId.Value = ClaimAdminId
+                'eClaimAdmin.ClaimAdminId = CInt(hfClaimAdminId.Value)
+                'eClaimAdmin.ClaimAdminUUID = Guid.Parse(Request.QueryString("a"))
+                'claim.GetClaimAdminDetails(eClaimAdmin)
+                'If eClaimAdmin.ClaimAdminCode IsNot Nothing Then txtClaimAdminCode.Text = eClaimAdmin.ClaimAdminCode.ToString.Trim
+                'End If
+                'End If
                 If Request.QueryString("a") IsNot Nothing Then
-                    Dim ClaimAdminId As Integer = claimAdminBI.GetClaimAdminIdByUUID(Guid.Parse(Request.QueryString("a")))
-
-                    If IsNumeric(ClaimAdminId) Then
-                        hfClaimAdminId.Value = ClaimAdminId
+                    'Dim ClaimAdminId As Integer = claimAdminBI.GetClaimAdminIdByUUID(Guid.Parse(Request.QueryString("a")))
+                    If IsNumeric(Request.QueryString("a")) Then
+                        hfClaimAdminId.Value = CInt(Request.QueryString("a"))
                         eClaimAdmin.ClaimAdminId = CInt(hfClaimAdminId.Value)
-                        eClaimAdmin.ClaimAdminUUID = Guid.Parse(Request.QueryString("a"))
                         claim.GetClaimAdminDetails(eClaimAdmin)
                         If eClaimAdmin.ClaimAdminCode IsNot Nothing Then txtClaimAdminCode.Text = eClaimAdmin.ClaimAdminCode.ToString.Trim
                     End If
@@ -136,7 +156,7 @@ Partial Public Class Claim
 
             If Not eClaim.tblICDCodes Is Nothing Then
                 ddlICDData.SelectedValue = eClaim.tblICDCodes.ICDID
-                txtICDCode0.Text = ddlICDData.SelectedItem.Text
+                txtICDCode0.Text = eClaim.tblICDCodes.ICDName
                 hfICDID0.Value = eClaim.tblICDCodes.ICDID
             End If
             If Not eClaim.ClaimCode Is Nothing Then
@@ -145,7 +165,7 @@ Partial Public Class Claim
             'Addition for Nepal >> Start
             If Not eClaim.ICDID1 Is Nothing Then
                 ddlICDData1.SelectedValue = eClaim.ICDID1
-                txtICDCode1.Text = ddlICDData1.SelectedItem.Text
+                txtICDCode1.Text = eClaim.ICDID1
                 hfICDID1.Value = eClaim.ICDID1
             End If
             'Remove icd 2,3,4
@@ -183,7 +203,8 @@ Partial Public Class Claim
                 StoreClaimDetails()
             End If
 
-            txtAddItemRows.Text = IMIS_EN.AppConfiguration.DefaultClaimRows
+            'txtAddItemRows.Text = IMIS_EN.AppConfiguration.DefaultClaimRows
+            txtAddItemRows.Text = 30
             txtAddServiceRows.Text = txtAddItemRows.Text
             ServiceItemGridBinding()
 
@@ -312,7 +333,8 @@ Partial Public Class Claim
         If Not txtAddServiceRows.Text = 5 Then
             ServiceRows = txtAddServiceRows.Text
         Else
-            ServiceRows = IMIS_EN.AppConfiguration.DefaultClaimRows
+            'ServiceRows = IMIS_EN.AppConfiguration.DefaultClaimRows
+            ServiceRows = 30
         End If
 
         If dt.Rows.Count < ServiceRows Then
@@ -333,7 +355,8 @@ Partial Public Class Claim
         If Not txtAddItemRows.Text = 5 Then
             ItemRows = txtAddItemRows.Text
         Else
-            ItemRows = IMIS_EN.AppConfiguration.DefaultClaimRows
+            'ItemRows = IMIS_EN.AppConfiguration.DefaultClaimRows
+            ItemRows = 30
         End If
         If dt.Rows.Count < ItemRows Then
             Dim y As Integer = ItemRows - dt.Rows.Count
@@ -385,7 +408,8 @@ Partial Public Class Claim
                         Else
                             txtRemainingBalance.ForeColor = System.Drawing.Color.Red
                         End If
-                        txtVisitDays.Text = claim.getLastVisitDays(sender.Text, CType(hfBI.GetHfIdByUUID(Guid.Parse(Request.QueryString("h"))), Integer)) + " Days Ago"
+                        'txtVisitDays.Text = claim.getLastVisitDays(sender.Text, CType(hfBI.GetHfIdByUUID(Guid.Parse(Request.QueryString("h"))), Integer)) + " Days Ago"
+                        txtVisitDays.Text = claim.getLastVisitDays(sender.Text, CType(Request.QueryString("h"), Integer)) + " Days Ago"
 
                         If ((ExpiryDate < Today.Date) Or (Convert.ToDecimal(remainingBalance) <= 0)) Then
                             B_SAVE.Visible = False
@@ -437,7 +461,7 @@ Partial Public Class Claim
             txtCHFIDData.Text = ""
             txtENDData.Text = ""
             txtSTARTData.Text = ""
-            txtClaimDate.Text = ""
+            txtClaimDate.Text = DateTime.Today.Date.ToString("dd/MM/yyyy")
             txtEXPLANATION.Text = ""
             txtICDCode0.Text = ""
             txtICDCode1.Text = ""
@@ -447,10 +471,14 @@ Partial Public Class Claim
             txtCLAIMTOTALData.Text = 0
             hfClaimID.Value = 0
             txtNAMEData.Text = ""
-            txtAddItemRows.Text = 5
-            txtAddServiceRows.Text = 5
-            hfPrevItemRows.Value = 5
-            hfPrevServiceRows.Value = 5
+            'txtAddItemRows.Text = IMIS_EN.AppConfiguration.DefaultClaimRows
+            'txtAddServiceRows.Text = IMIS_EN.AppConfiguration.DefaultClaimRows
+            'hfPrevItemRows.Value = IMIS_EN.AppConfiguration.DefaultClaimRows
+            'hfPrevServiceRows.Value = IMIS_EN.AppConfiguration.DefaultClaimRows
+            txtAddItemRows.Text = 30
+            txtAddServiceRows.Text = 30
+            hfPrevItemRows.Value = 30
+            hfPrevServiceRows.Value = 30
             ddlVisitType.SelectedValue = ""
             txtGuaranteeId.Text = ""
             'hfClaimAdminId.Value = 0
@@ -462,7 +490,8 @@ Partial Public Class Claim
 
             dtS.Clear()
             dtI.Clear()
-            For counter = 1 To IMIS_EN.AppConfiguration.DefaultClaimRows
+            'For counter = 1 To IMIS_EN.AppConfiguration.DefaultClaimRows
+            For counter = 1 To 30
                 dtS.Rows.Add(dtS.NewRow())
                 dtI.Rows.Add(dtI.NewRow())
             Next
@@ -1009,9 +1038,9 @@ Partial Public Class Claim
     End Sub
     Protected Sub btnRestore_Click(sender As Object, e As EventArgs) Handles btnRestore.Click
         Try
-            Dim hfClaimUUID As Guid = Guid.Parse(HttpContext.Current.Request.QueryString("c"))
-            hfClaimID.Value = If(hfClaimUUID.Equals(Guid.Empty), 0, claimBI.GetClaimIdByUUID(hfClaimUUID))
-
+            'Dim hfClaimUUID As Guid = Guid.Parse(HttpContext.Current.Request.QueryString("c"))
+            'hfClaimID.Value = If(hfClaimUUID.Equals(Guid.Empty), 0, claimBI.GetClaimIdByUUID(hfClaimUUID))
+            hfClaimID.Value = CType(Request.QueryString("c"), Integer)
             eClaim.ClaimID = hfClaimID.Value
             claim.LoadClaim(eClaim)
 

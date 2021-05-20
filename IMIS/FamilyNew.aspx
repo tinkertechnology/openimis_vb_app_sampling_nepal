@@ -250,6 +250,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                           </td>
                       </tr>
                       <tr id="trType" runat="server">
+                          <%-- 
                                 <td class="FormLabel">
                                     <asp:Label ID="L_TYPE" runat="server" Text="<%$ Resources:Resource, L_GROUPTYPE %>"></asp:Label>
                                 </td>
@@ -262,6 +263,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                         ControlToValidate="ddlType" InitialValue="" SetFocusOnError="True" ValidationGroup="check" ForeColor="Red" Display="Dynamic"
                                         Text='*'></asp:RequiredFieldValidator>
                                 </td>
+                          --%>
                         <td class="FormLabel"> <asp:Label ID="lblEthnicity" runat="server"  Text='<%$ Resources:Resource,L_ETHNICITY %>'> </asp:Label> </td>
                         <td class="DataEntry">
                             <asp:DropDownList 
@@ -369,6 +371,101 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                 </asp:DropDownList>                                
                             </td>
                         </tr>                     
+                        
+
+                        <tr>
+                            <td class="FormLabel">
+                                <asp:Label ID="L_PHONE" runat="server" Text="<%$ Resources:Resource,L_PHONE%>">
+                                </asp:Label>
+                            </td>
+                            <td class="DataEntry">
+                                <asp:TextBox ID="txtPhone" runat="server" MaxLength="10" Width="150px"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtPhone" SetFocusOnError="True" ValidationGroup="check" ForeColor="Red" Display="Dynamic"
+                                        Text='*'>
+                                </asp:RequiredFieldValidator>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidator1"
+                                    ControlToValidate="txtPhone" runat="server"
+                                    ErrorMessage="Phone Number Invalid"
+                                    ValidationExpression="^\d{10}$">
+                                </asp:RegularExpressionValidator>
+                            </td>
+                            <td class="FormLabel">
+                                <asp:Label ID="L_EMAIL0" runat="server" Text="<%$ Resources:Resource, L_EMAIL %>"></asp:Label>
+                            </td>
+                            <td class="DataEntry">
+                                <asp:TextBox ID="txtEmail" runat="server" Width="150px"></asp:TextBox>                       
+                                
+                            </td>
+                            <td>&nbsp;</td>
+                            <td class="DataEntry">&nbsp;</td>
+                        </tr>
+                        <tr id="trIdentificationType" runat="server">
+                            <td class="FormLabel">
+                                <asp:Label ID="L_IDTYPE" runat="server" Text="<%$ Resources:Resource, L_IDTYPE %>"></asp:Label>
+                            </td>
+                            <td class="DataEntry">
+                                <asp:DropDownList ID="ddlIdType" runat="server" Width="150px">
+                                </asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="rfIdType" runat="server" ControlToValidate="ddlIdType" InitialValue="" SetFocusOnError="True" ValidationGroup="check" ForeColor="Red" Display="Dynamic"
+                                        Text='*'></asp:RequiredFieldValidator>
+                            </td>
+                            <td class="FormLabel">
+                                <asp:Label ID="L_PASSPORT" runat="server" Text="<%$ Resources:Resource,L_PASSPORT%>">
+                                </asp:Label>
+                            </td>
+                            <td class="DataEntry">
+                                <asp:TextBox ID="txtPassport" runat="server" MaxLength="40" Width="150px"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfIdNo1" runat="server" ControlToValidate="txtPassport" InitialValue="" SetFocusOnError="True" ValidationGroup="check" ForeColor="Red" Display="Dynamic"
+                                        Text='*'></asp:RequiredFieldValidator>
+                            </td>
+                            <td></td>
+                            <td class="DataEntry">&nbsp;</td>
+                        </tr>
+                        <tr id="trFSPRegion" runat="server">
+                            <td class="FormLabel">
+                                <asp:Label ID="lblFSPRegion" runat="server" Text="<%$ Resources:Resource, L_FSPREGION %>"></asp:Label>
+                            </td>
+                            <td class="DataEntry">
+                                <asp:DropDownList ID="ddlFSPRegion" runat="server" AutoPostBack="True" Width="150px">
+                                </asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="rfRegionFSP" runat="server" ControlToValidate="ddlFSPRegion" InitialValue="0" SetFocusOnError="True" Style="direction: ltr" ValidationGroup="check" ForeColor="Red" Display="Dynamic"
+                                        Text='*'></asp:RequiredFieldValidator>
+                            </td>
+                            <td class="FormLabel">
+                                <asp:Label ID="lblFSPDistrict" runat="server" Text="<%$ Resources:Resource, L_FSPDISTRICT %>"></asp:Label>
+                            </td>
+                            <td class="DataEntry">
+                                <asp:DropDownList ID="ddlFSPDistrict" runat="server" AutoPostBack="True" Width="150px">
+                                </asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="rfDistrictFSP" runat="server" ControlToValidate="ddlFSPDistrict" InitialValue="0" SetFocusOnError="True" Style="direction: ltr" ValidationGroup="check" ForeColor="Red" Display="Dynamic"
+                                        Text='*'></asp:RequiredFieldValidator>
+                            </td>
+                            <td class="FormLabel">
+                                <asp:Label ID="lblFSPCategory" runat="server" Text="<%$ Resources:Resource, L_FSPCATEGORY %>"></asp:Label>
+                            </td>
+                            <td class="DataEntry">
+                                <asp:DropDownList ID="ddlFSPCateogory" runat="server" AutoPostBack="True" Width="150px">
+                                </asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="rfFSPCategory" runat="server" ControlToValidate="ddlFSPCateogory" InitialValue="0" SetFocusOnError="True" Style="direction: ltr" ValidationGroup="check" ForeColor="Red" Display="Dynamic"
+                                        Text='*'></asp:RequiredFieldValidator>
+                            </td>
+                        </tr>
+                        <tr id="trFSP" runat="server">
+                            <td class="FormLabel">
+                                <asp:Label ID="lblFSP" runat="server" Text="<%$ Resources:Resource, L_FSP %>"></asp:Label>
+                            </td>
+                            <td class="DataEntry">
+                                <asp:DropDownList ID="ddlFSP" runat="server" Width="150px">
+                                </asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="rfFSP" runat="server" ControlToValidate="ddlFSP" InitialValue="0" SetFocusOnError="True" Style="direction: ltr" ValidationGroup="check" ForeColor="Red" Display="Dynamic"
+                                        Text='*'></asp:RequiredFieldValidator>
+                            </td>
+                            <td></td>
+                            <td class="DataEntry"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6"><hr /></td>
+                        </tr>
                         <tr id="trCurrentRegion" runat="server">
                                         <td class="FormLabel">
                                             <asp:Label ID="lblCurrentRegion" runat="server" Text="<%$ Resources:Resource, L_CREGION %>"></asp:Label>
@@ -424,97 +521,6 @@ In case of dispute arising out or in relation to the use of the program, it is s
                             </td>
                             <td></td>
                             <td class="DataEntry">&nbsp;</td>
-                        </tr>
-
-                        <tr>
-                            <td class="FormLabel">
-                                <asp:Label ID="L_PHONE" runat="server" Text="<%$ Resources:Resource,L_PHONE%>">
-                                </asp:Label>
-                            </td>
-                            <td class="DataEntry">
-                                <asp:TextBox ID="txtPhone" runat="server" MaxLength="50" Width="150px"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtPhone" SetFocusOnError="True" ValidationGroup="check" ForeColor="Red" Display="Dynamic"
-                                        Text='*'>
-                                </asp:RequiredFieldValidator>
-                                <asp:RegularExpressionValidator ID="RegularExpressionValidator1"
-                                    ControlToValidate="txtPhone" runat="server"
-                                    ErrorMessage="Phone Number Invalid"
-                                    ValidationExpression="^\d{10}$">
-                                </asp:RegularExpressionValidator>
-                            </td>
-                            <td class="FormLabel">
-                                <asp:Label ID="L_EMAIL0" runat="server" Text="<%$ Resources:Resource, L_EMAIL %>"></asp:Label>
-                            </td>
-                            <td class="DataEntry">
-                                <asp:TextBox ID="txtEmail" runat="server" Width="150px"></asp:TextBox>                       
-                                
-                            </td>
-                            <td>&nbsp;</td>
-                            <td class="DataEntry">&nbsp;</td>
-                        </tr>
-                        <tr id="trIdentificationType" runat="server">
-                            <td class="FormLabel">
-                                <asp:Label ID="L_IDTYPE" runat="server" Text="<%$ Resources:Resource, L_IDTYPE %>"></asp:Label>
-                            </td>
-                            <td class="DataEntry">
-                                <asp:DropDownList ID="ddlIdType" runat="server" Width="150px">
-                                </asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="rfIdType" runat="server" ControlToValidate="ddlIdType" InitialValue="" SetFocusOnError="True" ValidationGroup="check" ForeColor="Red" Display="Dynamic"
-                                        Text='*'></asp:RequiredFieldValidator>
-                            </td>
-                            <td class="FormLabel">
-                                <asp:Label ID="L_PASSPORT" runat="server" Text="<%$ Resources:Resource,L_PASSPORT%>">
-                                </asp:Label>
-                            </td>
-                            <td class="DataEntry">
-                                <asp:TextBox ID="txtPassport" runat="server" MaxLength="25" Width="150px"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfIdNo1" runat="server" ControlToValidate="txtPassport" InitialValue="" SetFocusOnError="True" ValidationGroup="check" ForeColor="Red" Display="Dynamic"
-                                        Text='*'></asp:RequiredFieldValidator>
-                            </td>
-                            <td></td>
-                            <td class="DataEntry">&nbsp;</td>
-                        </tr>
-                        <tr id="trFSPRegion" runat="server">
-                            <td class="FormLabel">
-                                <asp:Label ID="lblFSPRegion" runat="server" Text="<%$ Resources:Resource, L_FSPREGION %>"></asp:Label>
-                            </td>
-                            <td class="DataEntry">
-                                <asp:DropDownList ID="ddlFSPRegion" runat="server" AutoPostBack="True" Width="150px">
-                                </asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="rfRegionFSP" runat="server" ControlToValidate="ddlFSPRegion" InitialValue="0" SetFocusOnError="True" Style="direction: ltr" ValidationGroup="check" ForeColor="Red" Display="Dynamic"
-                                        Text='*'></asp:RequiredFieldValidator>
-                            </td>
-                            <td class="FormLabel">
-                                <asp:Label ID="lblFSPDistrict" runat="server" Text="<%$ Resources:Resource, L_FSPDISTRICT %>"></asp:Label>
-                            </td>
-                            <td class="DataEntry">
-                                <asp:DropDownList ID="ddlFSPDistrict" runat="server" AutoPostBack="True" Width="150px">
-                                </asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="rfDistrictFSP" runat="server" ControlToValidate="ddlFSPDistrict" InitialValue="0" SetFocusOnError="True" Style="direction: ltr" ValidationGroup="check" ForeColor="Red" Display="Dynamic"
-                                        Text='*'></asp:RequiredFieldValidator>
-                            </td>
-                            <td class="FormLabel">
-                                <asp:Label ID="lblFSPCategory" runat="server" Text="<%$ Resources:Resource, L_FSPCATEGORY %>"></asp:Label>
-                            </td>
-                            <td class="DataEntry">
-                                <asp:DropDownList ID="ddlFSPCateogory" runat="server" AutoPostBack="True" Width="150px">
-                                </asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="rfFSPCategory" runat="server" ControlToValidate="ddlFSPCateogory" InitialValue="0" SetFocusOnError="True" Style="direction: ltr" ValidationGroup="check" ForeColor="Red" Display="Dynamic"
-                                        Text='*'></asp:RequiredFieldValidator>
-                            </td>
-                        </tr>
-                        <tr id="trFSP" runat="server">
-                            <td class="FormLabel">
-                                <asp:Label ID="lblFSP" runat="server" Text="<%$ Resources:Resource, L_FSP %>"></asp:Label>
-                            </td>
-                            <td class="DataEntry">
-                                <asp:DropDownList ID="ddlFSP" runat="server" Width="150px">
-                                </asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="rfFSP" runat="server" ControlToValidate="ddlFSP" InitialValue="0" SetFocusOnError="True" Style="direction: ltr" ValidationGroup="check" ForeColor="Red" Display="Dynamic"
-                                        Text='*'></asp:RequiredFieldValidator>
-                            </td>
-                            <td></td>
-                            <td class="DataEntry"></td>
                         </tr>
                     </table>
                 </ContentTemplate>

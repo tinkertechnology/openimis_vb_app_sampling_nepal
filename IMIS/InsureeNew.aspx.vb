@@ -147,16 +147,17 @@ Partial Public Class InsureeNew
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         CalendarExtender1.EndDate = DateTime.Now
-        If HttpContext.Current.Request.QueryString("i") IsNot Nothing Then
-            eInsuree.InsureeUUID = Guid.Parse(HttpContext.Current.Request.QueryString("i"))
-            eInsuree.InsureeID = Insuree.GetInsureeIdByUUID(eInsuree.InsureeUUID)
-        End If
+        'If HttpContext.Current.Request.QueryString("i") IsNot Nothing Then
+        '    eInsuree.InsureeUUID = Guid.Parse(HttpContext.Current.Request.QueryString("i"))
+        '    eInsuree.InsureeID = Insuree.GetInsureeIdByUUID(eInsuree.InsureeUUID)
+        'End If
 
-        If HttpContext.Current.Request.QueryString("f") IsNot Nothing Then
-            efamily.FamilyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("f"))
-            efamily.FamilyID = Family.GetFamilyIdByUUID(efamily.FamilyUUID)
-        End If
-
+        'If HttpContext.Current.Request.QueryString("f") IsNot Nothing Then
+        '    efamily.FamilyUUID = Guid.Parse(HttpContext.Current.Request.QueryString("f"))
+        '    efamily.FamilyID = Family.GetFamilyIdByUUID(efamily.FamilyUUID)
+        'End If
+        eInsuree.InsureeID = HttpContext.Current.Request.QueryString("i")
+        efamily.FamilyID = HttpContext.Current.Request.QueryString("f")
         lblMsg.Text = ""
         If IsPostBack = True Then Return
 
@@ -570,18 +571,20 @@ Partial Public Class InsureeNew
             Return
         End Try
 
-        InsureeUUID = Insuree.GetInsureeUUIDByID(eInsuree.InsureeID)
+        'InsureeUUID = Insuree.GetInsureeUUIDByID(eInsuree.InsureeID)
 
-        Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString() & "&i=" & InsureeUUID.ToString())
+        Response.Redirect("OverviewFamily.aspx?f=" & Request.QueryString("f") & "&i=" & eInsuree.InsureeID)
 
     End Sub
     Private Sub B_CANCEL_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles B_CANCEL.Click
         If B_SAVE.Visible = True Then
             If eInsuree.InsureeID > 0 Then
-                InsureeUUID = Insuree.GetInsureeUUIDByID(eInsuree.InsureeID)
-                Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString() & "&i=" & InsureeUUID.ToString())
+                'InsureeUUID = Insuree.GetInsureeUUIDByID(eInsuree.InsureeID)
+                'Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString() & "&i=" & InsureeUUID.ToString())
+                Response.Redirect("OverviewFamily.aspx?f=" & hfFamilyId.Value & "&i=" & eInsuree.InsureeID)
             Else
-                Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString())
+                'Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString())
+                Response.Redirect("OverviewFamily.aspx?f=" & hfFamilyId.Value)
             End If
         Else
             Response.Redirect("FindInsuree.aspx")

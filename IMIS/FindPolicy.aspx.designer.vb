@@ -464,6 +464,24 @@ Partial Public Class FindPolicy
     Protected WithEvents ddlPolicyStatus As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''lblConfirmationType control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblConfirmationType As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''ddlConfirmationType control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlConfirmationType As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''chkOffline control.
     '''</summary>
     '''<remarks>

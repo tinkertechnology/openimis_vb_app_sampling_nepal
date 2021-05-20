@@ -125,13 +125,13 @@ Public Class OfficersDAL
         sSQL += " AND L.ValidityTo IS NULL"
         sSQL += " ), Officers AS"
         sSQL += " ("
-        sSQL += " SELECT OfficerId,Code + ' - ' +  Lastname + ' ' + OtherNames AS Code, 0 [Level]"
+        sSQL += " SELECT OfficerId,Code + ' - ' +  OtherNames + ' ' + Lastname AS Code, 0 [Level]"
         sSQL += " FROM tblOfficer"
         sSQL += " WHERE ValidityTo IS NULL"
         sSQL += " AND LocationId IS NULL"
         sSQL += " AND (@WorksTo  <= WorksTo OR WorksTo IS NULL OR @WorksTo IS NULL)"
         sSQL += " UNION"
-        sSQL += " SELECT OfficerId,Code + ' - ' +  Lastname + ' ' + OtherNames AS Code, 1 [Level]"
+        sSQL += " SELECT OfficerId,Code + ' - ' +  OtherNames + ' ' + Lastname AS Code, 1 [Level]"
         sSQL += " FROM tblOfficer O"
         'CHANGED FROM Locations to tblLocations  BY AMANI 15/11/2017
         sSQL += " INNER JOIN tblLocations L ON L.LocationId = O.LocationId"
@@ -143,7 +143,7 @@ Public Class OfficersDAL
         sSQL += "AND (L.LocationId = @LocationId OR L.ParentLocationId=@LocationId OR @LocationId=0 )"
         'END ADDED
         sSQL += " UNION"
-        sSQL += " SELECT DISTINCT O.OfficerId,Code + ' - ' +  Lastname + ' ' + OtherNames AS Code, 2 [Level]"
+        sSQL += " SELECT DISTINCT O.OfficerId,Code + ' - ' +  OtherNames + ' ' + Lastname AS Code, 2 [Level]"
         sSQL += " FROM tblOfficer O"
         sSQL += " INNER JOIN tblDistricts D ON O.LocationID = D.DistrictID"
         sSQL += " INNER JOIN tblOfficerVillages OV ON OV.OfficerId = O.OfficerID"
@@ -156,7 +156,7 @@ Public Class OfficersDAL
         sSQL += " )"
         sSQL += " SELECT OfficerId, Code"
         sSQL += " FROM Officers"
-        sSQL += " ORDER BY [Level]"
+        sSQL += " ORDER BY [Code]"
 
 
 
@@ -219,7 +219,7 @@ Public Class OfficersDAL
         data.params("@Phone", SqlDbType.NVarChar, 50, eOfficer.Phone)
         data.params("@LocationId", SqlDbType.Int, eOfficer.tblLocations.LocationId)
         data.params("@RegionId", SqlDbType.Int, eOfficer.tblLocations.RegionId)
-        data.params("@DistrictId", SqlDbType.Int, eOfficer.tblLocations.DistrictID)
+        data.params("@DistrictId", SqlDbType.Int, eOfficer.tblLocations.DistrictId)
         data.params("@Emailid", SqlDbType.NVarChar, 200, eOfficer.EmailId)
         Return data.Filldata
     End Function

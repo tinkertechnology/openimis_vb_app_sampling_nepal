@@ -249,7 +249,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                         Text='<%$ Resources:Resource,L_OTHERNAMES %>'></asp:Label>
                                 </td>
                                 <td class="DataEntry">
-                                    <asp:TextBox ID="txtOtherNames" runat="server" Width="150px" MaxLength="100"></asp:TextBox>
+                                    <asp:TextBox ID="txtOtherNames" runat="server" Width="150px" MaxLength="100" AutoCompleteType="None"></asp:TextBox>
                                 </td>
                                 <td>
                                     <asp:RequiredFieldValidator
@@ -266,7 +266,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                     <asp:Label ID="L_LastName" runat="server" Text='<%$ Resources:Resource,L_LASTNAME %>'></asp:Label>
                                 </td>
                                 <td class="DataEntry">
-                                    <asp:TextBox ID="txtLastName" runat="server" Width="150px" MaxLength="100"></asp:TextBox>
+                                    <asp:TextBox ID="txtLastName" runat="server" Width="150px" MaxLength="100" AutoCompleteType="None"></asp:TextBox>
                                 </td>
                                 <td>
                                     <asp:RequiredFieldValidator ID="RequiredFieldLastName" runat="server"
@@ -283,7 +283,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                     </asp:Label>
                                 </td>
                                 <td class="DataEntry">
-                                    <asp:TextBox ID="txtPhone" runat="server" Width="150px" MaxLength="50"></asp:TextBox>
+                                    <asp:TextBox ID="txtPhone" runat="server" Width="150px" MaxLength="50" AutoCompleteType="None"></asp:TextBox>
                                 </td>
                                 <td>&nbsp;</td>
                             </tr>
@@ -291,7 +291,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                 <td class="FormLabel">
                                     <asp:Label ID="L_EMAIL" runat="server" Text='<%$ Resources:Resource,L_EMAIL%>'></asp:Label></td>
                                 <td class="DataEntry">
-                                    <asp:TextBox ID="txtEmail" runat="server" Width="150px" MaxLength="200" TextMode="Email"></asp:TextBox>
+                                    <asp:TextBox ID="txtEmail" runat="server" Width="150px" MaxLength="200" TextMode="Email" AutoCompleteType="None"></asp:TextBox>
                                 </td>
                                 <td style="direction: ltr">
                                     <asp:RequiredFieldValidator ID="rf2" runat="server" ControlToValidate="txtEmail" SetFocusOnError="True" Text="*" ValidationGroup="check" ForeColor="Red" Display="Dynamic"></asp:RequiredFieldValidator>
@@ -303,7 +303,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                     <asp:Label ID="L_LoginName" runat="server" Text='<%$ Resources:Resource,L_USERNAME %>'>></asp:Label>
                                 </td>
                                 <td class="DataEntry">
-                                    <asp:TextBox ID="txtLoginName" runat="server" Width="150px" MaxLength="25"></asp:TextBox>
+                                    <asp:TextBox ID="txtLoginName" runat="server" Width="150px" MaxLength="25" AutoCompleteType="None"></asp:TextBox>
                                 </td>
                                 <td>
                                     <asp:RequiredFieldValidator ID="RequiredFieldLoginName" runat="server"
@@ -318,7 +318,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                 </td>
                                 <td class="DataEntry">
                                     <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" MaxLength="25"
-                                        Width="150px"></asp:TextBox>
+                                        Width="150px" AutoCompleteType="None"></asp:TextBox>
                                 </td>
                                 <td>
                                     <asp:RequiredFieldValidator ID="RequiredFieldPassword" runat="server"
@@ -332,7 +332,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                 </td>
                                 <td class="DataEntry">
                                     <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password"
-                                        MaxLength="25" Width="150px"></asp:TextBox>
+                                        MaxLength="25" Width="150px" AutoCompleteType="None"></asp:TextBox>
                                 </td>
                                 <td class="Validate">
                                     <asp:RequiredFieldValidator ID="RequiredFieldConfirmPassword" runat="server"
@@ -340,6 +340,15 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                     <asp:CompareValidator ID="ComparePassword" runat="server"
                                         ControlToCompare="txtPassword" ControlToValidate="txtConfirmPassword" ValidationGroup="check" ForeColor="Red" Display="Dynamic"
                                         Text='<%$ Resources:Resource,V_CONFIRMPASSWORD%>'></asp:CompareValidator>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="FormLabel">
+                                    <asp:Label ID="lblGeneratedPassword" runat="server" Text="Generated Password"></asp:Label>
+                                </td>
+                                <td class="DataEntry">
+                                    <asp:TextBox ID="txtGeneratedPassword" runat="server" 
+                                        MaxLength="25" Width="150px" AutoCompleteType="None"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -352,6 +361,9 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                     </asp:DropDownList>
                                 </td>
                                 <td></td>
+                            </tr>
+                            <tr>
+                                <td><asp:Button ID="btnGeneratePassword" Text="Generate Password" runat="server" Width="150px" /></td>
                             </tr>
                         </table>
                     </td>

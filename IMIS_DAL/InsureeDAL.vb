@@ -104,6 +104,7 @@ Public Class InsureeDAL
         sSQL += ",dtMarital.Name Marital, phone, DOB, I.validityfrom, I.validityTo, F.FamilyUUID  "
         sSQL += " FROM tblInsuree I  "
         sSQL += " INNER JOIN tblFamilies F On F.FamilyID = I.FamilyID  "
+        sSQL += " INNER JOIN tblPolicy P On F.FamilyID = P.FamilyID  "
         sSQL += " INNER JOIN uvwLocations L On ISNULL(L.LocationId, 0) = ISNULL(F.LocationId, 0)  "
         sSQL += " LEFT JOIN tblPhotos On I.PhotoID = tblPhotos.PhotoID And tblPhotos.ValidityTo Is null  "
         sSQL += " LEFT JOIN tblGender GE On GE.Code = I.Gender"
@@ -113,7 +114,7 @@ Public Class InsureeDAL
         'End If
 
         Dim strWhere As String = ""
-        strWhere += " WHERE  ((L.RegionId In (Select Region FROM UD)) Or (L.DistrictId In (Select DistrictId FROM UD))) "
+        strWhere += " WHERE  ((L.RegionId In (Select Region FROM UD)) Or (L.DistrictId In (Select DistrictId FROM UD))) And P.ValidityTo Is NULL "
         If All = False Then
             strWhere += " And I.ValidityTo Is NULL"
         End If
@@ -128,9 +129,12 @@ Public Class InsureeDAL
             eInsuree.OtherNames += "%"
             strWhere += " And othernames Like @OtherNames"
         End If
+        'If Not eInsuree.CHFID = Nothing Then
+        '    eInsuree.CHFID += "%"
+        '    strWhere += " And I.CHFID Like @CHFID"
+        'End If
         If Not eInsuree.CHFID = Nothing Then
-            eInsuree.CHFID += "%"
-            strWhere += " And I.CHFID Like @CHFID"
+            strWhere += " And I.CHFID = @CHFID"
         End If
         If Not eInsuree.Gender = Nothing Then
             strWhere += " And I.Gender = @Gender"
@@ -138,9 +142,12 @@ Public Class InsureeDAL
         If Not eInsuree.Marital = Nothing Then
             strWhere += " And I.Marital = @Marital"
         End If
+        'If Not eInsuree.Phone = Nothing Then
+        '    eInsuree.Phone += "%"
+        '    strWhere += " And isnull(Phone,'') like @Phone"
+        'End If
         If Not eInsuree.Phone = Nothing Then
-            eInsuree.Phone += "%"
-            strWhere += " And isnull(Phone,'') like @Phone"
+            strWhere += " And isnull(Phone,'') = @Phone"
         End If
         If Not eInsuree.tblFamilies1.DistrictId Is Nothing Then
             strWhere += " AND L.DistrictID = @DistrictID"
@@ -152,10 +159,10 @@ Public Class InsureeDAL
             strWhere += " AND L.VillageID = @VillageID"
         End If
         If Not eInsuree.DOBFrom = Nothing Then
-            strWhere += " AND DOB >= @DOBFrom"
+            strWhere += " AND P.EnrollDate >= @DOBFrom"
         End If
         If Not eInsuree.DOBTo = Nothing Then
-            strWhere += " AND DOB <= @DOBTo"
+            strWhere += " AND P.EnrollDate <= @DOBTo"
         End If
         If PhotoAssigned = 2 Then
             strWhere += " AND PhotoFileName <> ''"
@@ -168,12 +175,18 @@ Public Class InsureeDAL
                 strWhere += " AND I.isOffline = 1"
             End If
         End If
+        'If eInsuree.Email.ToString.Trim.Length > 0 Then
+        '    strWhere += " AND I.Email like @Email"
+        'End If
         If eInsuree.Email.ToString.Trim.Length > 0 Then
-            strWhere += " AND I.Email like @Email"
+            strWhere += " AND I.Email = @Email"
         End If
         'If Not strWhere = String.Empty Then
         '    strWhere = " WHERE" & strWhere.Remove(1, 4)
         'End If
+        If Not eInsuree.tblFamilies1.ConfirmationType Is Nothing Then
+            strWhere += " AND F.ConfirmationType = @ConfirmationType"
+        End If
 
         sSQL += strWhere
 
@@ -200,6 +213,7 @@ Public Class InsureeDAL
         data.params("@WardID", SqlDbType.Int, eInsuree.tblFamilies1.WardId)
         data.params("@Email", SqlDbType.NVarChar, 100, "%" & eInsuree.Email & "%")
         data.params("@dtMarital", dtMarital, "xAttributeV")
+        data.params("@ConfirmationType", SqlDbType.Char, 1, eInsuree.tblFamilies1.ConfirmationType)
         Return data.Filldata
 
 

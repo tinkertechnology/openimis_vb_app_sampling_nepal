@@ -58,7 +58,8 @@ Partial Public Class User
             ddlHFNAME.DataValueField = "Hfid"
             ddlHFNAME.DataTextField = "HFCode"
             ddlHFNAME.DataBind()
-
+            txtGeneratedPassword.Visible = False
+            lblGeneratedPassword.Visible = False
             Dim dtRegion As DataTable = Users.getRegions(eUsers.UserID, imisgen.getUserId(Session("User")))
             gvRegion.DataSource = dtRegion
             gvRegion.DataBind()
@@ -72,6 +73,7 @@ Partial Public Class User
             End If
             gvDistrict.DataBind()
             Assign(gvDistrict)
+
             Dim LoggedInUser As Integer = imisgen.getUserId(Session("User"))
             If Not eUsers.UserID = 0 Then
 
@@ -332,5 +334,120 @@ Partial Public Class User
 
     Private Sub B_CANCEL_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles B_CANCEL.Click
         Response.Redirect("FindUser.aspx?u=" & txtLoginName.Text)
+    End Sub
+    Public Function getPassword(ByVal passLength As Integer, Optional ByVal Reset As Boolean = False) As String
+        Dim pNum As New Random(100)
+        Dim pLowerCase As New Random(500)
+        Dim pUpperCase As New Random(50)
+        Dim password As String
+        Dim RandomSelect As New Random(50)
+
+
+        Dim i As Integer
+        Dim ctr(2) As Integer
+        Dim charSelect(2) As String
+        Dim iSel As Integer
+        'clear old passwords
+
+        For i = 1 To passLength
+            'create random numbers that will represent
+            'each : upercase,lowercase,numbers
+
+            ctr(0) = pNum.Next(48, 57) 'Numbers  1 to 9 
+            ctr(1) = pLowerCase.Next(65, 90) ' Lowercase Characters
+            ctr(2) = pUpperCase.Next(97, 122) ' Uppercase Characters
+            'put characters in strings
+            charSelect(0) = System.Convert.ToChar(ctr(0)).ToString
+            charSelect(1) = System.Convert.ToChar(ctr(1)).ToString
+            charSelect(2) = System.Convert.ToChar(ctr(2)).ToString
+
+            'pick one of the three above for a character At Random
+            iSel = RandomSelect.Next(0, 3)
+            'colect all characters generated through the loop
+            password &= charSelect(iSel)
+
+            ' reset  with new password
+            If Reset = True Then
+                password.Replace(password, charSelect(iSel))
+            End If
+
+        Next
+        Return password
+
+    End Function
+    Public Function GeneratePassword(Optional ByVal Len As Integer = 8)
+
+        If Len < 6 Then
+            MsgBox("Minimum password length is 6 characters", MsgBoxStyle.OkOnly, "Minimum Length Reset")
+            Len = 6
+        End If
+
+        Dim pass As String = String.Empty
+
+        Dim nums As String() = "2 3 4 5 6 7 8 9".Split(" ") 'Omit 1 & 0
+        Dim lettU As String() = "A B C D E F G H J K L M N P Q R S T U V W X Y Z".Split(" ") 'Omit i,I,o & O
+        Dim lettL As String() = "A B C D E F G H J K M N P Q R S T U V W X Y Z".ToLower.Split(" ") 'Omit i,I,l, L,o & O
+        Dim chars As String() = "(-) @ # $ % * {-} [-] - _ ^ < > + = ~ /\".Split(" ") 'omit ? / \ ( ) ' " . , ; : &
+
+        Dim passRan() As Array = {nums, lettU, lettL, chars}
+
+        Dim min As Integer = 0
+        Dim max As Integer = passRan.Length 'this will include the length
+        Dim rnd As Integer = 0
+
+        Dim sb As New List(Of String)
+
+        For l As Integer = 0 To Len - passRan.Length - 1
+            'select the set to pick from ensuring you have a character from each set
+            If l = 0 Then
+                For p As Integer = 0 To passRan.Length - 1
+                    'pick a random position in the selected set
+                    max = passRan(p).Length
+                    rnd = GetRandom(min, max)
+                    sb.Add(passRan(p)(rnd))
+                Next
+            End If
+
+            'select the set to pick from by random
+            max = passRan.Length
+            rnd = GetRandom(min, max)
+            For p As Integer = 0 To passRan.Length - 1
+                'pick a random position in the selected set
+                If p = rnd Then
+                    max = passRan(p).Length
+                    rnd = GetRandom(min, max)
+                    sb.Add(passRan(p)(rnd))
+                    Exit For
+                End If
+            Next
+        Next
+
+        'shuffle the result
+        Dim R As New List(Of String)
+        R = sb.ToList
+        For Int As Integer = 0 To Len - 1
+            Dim curr As Integer = GetRandom(min, R.Count)
+            pass &= R(curr)
+            R.RemoveAt(curr)
+        Next
+
+        Return pass
+
+    End Function
+
+    Public Function GetRandom(ByVal Min As Integer, ByVal Max As Integer) As Integer
+        Static Generator As System.Random = New System.Random()
+        Return Generator.Next(Min, Max)
+    End Function
+
+    Protected Sub B_GENERATE_CLICK(sender As Object, e As EventArgs) Handles btnGeneratePassword.Click
+
+        Dim GeneratedPassword As String = GeneratePassword(8)
+            txtPassword.Attributes.Add("value", GeneratedPassword)
+        txtConfirmPassword.Attributes.Add("value", GeneratedPassword)
+        lblGeneratedPassword.Visible = True
+        txtGeneratedPassword.Visible = True
+        txtGeneratedPassword.Text = GeneratedPassword
+        txtGeneratedPassword.Enabled = False
     End Sub
 End Class

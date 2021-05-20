@@ -44,6 +44,18 @@ In case of dispute arising out or in relation to the use of the program, it is s
                 $("#SelectPic").hide();
 
             });
+            
+            // If this is being executed by ajax
+            if (args) {
+                // And this is only a partial load
+                if (args.get_isPartialLoad()) {
+                    // Don't perform any further processing
+                    return;
+                }
+                else {
+                    nepaliCalendarPopup();
+                }
+            }
 
 
         });
@@ -92,7 +104,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
    
 
         
-</script>
+    </script>
 <style type="text/css">
         #SelectPic
         {
@@ -295,7 +307,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                             </asp:Label>
                                         </td>
                                         <td class="DataEntry">
-                                            <asp:TextBox ID="txtBirthDate" runat="server" Width="132px"></asp:TextBox>
+                                            <asp:TextBox ID="txtBirthDate" runat="server" Width="132px" CssClass="BirthDate"></asp:TextBox>
                                             <asp:Button ID="Button1" runat="server" Height="20px" Width="20px" />
                                             <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtBirthDate" PopupButtonID="Button1" Format="dd/MM/yyyy"></asp:CalendarExtender>
                                             <asp:RequiredFieldValidator ID="RequiredFieldBirthDate0" runat="server" ControlToValidate="txtBirthDate" SetFocusOnError="True" ValidationGroup="check" ForeColor="Red" Display="Dynamic" Text='*'>
@@ -344,7 +356,12 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                             </asp:Label>
                                         </td>
                                         <td class="DataEntry">
-                                            <asp:TextBox ID="txtPhone" runat="server" Width="150px"></asp:TextBox>
+                                            <asp:TextBox ID="txtPhone" runat="server" Width="150px" MaxLength="10"></asp:TextBox>                                            
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidator1"
+                                    ControlToValidate="txtPhone" runat="server"
+                                    ErrorMessage="Phone Number Invalid"
+                                    ValidationExpression="^\d{10}$">
+                                </asp:RegularExpressionValidator>
                                         </td>                                    
                                         <td class="FormLabel">
                                             <asp:Label ID="L_EMAIL" runat="server" Text="<%$ Resources:Resource, L_EMAIL %>"></asp:Label>
@@ -370,7 +387,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                             </asp:Label>
                                         </td>
                                         <td class="DataEntry">
-                                            <asp:TextBox ID="txtPassport" runat="server" MaxLength="12" Width="150px"></asp:TextBox>
+                                            <asp:TextBox ID="txtPassport" runat="server" MaxLength="40" Width="150px"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="rfIdNo" runat="server" ControlToValidate="txtPassport" InitialValue="" SetFocusOnError="True" ValidationGroup="check" ForeColor="Red" Display="Dynamic"
                                             Text='*'></asp:RequiredFieldValidator>
                                         </td>

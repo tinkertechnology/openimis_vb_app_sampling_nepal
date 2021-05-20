@@ -17,12 +17,12 @@ Public Class AutoCompleteHandler
         If prefix = " " Or prefix = "" Then
             Dim items = (From p In dt.AsEnumerable()
                          Select New With {.ICDID = p.Field(Of Integer)("ICDID"),
-                                    .ICDNames = p.Field(Of String)("ICDNames")}).Take(10)
+                                    .ICDNames = p.Field(Of String)("ICDNames")})
             d = JsonConvert.SerializeObject(items)
         Else
             Dim items = (From p In dt.AsEnumerable()
                          Select New With {.ICDID = p.Field(Of Integer)("ICDID"),
-                                    .ICDNames = p.Field(Of String)("ICDNames")}).Where(Function(x) x.ICDNames.ToLower.Contains(prefix.ToLower())).Take(10)
+                                    .ICDNames = p.Field(Of String)("ICDNames")}).Where(Function(x) x.ICDNames.ToLower.Contains(prefix.ToLower()))
 
             d = JsonConvert.SerializeObject(items)
         End If

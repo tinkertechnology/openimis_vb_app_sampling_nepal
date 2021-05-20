@@ -115,9 +115,9 @@ In case of dispute arising out or in relation to the use of the program, it is s
             var claimtoken = "<%=System.Configuration.ConfigurationManager.AppSettings("ClaimDocumentToken").ToString()%>";
             var documenthref = "<%=System.Configuration.ConfigurationManager.AppSettings("ClaimDocumentHome").ToString()%>" + "view_documents?claim_id=" + newclaimcode + "&token=" + claimtoken;
             document.getElementById("lnkViewDocument").href = documenthref;
-            var newclaimcodeOLD = $('#<%=lblCLAIMData.ClientID%>').html()
-            var documenthrefold = "http://202.45.147.57/mobileapp/claims.php?ClaimCode=" + newclaimcodeOLD;
-            document.getElementById("lnkViewDocumentOld").href = documenthrefold;
+            //var newclaimcodeOLD = $('#<%=lblCLAIMData.ClientID%>').html()
+            //var documenthrefold = "http://202.45.147.57/mobileapp/claims.php?ClaimCode=" + newclaimcodeOLD;
+            //document.getElementById("lnkViewDocumentOld").href = documenthrefold;
             if ($('#Body_hfOldClaimID').val() != 0) {
                 document.getElementById("lnkOldClaim").href = "ClaimReviewNew.aspx?c=" + $('#Body_hfOldClaimID').val();
             }
@@ -219,8 +219,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                   <td><asp:Label ID="lblVisitTypeData" runat="server"  CssClass="DataEntry"></asp:Label></td>
                   <td><asp:Label ID="lblGuaranteeNo" runat="server" Text="<%$ Resources:Resource,L_GUARANTEE %>" CssClass="FormLabel"></asp:Label></td>
                   <td><asp:Label ID="lblGuaranteeData" runat="server"  CssClass="DataEntry"></asp:Label></td>
-                  <td><a id="lnkViewDocumentOld" target="_blank">View Document Old</a></td>
-                  <td><a id="lnkViewDocument" target="_blank">View Document New</a></td>
+                  <td colspan="2"><asp:Label ID="lblAttachment" runat="server"> <a id="lnkViewDocument" target="_blank" style="color:red;font-size:large">View Document</a></asp:Label></td>
               </tr>         
          
           </table>

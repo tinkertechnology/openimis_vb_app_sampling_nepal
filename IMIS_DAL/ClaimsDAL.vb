@@ -39,7 +39,7 @@ Public Class ClaimsDAL
                ",FB.DrugPrescribed,FB.DrugReceived,FB.PaymentAsked,FB.Asessment,FB.CHFOfficerCode" &
                ",Cadm.ClaimAdminID,Cadm.ClaimAdminCode,Cadm.LastName CadminLastName,Cadm.OtherNames CadminOtherNames" &
                " ,C.ICDID1, C.ICDID2, C.ICDID3, C.ICDID4, C.VisitType,IC1.ICDCode ICDCode1,IC2.ICDCode ICDCode2,IC3.ICDCode ICDCode3,IC4.ICDCode ICDCode4,GuaranteeId" &
-                ",ISNULL(CS.RejectionReason,NULL) ServiceRejectionReason,ISNULL(CI.RejectionReason,NULL) ItemRejectionReason " &
+                ",ISNULL(CS.RejectionReason,NULL) ServiceRejectionReason,ISNULL(CI.RejectionReason,NULL) ItemRejectionReason, Attachment " &
                " FROM tblClaim C" &
                " INNER JOIN tblInsuree I ON C.InsureeID = I.InsureeID INNER JOIN tblHF H ON C.HfID = H.HfID" &
                " INNER JOIN tblICDCodes IC ON C.ICDID = IC.ICDID" &
@@ -53,6 +53,27 @@ Public Class ClaimsDAL
                " LEFT OUTER JOIN tblClaimItems CI ON CI.ClaimID = C.ClaimID" &
                " WHERE C.ClaimID = @ClaimID"
 
+#If HIB Then
+        sSQLClaim = "SELECT H.HFID,H.HFCode, H.HFName,H.HFCareType,C.ICDID,C.InsureeId,I.CHFID" &
+               ",I.LastName,I.OtherNames,C.DateFrom,C.DateTo,C.ClaimCode,C.DateClaimed,C.DateProcessed" &
+               ",IC.ICDCode,C.Claimed,C.Approved,C.Explanation,C.Valuated,C.Explanation,C.Adjustment" &
+               ",C.ClaimStatus,C.ReviewStatus,C.FeedbackStatus,FB.FeedbackID,FB.FeedbackDate,FB.CareRendered" &
+               ",FB.DrugPrescribed,FB.DrugReceived,FB.PaymentAsked,FB.Asessment,FB.CHFOfficerCode" &
+               ",Cadm.ClaimAdminID,Cadm.ClaimAdminCode,Cadm.LastName CadminLastName,Cadm.OtherNames CadminOtherNames" &
+               " ,C.ICDID1,  C.VisitType,IC1.ICDCode ICDCode1,GuaranteeId" &
+                ",ISNULL(CS.RejectionReason,NULL) ServiceRejectionReason,ISNULL(CI.RejectionReason,NULL) ItemRejectionReason, Attachment " &
+                 ",IC.ICDName, IC1.ICDName ICDName1 " &
+               " FROM tblClaim C" &
+               " INNER JOIN tblInsuree I ON C.InsureeID = I.InsureeID INNER JOIN tblHF H ON C.HfID = H.HfID" &
+               " INNER JOIN tblICDCodes IC ON C.ICDID = IC.ICDID" &
+                " LEFT JOIN tblICDCodes IC1 ON C.ICDID1 = IC1.ICDID" &
+               " LEFT JOIN tblFeedback FB ON C.ClaimID = FB.ClaimID" &
+               " LEFT JOIN tblClaimAdmin Cadm ON Cadm.ClaimAdminId = C.ClaimAdminId" &
+               " LEFT OUTER JOIN tblClaimServices CS ON CS.ClaimID = C.ClaimID" &
+               " LEFT OUTER JOIN tblClaimItems CI ON CI.ClaimID = C.ClaimID" &
+               " WHERE C.ClaimID = @ClaimID"
+
+#End If
         data.setSQLCommand(sSQLClaim, CommandType.Text)
 
         data.params("@ClaimID", eClaim.ClaimID)
@@ -79,6 +100,7 @@ Public Class ClaimsDAL
 
             eCD.ICDCode = dr("ICDCode")
             eCD.ICDID = dr("ICDID")
+            eCD.ICDName = dr("ICDName")
 
             eClaim.DateFrom = dr("DateFrom")
             eClaim.DateTo = if(dr("DateTo") Is DBNull.Value, Nothing, dr("DateTo"))
@@ -108,14 +130,18 @@ Public Class ClaimsDAL
             If dr("CadminLastName") IsNot DBNull.Value Then eClaimAdmin.LastName = dr("CadminLastName")
             If dr("CadminOtherNames") IsNot DBNull.Value Then eClaimAdmin.OtherNames = dr("CadminOtherNames")
             eClaim.ICDID1 = if(dr("ICDID1") Is DBNull.Value, Nothing, dr("ICDID1"))
-            eClaim.ICDID2 = if(dr("ICDID2") Is DBNull.Value, Nothing, dr("ICDID2"))
-            eClaim.ICDID3 = if(dr("ICDID3") Is DBNull.Value, Nothing, dr("ICDID3"))
-            eClaim.ICDID4 = if(dr("ICDID4") Is DBNull.Value, Nothing, dr("ICDID4"))
+            'eClaim.ICDID2 = if(dr("ICDID2") Is DBNull.Value, Nothing, dr("ICDID2"))
+            'eClaim.ICDID3 = if(dr("ICDID3") Is DBNull.Value, Nothing, dr("ICDID3"))
+            'eClaim.ICDID4 = if(dr("ICDID4") Is DBNull.Value, Nothing, dr("ICDID4"))
             If eExtra IsNot Nothing Then
                 eExtra.Add("ICDCode1", if(dr("ICDCode1") Is DBNull.Value, Nothing, dr("ICDCode1")))
-                eExtra.Add("ICDCode2", if(dr("ICDCode2") Is DBNull.Value, Nothing, dr("ICDCode2")))
-                eExtra.Add("ICDCode3", if(dr("ICDCode3") Is DBNull.Value, Nothing, dr("ICDCode3")))
-                eExtra.Add("ICDCode4", if(dr("ICDCode4") Is DBNull.Value, Nothing, dr("ICDCode4")))
+                'eExtra.Add("ICDCode2", if(dr("ICDCode2") Is DBNull.Value, Nothing, dr("ICDCode2")))
+                'eExtra.Add("ICDCode3", if(dr("ICDCode3") Is DBNull.Value, Nothing, dr("ICDCode3")))
+                'eExtra.Add("ICDCode4", If(dr("ICDCode4") Is DBNull.Value, Nothing, dr("ICDCode4")))
+                eExtra.Add("ICDName1", If(dr("ICDName1") Is DBNull.Value, Nothing, dr("ICDName1")))
+                'eExtra.Add("ICDName2", If(dr("ICDName2") Is DBNull.Value, Nothing, dr("ICDName2")))
+                'eExtra.Add("ICDName3", If(dr("ICDName3") Is DBNull.Value, Nothing, dr("ICDName3")))
+                'eExtra.Add("ICDName4", If(dr("ICDName4") Is DBNull.Value, Nothing, dr("ICDName4")))
             End If
             eClaim.VisitType = if(dr("VisitType") Is DBNull.Value, Nothing, dr("VisitType"))
             If dr("GuaranteeId") IsNot DBNull.Value Then eClaim.GuaranteeId = dr("GuaranteeId")
@@ -127,6 +153,7 @@ Public Class ClaimsDAL
             eClaim.tblClaimAdmin = eClaimAdmin
             eClaim.ClaimItems = eClaimItems
             eClaim.ClaimServices = eClaimServices
+            eClaim.Attachment = dr("Attachment")
 
 
         End If
@@ -168,6 +195,7 @@ Public Class ClaimsDAL
             " INNER JOIN tblPLItems PL ON HF.PLItemID = PL.PLItemID" & _
             " LEFT OUTER JOIN tblPLItemsDetail PLD ON PL.PLItemID = PLD.PLItemID AND I.ItemID = PLD.ItemID" & _
             " WHERE C.ClaimID = @ClaimID and CI.LegacyID IS NULL AND CI.ValidityTo IS NULL AND PL.ValidityTo IS NULL AND PLD.ValidityTo IS NULL"
+
 
         data.setSQLCommand(sSQLClaimedItems, CommandType.Text)
 
@@ -245,6 +273,11 @@ Public Class ClaimsDAL
     Public Function IsClaimStatusChanged(ByRef eClaim As IMIS_EN.tblClaim) As DataTable
         Dim str As String = "SELECT ClaimStatus from tblClaim inner join tblHF on tblHF.HfID = tblClaim.HFID " & _
                             " WHERE ClaimID = @claimID and tblClaim.ValidityTo is null " 'and tblClaim.HFID = @HFID
+#If HIB Then
+        str = "SELECT ClaimStatus from tblClaim inner join tblHF on tblHF.HfID = tblClaim.HFID " &
+                            " WHERE ClaimID = @claimID and tblClaim.ValidityTo is null " 'and tblClaim.HFID = @HFID
+
+#End If
         data.setSQLCommand(str, CommandType.Text)
 
         data.params("@claimID", SqlDbType.Int, eClaim.ClaimID)
@@ -266,6 +299,7 @@ Public Class ClaimsDAL
     
     Public Function IsClaimReviewStatusChanged(ByVal eClaim As IMIS_EN.tblClaim) As DataTable
         Dim str As String = "select ReviewStatus from tblClaim where ClaimID = @ClaimID and ValidityTo is null"
+
         data.setSQLCommand(str, CommandType.Text)
 
         data.params("@ClaimID", SqlDbType.Int, eClaim.ClaimID)
@@ -325,7 +359,7 @@ Public Class ClaimsDAL
 
         data.setSQLCommand(str, CommandType.Text)
 
-        data.params("@ClaimCode", SqlDbType.NVarChar, 8, eClaim.ClaimCode)
+        data.params("@ClaimCode", SqlDbType.NVarChar, 11, eClaim.ClaimCode)
         data.params("@HfID", SqlDbType.Int, eClaim.tblHF.HfID)
 
         Return data.Filldata
@@ -380,22 +414,28 @@ Public Class ClaimsDAL
     Public Function GetReviewClaims(ByRef eClaims As IMIS_EN.tblClaim, ByVal claimStatus As DataTable, ByVal UserID As Integer) As DataTable
 
         'Dim sSQL As String = ""
-        Dim sSQL As String = "SELECT " + UtilitiesDAL.GetEnvMaxRows()
+        Dim sSQL As String
+        sSQL = "SELECT " + UtilitiesDAL.GetEnvMaxRows()
 
         sSQL += " tblClaim.ClaimID,claimcode,DateClaimed,Claimed,ISNULL(Approved, Claimed)Approved, ClaimSt.name as ClaimStatus,"
         sSQL += " FeedbackStatus,ReviewStatus,tblClaim.RowID,tblHF.HFCode,HFName,tblClaim.HfID,tblClaim.ClaimAdminID,"
-        sSQL += " Cadm.ClaimAdminID,Cadm.ClaimAdminCode,Cadm.LastName CadminLastName,Cadm.OtherNames CadminOtherNames from tblClaim"
+        sSQL += " Cadm.ClaimAdminID,Cadm.ClaimAdminCode,Cadm.LastName CadminLastName,Cadm.OtherNames CadminOtherNames,tblInsuree.CHFID, Attachment from tblClaim"
         sSQL += " INNER JOIN tblICDCodes ON tblICDCodes.ICDID = tblClaim.ICDID"
         sSQL += " INNER JOIN tblInsuree ON tblInsuree.InsureeID = tblClaim.InsureeID"
         sSQL += " INNER JOIN tblFamilies ON tblFamilies.FamilyID = tblInsuree.FamilyID"
         sSQL += " INNER JOIN tblHF ON tblClaim.HfID = tblHF.HfID"
 
         ' sSQL += " INNER JOIN tblDistricts ON tblDistricts.DistrictID = tblHF.LocationId"
-        sSQL += " INNER JOIN tblVillages V ON V.VillageId = tblFamilies.LocationId"
-        sSQL += " INNER JOIN tblWards W ON W.WardId =V.WardId"
-        sSQL += " INNER JOIN tblDistricts FMD ON FMD.DistrictId= W.DistrictId"
-        sSQL += " INNER JOIN tblRegions FMR ON FMR.RegionId = FMD.Region"
-        sSQL += " INNER JOIN tblusersdistricts ON tblusersdistricts.LocationId = FMD.DistrictId"
+        'sSQL += " INNER JOIN tblVillages V ON V.VillageId = tblFamilies.LocationId"
+        'sSQL += " INNER JOIN tblWards W ON W.WardId =V.WardId"
+        'sSQL += " INNER JOIN tblDistricts FMD ON FMD.DistrictId= W.DistrictId"
+        'sSQL += " INNER JOIN tblRegions FMR ON FMR.RegionId = FMD.Region"
+        sSQL += "  inner join tbllocations v on v.LocationId=tblFamilies.LocationId"
+        sSQL += "  inner join tbllocations w on w.LocationId=v.ParentLocationId"
+        sSQL += "  inner join tbllocations FMD on FMD.LocationId=w.ParentLocationId"
+        sSQL += " inner join tbllocations FMR on FMR.LocationId=FMD.ParentLocationId"
+        'sSQL += " INNER JOIN tblusersdistricts ON tblusersdistricts.LocationId = FMD.DistrictId"
+        sSQL += " INNER JOIN tblusersdistricts ON tblusersdistricts.LocationId = FMD.locationid"
         sSQL += " AND tblUsersDistricts.UserID = @UserID"
         sSQL += " AND tblUsersDistricts.ValidityTo IS NULL"
         sSQL += " INNER JOIN @ClaimSt ClaimSt ON ClaimSt.ID = tblClaim.ClaimStatus"
@@ -404,12 +444,14 @@ Public Class ClaimsDAL
         sSQL += " AND @ReviewStatus & tblClaim.ReviewStatus > 0 AND @ClaimStatus & tblClaim.ClaimStatus  > 0"
         sSQL += " AND (CASE WHEN @ICDID = 0 THEN 0 ELSE tblICDCodes.ICDID END) = @ICDID"
 
-         
+        If eClaims.Attachment = 1 Then
+            sSQL += " AND tblClaim.Attachment= 1"
+        End If
         If eClaims.tblHF.RegionId <> 0 Then
-            sSQL += " AND FMR.RegionId = @RegionId"
+            sSQL += " AND FMR.locationid = @RegionId"
         End If
         If eClaims.tblHF.DistrictId <> 0 Then
-            sSQL += " AND FMD.DistrictID = @DistrictId"
+            sSQL += " AND FMD.LocationId = @DistrictId"
         End If
         If eClaims.tblBatchRun.RunID <> 0 Then
             sSQL += " AND tblClaim.RunID = @RunID"
@@ -417,14 +459,23 @@ Public Class ClaimsDAL
         If eClaims.tblHF.HfID <> 0 Then
             sSQL += " AND tblHF.HfID = @HFID"
         End If
+        'If Not eClaims.tblHF.HFName = Nothing Then
+        '    sSQL += " and tblHF.HFName like @HFName + '%'"
+        'End If
         If Not eClaims.tblHF.HFName = Nothing Then
-            sSQL += " and tblHF.HFName like @HFName + '%'"
+            sSQL += " and tblHF.HFName= @HFName"
         End If
+        'If Not eClaims.tblInsuree.CHFID = Nothing Then
+        '    sSQL += " and tblInsuree.CHFID like @CHFID + '%'"
+        'End If
         If Not eClaims.tblInsuree.CHFID = Nothing Then
-            sSQL += " and tblInsuree.CHFID like @CHFID + '%'"
+            sSQL += " and tblInsuree.CHFID =@CHFID"
         End If
+        'If Not eClaims.ClaimCode = Nothing Then
+        '    sSQL += " and tblClaim.ClaimCode like @ClaimCode + '%'"
+        'End If
         If Not eClaims.ClaimCode = Nothing Then
-            sSQL += " and tblClaim.ClaimCode like @ClaimCode + '%'"
+            sSQL += " and tblClaim.ClaimCode = @ClaimCode"
         End If
 
         If Not eClaims.DateFrom = Nothing Then
@@ -450,6 +501,18 @@ Public Class ClaimsDAL
         If eClaims.VisitType IsNot Nothing AndAlso eClaims.VisitType <> "" Then
             sSQL += " AND tblClaim.VisitType = @VisitType"
         End If
+        ' Change By Purushottam Starts
+        'If eClaims.Claimed Is Nothing AndAlso eClaims.Adjuster Is Nothing Then
+        sSQL += " AND tblClaim.Claimed >= @Claimed AND tblClaim.Claimed <= @Adjuster"
+        'End If
+        If eClaims.ClaimCategory IsNot Nothing Then
+            sSQL += " and tblInsuree.Gender = @ClaimCategory" 'used for carrier for gender
+        End If
+        'If eClaims.Attachment = 1 Then
+        'sSQL += " AND tblClaim.ClaimID in (select claim_id from claim_ClaimAttachmentsCountView where attachments_count>=1)"
+        'End If
+
+        ' Change By Purushottam Ends
 
         sSQL += " order by ClaimID desc"
         data.setSQLCommand(sSQL, CommandType.Text)
@@ -461,7 +524,17 @@ Public Class ClaimsDAL
         data.params("@ClaimSt", claimStatus, "xAttribute")
         data.params("@ICDID", SqlDbType.Int, eClaims.tblICDCodes.ICDID)
         data.params("@VisitType", SqlDbType.Char, 1, eClaims.VisitType)
-
+        ' Change By Purushottam Starts
+        data.params("@Claimed", SqlDbType.Int, eClaims.Claimed)
+        data.params("@Adjuster", SqlDbType.Int, eClaims.Adjuster)
+        data.params("@Attachment", SqlDbType.Bit, eClaims.Attachment)
+        If eClaims.VisitType = "O" Or eClaims.VisitType = "R" And eClaims.GuaranteeId IsNot "0" Then
+            data.params("@OpdIpd", SqlDbType.Char, 3, eClaims.GuaranteeId)
+        End If
+        If Not eClaims.ClaimCategory = Nothing Then
+            data.params("@ClaimCategory", SqlDbType.Char, 1, eClaims.ClaimCategory)
+        End If
+        ' Change By Purushottam Ends
         If eClaims.tblHF.RegionId <> 0 Then
             data.params("@RegionId", SqlDbType.Int, eClaims.tblHF.RegionId)
         End If
@@ -482,7 +555,7 @@ Public Class ClaimsDAL
             data.params("@HFName", SqlDbType.NVarChar, 100, eClaims.tblHF.HFName)
         End If
         If Not eClaims.ClaimCode = Nothing Then
-            data.params("@ClaimCode", SqlDbType.NVarChar, 8, eClaims.ClaimCode)
+            data.params("@ClaimCode", SqlDbType.NVarChar, 11, eClaims.ClaimCode)
         End If
         If Not eClaims.DateFrom = Nothing Then
             data.params("@DateFrom", SqlDbType.SmallDateTime, eClaims.DateFrom)
@@ -508,11 +581,15 @@ Public Class ClaimsDAL
         sSQL += " INNER JOIN tblICDCodes ON tblICDCodes.ICDID = tblClaim.ICDID"
         sSQL += " LEFT JOIN tblInsuree ON tblInsuree.InsureeID = tblClaim.InsureeID"
         sSQL += " INNER JOIN tblFamilies ON tblFamilies.FamilyID = tblInsuree.FamilyID"
-        sSQL += " INNER JOIN tblVillages V ON V.VillageId=tblFamilies.LocationId"
-        sSQL += " INNER JOIN tblWards W ON W.WardId=V.WardId"
-        sSQL += " INNER JOIN tblDistricts ON tblDistricts.DistrictID = W.DistrictId"
+        'sSQL += " INNER JOIN tblVillages V ON V.VillageId=tblFamilies.LocationId"
+        'sSQL += " INNER JOIN tblWards W ON W.WardId=V.WardId"
+        'sSQL += " INNER JOIN tblDistricts ON tblDistricts.DistrictID = W.DistrictId"
+        sSQL += "  inner join tbllocations v on v.LocationId=tblFamilies.LocationId"
+        sSQL += " inner join tbllocations w on w.LocationId=v.ParentLocationId"
+        sSQL += " inner join tbllocations d on d.LocationId=w.ParentLocationId"
         sSQL += " INNER JOIN tblHF ON tblClaim.HfID = tblHF.HfID"
-        sSQL += " INNER JOIN tblusersdistricts ON tblusersdistricts.LocationId =  tblDistricts.DistrictID"
+        'sSQL += " INNER JOIN tblusersdistricts ON tblusersdistricts.LocationId =  tblDistricts.DistrictID"
+        sSQL += " INNER JOIN tblusersdistricts ON tblusersdistricts.LocationId =  d.LocationId"
         sSQL += " AND tblUsersDistricts.UserID = @UserID"
         sSQL += " AND tblUsersDistricts.ValidityTo IS NULL"
         sSQL += " INNER JOIN @ClaimSt ClaimSt ON ClaimSt.ID = tblClaim.ClaimStatus"
@@ -520,6 +597,10 @@ Public Class ClaimsDAL
         sSQL += " AND  @ReviewStatus & tblClaim.ReviewStatus > 0"
         sSQL += " AND  @ClaimStatus & tblClaim.ClaimStatus  > 0"
         sSQL += " AND (CASE WHEN @ICDID = 0 THEN 0 ELSE tblClaim.ICDID END) = @ICDID"
+
+        If eClaims.Attachment = 1 Then
+            sSQL += " AND tblClaim.Attachment= 1"
+        End If
 
         If Not eClaims.LegacyID = 0 Then
             sSQL += " AND tblHF.LocationId = @LocationId"
@@ -531,14 +612,23 @@ Public Class ClaimsDAL
         If Not eClaims.tblHF.HfID = Nothing Then
             sSQL += " and tblClaim.HfID = @HFID"
         End If
+        'If Not eClaims.tblHF.HFName = Nothing Then
+        '    sSQL += " and tblHF.HFName like @HFName + '%'"
+        'End If
+        'If Not eClaims.tblInsuree.CHFID = Nothing Then
+        '    sSQL += " and tblInsuree.CHFID like @CHFID + '%'"
+        'End If
+        'If Not eClaims.ClaimCode = Nothing Then
+        '    sSQL += " and tblClaim.ClaimCode like @ClaimCode + '%'"
+        'End If
         If Not eClaims.tblHF.HFName = Nothing Then
-            sSQL += " and tblHF.HFName like @HFName + '%'"
+            sSQL += " and tblHF.HFName = @HFName"
         End If
         If Not eClaims.tblInsuree.CHFID = Nothing Then
-            sSQL += " and tblInsuree.CHFID like @CHFID + '%'"
+            sSQL += " and tblInsuree.CHFID = @CHFID"
         End If
         If Not eClaims.ClaimCode = Nothing Then
-            sSQL += " and tblClaim.ClaimCode like @ClaimCode + '%'"
+            sSQL += " and tblClaim.ClaimCode = @ClaimCode"
         End If
 
         If Not eClaims.DateFrom = Nothing Then
@@ -561,6 +651,15 @@ Public Class ClaimsDAL
         If eClaims.VisitType IsNot Nothing AndAlso eClaims.VisitType <> "" Then
             sSQL += " AND tblClaim.VisitType = @VisitType"
         End If
+        ' Change By Purushottam Starts
+        'If eClaims.Claimed Is Nothing AndAlso eClaims.Adjuster Is Nothing Then
+        sSQL += " AND tblClaim.Claimed >= @Claimed AND tblClaim.Claimed <= @Adjuster"
+        'End If
+        If eClaims.ClaimCategory IsNot Nothing Then
+            sSQL += " and tblInsuree.Gender = @ClaimCategory" 'used for carrier for gender
+        End If
+
+        ' Change By Purushottam Ends
 
         data.setSQLCommand(sSQL, CommandType.Text)
 
@@ -572,7 +671,14 @@ Public Class ClaimsDAL
         data.params("@ClaimSt", claimStatus, "xAttribute")
         data.params("@ICDID", SqlDbType.Int, eClaims.tblICDCodes.ICDID)
         data.params("@VisitType", SqlDbType.Char, 1, eClaims.VisitType)
-
+        ' Change By Purushottam Starts
+        data.params("@Claimed", SqlDbType.Int, eClaims.Claimed)
+        data.params("@Adjuster", SqlDbType.Int, eClaims.Adjuster)
+        'data.params("@Attachment", SqlDbType.Bit, eClaims.Attachment)
+        If Not eClaims.ClaimCategory = Nothing Then
+            data.params("@ClaimCategory", SqlDbType.Char, 1, eClaims.ClaimCategory)
+        End If
+        ' Change By Purushottam Ends
         If Not eClaims.tblBatchRun.RunID = Nothing Then
             data.params("@RunID", SqlDbType.Int, eClaims.tblBatchRun.RunID)
         End If
@@ -586,7 +692,7 @@ Public Class ClaimsDAL
             data.params("@HFName", SqlDbType.NVarChar, 100, eClaims.tblHF.HFName)
         End If
         If Not eClaims.ClaimCode = Nothing Then
-            data.params("@ClaimCode", SqlDbType.NVarChar, 8, eClaims.ClaimCode)
+            data.params("@ClaimCode", SqlDbType.NVarChar, 11, eClaims.ClaimCode)
         End If
         If Not eClaims.DateFrom = Nothing Then
             data.params("@DateFrom", SqlDbType.DateTime, eClaims.DateFrom)
@@ -605,16 +711,19 @@ Public Class ClaimsDAL
     Public Function GetClaims(ByRef eClaims As IMIS_EN.tblClaim, ByVal claimStatus As DataTable, ByVal FeedbackStatus As DataTable, ByVal ReviewStatus As DataTable, ByVal UserID As Integer) As DataTable
 
         'Dim sSQL As String = ""
-        Dim sSQL As String = "SELECT " + UtilitiesDAL.GetEnvMaxRows()
+        Dim sSQL As String
+        sSQL = "SELECT " + UtilitiesDAL.GetEnvMaxRows()
 
         sSQL += "  tblClaim.ClaimID,tblClaim.ClaimUUID,claimcode,DateClaimed,Claimed,CASE WHEN ClaimStatus = 2 THEN Approved                                             ELSE ISNULL(Approved, Claimed) END Approved,"
         sSQL += " tblClaim.HfID,ClaimSt.name AS ClaimStatus,FeedbackSt.name AS FeedbackStatus, ReviewSt.name AS ReviewStatus ,tblClaim.RowID,"
-        sSQL += " tblHF.HFCode,HFName,tblClaim.HfID,Cadm.ClaimAdminID,Cadm.ClaimAdminCode,Cadm.LastName CadminLastName,Cadm.OtherNames CadminOtherNames,  VisitType "
+        sSQL += " tblHF.HFCode,HFName,tblClaim.HfID,Cadm.ClaimAdminID,Cadm.ClaimAdminCode,Cadm.LastName CadminLastName,Cadm.OtherNames CadminOtherNames,  VisitType, Attachment "
         sSQL += " FROM tblClaim"
         sSQL += " INNER JOIN tblICDCodes ON tblICDCodes.ICDID = tblClaim.ICDID"
         sSQL += " INNER JOIN tblInsuree ON tblInsuree.InsureeID = tblClaim.InsureeID"
         sSQL += " INNER JOIN TblFamilies ON tblFamilies.FamilyID = tblInsuree.FamilyID"
         sSQL += " INNER JOIN tblHF ON tblClaim.HfID = tblHF.HfID"
+        'sSQL += " INNER JOIN tblDistricts ON tblDistricts.DistrictID = tblHF.LocationId"
+        'sSQL += " INNER JOIN tblRegions ON tblRegions.RegionId = tblDistricts.Region"
         sSQL += " INNER JOIN tblDistricts ON tblDistricts.DistrictID = tblHF.LocationId"
         sSQL += " INNER JOIN tblRegions ON tblRegions.RegionId = tblDistricts.Region"
         sSQL += " INNER JOIN tblusersdistricts ON tblusersdistricts.LocationId =  tblHF.LocationId"
@@ -636,14 +745,23 @@ Public Class ClaimsDAL
         If Not eClaims.tblHF.HfID = Nothing Then
             sSQL += " and tblClaim.HfID = @HFID"
         End If
+        'If Not eClaims.tblHF.HFName = Nothing Then
+        '    sSQL += " and tblHF.HFName like @HFName + '%'"
+        'End If
+        'If Not eClaims.tblInsuree.CHFID = Nothing Then
+        '    sSQL += " and tblInsuree.CHFID like @CHFID + '%'"
+        'End If
+        'If Not eClaims.ClaimCode = Nothing Then
+        '    sSQL += " and tblClaim.ClaimCode like @ClaimCode + '%'"
+        'End If
         If Not eClaims.tblHF.HFName = Nothing Then
-            sSQL += " and tblHF.HFName like @HFName + '%'"
+            sSQL += " and tblHF.HFName = @HFName"
         End If
         If Not eClaims.tblInsuree.CHFID = Nothing Then
-            sSQL += " and tblInsuree.CHFID like @CHFID + '%'"
+            sSQL += " and tblInsuree.CHFID = @CHFID"
         End If
         If Not eClaims.ClaimCode = Nothing Then
-            sSQL += " and tblClaim.ClaimCode like @ClaimCode + '%'"
+            sSQL += " and tblClaim.ClaimCode = @ClaimCode"
         End If
         If Not eClaims.DateFrom = Nothing Then
             sSQL += " and tblClaim.DateFrom >= @DateFrom"
@@ -668,6 +786,9 @@ Public Class ClaimsDAL
         If eClaims.VisitType IsNot Nothing AndAlso eClaims.VisitType <> "" Then
             sSQL += " AND tbLClaim.VisitType = @VisitType"
         End If
+        If eClaims.Attachment = 1 Then
+            sSQL += " AND tblClaim.Attachment= 1"
+        End If
 
         sSQL += " ORDER BY ClaimID DESC"
         data.setSQLCommand(sSQL, CommandType.Text)
@@ -683,7 +804,7 @@ Public Class ClaimsDAL
         data.params("@ReviewSt", ReviewStatus, "xAttribute")
         data.params("@ICDID", SqlDbType.Int, eClaims.tblICDCodes.ICDID)
         data.params("@VisitType", SqlDbType.Char, 1, eClaims.VisitType)
-
+        'data.params("@Attachment", SqlDbType.Bit, eClaims.Attachment)
         If Not eClaims.tblBatchRun.RunID = Nothing Then
             data.params("@RunID", SqlDbType.Int, eClaims.tblBatchRun.RunID)
         End If
@@ -697,7 +818,7 @@ Public Class ClaimsDAL
             data.params("@HFName", SqlDbType.NVarChar, 100, eClaims.tblHF.HFName)
         End If
         If Not eClaims.ClaimCode = Nothing Then
-            data.params("@ClaimCode", SqlDbType.NVarChar, 8, eClaims.ClaimCode)
+            data.params("@ClaimCode", SqlDbType.NVarChar, 11, eClaims.ClaimCode)
         End If
         If Not eClaims.DateFrom = Nothing Then
             data.params("@DateFrom", SqlDbType.SmallDateTime, eClaims.DateFrom)
@@ -718,6 +839,7 @@ Public Class ClaimsDAL
     'Corrected By Rogers
     Public Function GetClaimsCount(ByRef eClaims As IMIS_EN.tblClaim, ByVal claimStatus As DataTable, ByVal FeedbackStatus As DataTable, ByVal ReviewStatus As DataTable, ByVal UserID As Integer) As DataTable
         Dim ssql As String = ""
+
         ssql += " SELECT COUNT(tblClaim.ClaimID)[Count] FROM tblClaim"
         ssql += " INNER JOIN tblICDCodes ON tblICDCodes.ICDID = tblClaim.ICDID"
         ssql += " LEFT JOIN tblInsuree ON tblInsuree.InsureeID = tblClaim.InsureeID"
@@ -736,24 +858,33 @@ Public Class ClaimsDAL
         ssql += " AND  @ClaimStatus & tblClaim.ClaimStatus  > 0"
         ssql += " AND (CASE WHEN @ICDID = 0 THEN 0 ELSE tblClaim.ICDID END) = @ICDID "
 
-
-
-
-
+        'ssql += " AND tblClaim.Attachment= @Attachment"
+        If eClaims.Attachment = 1 Then
+            ssql += " AND tblClaim.Attachment= 1"
+        End If
         If Not eClaims.tblBatchRun.RunID = Nothing Then
             sSQL += " and tblClaim.RunID = @RunID"
         End If
         If Not eClaims.tblHF.HfID = Nothing Then
             sSQL += " and tblClaim.HfID = @HFID"
         End If
+        'If Not eClaims.tblHF.HFName = Nothing Then
+        '    sSQL += " and tblHF.HFName like @HFName + '%'"
+        'End If
+        'If Not eClaims.tblInsuree.CHFID = Nothing Then
+        '    sSQL += " and tblInsuree.CHFID like @CHFID + '%'"
+        'End If
+        'If Not eClaims.ClaimCode = Nothing Then
+        '    sSQL += " and tblClaim.ClaimCode like @ClaimCode + '%'"
+        'End If
         If Not eClaims.tblHF.HFName = Nothing Then
-            sSQL += " and tblHF.HFName like @HFName + '%'"
+            ssql += " and tblHF.HFName = @HFName"
         End If
         If Not eClaims.tblInsuree.CHFID = Nothing Then
-            sSQL += " and tblInsuree.CHFID like @CHFID + '%'"
+            ssql += " and tblInsuree.CHFID = @CHFID"
         End If
         If Not eClaims.ClaimCode = Nothing Then
-            sSQL += " and tblClaim.ClaimCode like @ClaimCode + '%'"
+            ssql += " and tblClaim.ClaimCode = @ClaimCode"
         End If
         If Not eClaims.DateFrom = Nothing Then
             ssql += " and tblClaim.DateFrom >= @DateFrom"
@@ -775,6 +906,10 @@ Public Class ClaimsDAL
         If eClaims.VisitType IsNot Nothing AndAlso eClaims.VisitType <> "" Then
             sSQL += " AND tblClaim.VisitType = @VisitType"
         End If
+        'If eClaims.Attachment = 1 Then
+        'ssql += " AND tblClaim.ClaimID in (select claim_id from claim_ClaimAttachmentsCountView where attachments_count>=1)"
+        'End If
+
 
         data.setSQLCommand(sSQL, CommandType.Text)
 
@@ -788,6 +923,7 @@ Public Class ClaimsDAL
         data.params("@ReviewSt", ReviewStatus, "xAttribute")
         data.params("@ICDID", SqlDbType.Int, eClaims.tblICDCodes.ICDID)
         data.params("@VisitType", SqlDbType.Char, 1, eClaims.VisitType)
+        data.params("@Attachment", SqlDbType.Bit, eClaims.Attachment)
 
         If Not eClaims.tblBatchRun.RunID = Nothing Then
             data.params("@RunID", SqlDbType.Int, eClaims.tblBatchRun.RunID)
@@ -802,7 +938,7 @@ Public Class ClaimsDAL
             data.params("@HFName", SqlDbType.NVarChar, 100, eClaims.tblHF.HFName)
         End If
         If Not eClaims.ClaimCode = Nothing Then
-            data.params("@ClaimCode", SqlDbType.NVarChar, 8, eClaims.ClaimCode)
+            data.params("@ClaimCode", SqlDbType.NVarChar, 11, eClaims.ClaimCode)
         End If
         If Not eClaims.DateFrom = Nothing Then
             data.params("@DateFrom", SqlDbType.SmallDateTime, eClaims.DateFrom)
@@ -994,6 +1130,7 @@ Public Class ClaimsDAL
               " LEFT JOIN tblFeedback FB ON C.ClaimID = FB.ClaimID" &
               " LEFT JOIN tblClaimAdmin Cadm ON Cadm.ClaimAdminId = C.ClaimAdminId" &
               " WHERE C.ClaimID = @ClaimID"
+
         data.setSQLCommand(Query, CommandType.Text)
         data.params("@ClaimID", SqlDbType.Int, ClaimID)
         Return data.Filldata
@@ -1027,8 +1164,6 @@ Public Class ClaimsDAL
     Public Function GetClaimIdByUUID(ByVal uuid As Guid) As DataTable
         Dim sSQL As String = ""
         Dim data As New ExactSQL
-
-        sSQL = "select ClaimID from tblClaim where ClaimUUID = @ClaimUUID"
 
         data.setSQLCommand(sSQL, CommandType.Text)
         data.params("@ClaimUUID", SqlDbType.UniqueIdentifier, uuid)

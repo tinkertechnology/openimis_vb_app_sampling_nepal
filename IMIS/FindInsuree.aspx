@@ -108,15 +108,6 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                     <tr>
                                         <td class="FormLabel">
                                             <asp:Label
-                                                ID="L_LASTNAME"
-                                                runat="server"
-                                                Text='<%$ Resources:Resource,L_LASTNAME %>'>
-                                            </asp:Label>
-                                        </td>
-                                        <td class="DataEntry">
-                                            <asp:TextBox ID="txtLastName" runat="server" Width="150px"></asp:TextBox></td>
-                                        <td class="FormLabel">
-                                            <asp:Label
                                                 ID="L_OTHERNAMES"
                                                 runat="server"
                                                 Text='<%$ Resources:Resource,L_OTHERNAMES %>'>
@@ -124,6 +115,15 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                         </td>
                                         <td class="DataEntry">
                                             <asp:TextBox ID="txtOtherNames" runat="server" Width="150px"></asp:TextBox></td>
+                                        <td class="FormLabel">
+                                            <asp:Label
+                                                ID="L_LASTNAME"
+                                                runat="server"
+                                                Text='<%$ Resources:Resource,L_LASTNAME %>'>
+                                            </asp:Label>
+                                        </td>
+                                        <td class="DataEntry">
+                                            <asp:TextBox ID="txtLastName" runat="server" Width="150px"></asp:TextBox></td>                                        
                                         <td class="FormLabel">
                                             <asp:Label ID="L_REGION" runat="server" Text="<%$ Resources:Resource,L_REGION %>"></asp:Label>
                                         </td>
@@ -141,14 +141,14 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                             <asp:Label
                                                 ID="L_BIRTHDATEFROM"
                                                 runat="server"
-                                                Text='<%$ Resources:Resource,L_BIRTHDATEFROM %>'>
+                                                Text='Enroll Date From'>
                                             </asp:Label>
                                             <td class="DataEntry">
                                                 <asp:TextBox
                                                     ID="txtBirthDateFrom"
                                                     runat="server"
                                                     Width="110px"
-                                                    CssClass="dateCheck"
+                                                    CssClass="dateCheck insureePageFrom"
                                                     ></asp:TextBox>
                                                                                             <asp:Button
                                                     ID="btnDateFrom"
@@ -184,7 +184,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                             <asp:Label
                                                 ID="Label1"
                                                 runat="server"
-                                                Text='<%$ Resources:Resource,L_BIRTHDATETO %>'>
+                                                Text='Enroll Date To'>
                                             </asp:Label>
                                         </td>
                                         <td class="DataEntry">
@@ -192,7 +192,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                                 ID="txtBirthDateTo"
                                                 runat="server"
                                                 Width="110px"
-                                                CssClass="dateCheck"
+                                                CssClass="dateCheck insureePageTo"
                                                 ></asp:TextBox>
                                           
 
@@ -265,6 +265,13 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                     <asp:DropDownList ID="ddlMarital" runat="server">
                                     </asp:DropDownList>
                                 </td>
+                                <td class="FormLabel">
+                              <asp:Label ID="lblConfirmationType" runat="server" Text="<%$ Resources:Resource,L_CONFIRMATIONTYPE %>"></asp:Label>
+                          </td>
+                          <td class="DataEntry">
+                              <asp:DropDownList ID="ddlConfirmationType" runat="server" Width="150px">
+                              </asp:DropDownList>
+                          </td>
                         </tr>
                     </table>
                     </td>
@@ -316,19 +323,26 @@ In case of dispute arising out or in relation to the use of the program, it is s
                         <HeaderStyle CssClass="HideButton" />
                         <ItemStyle CssClass="HideButton" />
                     </asp:CommandField>--%>
-                    <asp:HyperLinkField DataNavigateUrlFields="FamilyUUID,InsureeUUID" DataTextField="CHFID"
+                    <%--<asp:HyperLinkField DataNavigateUrlFields="FamilyUUID,InsureeUUID" DataTextField="CHFID"
+                        DataNavigateUrlFormatString="OverviewFamily.aspx?f={0}&i={1}" HeaderText='<%$ Resources:Resource,L_CHFID %>'
+                        HeaderStyle-Width="100px">
+
+                        <HeaderStyle Width="100px" />
+
+                    </asp:HyperLinkField>--%>
+                    <asp:HyperLinkField DataNavigateUrlFields="FamilyId,InsureeID" DataTextField="CHFID"
                         DataNavigateUrlFormatString="OverviewFamily.aspx?f={0}&i={1}" HeaderText='<%$ Resources:Resource,L_CHFID %>'
                         HeaderStyle-Width="100px">
 
                         <HeaderStyle Width="100px" />
 
                     </asp:HyperLinkField>
-                    <asp:BoundField DataField="LastName" HeaderText='<%$ Resources:Resource,L_LASTNAME %>' SortExpression="LastName">
-                        <HeaderStyle Width="130px"></HeaderStyle>
-                    </asp:BoundField>
                     <asp:BoundField DataField="OtherNames" HeaderText='<%$ Resources:Resource,L_OTHERNAMES %>' SortExpression="OtherNames">
                         <HeaderStyle Width="130px"></HeaderStyle>
                     </asp:BoundField>
+                    <asp:BoundField DataField="LastName" HeaderText='<%$ Resources:Resource,L_LASTNAME %>' SortExpression="LastName">
+                        <HeaderStyle Width="130px"></HeaderStyle>
+                    </asp:BoundField>                    
                     <asp:BoundField DataField="Marital" HeaderText='<%$ Resources:Resource,L_MARITAL %>'>
                         <HeaderStyle Width="50px"></HeaderStyle>
                     </asp:BoundField>

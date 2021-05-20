@@ -143,7 +143,7 @@ Public Class EmailHandler
             Throw ex
         End If
         If e.Error IsNot Nothing Then
-            Dim LogFile As String = HttpContext.Current.Server.MapPath("\Extracts\Phone") & "EmailLog.txt"
+            Dim LogFile As String = HttpContext.Current.Server.MapPath("\Extracts\Phone\") & "EmailLog.txt"
             My.Computer.FileSystem.WriteAllText(LogFile, "Error: " & e.Error.ToString & "" & vbNewLine, True)
         End If
     End Sub

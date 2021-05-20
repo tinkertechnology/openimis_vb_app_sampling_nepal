@@ -68,6 +68,15 @@ Partial Public Class Claim
     Protected WithEvents hfICDID4 As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
+    '''hfCompareDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hfCompareDate As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
     '''UpClaims control.
     '''</summary>
     '''<remarks>
@@ -311,42 +320,6 @@ Partial Public Class Claim
     Protected WithEvents txtENDData_CalendarExtender As Global.AjaxControlToolkit.CalendarExtender
 
     '''<summary>
-    '''lblICD control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblICD As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''ddlICDData control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlICDData As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''txtICDCode0 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtICDCode0 As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
-    '''RequiredFieldValidator3 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents RequiredFieldValidator3 As Global.System.Web.UI.WebControls.RequiredFieldValidator
-
-    '''<summary>
     '''lblCLAIMCODE control.
     '''</summary>
     '''<remarks>
@@ -464,6 +437,42 @@ Partial Public Class Claim
     Protected WithEvents txtAdultPremium_MaskedEditExtender As Global.AjaxControlToolkit.MaskedEditExtender
 
     '''<summary>
+    '''lblICD control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblICD As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''ddlICDData control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlICDData As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''txtICDCode0 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtICDCode0 As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''RequiredFieldValidator3 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents RequiredFieldValidator3 As Global.System.Web.UI.WebControls.RequiredFieldValidator
+
+    '''<summary>
     '''lblICD1 control.
     '''</summary>
     '''<remarks>
@@ -554,15 +563,6 @@ Partial Public Class Claim
     Protected WithEvents lblVisitType As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Label1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
     '''ddlVisitType control.
     '''</summary>
     '''<remarks>
@@ -581,22 +581,13 @@ Partial Public Class Claim
     Protected WithEvents RequiredFieldValidator5 As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
-    '''lblOPDIPD control.
+    '''lblGurantee control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblOPDIPD As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''ddlOPDIPD control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlOPDIPD As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents lblGurantee As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''txtGuaranteeId control.

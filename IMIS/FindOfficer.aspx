@@ -127,7 +127,15 @@ In case of dispute arising out or in relation to the use of the program, it is s
                 <td>
                       <table>
             <tr>
-            
+            <td class="FormLabel">
+                            <asp:Label 
+                            ID="L_OTHERNAMES"
+                            runat="server" 
+                            Text='<%$ Resources:Resource,L_OTHERNAMES %>'>
+                            </asp:Label>
+                        </td>
+                <td class ="DataEntry">
+                    <asp:TextBox ID="txtOtherNames" Width="130px" runat="server"></asp:TextBox></td>
                <td class="FormLabel">
                             <asp:Label 
                             ID="L_LASTNAME"
@@ -137,15 +145,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                         </td>
                 <td class ="DataEntry">
                     <asp:TextBox ID="txtLastName" runat="server"></asp:TextBox></td>
-                <td class="FormLabel">
-                            <asp:Label 
-                            ID="L_OTHERNAMES"
-                            runat="server" 
-                            Text='<%$ Resources:Resource,L_OTHERNAMES %>'>
-                            </asp:Label>
-                        </td>
-                <td class ="DataEntry">
-                    <asp:TextBox ID="txtOtherNames" Width="130px" runat="server"></asp:TextBox></td>
+                
                  <td class ="FormLabel">
                      <asp:Label ID="L_REGION" runat="server" Text="<%$ Resources:Resource,L_REGION %>">
                      </asp:Label>
@@ -314,15 +314,15 @@ In case of dispute arising out or in relation to the use of the program, it is s
                             <HeaderStyle CssClass="HideButton" />
                             <ItemStyle CssClass="HideButton" />
                             </asp:CommandField>
-                               
+                         <asp:BoundField DataField="OtherNames"  HeaderText='<%$ Resources:Resource,L_OTHERNAMES%>'     
+                                SortExpression="OtherNames" HeaderStyle-Width ="130px"> 
+                       
+                        </asp:BoundField>       
                         <asp:BoundField DataField="LastName"  HeaderText='<%$ Resources:Resource,L_LASTNAME%>'
                                 SortExpression="LastName" HeaderStyle-Width ="160px"> 
                         
                         </asp:BoundField> 
-                        <asp:BoundField DataField="OtherNames"  HeaderText='<%$ Resources:Resource,L_OTHERNAMES%>'     
-                                SortExpression="OtherNames" HeaderStyle-Width ="130px"> 
-                       
-                        </asp:BoundField> 
+                        
                         <asp:BoundField DataField="DOB" HeaderText='<%$ Resources:Resource,L_BIRTHDATE %>' SortExpression="DOB" 
                                 HeaderStyle-Width="70px" DataFormatString="{0:d}"> 
                        

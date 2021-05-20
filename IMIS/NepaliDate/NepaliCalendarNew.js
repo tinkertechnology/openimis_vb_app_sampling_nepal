@@ -12,9 +12,39 @@
         var npDates;
         var npDatesNew;
         // for type input have .dateCheck as class
-        $(".dateCheck, #Body_txtEnrollmentDate, #Body_txtPaymentDate, #Body_txtSTARTData, #Body_txtENDData, #Body_txtBirthDate").each(function () {
+        $(".dateCheck, #Body_txtEnrollmentDate, #Body_txtPaymentDate, #Body_txtSTARTData, #Body_txtENDData, #Body_txtBirthDate, .BirthDate").each(function () {
             var width = $(this).width();
             var html = $(this).parent();
+            var minDate = 0;
+            var maxDate = 0;
+            if (($(this).attr("id") === 'Body_txtEnrollmentDate') || ($(this).attr("id") === 'Body_txtPaymentDate')) {
+                minDate = -150;
+                maxDate = 0;
+            }
+            else if ($(this).attr("id") === 'Body_txtBirthDate') {
+                minDate = -38325;
+                maxDate = 0;
+            }
+            else if (($(this).attr("class") === 'dateCheck insureePageFrom') || ($(this).attr("class") === 'dateCheck insureePageTo')) {
+                minDate = -2555;
+                maxDate = 0;
+            }
+            else if (($(this).attr("class") === 'dateCheck policyPageFrom') || ($(this).attr("class") === 'dateCheck policyPageTo')) {
+                minDate = -2555;
+                maxDate = 0;
+            }
+            else if (($(this).attr("class") === 'dateCheck claimPageFrom') || ($(this).attr("class") === 'dateCheck claimPageTo')) {
+                minDate = -2555;
+                maxDate = 0;
+            }
+            else if (($(this).attr("class") === 'claimEntryFrom requiedField') || ($(this).attr("class") === 'claimEntryTo requiedField')) {
+                minDate = -32;
+                maxDate = 0;
+            }
+            else {
+                minDate = -10;
+                maxDate = +10;
+            }
             //var customDateField = $('<input type="text" class="customDatePicker" style="width: ' + width + 'px;" placeholder="Nepali Date(dd/mm/yyyy)" />');
             var customDateField = $('<input type="text" class="customDatePicker" style="width: 80px;" placeholder="Nepali Date" />');
             customDateField.prependTo(html);
@@ -25,6 +55,8 @@
                 showAnim: "",
                 dateFormat: 'dd/mm/yyyy',
                 firstDay: 0,
+                minDate: minDate,
+                maxDate: maxDate,                
                 onSelect: function (npDate) {
                     converter.setNepaliDate(npDate[0]._year, npDate[0]._month, npDate[0]._day);
                     customDateField.next('input').val(converter.toEnglishString());

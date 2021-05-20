@@ -293,33 +293,6 @@ Partial Public Class FamilyNew
     Protected WithEvents trType As Global.System.Web.UI.HtmlControls.HtmlTableRow
 
     '''<summary>
-    '''L_TYPE control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents L_TYPE As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''ddlType control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlType As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''rfType control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents rfType As Global.System.Web.UI.WebControls.RequiredFieldValidator
-
-    '''<summary>
     '''lblEthnicity control.
     '''</summary>
     '''<remarks>
@@ -590,150 +563,6 @@ Partial Public Class FamilyNew
     Protected WithEvents ddlEducation As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''trCurrentRegion control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents trCurrentRegion As Global.System.Web.UI.HtmlControls.HtmlTableRow
-
-    '''<summary>
-    '''lblCurrentRegion control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblCurrentRegion As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''UpdatePanel3 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents UpdatePanel3 As Global.System.Web.UI.UpdatePanel
-
-    '''<summary>
-    '''ddlCurrentRegion control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlCurrentRegion As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''lblCurrentDistrict0 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblCurrentDistrict0 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''upCurDistrict control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents upCurDistrict As Global.System.Web.UI.UpdatePanel
-
-    '''<summary>
-    '''ddlCurDistrict control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlCurDistrict As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''lblCurrentVDC0 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblCurrentVDC0 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''upCurVDC control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents upCurVDC As Global.System.Web.UI.UpdatePanel
-
-    '''<summary>
-    '''ddlCurVDC control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlCurVDC As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''trCurrentVillage control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents trCurrentVillage As Global.System.Web.UI.HtmlControls.HtmlTableRow
-
-    '''<summary>
-    '''lblCurrentWard0 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblCurrentWard0 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''upCurWard control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents upCurWard As Global.System.Web.UI.UpdatePanel
-
-    '''<summary>
-    '''ddlCurWard control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlCurWard As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''lblCurrentAddress0 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblCurrentAddress0 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''txtCurrentAddress control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtCurrentAddress As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
     '''L_PHONE control.
     '''</summary>
     '''<remarks>
@@ -975,6 +804,150 @@ Partial Public Class FamilyNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents rfFSP As Global.System.Web.UI.WebControls.RequiredFieldValidator
+
+    '''<summary>
+    '''trCurrentRegion control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents trCurrentRegion As Global.System.Web.UI.HtmlControls.HtmlTableRow
+
+    '''<summary>
+    '''lblCurrentRegion control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblCurrentRegion As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''UpdatePanel3 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel3 As Global.System.Web.UI.UpdatePanel
+
+    '''<summary>
+    '''ddlCurrentRegion control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlCurrentRegion As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''lblCurrentDistrict0 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblCurrentDistrict0 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''upCurDistrict control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents upCurDistrict As Global.System.Web.UI.UpdatePanel
+
+    '''<summary>
+    '''ddlCurDistrict control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlCurDistrict As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''lblCurrentVDC0 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblCurrentVDC0 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''upCurVDC control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents upCurVDC As Global.System.Web.UI.UpdatePanel
+
+    '''<summary>
+    '''ddlCurVDC control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlCurVDC As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''trCurrentVillage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents trCurrentVillage As Global.System.Web.UI.HtmlControls.HtmlTableRow
+
+    '''<summary>
+    '''lblCurrentWard0 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblCurrentWard0 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''upCurWard control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents upCurWard As Global.System.Web.UI.UpdatePanel
+
+    '''<summary>
+    '''ddlCurWard control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlCurWard As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''lblCurrentAddress0 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblCurrentAddress0 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''txtCurrentAddress control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtCurrentAddress As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''upDL control.

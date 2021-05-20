@@ -86,10 +86,10 @@
 		<value>Role name</value>
 	</data>
 	<data name="L_OTHERNAMES" xml:space="preserve">
-		<value>Given names</value>
+		<value>First name</value>
 	</data>
 	<data name="L_VILLAGE" xml:space="preserve">
-		<value>Village</value>
+		<value>Ward</value>
 	</data>
 	<data name="L_WARD" xml:space="preserve">
 		<value>Municipality</value>
@@ -173,7 +173,7 @@
 		<value>Please select Marital Status</value>
 	</data>
 	<data name="V_OTHERNAMES" xml:space="preserve">
-		<value>Please enter Given Names.</value>
+		<value>Please enter First Name.</value>
 	</data>
 	<data name="V_POVERTY" xml:space="preserve">
 		<value>Please select if the Family/Group has poverty Status.</value>
@@ -458,7 +458,7 @@
 		<value>Please check fields marked with an asterisk (*).</value>
 	</data>
 	<data name="G_OFFICER" xml:space="preserve">
-		<value>Enrolment Officers Details</value>
+		<value>Enrolment Assitant Details</value>
 	</data>
 	<data name="G_PAYER" xml:space="preserve">
 		<value>Payer Details</value>
@@ -944,7 +944,7 @@
 		<value>Deductable (General) Ceiling</value>
 	</data>
 	<data name="L_ENROLMENTOFFICERS" xml:space="preserve">
-		<value>Enrolment Officer</value>
+		<value>Enrolment Assistant</value>
 	</data>
 	<data name="L_BALANCE" xml:space="preserve">
 		<value>Balance</value>
@@ -1160,7 +1160,7 @@
 		<value>Medical Services Control Panel</value>
 	</data>
 	<data name="P_FINDOFFICER" xml:space="preserve">
-		<value>Enrolment Officers Control Panel</value>
+		<value>Enrolment Assistant Control Panel</value>
 	</data>
 	<data name="P_FINDPAYER" xml:space="preserve">
 		<value>Payer Control Panel</value>
@@ -1370,7 +1370,7 @@
 		<value>-- Select Level--</value>
 	</data>
 	<data name="T_SELECTOFFICER" xml:space="preserve">
-		<value>-- Select Enrolment Officer --</value>
+		<value>-- Select Enrolment Assistant --</value>
 	</data>
 	<data name="T_SELECTPATIENT" xml:space="preserve">
 		<value>-- Select Patient --</value>
@@ -2351,7 +2351,7 @@
 		<value>Please select a District</value>
 	</data>
 	<data name="L_OFFICER" xml:space="preserve">
-		<value>Enrolment Officers</value>
+		<value>Enrolment Assistants</value>
 	</data>
 	<data name="L_ON" xml:space="preserve">
 		<value>On</value>
@@ -2393,7 +2393,7 @@
 		<value>District Name</value>
 	</data>
 	<data name="L_VillageName" xml:space="preserve">
-		<value>Village Name</value>
+		<value>Ward Name</value>
 	</data>
 	<data name="L_WardName" xml:space="preserve">
 		<value>Municipality Name</value>
@@ -2402,7 +2402,7 @@
 		<value>Are you sure you want to delete District</value>
 	</data>
 	<data name="M_DELETEVILLAGEPROMPT" xml:space="preserve">
-		<value>Are you sure you want to delete village</value>
+		<value>Are you sure you want to delete Ward</value>
 	</data>
 	<data name="M_DELETEWARDPROMPT" xml:space="preserve">
 		<value>Are you sure you want to delete Municipality</value>
@@ -2468,7 +2468,7 @@
 		<value>User Name</value>
 	</data>
 	<data name="L_NOOFENROLMENTOFFICERS" xml:space="preserve">
-		<value>No of Enrolment Officers</value>
+		<value>No of Enrolment Assistants</value>
 	</data>
 	<data name="L_NOOFHEALTHFACILITIES" xml:space="preserve">
 		<value>No of Health Facilities</value>
@@ -2516,7 +2516,7 @@
 		<value>Select Claim Admin</value>
 	</data>
 	<data name="L_OFFICERCODE" xml:space="preserve">
-		<value>Enrolment Officers Code</value>
+		<value>Enrolment Assistant Code</value>
 	</data>
 	<data name="L_EXTR_OFFLINENROLMENT" xml:space="preserve">
 		<value>Download Enrolments</value>
@@ -2603,7 +2603,7 @@
 		<value>Policy not deleted</value>
 	</data>
 	<data name="NOVILLAGESPECIFIED" xml:space="preserve">
-		<value>No village specified</value>
+		<value>No Ward specified</value>
 	</data>
 	<data name="M_NOWARDSPECIFIED" xml:space="preserve">
 		<value>No Municipality specified</value>
@@ -2615,10 +2615,10 @@
 		<value>IsHead </value>
 	</data>
 	<data name="L_OFFICERLASTNAME" xml:space="preserve">
-		<value>Enrolment Officers Last Name</value>
+		<value>Enrolment Assistants Last Name</value>
 	</data>
 	<data name="L_OFFICEROTHERNAMES" xml:space="preserve">
-		<value>Enrolment Officers First Name</value>
+		<value>Enrolment Assistants First Name</value>
 	</data>
 	<data name="T_INSUREESWITHOUTPHOTOS" xml:space="preserve">
 		<value>Insurees without Photos</value>
@@ -2651,7 +2651,7 @@
 		<value>Pay Category</value>
 	</data>
 	<data name="L_GUARANTEE" xml:space="preserve">
-		<value>Guarantee No</value>
+		<value>NMC/Council No</value>
 	</data>
 	<data name="L_STARTCYCLE1" xml:space="preserve">
 		<value>Start Cycle 1</value>
@@ -2861,7 +2861,7 @@
 		<value>District saved successfully</value>
 	</data>
 	<data name="M_VILLAGESAVED" xml:space="preserve">
-		<value>Village saved successfully</value>
+		<value>Ward saved successfully</value>
 	</data>
 	<data name="M_WARDSAVED" xml:space="preserve">
 		<value>Municipality saved successfully</value>
@@ -3155,7 +3155,7 @@
 		<value>Current Municipality</value>
 	</data>
 	<data name="L_CWARD" xml:space="preserve">
-		<value>Current Village</value>
+		<value>Current Ward</value>
 	</data>
 	<data name="L_FREEITEMPRICE" xml:space="preserve">
 		<value>Free item price</value>
@@ -3326,7 +3326,7 @@
 		<value>All Claims</value>
 	</data>
 	<data name="R_ENROLLMENTOFFICER" xml:space="preserve">
-		<value>Enrollment Officer</value>
+		<value>Enrollment Assistant</value>
 	</data>
 	<data name="R_EXTRACT" xml:space="preserve">
 		<value>Extract</value>
@@ -3473,7 +3473,7 @@
 		<value>Find Medical Services</value>
 	</data>
 	<data name="L_FINDOFFICER" xml:space="preserve">
-		<value>Find Enrolment Officers</value>
+		<value>Find Enrolment Assistant</value>
 	</data>
 	<data name="L_FINDPREMIUM" xml:space="preserve">
 		<value>Find Contributions</value>
@@ -3551,10 +3551,10 @@
 		<value>We could not send email. Please try again later.</value>
 	</data>
 	<data name="L_REGION" xml:space="preserve">
-		<value>Region</value>
+		<value>Province</value>
 	</data>
 	<data name="M_NOREGIONS" xml:space="preserve">
-		<value>No regions found</value>
+		<value>No provinces found</value>
 	</data>
 	<data name="R_PHOTODATE" xml:space="preserve">
 		<value>Photo Date</value>
@@ -3563,16 +3563,16 @@
 		<value>Total Insurees</value>
 	</data>
 	<data name="L_REGIONNAME" xml:space="preserve">
-		<value>Region Name</value>
+		<value>Province Name</value>
 	</data>
 	<data name="M_DELETEREGIONPROMPT" xml:space="preserve">
-		<value>Are you sure you want to delete Region?</value>
+		<value>Are you sure you want to delete Province?</value>
 	</data>
 	<data name="M_DISTRICTINREGION" xml:space="preserve">
-		<value>Please delete District in region first</value>
+		<value>Please delete District in province first</value>
 	</data>
 	<data name="NOREGIONSPECIFIED" xml:space="preserve">
-		<value>No region specified</value>
+		<value>No province specified</value>
 	</data>
 	<data name="M_BELONGSTO" xml:space="preserve">
 		<value>already belongs to</value>
@@ -3584,13 +3584,13 @@
 		<value>Invalidy location type</value>
 	</data>
 	<data name="M_PLEASESELECTAREGION" xml:space="preserve">
-		<value>Please select a Region</value>
+		<value>Please select a Province</value>
 	</data>
 	<data name="M_SUCCESSFULLYMOVED" xml:space="preserve">
 		<value>successfully moved to </value>
 	</data>
 	<data name="T_SELECREGION" xml:space="preserve">
-		<value>--Select Region--</value>
+		<value>--Select Province--</value>
 	</data>
 	<data name="L_MOVELOCATIONS" xml:space="preserve">
 		<value>Move locations</value>
@@ -3602,7 +3602,7 @@
 		<value>Sorting</value>
 	</data>
 	<data name="M_PLEASESELECTOFFICER" xml:space="preserve">
-		<value>Please select an enrolment officer</value>
+		<value>Please select an enrolment assistant</value>
 	</data>
 	<data name="L_BIRTHDATEFROM" xml:space="preserve">
 		<value>Birth Date From</value>
@@ -3677,10 +3677,10 @@
 		<value>District Code</value>
 	</data>
 	<data name="L_REGIONCODE" xml:space="preserve">
-		<value>Region Code</value>
+		<value>Province Code</value>
 	</data>
 	<data name="L_VILLAGECODE" xml:space="preserve">
-		<value>Village Code</value>
+		<value>Ward Code</value>
 	</data>
 	<data name="L_WARDCODE" xml:space="preserve">
 		<value>Municipality Code</value>
@@ -3692,7 +3692,7 @@
 		<value>This code has aready been used, please use different code</value>
 	</data>
 	<data name="M_REGION" xml:space="preserve">
-		<value>Regional</value>
+		<value>Provincial</value>
 	</data>
 	<data name="L_FAMILYABRREVIATION" xml:space="preserve">
 		<value>Fam.</value>
@@ -3707,7 +3707,7 @@
 		<value>O</value>
 	</data>
 	<data name="M_REGIONSAVED" xml:space="preserve">
-		<value>Region saved successfully</value>
+		<value>Province saved successfully</value>
 	</data>
 	<data name="M_FEEDBACKSELECTION" xml:space="preserve">
 		<value>Would you like to apply the following criteria for feedback selection &lt;br /&gt;</value>
@@ -3734,10 +3734,10 @@
 		<value>No municipalities found</value>
 	</data>
 	<data name="L_FSPREGION" xml:space="preserve">
-		<value>Region of FSP</value>
+		<value>Province of FSP</value>
 	</data>
 	<data name="L_CREGION" xml:space="preserve">
-		<value>Current Region</value>
+		<value>Current Province</value>
 	</data>
 	<data name="L_LOADMEDICALITEMS" xml:space="preserve">
 		<value>Click here to load medical items</value>
@@ -3833,7 +3833,7 @@
 		<value>District Total</value>
 	</data>
 	<data name="L_REGIONTOTAL" xml:space="preserve">
-		<value>Region Total</value>
+		<value>Province Total</value>
 	</data>
 	<data name="L_UNITPRICE" xml:space="preserve">
 		<value>Unit Price</value>
@@ -3869,10 +3869,10 @@
 		<value>Duplicate Municipality Code in excel</value>
 	</data>
 	<data name="M_DUPLICATEREGIONCODEINEXCEL" xml:space="preserve">
-		<value>Duplicate Region Code in excel</value>
+		<value>Duplicate Province Code in excel</value>
 	</data>
 	<data name="M_DUPLICATEVILLAGECODEINEXCEL" xml:space="preserve">
-		<value>Duplicate Village Code in excel</value>
+		<value>Duplicate Ward Code in excel</value>
 	</data>
 	<data name="M_INVALIDDISTRICTFILEINEXCEL" xml:space="preserve">
 		<value>Invalid District File(Either Tab name or Column names or inputs are invalid)</value>
@@ -3881,13 +3881,13 @@
 		<value>Invalid Municipality File(Either Tab name or Column names or inputs are invalid)</value>
 	</data>
 	<data name="M_INVALIDREGIONFILEINEXCEL" xml:space="preserve">
-		<value>Invalid Region File(Either Tab name or Column names or inputs are invalid)!</value>
+		<value>Invalid Province File(Either Tab name or Column names or inputs are invalid)!</value>
 	</data>
 	<data name="M_INVALIDVILLAGEFILEINEXCEL" xml:space="preserve">
-		<value>Invalid Village File(Either Tab name or Column names or inputs are invalid)</value>
+		<value>Invalid Ward File(Either Tab name or Column names or inputs are invalid)</value>
 	</data>
 	<data name="M_INVALIDVILLAGEPOPULATIONINEXCEL" xml:space="preserve">
-		<value>Village population must be numeric in excel</value>
+		<value>Ward population must be numeric in excel</value>
 	</data>
 	<data name="M_MISSINGDISTRICTCODEORNAMEINEXCEL" xml:space="preserve">
 		<value>Missing District name or Code in Excel</value>
@@ -3896,16 +3896,16 @@
 		<value>Missing Municipality name or Code in Excel</value>
 	</data>
 	<data name="M_MISSINGREGIONCODEORNAMEINEXCEL" xml:space="preserve">
-		<value>Missing Region name or Code in Excel</value>
+		<value>Missing Province name or Code in Excel</value>
 	</data>
 	<data name="M_MISSINGVILLAGECODEORNAMEINEXCEL" xml:space="preserve">
-		<value>Missing Village name or Code in Excel</value>
+		<value>Missing Ward name or Code in Excel</value>
 	</data>
 	<data name="M_MUNICIPALITYCODEEXISTSINDB" xml:space="preserve">
 		<value>Municipality Code in excel Already Exist in Database</value>
 	</data>
 	<data name="M_MUNICIPALITYCODENOTEXISTSINEXCELORDB" xml:space="preserve">
-		<value>Wardcode in Village Excel does not exist in Either Database or Ward Excel</value>
+		<value>Wardcode in Ward Excel does not exist in Either Database or Ward Excel</value>
 	</data>
 	<data name="M_REGIONCODEEXISTSINDB" xml:space="preserve">
 		<value>Region Code in excel Already Exists in Database</value>
@@ -3917,7 +3917,7 @@
 		<value>Unexpected Error when Importing Locations</value>
 	</data>
 	<data name="M_VILLAGECODEEXISTSINDB" xml:space="preserve">
-		<value>Village Code in excel Already Exists in Database</value>
+		<value>Ward Code in excel Already Exists in Database</value>
 	</data>
 	<data name="M_UPLOADEDLOCATIONS" xml:space="preserve">
 		<value>Uploaded Locations</value>
@@ -4310,7 +4310,7 @@
 		<value>Last Name</value>
 	</data>
 	<data name="L_OTHERNAME" xml:space="preserve">
-		<value>Given Name</value>
+		<value>First Name</value>
 	</data>
 	<data name="L_PHONE" xml:space="preserve">
 		<value>Phone</value>
@@ -4499,7 +4499,7 @@
 		<value>Inquire</value>
 	</data>
 	<data name="R_ENROLMENTOFFICER" xml:space="preserve">
-		<value>Enrollment Officers</value>
+		<value>Enrollment Assistants</value>
 	</data>
 	<data name="R_ENROLMENTPERFORMANCEI" xml:space="preserve">
 		<value>Enrollment Performance Indicators</value>
@@ -5045,5 +5045,8 @@ adults/children)
 	</data>
 	<data name="L_PAYMENTTYPE1" xml:space="preserve">
 		<value>Payment Type</value>
+	</data>
+  <data name="X_CLAIM_NOTICE" xml:space="preserve">
+		<value>कृपया यस Claim सँग सम्वन्धित सबै कागजत मोबाईल App अथवा वेबसाईटबाट अनिवार्य अपलोड गर्नु होला।</value>
 	</data>
 </root>

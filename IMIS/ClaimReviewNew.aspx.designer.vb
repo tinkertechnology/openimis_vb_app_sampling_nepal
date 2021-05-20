@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class ClaimReviewNew
-    
+
     '''<summary>
     '''pnlPage control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents pnlPage As Global.System.Web.UI.WebControls.Panel
-    
+
     '''<summary>
     '''rptInsuree control.
     '''</summary>
@@ -30,7 +30,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents rptInsuree As Global.System.Web.UI.WebControls.Repeater
-    
+
     '''<summary>
     '''Label1 control.
     '''</summary>
@@ -39,7 +39,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblFSPDATA control.
     '''</summary>
@@ -48,7 +48,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblFSPDATA As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblExpiry control.
     '''</summary>
@@ -57,7 +57,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblExpiry As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblExpiryData control.
     '''</summary>
@@ -66,7 +66,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblExpiryData As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblStatus control.
     '''</summary>
@@ -75,7 +75,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblStatus As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblStatusData control.
     '''</summary>
@@ -84,7 +84,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblStatusData As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblBalance control.
     '''</summary>
@@ -93,7 +93,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblBalance As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblBalacneData control.
     '''</summary>
@@ -102,7 +102,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblBalacneData As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''Panel1 control.
     '''</summary>
@@ -111,7 +111,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Panel1 As Global.System.Web.UI.WebControls.Panel
-    
+
     '''<summary>
     '''lblCLAIMCode control.
     '''</summary>
@@ -120,7 +120,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblCLAIMCode As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblCLAIMData control.
     '''</summary>
@@ -129,7 +129,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblCLAIMData As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblSTARTDATE control.
     '''</summary>
@@ -138,7 +138,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblSTARTDATE As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblSTARTData control.
     '''</summary>
@@ -147,7 +147,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblSTARTData As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblCLAIMTOTAL control.
     '''</summary>
@@ -156,7 +156,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblCLAIMTOTAL As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''txtCLAIMTOTALData control.
     '''</summary>
@@ -165,7 +165,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtCLAIMTOTALData As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''lblHFCODE control.
     '''</summary>
@@ -174,7 +174,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblHFCODE As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblHFCODEData control.
     '''</summary>
@@ -183,7 +183,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblHFCODEData As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblEND control.
     '''</summary>
@@ -192,7 +192,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblEND As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblENDData control.
     '''</summary>
@@ -201,7 +201,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblENDData As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblTotalDays control.
     '''</summary>
@@ -210,7 +210,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTotalDays As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''L_APPROVED control.
     '''</summary>
@@ -219,7 +219,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents L_APPROVED As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''txtApproved control.
     '''</summary>
@@ -228,7 +228,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtApproved As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''lblCLAIMDATE control.
     '''</summary>
@@ -237,7 +237,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblCLAIMDATE As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblCLAIMDATEData control.
     '''</summary>
@@ -246,7 +246,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblCLAIMDATEData As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblICD control.
     '''</summary>
@@ -255,7 +255,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblICD As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblICDData control.
     '''</summary>
@@ -264,7 +264,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblICDData As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblVALUATED control.
     '''</summary>
@@ -273,7 +273,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblVALUATED As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''txtPriceVALUATEDData control.
     '''</summary>
@@ -282,7 +282,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtPriceVALUATEDData As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''MaskedEditExtender2 control.
     '''</summary>
@@ -291,7 +291,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents MaskedEditExtender2 As Global.AjaxControlToolkit.MaskedEditExtender
-    
+
     '''<summary>
     '''lblDATERELEASED control.
     '''</summary>
@@ -300,7 +300,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblDATERELEASED As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblDateProcessed control.
     '''</summary>
@@ -309,7 +309,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblDateProcessed As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblICD1 control.
     '''</summary>
@@ -318,7 +318,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblICD1 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblICDData1 control.
     '''</summary>
@@ -327,7 +327,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblICDData1 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''hfOldClaimID control.
     '''</summary>
@@ -336,7 +336,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents hfOldClaimID As Global.System.Web.UI.WebControls.HiddenField
-    
+
     '''<summary>
     '''lblLastVisit control.
     '''</summary>
@@ -345,7 +345,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblLastVisit As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblLastDays control.
     '''</summary>
@@ -354,7 +354,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblLastDays As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblVisitType control.
     '''</summary>
@@ -363,7 +363,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblVisitType As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblVisitTypeData control.
     '''</summary>
@@ -372,7 +372,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblVisitTypeData As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblGuaranteeNo control.
     '''</summary>
@@ -381,7 +381,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblGuaranteeNo As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblGuaranteeData control.
     '''</summary>
@@ -390,7 +390,16 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblGuaranteeData As Global.System.Web.UI.WebControls.Label
-    
+
+    '''<summary>
+    '''lblAttachment control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblAttachment As Global.System.Web.UI.WebControls.Label
+
     '''<summary>
     '''lblServiceDetails control.
     '''</summary>
@@ -399,7 +408,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblServiceDetails As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''pnlServiceDetails control.
     '''</summary>
@@ -408,7 +417,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents pnlServiceDetails As Global.System.Web.UI.WebControls.Panel
-    
+
     '''<summary>
     '''gvService control.
     '''</summary>
@@ -417,7 +426,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents gvService As Global.System.Web.UI.WebControls.GridView
-    
+
     '''<summary>
     '''lblItems control.
     '''</summary>
@@ -426,7 +435,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblItems As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''pnlItemsDetails control.
     '''</summary>
@@ -435,7 +444,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents pnlItemsDetails As Global.System.Web.UI.WebControls.Panel
-    
+
     '''<summary>
     '''gvItems control.
     '''</summary>
@@ -444,7 +453,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents gvItems As Global.System.Web.UI.WebControls.GridView
-    
+
     '''<summary>
     '''lblEXPLANATION control.
     '''</summary>
@@ -453,7 +462,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblEXPLANATION As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''txtEXPLANATION control.
     '''</summary>
@@ -462,7 +471,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtEXPLANATION As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''lblCLAIMSTATUS control.
     '''</summary>
@@ -471,7 +480,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblCLAIMSTATUS As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''txtClaimStatus control.
     '''</summary>
@@ -480,7 +489,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtClaimStatus As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''lblADJUSTMENT control.
     '''</summary>
@@ -489,7 +498,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblADJUSTMENT As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''txtADJUSTMENTData control.
     '''</summary>
@@ -498,7 +507,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtADJUSTMENTData As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''hfApprovedValue control.
     '''</summary>
@@ -507,7 +516,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents hfApprovedValue As Global.System.Web.UI.WebControls.HiddenField
-    
+
     '''<summary>
     '''hfClaimedValue control.
     '''</summary>
@@ -516,7 +525,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents hfClaimedValue As Global.System.Web.UI.WebControls.HiddenField
-    
+
     '''<summary>
     '''hfClaimAdminId control.
     '''</summary>
@@ -525,7 +534,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents hfClaimAdminId As Global.System.Web.UI.WebControls.HiddenField
-    
+
     '''<summary>
     '''hfBatchID control.
     '''</summary>
@@ -534,7 +543,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents hfBatchID As Global.System.Web.UI.WebControls.HiddenField
-    
+
     '''<summary>
     '''pnlButtons control.
     '''</summary>
@@ -543,7 +552,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents pnlButtons As Global.System.Web.UI.WebControls.Panel
-    
+
     '''<summary>
     '''B_SAVE control.
     '''</summary>
@@ -552,7 +561,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents B_SAVE As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''B_REVIEWED control.
     '''</summary>
@@ -561,7 +570,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents B_REVIEWED As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''B_CANCEL control.
     '''</summary>
@@ -570,7 +579,7 @@ Partial Public Class ClaimReviewNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents B_CANCEL As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''lblMsg control.
     '''</summary>

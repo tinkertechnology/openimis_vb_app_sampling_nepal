@@ -102,9 +102,9 @@ Public Class HealthFacilityBL
         'dtbl.Rows.Add(dr)
 
 
-        dr("Code") = "D"
-        dr("HFLevel") = imisgen.getMessage("T_DISPENSARY")
-        dtbl.Rows.Add(dr)
+        'dr("Code") = "D"
+        'dr("HFLevel") = imisgen.getMessage("T_DISPENSARY")
+        'dtbl.Rows.Add(dr)
 
         dr = dtbl.NewRow
         dr("Code") = "C"

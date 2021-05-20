@@ -36,6 +36,7 @@ Partial Public Class ClaimReviewNew
     Private userBI As New IMIS_BI.UserBI
     Private eClaimAdmin As New IMIS_EN.tblClaimAdmin
     Private eExtra As New Dictionary(Of String, Object)
+    Private claimBI As New IMIS_BI.ClaimBI
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         lblMsg.Text = ""
@@ -50,7 +51,7 @@ Partial Public Class ClaimReviewNew
             End If
 
             If Not eClaim.tblICDCodes Is Nothing Then
-                lblICDData.Text = eClaim.tblICDCodes.ICDCode
+                lblICDData.Text = eClaim.tblICDCodes.ICDCode & " - " & eClaim.tblICDCodes.ICDName
             End If
             Dim NSHID As String
             NSHID = eClaim.tblInsuree.CHFID
@@ -60,9 +61,9 @@ Partial Public Class ClaimReviewNew
             BindData(NSHID, eClaim.ClaimID, eClaim.DateTo)
 
             'Addition for Nepal >> Start
-            'If eExtra.Keys.Contains("ICDCode1") AndAlso eExtra("ICDCode1") IsNot Nothing Then
-            '    lblICDData1.Text = eExtra("ICDCode1")
-            'End If
+            If eExtra.Keys.Contains("ICDCode1") AndAlso eExtra("ICDCode1") IsNot Nothing Then
+                lblICDData1.Text = eExtra("ICDCode1")
+            End If
             'If eExtra.Keys.Contains("ICDCode2") AndAlso eExtra("ICDCode2") IsNot Nothing Then
             '    lblICDData2.Text = eExtra("ICDCode2")
             'End If
@@ -90,6 +91,9 @@ Partial Public Class ClaimReviewNew
             'If Not eClaim.tblClaimAdmin.ClaimAdminCode Is Nothing Then
             'blClaimAdminCodeData.Text = eClaim.tblClaimAdmin.ClaimAdminCode.ToString.Trim
             'End If
+            If eClaim.Attachment = 0 Then
+                lblAttachment.Visible = False
+            End If
 
 
             If Not eClaim.GuaranteeId Is Nothing Then
@@ -406,6 +410,7 @@ Partial Public Class ClaimReviewNew
             EventLog.WriteEntry("IMIS", Page.Title & " : " & imisgen.getLoginName(Session("User")) & " : " & ex.Message, EventLogEntryType.Error, 999)
             Return
         End Try
+        'Response.Redirect("ClaimOverview.aspx?c=" & eClaim.ClaimUUID.ToString())
         Response.Redirect("ClaimOverview.aspx?c=" & eClaim.ClaimID)
     End Sub
 
@@ -422,6 +427,7 @@ Partial Public Class ClaimReviewNew
             EventLog.WriteEntry("IMIS", Page.Title & " : " & imisgen.getLoginName(Session("User")) & " : " & ex.Message, EventLogEntryType.Error, 999)
             Return
         End Try
+        'Response.Redirect("ClaimOverview.aspx?c=" & eClaim.ClaimUUID.ToString()
         Response.Redirect("ClaimOverview.aspx?c=" & eClaim.ClaimID)
     End Sub
     Private Sub AfterSaveMessage(ByVal chkSaveClmReview As Boolean, ByVal chkSaveClmItemsReview As Boolean, ByVal chkSaveClmServicesReview As Boolean)
@@ -444,6 +450,7 @@ Partial Public Class ClaimReviewNew
     End Sub
 
     Private Sub B_CANCEL_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles B_CANCEL.Click
+        'Response.Redirect("ClaimOverview.aspx?c=" & eClaim.ClaimUUID.ToString())
         Response.Redirect("ClaimOverview.aspx?c=" & eClaim.ClaimID)
     End Sub
 

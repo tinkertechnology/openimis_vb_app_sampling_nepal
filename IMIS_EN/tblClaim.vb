@@ -60,6 +60,8 @@ Partial Public Class tblClaim
     Public ClaimItems As New tblClaimItems
     Public ClaimServices As New tblClaimServices
 
+    Public Property Attachment As Integer
+
     Public Overridable Property tblBatchRun As tblBatchRun
     Public Overridable Property tblClaimAdmin As tblClaimAdmin
     Public Overridable Property tblFeedback As tblFeedback

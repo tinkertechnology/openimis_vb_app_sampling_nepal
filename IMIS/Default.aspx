@@ -36,6 +36,11 @@ In case of dispute arising out or in relation to the use of the program, it is s
     <script src="Javascripts/jquery-1.8.2.min.js" type="text/javascript"></script>
     <script src="Javascripts/Exact.js" type="text/javascript"></script>
     <script type="text/javascript" language="javascript">
+        if ((location.hostname == "imis.hib.gov.np") || (location.hostname == "imislegacy.hib.gov.np")) {
+            if (location.protocol !== 'https:') {
+                location.replace(`https:${location.href.substring(location.protocol.length)}`);
+            }
+        }
         function PreventBack(){window.history.forward();}
         setTimeout("PreventBack();",0);
         window.onunload = function() { null };

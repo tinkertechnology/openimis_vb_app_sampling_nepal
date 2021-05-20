@@ -48,7 +48,7 @@ Public Class ForgotPasswordBL
             Dim EmailHash As String = Users.CreateEmailHash(eUsers)
             Dim Template As String = HttpContext.Current.Server.MapPath("\") & "Templates\ForgotPassword.html"
             Dim StrPathAndQuery As String = HttpContext.Current.Request.Url.PathAndQuery
-            Dim NewPasswordPage As String = HttpContext.Current.Request.Url.AbsoluteUri.Replace(StrPathAndQuery, "/") & "EnterNewPassword.aspx?h=" & EmailHash
+            Dim NewPasswordPage As String = "https://imis.hib.gov.np/" & "EnterNewPassword.aspx?h=" & EmailHash
             'HttpContext.Current.Server.MapPath("\") & "EnterNewPassword.aspx?h=" & EmailHash
 
             Dim Dict As New Dictionary(Of String, String)

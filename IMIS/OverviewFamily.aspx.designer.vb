@@ -122,22 +122,22 @@ Partial Public Class OverviewFamily
     Protected WithEvents L_ADDRESS0 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''lblHeadLastName control.
+    '''lblHeadOtherNames control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblHeadLastName As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblHeadOtherNames As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''txtHeadLastName control.
+    '''txtHeadOtherNames control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtHeadLastName As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents txtHeadOtherNames As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''L_DISTRICT0 control.
@@ -185,22 +185,22 @@ Partial Public Class OverviewFamily
     Protected WithEvents txtPermanentAddress As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''lblHeadOtherNames control.
+    '''lblHeadLastName control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblHeadOtherNames As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblHeadLastName As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''txtHeadOtherNames control.
+    '''txtHeadLastName control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtHeadOtherNames As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents txtHeadLastName As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''L_WARD control.
@@ -282,6 +282,15 @@ Partial Public Class OverviewFamily
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Label2 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblCount control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblCount As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''AddInsuree control.
