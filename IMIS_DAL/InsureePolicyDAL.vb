@@ -101,4 +101,11 @@ Public Class InsureePolicyDAL
         data.params("@Activate", SqlDbType.Bit, Activate)
         data.ExecuteCommand()
     End Sub
+    Public Sub DeactivateInsuree(ByVal InsureeId As Integer)
+        Dim data As New ExactSQL
+        data.setSQLCommand("UPDATE tblInsureePolicy set ExpiryDate=getdate() WHERE InsureeId = @InsureeId and ExpiryDate>getdate()", CommandType.Text)
+        data.params("@InsureeID", SqlDbType.Int, InsureeId)
+        data.ExecuteCommand()
+
+    End Sub
 End Class

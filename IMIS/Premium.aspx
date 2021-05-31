@@ -407,6 +407,10 @@ In case of dispute arising out or in relation to the use of the program, it is s
            
                             <asp:DropDownList ID="ddlPayer" runat="server">
                             </asp:DropDownList>
+                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" 
+                                runat="server" ControlToValidate="ddlPayer" 
+                                ValidationGroup="check" ForeColor="Red" Display="Dynamic"  Text="*"
+                                ></asp:RequiredFieldValidator>
                         </td>
                        
                 
@@ -419,12 +423,12 @@ In case of dispute arising out or in relation to the use of the program, it is s
                         <td class="DataEntry">
                             <asp:DropDownList ID="ddlCategory" runat="server">
                             </asp:DropDownList>
-                        </td>
-                        <td>
-                            <asp:RequiredFieldValidator ID="RequiredFieldTypeOfPayment0" runat="server" 
-                                ControlToValidate="ddlCategory"  
-                                ValidationGroup="check" ForeColor="Red" Display="Dynamic" Text="*"
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" 
+                                runat="server" ControlToValidate="ddlCategory" 
+                                ValidationGroup="check" ForeColor="Red" Display="Dynamic"  Text="*"
                                 ></asp:RequiredFieldValidator>
+                        </td>
+                        <td>                           
                             
                         </td>
                     </tr>

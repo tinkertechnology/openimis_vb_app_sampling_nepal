@@ -248,6 +248,15 @@ Partial Public Class Premium
     Protected WithEvents ddlPayer As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''RequiredFieldValidator1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents RequiredFieldValidator1 As Global.System.Web.UI.WebControls.RequiredFieldValidator
+
+    '''<summary>
     '''trContributionCategory control.
     '''</summary>
     '''<remarks>
@@ -275,13 +284,13 @@ Partial Public Class Premium
     Protected WithEvents ddlCategory As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''RequiredFieldTypeOfPayment0 control.
+    '''RequiredFieldValidator2 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents RequiredFieldTypeOfPayment0 As Global.System.Web.UI.WebControls.RequiredFieldValidator
+    Protected WithEvents RequiredFieldValidator2 As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
     '''L_PremiumPaid control.

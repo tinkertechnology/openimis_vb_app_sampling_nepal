@@ -66,9 +66,9 @@ Partial Public Class Premium
         txtPoverty.Visible = Not (Adjustibility = "N")
 
         'Contribution Category
-        Adjustibility = General.getControlSetting("ContributionCategory")
-        trContributionCategory.Visible = Not (Adjustibility = "N")
-        RequiredFieldTypeOfPayment0.Enabled = (Adjustibility = "M")
+        'Adjustibility = General.getControlSetting("ContributionCategory")
+        'trContributionCategory.Visible = Not (Adjustibility = "N")
+        'RequiredFieldTypeOfPayment0.Enabled = (Adjustibility = "M")
 
     End Sub
 

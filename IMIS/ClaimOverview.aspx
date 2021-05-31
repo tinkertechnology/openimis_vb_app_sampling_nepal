@@ -89,10 +89,10 @@ Title = '<%$ Resources:Resource,L_CLAIMOVERVIEW %>'%>
      if (target.checked) {
          $('#<%=gvClaims.ClientID  %> tr:not(:first)').each(function(i) {
              $row = $(this); // current selected row reference.
-             $cell7 = $row.find("td").eq(7); //   cell7 in the current row.
-             $cell8 = $row.find("td").eq(8); //   cell8 in the current row.
-             $cell3 = $row.find("td").eq(3); //   cell3 in the current row.
-             $cell4 = $row.find("td").eq(4); //   cell4 in the current row.
+             $cell7 = $row.find("td").eq(8); //   cell7 in the current row.
+             $cell8 = $row.find("td").eq(9); //   cell8 in the current row.
+             $cell3 = $row.find("td").eq(4); //   cell3 in the current row.
+             $cell4 = $row.find("td").eq(5); //   cell4 in the current row.
              ClaimStatus = $.trim($cell7.html()).replace("&nbsp;", "");
              var $checkbx = $cell8.find("input[type=checkbox]").eq(0);
              var $ddlFeedbackStatus = $cell3.find("Select").eq(0);
@@ -107,10 +107,10 @@ Title = '<%$ Resources:Resource,L_CLAIMOVERVIEW %>'%>
           } else {
      $('#<%=gvClaims.ClientID  %> tr:not(:first)').each(function(i) {
          $row = $(this); // current selected row reference.
-         $cell7 = $row.find("td").eq(7); //   cell7 in the current row.
-         $cell8 = $row.find("td").eq(8); //   cell8 in the current row.
-         $cell3 = $row.find("td").eq(3); //   cell3 in the current row.
-         $cell4 = $row.find("td").eq(4); //   cell4 in the current row.
+         $cell7 = $row.find("td").eq(8); //   cell7 in the current row.
+         $cell8 = $row.find("td").eq(9); //   cell8 in the current row.
+         $cell3 = $row.find("td").eq(4); //   cell3 in the current row.
+         $cell4 = $row.find("td").eq(5); //   cell4 in the current row.
          ClaimStatus = $.trim($cell7.html()).replace("&nbsp;", "");
          var $checkbx = $cell8.find("input[type=checkbox]").eq(0);
          var $ddlFeedbackStatus = $cell3.find("Select").eq(0);
@@ -281,7 +281,7 @@ Title = '<%$ Resources:Resource,L_CLAIMOVERVIEW %>'%>
              var RevBoolean = false;
              var FedBoolean = false;
              $('#<%=gvClaims.ClientID  %> tr:not(:first)').each(function() {
-                 if ($(this).find("td").eq(8).find("input[type=checkbox]").is(":checked")) {
+                 if ($(this).find("td").eq(9).find("input[type=checkbox]").is(":checked")) {
                      flagProcessClaim = true;
                      return;
                  }
@@ -292,11 +292,11 @@ Title = '<%$ Resources:Resource,L_CLAIMOVERVIEW %>'%>
              var htmlMsgProcess3 = "";
              if (flagProcessClaim == true) {
                  $('#<%=gvClaims.ClientID  %> tr:not(:first)').each(function() {
-                     if ($(this).find("td").eq(8).find("input[type=checkbox]").is(":checked")) {
-                         if ($(this).find("td").eq(3).find("select").data("currenctStatusFed") == 4) {
+                     if ($(this).find("td").eq(9).find("input[type=checkbox]").is(":checked")) {
+                         if ($(this).find("td").eq(4).find("select").data("currenctStatusFed") == 4) {
                              FedBoolean = true;
                          }
-                         if ($(this).find("td").eq(4).find("select").data("currenstatusRev") == 4) {
+                         if ($(this).find("td").eq(5).find("select").data("currenstatusRev") == 4) {
                              RevBoolean = true;
                          }
                      }

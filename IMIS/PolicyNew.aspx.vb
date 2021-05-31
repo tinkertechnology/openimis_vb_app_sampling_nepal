@@ -263,9 +263,9 @@ Partial Public Class PolicyNew
             Dim dEnrolDate As Date = Date.ParseExact(txtEnrollmentDate.Text, "dd/MM/yyyy", Nothing)
 
             'if its renewal then we need to verify product for conversion
-            If hfPolicyStage.Value = "R" Then
-                'SetProductForRenewal()
-            End If
+            'If hfPolicyStage.Value = "R" Then
+            'SetProductForRenewal()
+            'If
 
 
             'Code below is commented after Jiri's comment on Start date must be the EnrollDate
@@ -290,10 +290,19 @@ Partial Public Class PolicyNew
                 txtExpiryDate.Text = ""
                 txtEffectiveDate.Text = ""
                 txtPolicyValue.Text = ""
+            ElseIf sender.ID = txtEnrollmentDate.ID Then
+                FillProductsd()
+                ddlProduct.SelectedValue = 0
+                txtStartDate.Text = ""
+                txtExpiryDate.Text = ""
+                txtEffectiveDate.Text = ""
+                txtPolicyValue.Text = ""
+
             End If
             'Addition for Nepal >> End
 
             If hfPolicyStage.Value = "R" Then
+                'FillProductsd()
                 ' SetProductForRenewal()
                 'If Request.QueryString("rpo") IsNot Nothing Then
                 'Dim UUID As Guid = Guid.Parse(Request.QueryString("rpo"))
@@ -340,25 +349,26 @@ Partial Public Class PolicyNew
 
                 End If
 
-                dt = Policy.GetPeriodForPolicy(eProduct.ProdID, dEnrolDate, HasCycle, hfPolicyStage.Value)
+                dt = Policy.GetPeriodForPolicy(eProduct.ProdID, dEnrolDate, HasCycle, "N")
+                'If (dt.Rows.Count > 0 And HasCycle = True) Or (Date.ParseExact(txtEnrollmentDate.Text, "dd/MM/yyyy", Nothing) <= dt(0)("StartDate") And hfPolicyStage.Value = "N") Then
                 If (dt.Rows.Count > 0 And HasCycle = True) Or (Date.ParseExact(txtEnrollmentDate.Text, "dd/MM/yyyy", Nothing) <= dt(0)("StartDate") And hfPolicyStage.Value = "N") Then
-                    If IsDate(dt(0)("StartDate")) Then
-                        txtStartDate.Text = dt(0)("StartDate")
-                    End If
-                    If IsDate(dt(0)("StartDate")) Then
-                        txtEffectiveDate.Text = dt(0)("StartDate")
-                    End If
-                    If IsDate(dt(0)("ExpiryDate")) Then
-                        txtExpiryDate.Text = dt(0)("ExpiryDate")
-                    End If
+                        If IsDate(dt(0)("StartDate")) Then
+                            txtStartDate.Text = dt(0)("StartDate")
+                        End If
+                        If IsDate(dt(0)("StartDate")) Then
+                            txtEffectiveDate.Text = dt(0)("StartDate")
+                        End If
+                        If IsDate(dt(0)("ExpiryDate")) Then
+                            txtExpiryDate.Text = dt(0)("ExpiryDate")
+                        End If
 
-                    'If CalcEffectiveDate < dt(0)("StartDate") Then
-                    '    txtEffectiveDate.Text = dt(0)("StartDate")
-                    'Else
-                    '    txtEffectiveDate.Text = CalcEffectiveDate
-                    'End If
-                Else
-                    Dim dStartDate As Date
+                        'If CalcEffectiveDate < dt(0)("StartDate") Then
+                        '    txtEffectiveDate.Text = dt(0)("StartDate")
+                        'Else
+                        '    txtEffectiveDate.Text = CalcEffectiveDate
+                        'End If
+                    Else
+                        Dim dStartDate As Date
                     If hfPolicyStage.Value = "N" Or hfPolicyStage.Value = "R" Then
                         txtStartDate.Text = txtEnrollmentDate.Text
                         txtEffectiveDate.Text = txtEnrollmentDate.Text
@@ -380,11 +390,7 @@ Partial Public Class PolicyNew
                         txtExpiryDate.Text = DateAdd(DateInterval.Day, -1, DateAdd(DateInterval.Month, CDbl(hfInsurancePeriod.Value), dStartDate))
 
                     End If
-
                 End If
-
-
-
             End If
             FillOfficers()
         End If
@@ -590,11 +596,11 @@ Partial Public Class PolicyNew
 
                 ePolicy.isOffline = False
                 ePremium.tblPolicy = ePolicy
-                ' removing policy check for now
-                'If Premium.isUniqueReceipt(ePremium) = False Then
-                'imisgen.Alert(imisgen.getMessage("M_DUPLICATERECEIPT"), pnlBody, alertPopupTitle:="IMIS")
-                'Return
-                'End If
+                'removing Policy check for now
+                If Premium.isUniqueReceipt(ePremium) = False Then
+                    imisgen.Alert(imisgen.getMessage("M_DUPLICATERECEIPT"), pnlBody, alertPopupTitle:="IMIS")
+                    Return
+                End If
 
                 Dim chk As Integer = Premium.SavePremium(ePremium, IMIS_Gen.offlineHF)
                 If chk = 0 Then

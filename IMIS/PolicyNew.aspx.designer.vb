@@ -590,6 +590,15 @@ Partial Public Class PolicyNew
     Protected WithEvents ddlPayer As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''RequiredfieldValidator5 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents RequiredfieldValidator5 As Global.System.Web.UI.WebControls.RequiredFieldValidator
+
+    '''<summary>
     '''L_PremiumPaid control.
     '''</summary>
     '''<remarks>
@@ -606,6 +615,15 @@ Partial Public Class PolicyNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlPremium As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''RequiredfieldValidator6 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents RequiredfieldValidator6 As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
     '''L_ReceiptNumber control.

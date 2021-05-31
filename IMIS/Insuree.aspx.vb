@@ -463,10 +463,10 @@ Partial Public Class Insuree
             eInsuree.AuditUserID = ePhotos.AuditUserID
             eInsuree.tblPhotos = ePhotos
 
-            'If Trim(txtCHFID.Text).Length < 9 Then
-            '    imisgen.Alert(imisgen.getMessage("M_CHFNUMBERFEWCHARACTERS"), pnlButtons, alertPopupTitle:="IMIS")
-            '    Return
-            'End If
+            If Trim(txtCHFID.Text).Length < 9 Then
+                imisgen.Alert(imisgen.getMessage("M_CHFNUMBERFEWCHARACTERS"), pnlButtons, alertPopupTitle:="IMIS")
+                Return
+            End If
 
             Dim dt As New DataTable
             dt = Insuree.GetMaxMemberCount(eInsuree.tblFamilies1.FamilyID)
@@ -558,18 +558,20 @@ Partial Public Class Insuree
             Return
         End Try
 
-        InsureeUUID = Insuree.GetInsureeUUIDByID(eInsuree.InsureeID)
-
-        Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString() & "&i=" & InsureeUUID.ToString())
+        'InsureeUUID = Insuree.GetInsureeUUIDByID(eInsuree.InsureeID)
+        'Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString() & "&i=" & InsureeUUID.ToString())
+        Response.Redirect("OverviewFamily.aspx?f=" & Request.QueryString("f") & "&i=" & eInsuree.InsureeID)
 
     End Sub
     Private Sub B_CANCEL_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles B_CANCEL.Click
         If B_SAVE.Visible = True Then
             If eInsuree.InsureeID > 0 Then
-                InsureeUUID = Insuree.GetInsureeUUIDByID(eInsuree.InsureeID)
-                Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString() & "&i=" & InsureeUUID.ToString())
+                'InsureeUUID = Insuree.GetInsureeUUIDByID(eInsuree.InsureeID)
+                'Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString() & "&i=" & InsureeUUID.ToString())
+                Response.Redirect("OverviewFamily.aspx?f=" & Request.QueryString("f") & "&i=" & eInsuree.InsureeID)
             Else
-                Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString())
+                'Response.Redirect("OverviewFamily.aspx?f=" & efamily.FamilyUUID.ToString())
+                Response.Redirect("OverviewFamily.aspx?f=" & Request.QueryString("f"))
             End If
         Else
             Response.Redirect("FindInsuree.aspx")

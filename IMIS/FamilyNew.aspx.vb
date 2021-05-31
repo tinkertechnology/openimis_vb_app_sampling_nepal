@@ -448,12 +448,12 @@ Public Class FamilyNew
     End Sub
     Protected Sub btnSave_Click(ByVal sender As Object, ByVal e As EventArgs) Handles B_SAVE.Click
         Try
-            'Dim birthdate As Date
-            'If Not IsDate(Date.ParseExact(txtBirthDate.Text, "dd/MM/yyyy", Nothing)) Then
-            '    Return
-            'Else
-            '    birthdate = Date.ParseExact(txtBirthDate.Text, "dd/MM/yyyy", Nothing)
-            'End If
+            Dim birthdate As Date
+            If Not IsDate(Date.ParseExact(txtBirthDate.Text, "dd/MM/yyyy", Nothing)) Then
+                Return
+            Else
+                birthdate = Date.ParseExact(txtBirthDate.Text, "dd/MM/yyyy", Nothing)
+            End If
 
             If Not Family.CheckCHFID(txtCHFID.Text) = True Then
                 imisgen.Alert(txtCHFID.Text & imisgen.getMessage("M_NOTVALIDCHFNUMBER"), pnlButtons, alertPopupTitle:="IMIS")
@@ -464,13 +464,11 @@ Public Class FamilyNew
             Dim ePhotos As New IMIS_EN.tblPhotos
 
             Dim msg As String = ""
-            'If Trim(txtCHFID.Text).Length < 9 Then
-            '    msg = imisgen.getMessage("M_CHFNUMBERFEWCHARACTERS")
+            If Trim(txtCHFID.Text).Length < 9 Then
+                msg = imisgen.getMessage("M_CHFNUMBERFEWCHARACTERS")
 
-            'Else
-            If Family.FamilyExists(txtCHFID.Text) Then
+            ElseIf Family.FamilyExists(txtCHFID.Text) Then
                 msg = imisgen.getMessage("M_CHFNUMBERMEMBEREXISTS")
-
             End If
 
             If msg.Length > 0 Then

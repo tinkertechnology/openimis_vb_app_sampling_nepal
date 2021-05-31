@@ -337,7 +337,8 @@ In case of dispute arising out or in relation to the use of the program, it is s
         function pageLoadExtend() {          
             
             
-           
+            $("[id*='Body_gvService_txtValue']").attr('readonly', true);
+            $("[id*='Body_gvItems_txtValueI']").attr('readonly', true);
 
             dropdown.init($("#DropDownSugTable"), function() { $('.ClaimValue').eq(0).trigger("change"); });
 
@@ -527,6 +528,13 @@ In case of dispute arising out or in relation to the use of the program, it is s
             $("#<%=txtICDCode1.ClientID %>").change(function () {
                 if ($(this).val() === "") {
                     $('#<% = hfICDID1.ClientID%>').val("")
+                }
+            });
+            $("[id^='Body_gvService_txtQuantityS_']").change(function () {
+                var ServCodeNam = $(event.target).closest('td').prev().find("input[type=text]").val();
+                if ((ServCodeNam == "OPD 2  OPD Hospital") || (ServCodeNam == "OPD 1  OPD PHC") || (ServCodeNam == "OPD 3  OPD Eye Hospital") || (ServCodeNam == "EMR 1  Emergency Hospital") || (ServCodeNam == "EMRPHC  Emergency PHC") || (ServCodeNam == "EMR 2  Emergency Eye Hospital")) {
+                    alert("Quantity is limited to 1 only!");
+                    $(this).val(1);
                 }
             });
             <%--
@@ -1105,7 +1113,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                 Text="*" ValidationGroup="check" ValidationExpression="^[0-9]*[\.\d]*"></asp:RegularExpressionValidator>--%>
                                     </ItemTemplate>
                                     <HeaderTemplate>
-                                        <asp:Label ID="lblQuantityS" runat="server" Text='<%$ Resources:Resource,L_QUANTITY %>'></asp:Label>
+                                        <asp:Label ID="lblQuantityS" runat="server" Text='<%$ Resources:Resource,L_QUANTITY %>' ></asp:Label>
                                     </HeaderTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderStyle-Width="100px">

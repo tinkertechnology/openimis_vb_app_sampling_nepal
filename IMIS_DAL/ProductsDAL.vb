@@ -308,14 +308,15 @@ Public Class ProductsDAL
         sSQL += " WHERE Prod.ValidityTo IS NULL "
         sSQL += " AND (L.Regionid = @RegionId OR @RegionId = 0 OR L.LocationId = 0)"
         sSQL += " AND (L.DistrictId = @DistrictId OR @DistrictId = 0 OR L.DistrictId IS NULL)"
-        sSQL += " AND (@EnrollDate BETWEEN Prod.DateFrom AND Prod.DateTo OR @EnrollDate IS NULL)"
-        sSQL += " AND (@EnrollDate BETWEEN  ISNULL(CONVERT(DATE,HPROD.ValidityFrom,103) ,CONVERT(DATE,prod.ValidityFrom,103)) AND Prod.DateTo OR @EnrollDate IS NULL)"
+        'sSQL += " AND (@EnrollDate BETWEEN Prod.DateFrom AND Prod.DateTo OR @EnrollDate IS NULL)"
+        'sSQL += " AND (@EnrollDate BETWEEN  ISNULL(CONVERT(DATE,HPROD.ValidityFrom,103) ,CONVERT(DATE,prod.ValidityFrom,103)) AND Prod.DateTo OR @EnrollDate IS NULL)"
+        sSQL += " and prod.DateTo> getdate()"
         sSQL += " ORDER BY L.ParentLocationId"
 
         data.setSQLCommand(sSQL, CommandType.Text)
         'If Not DistrictId = 0 Then
         data.params("@RegionId", SqlDbType.Int, If(RegionId = -1, DBNull.Value, RegionId))
-        data.params("@DistrictId", SqlDbType.Int, DistrictId)
+            data.params("@DistrictId", SqlDbType.Int, DistrictId)
         'End If
         data.params("@UserID", SqlDbType.Int, UserId)
         data.params("@EnrollDate", SqlDbType.Date, ByDate)

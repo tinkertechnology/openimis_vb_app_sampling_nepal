@@ -597,6 +597,12 @@ Partial Public Class Claim
                 Return "Exit"
             End If
 
+            Dim days As Integer = (Date.ParseExact(txtClaimDate.Text, "dd/MM/yyyy", Nothing) - Date.ParseExact(txtSTARTData.Text, "dd/MM/yyyy", Nothing)).Days
+            If days > CInt(System.Configuration.ConfigurationManager.AppSettings("ClaimAllowedDays")) Then
+                imisgen.Alert("Visit From Date should be less than " & System.Configuration.ConfigurationManager.AppSettings("ClaimAllowedDays").ToString() & " days.", pnlButtons, alertPopupTitle:="IMIS")
+                Return "Exit"
+            End If
+
             eHF.HfID = hfHFID.Value
             eClaim.tblHF = eHF
             eClaim.ClaimCode = txtCLAIMCODEData.Text

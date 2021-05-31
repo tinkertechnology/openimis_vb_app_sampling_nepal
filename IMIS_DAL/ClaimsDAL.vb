@@ -354,13 +354,22 @@ Public Class ClaimsDAL
         Return True
     End Function
     Public Function checkClaimCode(ByVal eClaim As IMIS_EN.tblClaim) As DataTable
-        Dim str As String = "SELECT top 1 ClaimCode from tblClaim inner join tblHF on tblHF.HfID = tblClaim.HFID" & _
-                            " where ClaimCode = @ClaimCode and tblClaim.ValidityTo is null and tblClaim.HfID = @HfID"
+        Dim str As String
+        If CInt(System.Configuration.ConfigurationManager.AppSettings("UniqueClaimCode")) = 0 Then
+            str = "SELECT top 1 ClaimCode from tblClaim inner join tblHF on tblHF.HfID = tblClaim.HFID" &
+                               " where ClaimCode = @ClaimCode and tblClaim.ValidityTo is null and tblClaim.HfID = @HfID"
+            data.setSQLCommand(str, CommandType.Text)
 
-        data.setSQLCommand(str, CommandType.Text)
+            data.params("@ClaimCode", SqlDbType.NVarChar, 11, eClaim.ClaimCode)
+            data.params("@HfID", SqlDbType.Int, eClaim.tblHF.HfID)
+        End If
+        If CInt(System.Configuration.ConfigurationManager.AppSettings("UniqueClaimCode")) = 1 Then
+            str = "SELECT top 1 ClaimCode from tblClaim" &
+                            " where ClaimCode = @ClaimCode and tblClaim.ValidityTo is null"
 
-        data.params("@ClaimCode", SqlDbType.NVarChar, 11, eClaim.ClaimCode)
-        data.params("@HfID", SqlDbType.Int, eClaim.tblHF.HfID)
+            data.setSQLCommand(str, CommandType.Text)
+            data.params("@ClaimCode", SqlDbType.NVarChar, 11, eClaim.ClaimCode)
+        End If
 
         Return data.Filldata
     End Function

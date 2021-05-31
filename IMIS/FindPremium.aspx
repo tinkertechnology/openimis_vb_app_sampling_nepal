@@ -88,7 +88,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                                 ID="txtDateOfPaymentFrom"
                                                 runat="server"
                                                 Width="120px"
-                                                CssClass="dateCheck">
+                                                CssClass="dateCheck PremiumDateFrom">
                                             </asp:TextBox>
                                             <asp:Button
                                                 ID="btnDateOfPaymentFrom"
@@ -130,7 +130,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                                 <asp:Label ID="L_PAYDATETO" runat="server" Text="<%$ Resources:Resource,L_PAYDATETO %>"></asp:Label>
                                             </td>
                                             <td class="DataEntry">
-                                                <asp:TextBox ID="txtDateOfPaymentTo" runat="server" CssClass="dateCheck" Width="120px">
+                                                <asp:TextBox ID="txtDateOfPaymentTo" runat="server" CssClass="dateCheck PremiumDateTo" Width="120px">
                                             </asp:TextBox>
                                                 <asp:CalendarExtender ID="CalendarExtender1" runat="server" ClearTime="True" Format="dd/MM/yyyy" PopupButtonID="btnDateOfPaymentTo" TargetControlID="txtDateOfPaymentTo">
                                                 </asp:CalendarExtender>

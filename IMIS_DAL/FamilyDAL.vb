@@ -51,7 +51,7 @@ Public Class FamilyDAL
         data.params("@FamilyId", SqlDbType.Int, eFamily.FamilyID)
         Dim dr As DataRow = data.Filldata()(0)
         Dim eInsurees As New IMIS_EN.tblInsuree
-        
+
         If Not dr Is Nothing Then
             eInsurees.InsureeID = dr("InsureeID")
             eInsurees.CHFID = dr("CHFID")
@@ -71,10 +71,10 @@ Public Class FamilyDAL
             eFamily.RegionId = dr("RegionId")
             eFamily.RegionName = dr("RegionName")
             eFamily.DistrictName = dr("DistrictName")
-            eFamily.DistrictID = dr("DistrictID")
+            eFamily.DistrictId = dr("DistrictID")
             eFamily.LocationId = dr("VillageID")
             eFamily.VillageName = dr("VillageName")
-            eFamily.WardID = dr("WardID")
+            eFamily.WardId = dr("WardID")
             eFamily.WardName = dr("WardName")
 
             'Addition for Nepal >> Start
@@ -86,10 +86,10 @@ Public Class FamilyDAL
 
 
             Dim eHF As New IMIS_EN.tblHF
-            eHF.HfID = if(dr.IsNull("HFID"), 0, dr("HFID"))
+            eHF.HfID = If(dr.IsNull("HFID"), 0, dr("HFID"))
             eInsurees.tblHF = eHF
 
-            eInsurees.FSPDistrict = if(dr.IsNull("FSPDistrictId"), 0, dr("FSPDistrictId"))
+            eInsurees.FSPDistrict = If(dr.IsNull("FSPDistrictId"), 0, dr("FSPDistrictId"))
             eInsurees.FSPCategory = dr("HFCareType").ToString
 
             'Addition for Nepal >> End
@@ -122,10 +122,10 @@ Public Class FamilyDAL
         data.setSQLCommand("Insert into tblFamilies (LocationId,Poverty,ConfirmationType,isOffline,AuditUserID,FamilyType,FamilyAddress,Ethnicity,ConfirmationNo) VALUES (@LocationId,@Poverty,@ConfirmationType, @isOffline,@AuditUserID,@FamilyType,@FamilyAddress,@Ethnicity,@ConfirmationNo ); select @FamilyId = scope_identity();" _
                            & "INSERT INTO tblInsuree ([FamilyID],[CHFID],[LastName],[OtherNames],[DOB],[Gender],[Marital],[IsHead],[passport],[Phone],[PhotoID],[PhotoDate],[CardIssued],isOffline,[AuditUserID],[Email],Education,Profession, TypeOfId, HFID,CurrentAddress,CurrentVillage, GeoLocation)" _
      & " VALUES (@FamilyID,@CHFID,@LastName,@OtherNames,@DOB,@Gender,@Marital,@IsHead,@passport,@Phone,@PhotoID, @PhotoDate,@CardIssued,@isOffline,@AuditUserID,@Email,@Education,@Profession, @TypeOfId, @HFID,@CurrentAddress, @CurrentVillage, @GeoLocation);select @InsureeID = scope_identity()" _
-     & "Update tblFamilies set InsureeId = @Insureeid where FamilyId = @FamilyId;" & _
-     " INSERT INTO tblPhotos (InsureeID,CHFID,PhotoDate,PhotoFolder,PhotoFileName,OfficerID,ValidityFrom,AuditUserID)" & _
-     " VALUES(@InsureeID,@CHFID,@PhotoDate,@PhotoFolder,@PhotoFileName,@OfficerID,@ValidityFrom,@AuditUserID);" & _
-     " update tblInsuree SET PhotoID = (SELECT PhotoID from TblPhotos where InsureeID = @InsureeID)" & _
+     & "Update tblFamilies set InsureeId = @Insureeid where FamilyId = @FamilyId;" &
+     " INSERT INTO tblPhotos (InsureeID,CHFID,PhotoDate,PhotoFolder,PhotoFileName,OfficerID,ValidityFrom,AuditUserID)" &
+     " VALUES(@InsureeID,@CHFID,@PhotoDate,@PhotoFolder,@PhotoFileName,@OfficerID,@ValidityFrom,@AuditUserID);" &
+     " update tblInsuree SET PhotoID = (SELECT PhotoID from TblPhotos where InsureeID = @InsureeID)" &
      " WHERE InsureeID = @InsureeID", CommandType.Text)
         data.params("@FamilyId", SqlDbType.Int, 0, ParameterDirection.Output)
         data.params("@InsureeId", SqlDbType.Int, 0, ParameterDirection.Output)
@@ -145,7 +145,7 @@ Public Class FamilyDAL
         data.params("@IsHead", SqlDbType.Bit, 1)
         data.params("@Passport", SqlDbType.NVarChar, 50, eFamily.tblInsuree.passport)
         data.params("@Phone", SqlDbType.NVarChar, 50, eFamily.tblInsuree.Phone)
-        data.params("@PhotoID", SqlDbType.Int, if(eFamily.tblInsuree.tblPhotos.PhotoID = 0, DBNull.Value, eFamily.tblInsuree.tblPhotos.PhotoID))
+        data.params("@PhotoID", SqlDbType.Int, If(eFamily.tblInsuree.tblPhotos.PhotoID = 0, DBNull.Value, eFamily.tblInsuree.tblPhotos.PhotoID))
         data.params("@PhotoDate", SqlDbType.SmallDateTime, eFamily.tblInsuree.PhotoDate)
         data.params("@CardIssued", SqlDbType.Bit, eFamily.tblInsuree.CardIssued)
         data.params("@AuditUserID", SqlDbType.Int, eFamily.AuditUserID)
@@ -180,11 +180,11 @@ Public Class FamilyDAL
     'Corrected
     Public Sub UpdateFamily(ByRef eFamily As IMIS_EN.tblFamilies)
         Dim data As New ExactSQL
-        Dim str As String = "insert into tblFamilies ([insureeid],[Poverty],[ConfirmationType],isOffline" & _
-              ",[ValidityFrom],[ValidityTo],[LegacyID],[AuditUserID],FamilyType, FamilyAddress,Ethnicity,ConfirmationNo, LocationId) select [insureeid]" & _
-              ",[Poverty],[ConfirmationType],isOffline,[ValidityFrom],getdate(),@FamilyID, @AuditUserID,FamilyType, FamilyAddress,Ethnicity,ConfirmationNo,LocationId" & _
-              " from tblFamilies where FamilyID = @FamilyID; update [tblFamilies] set " & _
-              "[Poverty] = @Poverty, [ConfirmationType] = @ConfirmationType, isOffline=@isOffline,[ValidityFrom]=GETDATE()" & _
+        Dim str As String = "insert into tblFamilies ([insureeid],[Poverty],[ConfirmationType],isOffline" &
+              ",[ValidityFrom],[ValidityTo],[LegacyID],[AuditUserID],FamilyType, FamilyAddress,Ethnicity,ConfirmationNo, LocationId) select [insureeid]" &
+              ",[Poverty],[ConfirmationType],isOffline,[ValidityFrom],getdate(),@FamilyID, @AuditUserID,FamilyType, FamilyAddress,Ethnicity,ConfirmationNo,LocationId" &
+              " from tblFamilies where FamilyID = @FamilyID; update [tblFamilies] set " &
+              "[Poverty] = @Poverty, [ConfirmationType] = @ConfirmationType, isOffline=@isOffline,[ValidityFrom]=GETDATE()" &
               ",[AuditUserID] = @AuditUserID,FamilyType = @FamilyType, FamilyAddress = @FamilyAddress, Ethnicity = @Ethnicity, ConfirmationNo = @ConfirmationNo, LocationId = @LocationId where FamilyID = @FamilyID"
         data.setSQLCommand(str, CommandType.Text)
         data.params("@FamilyID", SqlDbType.Int, eFamily.FamilyID)
@@ -221,43 +221,39 @@ Public Class FamilyDAL
         'sSQL += " And isnull(Marital,'')  like @Marital"
         'sSQL += " And isnull(Phone,'') like @Phone"
 
-        sSQL += " SELECT F.isOffline,F.FamilyId,F.FamilyUUID,I.CHFID,I.LastName,I.Othernames,L.DistrictName,L.WardName, L.VillageName,F.Poverty AS Poverty,"
-        sSQL += " CASE WHEN F.Poverty = 1 THEN 'Yes' ELSE 'No' END PovertyDisplay, F.ConfirmationType,F.Ethnicity,  RegionName,F.validityfrom,"
-        sSQL += " F.validityTo"
-        sSQL += " FROM tblfamilies F"
-        sSQL += " INNER JOIN tblInsuree I ON F.InsureeID = I.insureeid  AND   I.ValidityTo IS NULL"
-        sSQL += " INNER JOIN uvwLocations L ON ISNULL(L.LocationId,0) = ISNULL(F.LocationId,0)"
-        sSQL += " INNER JOIN (SELECT L.DistrictId, L.RegionId FROM tblUsersDistricts UD"
-        sSQL += " INNER JOIN uvwLocations L ON L.DistrictId = UD.LocationId"
-        sSQL += " WHERE UD.ValidityTo IS NULL AND (UD.UserId = @UserId OR @UserId = 0)"
-        sSQL += " GROUP BY L.DistrictId, L.RegionId )UD ON UD.DistrictId = L.DistrictId  OR UD.RegionId = L.RegionId OR F.LocationId IS NULL"
-        sSQL += " WHERE LastName LIKE @Lastname"
-        sSQL += " AND OtherNames LIKE @OtherNames"
+        'sSQL += " SELECT F.isOffline,F.FamilyId,I.CHFID,I.LastName,I.Othernames,L.DistrictName,L.WardName, L.VillageName,F.Poverty AS Poverty,"
+        'sSQL += " CASE WHEN F.Poverty = 1 THEN 'Yes' ELSE 'No' END PovertyDisplay, F.ConfirmationType,F.Ethnicity,  RegionName,F.validityfrom,"
+        'sSQL += " F.validityTo"
+        'sSQL += " FROM tblfamilies F"
+        'sSQL += " INNER JOIN tblInsuree I ON F.InsureeID = I.insureeid  AND   I.ValidityTo IS NULL"
+        'sSQL += " INNER JOIN uvwLocations L ON ISNULL(L.LocationId,0) = ISNULL(F.LocationId,0)"
+        'sSQL += " INNER JOIN (SELECT L.DistrictId, L.RegionId FROM tblUsersDistricts UD"
+        'sSQL += " INNER JOIN uvwLocations L ON L.DistrictId = UD.LocationId"
+        'sSQL += " WHERE UD.ValidityTo IS NULL AND (UD.UserId = @UserId OR @UserId = 0)"
+        'sSQL += " GROUP BY L.DistrictId, L.RegionId )UD ON UD.DistrictId = L.DistrictId  OR UD.RegionId = L.RegionId OR F.LocationId IS NULL"
+        'sSQL += " WHERE LastName LIKE @Lastname"
+        'sSQL += " AND OtherNames LIKE @OtherNames"
         'sSQL += " AND CHFID LIKE @CHFID"
-        sSQL += " AND CHFID = @CHFID"
-        sSQL += " AND  (Gender LIKE @Gender  OR Gender IS NULL)"
-        'sSQL += " AND  Gender = @Gender  OR Gender IS NULL"
-        sSQL += " AND ISNULL(Marital,'')  LIKE @Marital And ISNULL(Phone,'') LIKE @Phone"
-        'sSQL += " AND ISNULL(Marital,'')  = @Marital And ISNULL(Phone,'') = @Phone"
+        'sSQL += " AND  (Gender LIKE @Gender  OR Gender IS NULL)"
+        'sSQL += " AND ISNULL(Marital,'')  LIKE @Marital And ISNULL(Phone,'') LIKE @Phone"
 
-        'sSQL += " ;WITH UD AS ("
-        'sSQL += " SELECT L.DistrictId, L.Region FROM tblUsersDistricts UD "
-        'sSQL += " INNER JOIN tblDistricts L ON L.DistrictId = UD.LocationId "
-        'sSQL += " WHERE UD.ValidityTo IS NULL AND (UD.UserId = @UserId OR @UserId = 0)  "
-        'sSQL += " GROUP BY L.DistrictId, L.Region ) "
-        'sSQL += " SELECT " + UtilitiesDAL.GetEnvMaxRows()
-        'sSQL += " F.isOffline, F.FamilyID, F.FamilyUUID, I.CHFID, I.LastName, I.OtherNames, L.DistrictName, L.WardName, L.VillageName, F.Poverty,CASE WHEN F.Poverty = 1 THEN 'Yes' ELSE 'No' END PovertyDisplay,F.ConfirmationType,F.Ethnicity,  RegionName,F.validityfrom, F.validityTo  "
-        'sSQL += " FROM tblFamilies F INNER JOIN tblInsuree I ON I.InsureeId = F.InsureeID INNER JOIN uvwLocations L ON ISNULL(L.LocationId, 0) = ISNULL(F.LocationId, 0) "
-        'sSQL += " INNER JOIN tblPolicy P ON P.FamilyID = F.FamilyID "
-        'sSQL += " WHERE (L.RegionId IN (SELECT Region FROM UD) OR (L.DistrictId IN (SELECT DistrictId FROM UD)) OR F.LocationId IS NULL) "
-        'sSQL += " AND LastName LIKE @Lastname "
-        'sSQL += " AND OtherNames LIKE @OtherNames "
-        'sSQL += " AND CHFID LIKE @CHFID "
-        'sSQL += " AND (Gender LIKE @Gender  OR Gender IS NULL) "
-        'sSQL += " AND ISNULL(Marital,'')  LIKE @Marital "
-        'sSQL += " And ISNULL(Phone,'') LIKE @Phone  "
+        sSQL += " ;WITH UD AS ("
+        sSQL += " SELECT L.DistrictId, L.Region FROM tblUsersDistricts UD "
+        sSQL += " INNER JOIN tblDistricts L ON L.DistrictId = UD.LocationId "
+        sSQL += " WHERE UD.ValidityTo IS NULL AND (UD.UserId = @UserId OR @UserId = 0)  "
+        sSQL += " GROUP BY L.DistrictId, L.Region ) "
+        sSQL += " SELECT " + UtilitiesDAL.GetEnvMaxRows()
+        sSQL += " F.isOffline, F.FamilyID, F.FamilyUUID, I.CHFID, I.LastName, I.OtherNames, L.DistrictName, L.WardName, L.VillageName, F.Poverty,CASE WHEN F.Poverty = 1 THEN 'Yes' ELSE 'No' END PovertyDisplay,F.ConfirmationType,F.Ethnicity,  RegionName,F.validityfrom, F.validityTo  "
+        sSQL += " FROM tblFamilies F INNER JOIN tblInsuree I ON I.InsureeId = F.InsureeID INNER JOIN uvwLocations L ON ISNULL(L.LocationId, 0) = ISNULL(F.LocationId, 0) "
+        sSQL += " WHERE (L.RegionId IN (SELECT Region FROM UD) OR (L.DistrictId IN (SELECT DistrictId FROM UD)) OR F.LocationId IS NULL) "
+        sSQL += " AND LastName LIKE @Lastname "
+        sSQL += " AND OtherNames LIKE @OtherNames "
+        sSQL += " AND CHFID LIKE @CHFID "
+        sSQL += " AND (Gender LIKE @Gender  OR Gender IS NULL) "
+        sSQL += " AND ISNULL(Marital,'')  LIKE @Marital "
+        sSQL += " And ISNULL(Phone,'') LIKE @Phone  "
         'sSQL += " AND F.ValidityTo is null "
-        'sSQL += " AND I.ValidityTo IS NULL And P.ValidityTo Is NULL "
+        sSQL += " AND I.ValidityTo IS NULL "
         ' sSQL += " GROUP BY F.isOffline, F.FamilyID, I.CHFID, I.LastName, I.OtherNames, L.DistrictName, L.WardName, L.VillageName, F.Poverty,F.ConfirmationType,F.Ethnicity,  RegionName,F.validityfrom, F.validityTo "
 
 
@@ -265,21 +261,20 @@ Public Class FamilyDAL
         If Not eFamily.RegionId = 0 Then
             sSQL += " And  L.RegionId =  @RegionId "
         End If
-        If Not eFamily.DistrictID = 0 Then
+        If Not eFamily.DistrictId = 0 Then
             sSQL += " And  L.DistrictID =  @DistrictID "
         End If
-        If Not eFamily.WardID = 0 Then
+        If Not eFamily.WardId = 0 Then
             sSQL += " And  L.WardID =  @WardID "
         End If
         If Not eFamily.LocationId = 0 Then
             sSQL += " And  L.VillageId =  @VillageID "
         End If
-
         If CDbl(eFamily.tblInsuree.DOBFrom.ToOADate) > 2 Then
-            sSQL += " And  P.EnrollDate >= @DOBFrom "
+            sSQL += " And  DOB >= @DOBFrom "
         End If
         If CDbl(eFamily.tblInsuree.DOBTo.ToOADate) > 2 Then
-            sSQL += " And  P.EnrollDate <= @DOBTo "
+            sSQL += " And  DOB <= @DOBTo "
         End If
         If Not Allpoverty = True Then
             sSQL += " AND  F.Poverty  = @Poverty"
@@ -292,21 +287,12 @@ Public Class FamilyDAL
                 sSQL += " AND F.isOffline = 1"
             End If
         End If
-        'If eFamily.ConfirmationNo.Trim.Length > 0 Then
-        '    sSQL += " AND F.ConfirmationNo like @ConfirmationNo"
-        'End If
-        'If eFamily.tblInsuree.Email.Trim.Length > 0 Then
-        '    sSQL += " AND I.Email like @Email"
-        'End If
         If eFamily.ConfirmationNo.Trim.Length > 0 Then
-            sSQL += " AND F.ConfirmationNo = @ConfirmationNo"
+            sSQL += " AND F.ConfirmationNo like @ConfirmationNo"
         End If
         If eFamily.tblInsuree.Email.Trim.Length > 0 Then
-            sSQL += " AND I.Email = @Email"
+            sSQL += " AND I.Email like @Email"
         End If
-        If eFamily.ConfirmationTypeCode > 0 Then
-            sSQL += " AND F.ConfirmationType = @ConfirmationType"
-        End If										
 
         'sSQL += " GROUP BY  F.isOffline,F.FamilyId,I.CHFID,I.LastName,I.Othernames,L.DistrictName,L.WardName, L.VillageName,F.Poverty ,"
         sSQL += " GROUP BY F.isOffline, F.FamilyID, I.CHFID, I.LastName, I.OtherNames, L.DistrictName, L.WardName, L.VillageName, F.Poverty,F.ConfirmationType,F.Ethnicity,  RegionName,F.validityfrom, F.validityTo, F.FamilyUUID "
@@ -320,7 +306,7 @@ Public Class FamilyDAL
         data.params("@DOBTo", SqlDbType.Date, eFamily.tblInsuree.DOBTo)
         data.params("@LastName", SqlDbType.NVarChar, 100, eFamily.tblInsuree.LastName & "%")
         data.params("@OtherNames", SqlDbType.NVarChar, 100, eFamily.tblInsuree.OtherNames & "%")
-        data.params("@CHFID", SqlDbType.NVarChar, 12, eFamily.tblInsuree.CHFID)
+        data.params("@CHFID", SqlDbType.NVarChar, 12, eFamily.tblInsuree.CHFID & "%")
 
         data.params("@Gender", SqlDbType.Char, 1, eFamily.tblInsuree.Gender & "%")
         data.params("@Marital", SqlDbType.Char, 1, eFamily.tblInsuree.Marital & "%")
@@ -328,21 +314,19 @@ Public Class FamilyDAL
         If Not Allpoverty = True Then
             data.params("@Poverty", SqlDbType.Bit, eFamily.Poverty, ParameterDirection.Input)
         End If
-        data.params("@WardID", SqlDbType.Int, eFamily.WardID)
+        data.params("@WardID", SqlDbType.Int, eFamily.WardId)
         data.params("@VillageID", SqlDbType.Int, eFamily.LocationId)
-        data.params("@DistrictID", SqlDbType.Int, eFamily.DistrictID)
+        data.params("@DistrictID", SqlDbType.Int, eFamily.DistrictId)
         data.params("@RegionId", SqlDbType.Int, eFamily.RegionId)
         data.params("@dtYesNo", GetYesNo, "xAttributeV")
         data.params("@ConfirmationNo", SqlDbType.NVarChar, 12, eFamily.ConfirmationNo & "%")
         data.params("@Email", SqlDbType.NVarChar, 50, eFamily.tblInsuree.Email & "%")
-        If eFamily.ConfirmationTypeCode > 0 Then
-            data.params("@ConfirmationType", SqlDbType.NVarChar, 1, eFamily.ConfirmationTypeCode)
-        End If
+
 
         Return data.Filldata
     End Function
-    
-   
+
+
     'Corrected Rogers
     Public Sub GetFamilyHeadInfo(ByVal eFamily As IMIS_EN.tblFamilies)
         Dim data As New ExactSQL
@@ -441,9 +425,9 @@ Public Class FamilyDAL
     End Function
     'Corrected
     Public Function DeleteFamily(ByVal eFamily As IMIS_EN.tblFamilies) As Boolean
-        Dim str As String = "insert into tblFamilies ([insureeid],LocationId, [Poverty], [ConfirmationType],isOffline,[ValidityFrom],[ValidityTo]," & _
-                            "[LegacyID],[AuditUserID],[Ethnicity], [ConfirmationNo])select [insureeid],LocationId,[Poverty], [ConfirmationType],isOffline,[ValidityFrom],getdate()," & _
-                            " @FamilyID, [AuditUserID],Ethnicity, [ConfirmationNo] from tblFamilies where FamilyID = @FamilyID AND ValidityTo IS NULL;" & _
+        Dim str As String = "insert into tblFamilies ([insureeid],LocationId, [Poverty], [ConfirmationType],isOffline,[ValidityFrom],[ValidityTo]," &
+                            "[LegacyID],[AuditUserID],[Ethnicity], [ConfirmationNo])select [insureeid],LocationId,[Poverty], [ConfirmationType],isOffline,[ValidityFrom],getdate()," &
+                            " @FamilyID, [AuditUserID],Ethnicity, [ConfirmationNo] from tblFamilies where FamilyID = @FamilyID AND ValidityTo IS NULL;" &
                             " update [tblFamilies] set [ValidityFrom]=GETDATE(),[ValidityTo]=GETDATE(),[AuditUserID] = @AuditUserID where FamilyID = @FamilyID AND ValidityTo IS NULL"
 
         data.setSQLCommand(str, CommandType.Text)

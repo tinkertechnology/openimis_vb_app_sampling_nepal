@@ -583,8 +583,10 @@ Public Partial Class ClaimOverview
             Dim flagChanges As Boolean = False
             eClaim.AuditUserID = imisgen.getUserId(Session("User"))
             For Each row In gvClaims.Rows
-                Dim ddlFedBack As DropDownList = CType(row.cells(3).controls(1), DropDownList)
-                Dim ddlReview As DropDownList = CType(row.cells(4).controls(1), DropDownList)
+                'Dim ddlFedBack As DropDownList = CType(row.cells(3).controls(1), DropDownList)
+                'Dim ddlReview As DropDownList = CType(row.cells(4).controls(1), DropDownList)
+                Dim ddlFedBack As DropDownList = CType(row.cells(4).controls(1), DropDownList)
+                Dim ddlReview As DropDownList = CType(row.cells(5).controls(1), DropDownList)
                 If (ddlFedBack.SelectedValue = 2) Or (ddlFedBack.SelectedValue = 4) Then
                     If CheckDifferenceForUpdate(gvClaims, row.RowIndex, ddlFedBack, "FeedbackStatus") = True Then
                         eClaim.FeedbackStatus = ddlFedBack.SelectedValue

@@ -71,6 +71,38 @@ In case of dispute arising out or in relation to the use of the program, it is s
 		    $("#RejectServices").click(function () {			
 		        $("[id^=Body_gvService_ddlSTATUS]").val("2").change();				
             });
+            $("[id^='Body_gvService_txtAppQty_']").change(function () {
+                var currentRow = $(this).closest("tr");
+                var quantity = parseInt(currentRow.find("td:eq(1)").text());
+                if ($(this).val() > quantity) {
+                    alert('Not Allowed!');
+                    $(this).val(quantity);
+                }
+            });
+            $("[id^='Body_gvService_txtAPPVALUE_']").change(function () {
+                var currentRow = $(this).closest("tr");
+                var price = parseInt(currentRow.find("td:eq(2)").text());
+                if ($(this).val() > price) {
+                    alert('Not Allowed!');
+                    $(this).val(price);
+                }
+            });
+            $("[id^='Body_gvItems_txtAPPQTY_']").change(function () {
+                var currentRow = $(this).closest("tr");
+                var quantity = parseInt(currentRow.find("td:eq(1)").text());
+                if ($(this).val() > quantity) {
+                    alert('Not Allowed!');
+                    $(this).val(quantity);
+                }
+            });
+            $("[id^='Body_gvItems_txtAPPVALUE_']").change(function () {
+                var currentRow = $(this).closest("tr");
+                var price = parseInt(currentRow.find("td:eq(2)").text());
+                if ($(this).val() > price) {
+                    alert('Not Allowed!');
+                    $(this).val(price);
+                }
+            });
             // Change By Purushottam Ends
             $('.PriceAsked').each(function() {
                 var $Row = $(this).parent();

@@ -32,6 +32,7 @@ Imports System.Web
 
 Public Class InsureeBL
     Private Insuree As New IMIS_DAL.InsureeDAL
+    Private InsureePolicy As New IMIS_DAL.InsureePolicyDAL
     Private imisgen As New GeneralBL
     Public Function GetInsureesByFamily(ByVal FamilyId As Integer, Optional Language As String = "en") As DataTable
         Return Insuree.GetInsureesByFamily(FamilyId, Language)
@@ -46,6 +47,10 @@ Public Class InsureeBL
             Return 0
         Else
             Insuree.ModifyInsuree(eInsuree)
+            If eInsuree.InsureeStatus > 1 Then
+                InsureePolicy.DeactivateInsuree(eInsuree.InsureeID)
+            End If
+
             Return 2
         End If
     End Function

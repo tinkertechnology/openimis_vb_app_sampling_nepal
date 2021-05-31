@@ -104,7 +104,7 @@ Public Class InsureeDAL
         sSQL += ",dtMarital.Name Marital, phone, DOB, I.validityfrom, I.validityTo, F.FamilyUUID  "
         sSQL += " FROM tblInsuree I  "
         sSQL += " INNER JOIN tblFamilies F On F.FamilyID = I.FamilyID  "
-        sSQL += " INNER JOIN tblPolicy P On F.FamilyID = P.FamilyID  "
+        sSQL += " LEFT outer JOIN tblPolicy P On F.FamilyID = P.FamilyID  "
         sSQL += " INNER JOIN uvwLocations L On ISNULL(L.LocationId, 0) = ISNULL(F.LocationId, 0)  "
         sSQL += " LEFT JOIN tblPhotos On I.PhotoID = tblPhotos.PhotoID And tblPhotos.ValidityTo Is null  "
         sSQL += " LEFT JOIN tblGender GE On GE.Code = I.Gender"

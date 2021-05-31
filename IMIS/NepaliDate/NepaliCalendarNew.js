@@ -17,10 +17,11 @@
             var html = $(this).parent();
             var minDate = 0;
             var maxDate = 0;
+            
             if (($(this).attr("id") === 'Body_txtEnrollmentDate') || ($(this).attr("id") === 'Body_txtPaymentDate')) {
                 minDate = -150;
                 maxDate = 0;
-            }
+            }            
             else if ($(this).attr("id") === 'Body_txtBirthDate') {
                 minDate = -38325;
                 maxDate = 0;
@@ -37,8 +38,16 @@
                 minDate = -2555;
                 maxDate = 0;
             }
-            else if (($(this).attr("class") === 'claimEntryFrom requiedField') || ($(this).attr("class") === 'claimEntryTo requiedField')) {
-                minDate = -32;
+            else if (($(this).attr("class") === 'dateCheck PremiumDateFrom') || ($(this).attr("class") === 'dateCheck PremiumDateTo')) {
+                minDate = -2555;
+                maxDate = 0;
+            }
+            else if (($(this).attr("id") === 'Body_txtSTARTData')) {
+                minDate = -100;
+                maxDate = 0;
+            }
+            else if (($(this).attr("id") === 'Body_txtENDData')) {
+                minDate = -100;
                 maxDate = 0;
             }
             else {
@@ -60,6 +69,7 @@
                 onSelect: function (npDate) {
                     converter.setNepaliDate(npDate[0]._year, npDate[0]._month, npDate[0]._day);
                     customDateField.next('input').val(converter.toEnglishString());
+                    customDateField.next('input').change();
                 }
             });
             $(".customDatePicker").blur(function () {

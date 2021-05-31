@@ -297,6 +297,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
            
                             <asp:DropDownList ID="ddlPayer" runat="server">
                             </asp:DropDownList>
+                            <asp:RequiredFieldValidator ID="RequiredfieldValidator5" runat="Server" ControlToValidate="ddlPayer" SetFocusOnError="true" Text="*" InitialValue="0" ValidationGroup="check"  ForeColor="Red" Display="Dynamic" ></asp:RequiredFieldValidator>     
                         </td>
                        
                 
@@ -308,6 +309,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                         <td class="DataEntry">
                             <asp:DropDownList ID="ddlPremium" runat="server">
                             </asp:DropDownList>
+                            <asp:RequiredFieldValidator ID="RequiredfieldValidator6" runat="Server" ControlToValidate="ddlPremium" SetFocusOnError="true" Text="*" InitialValue="0" ValidationGroup="check"  ForeColor="Red" Display="Dynamic" ></asp:RequiredFieldValidator>     
                         </td>
                     </tr>
                         <tr>

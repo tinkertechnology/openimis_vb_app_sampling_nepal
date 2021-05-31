@@ -38,7 +38,7 @@
     <script type="text/javascript" src="NepaliDate/jquery.calendars.all.js"></script>
     <script type="text/javascript" src="NepaliDate/jquery.calendars.nepali.js"></script>
     <script type="text/javascript" src="NepaliDate/dateConverter.js"></script>    
-     <script type="text/javascript" src="NepaliDate/NepaliCalendarNew.js"> </script>
+     <script type="text/javascript" src="NepaliDate/NepaliCalendarNew.js?c=<%#(New Random()).Next%>"> </script>
     <%-- Nepali Calendar Popup --%>
     <script type="text/javascript" src="Javascripts/select2.js"> </script>    
     <link href="styleSheets/select2.css" rel="stylesheet" type="text/css" />
