@@ -220,7 +220,7 @@ Partial Public Class FindFamily
             eFamily.RegionId = Val(ddlRegion.SelectedValue)
             eFamily.WardId = CInt(If(ddlWard.SelectedValue = String.Empty, 0, ddlWard.SelectedValue))
             eFamily.LocationId = CInt(If(ddlVillage.SelectedValue = String.Empty, 0, ddlVillage.SelectedValue))
-			eFamily.ConfirmationTypeCode = CInt(If(ddlConfirmationType.SelectedValue = String.Empty, 0, ddlConfirmationType.SelectedValue))																															   
+            eFamily.ConfirmationType = If(ddlConfirmationType.SelectedValue = String.Empty, 0, ddlConfirmationType.SelectedValue)
             If Val(ddlDistrict.SelectedValue) > 0 Then eFamily.DistrictId = CInt(ddlDistrict.SelectedValue)
             Dim allPoverty As Boolean = True
             If Trim(ddlPoverty.SelectedValue).Length > 0 Then

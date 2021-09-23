@@ -31,11 +31,15 @@ Public Class ClaimItemsDAL
     Public Sub InsertClaimItems(ByRef eClaimItems As IMIS_EN.tblClaimItems)
 
 
-        Data.setSQLCommand("Insert Into tblClaimItems ([ClaimID],[ItemID],[QtyProvided],[PriceAsked],[Explanation]," _
-                           & "[ValidityFrom],[AuditUserID])" _
-                           & "VALUES(@ClaimID,@ItemID,@QtyProvided,@PriceAsked,@Explanation, getdate(), @AuditUserID) ", CommandType.Text)
+        'data.setSQLCommand("Insert Into tblClaimItems ([ClaimID],[ItemID],[QtyProvided],[PriceAsked],[Explanation]," _
+        '                   & "[ValidityFrom],[AuditUserID])" _
+        '                   & "VALUES(@ClaimID,@ItemID,@QtyProvided,@PriceAsked,@Explanation, getdate(), @AuditUserID) ", CommandType.Text)
 
-        Data.params("@ClaimID", SqlDbType.Int, eClaimItems.tblClaim.ClaimID)
+        data.setSQLCommand("If Not Exists(select * from tblClaimItems where ClaimID=@ClaimID and ItemID=@ItemID) Begin Insert Into tblClaimItems ([ClaimID],[ItemID],[QtyProvided],[PriceAsked],[Explanation]," _
+                           & "[ValidityFrom],[AuditUserID])" _
+                           & "VALUES(@ClaimID,@ItemID,@QtyProvided,@PriceAsked,@Explanation, getdate(), @AuditUserID) End ", CommandType.Text)
+
+        data.params("@ClaimID", SqlDbType.Int, eClaimItems.tblClaim.ClaimID)
         Data.params("@ItemID", SqlDbType.Int, eClaimItems.tblItems.ItemID)
         Data.params("@QtyProvided", SqlDbType.Decimal, eClaimItems.QtyProvided)
         Data.params("@PriceAsked", SqlDbType.Decimal, eClaimItems.PriceAsked)

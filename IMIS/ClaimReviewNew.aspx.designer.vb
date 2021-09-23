@@ -374,6 +374,42 @@ Partial Public Class ClaimReviewNew
     Protected WithEvents lblVisitTypeData As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''lblOPDIPD control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblOPDIPD As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblOPDIPDData control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblOPDIPDData As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblrefer control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblrefer As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblreferData control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblreferData As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''lblGuaranteeNo control.
     '''</summary>
     '''<remarks>

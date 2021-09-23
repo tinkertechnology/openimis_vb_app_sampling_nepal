@@ -93,4 +93,8 @@ Public Class ClaimOverviewBI
         Dim BL As New IMIS_BL.LocationsBL
         Return BL.GetRegions(UserId, ShowSelect)
     End Function
+    Public Function GetHFCodesAll() As DataTable
+        Dim hf As New IMIS_BL.HealthFacilityBL
+        Return hf.GetHFCodesAll()
+    End Function
 End Class

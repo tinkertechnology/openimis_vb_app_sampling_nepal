@@ -32,7 +32,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
 
     <script type="text/javascript">
 
-     
+        const QtyOneServices = ["OPD 2  OPD Hospital", "OPD 1  OPD PHC", "OPD 3  OPD Eye Hospital", "EMR 1  Emergency Hospital", "EMRPHC  Emergency PHC", "EMR 2  Emergency Eye Hospital"];
         var canClearRow = "<%=canClearRow %>";
         function setCaller(flag) {
             document.getElementById('<%=hfCaller.ClientID %>').value = flag;
@@ -257,10 +257,25 @@ In case of dispute arising out or in relation to the use of the program, it is s
                 //var isGuaranteeNoRequired = $("#<%= txtGuaranteeId.ClientID %>").hasClass("requiedField");
 
                 //if ($("#<%=txtCHFIDData.ClientID%>").val() == "" || $("#<%=txtCLAIMCODEData.ClientID%>").val() == "" || $("#<%=txtICDCode0.ClientID%>").val() == 0 || $("#<%=ddlVisitType.ClientID%>").val() == 0 || $("#<%=txtGuaranteeId.ClientID%>").val() == "") {
-                    if ($("#<%=txtCHFIDData.ClientID%>").val() == "" || $("#<%=txtCLAIMCODEData.ClientID%>").val() == "" || $("#<%=txtICDCode0.ClientID%>").val() == 0 || $("#<%=ddlVisitType.ClientID%>").val() == 0) {
+                if ($("#<%=txtCHFIDData.ClientID%>").val() == "" || $("#<%=txtCLAIMCODEData.ClientID%>").val() == "" || $("#<%=txtICDCode0.ClientID%>").val() == 0 || $("#<%=ddlVisitType.ClientID%>").val() == 0 || $("#<%=ddlOPDIPD.ClientID%>").val() == 0) {
                         $('#<%=lblMsg.ClientID%>').html('<%= imisgen.getMessage("V_SUMMARY", True ) %>');
                                                return false;
-                    }
+                }
+
+                // new validation for HIB
+                //var flagHIBValidation = true;
+                //$("[id^='Body_gvService_txtQuantityS_']").each(function () {
+                //    var ServCodeName = $(event.target).closest('td').prev().find("input[type=text]").val();
+                //    var ServExplanation = $(event.target).closest('td').next(1).find("input[type=text]").val();
+                //    if (QtyOneServices.includes(ServCodeName) == false) {
+                //        if ($(this).val() != 1) {
+                //            alert("Enter explanation for this service");
+                //            ServExplanation.focus();
+                //            flagHIBValidation = false;
+                //        }
+                //    }
+
+                //});
               
                 // date validation...added by ruzo 2 nov 2012
                 var check = 0;
@@ -289,6 +304,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                     var ServCodeNam = $(this).find("td").eq(0).find("input[type=text]").val();
                     var ServQty = $(this).find("td").eq(1).find("input[type=text]").val();
                     var ServValue = $(this).find("td").eq(2).find("input[type=text]").val();
+                    var ServExplanation = $(this).find("td").eq(3).find("input[type=text]").val();
                     if (ServCodeNam != "" && ServQty == "") {
                         $("#<%=lblMsg.ClientID %>").html('<%= imisgen.getMessage("M_FILLSERVICEQUANTITY", True)%>');
                         flagSaveLabel = false;
@@ -305,6 +321,12 @@ In case of dispute arising out or in relation to the use of the program, it is s
                         $("#<%=lblMsg.ClientID %>").html('<%= imisgen.getMessage("M_SELECTSERVICECODE", True ) %>');
                         flagSaveLabel = false;
 
+                    }
+                    if (QtyOneServices.includes(ServCodeNam) == false) {
+                        if (ServCodeNam != "" && ServQty > 1 && ServExplanation=="") {
+                            $("#<%=lblMsg.ClientID %>").html("Enter explanation for service: " + ServCodeNam);
+                            flagSaveLabel = false;
+                        }
                     }
                 });
                     $("#<%=gvItems.ClientID %> tr:not(:first)").each(function() {
@@ -529,10 +551,15 @@ In case of dispute arising out or in relation to the use of the program, it is s
                 if ($(this).val() === "") {
                     $('#<% = hfICDID1.ClientID%>').val("")
                 }
-            });
+            });           
+
             $("[id^='Body_gvService_txtQuantityS_']").change(function () {
-                var ServCodeNam = $(event.target).closest('td').prev().find("input[type=text]").val();
-                if ((ServCodeNam == "OPD 2  OPD Hospital") || (ServCodeNam == "OPD 1  OPD PHC") || (ServCodeNam == "OPD 3  OPD Eye Hospital") || (ServCodeNam == "EMR 1  Emergency Hospital") || (ServCodeNam == "EMRPHC  Emergency PHC") || (ServCodeNam == "EMR 2  Emergency Eye Hospital")) {
+                var ServCodeNam = $(event.target).closest('td').prev().find("input[type=text]").val();                
+                //if ((ServCodeNam == "OPD 2  OPD Hospital") || (ServCodeNam == "OPD 1  OPD PHC") || (ServCodeNam == "OPD 3  OPD Eye Hospital") || (ServCodeNam == "EMR 1  Emergency Hospital") || (ServCodeNam == "EMRPHC  Emergency PHC") || (ServCodeNam == "EMR 2  Emergency Eye Hospital")) {
+                //    alert("Quantity is limited to 1 only!");
+                //    $(this).val(1);
+                //}
+                if (QtyOneServices.includes(ServCodeNam)) {
                     alert("Quantity is limited to 1 only!");
                     $(this).val(1);
                 }
@@ -772,7 +799,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
         }
         .backentry
         {
-            height: 670px;
+            height: 690px;
         }
         .footer
         {
@@ -810,7 +837,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
     </style>
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="Body" runat="Server">
-    <div class="divBody" style="height:625px;" >
+    <div class="divBody" style="height:650px;" >
         <asp:Panel ID="pnlBodyCLM" runat="server">
             <asp:HiddenField ID="hfICDID0" runat="server"/>
             <asp:HiddenField ID="hfICDID1" runat="server"/>
@@ -1043,13 +1070,37 @@ In case of dispute arising out or in relation to the use of the program, it is s
                        <asp:Label ID="lblVisitType" runat="server" Text="<%$ Resources:Resource,L_VISITTYPE %>"></asp:Label>                      
                   </td>
                   <td class="DataEntry">
-                      <asp:DropDownList ID="ddlVisitType" runat="server" Width="135px">
+                      <asp:DropDownList ID="ddlVisitType" runat="server" Width="135px" AutoPostBack="true">
                     </asp:DropDownList>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="*"
                         ControlToValidate="ddlVisitType" ValidationGroup="check" Visible="True" ForeColor="Red" Display="Dynamic"></asp:RequiredFieldValidator>
                       
                   </td>
-                  <td class="FormLabel">                   
+                  <td class="FormLabel">
+                      <asp:Label ID="lblOPDIPD" runat="server" Text="OPD/IPD"></asp:Label>
+                  <td class="DataEntry">                     
+                      <asp:DropDownList ID="ddlOPDIPD" runat="server" Width="120px" AutoPostBack="true">
+                         <asp:ListItem Selected="True" Value="0" Text="Select"></asp:ListItem>                         
+                         <asp:ListItem Text="OPD" Value="O"></asp:ListItem>                       
+                         <asp:ListItem Text="IPD" Value="I"></asp:ListItem>
+                    </asp:DropDownList>
+                           <asp:RequiredFieldValidator ID="rfddlOPDIPD" runat="server"
+                        ControlToValidate="ddlOPDIPD" ValidationGroup="check" Visible="True" ForeColor="Red" Display="Dynamic" ErrorMessage="*"></asp:RequiredFieldValidator>
+           
+                      </td>
+                 
+                  <td class="FormLabel" style="width:400px;">
+                     <asp:Label ID="lblItemTotal" runat="server" Text="Item Total"></asp:Label></td></td>
+                  <td class="DataEntry">
+                      <asp:textbox ID="txtItemTotal" runat="server" Text="" BorderStyle="Solid" style="text-align:right" Enabled ="false" Width="135px"></asp:textbox>
+                  </td>
+                  <td class="FormLabel">
+                      &nbsp;</td>
+                  <td class="DataEntry">
+                      &nbsp;</td>
+              </tr>
+                <tr>
+                 <td class="FormLabel">                   
                       <asp:Label ID="lblGurantee" runat="server" 
                           Text="<%$ Resources:Resource,L_GUARANTEE %>"></asp:Label>
                   </td>
@@ -1061,16 +1112,13 @@ In case of dispute arising out or in relation to the use of the program, it is s
                      --%>
                         
                   </td>
-                  <td class="FormLabel" style="width:400px;">
-                     <asp:Label ID="lblItemTotal" runat="server" Text="Item Total"></asp:Label></td></td>
-                  <td class="DataEntry" colspan="5">
-                      <asp:textbox ID="txtItemTotal" runat="server" Text="" BorderStyle="Solid" style="text-align:right" Enabled ="false"></asp:textbox>
-                  </td>
-                  <td class="FormLabel">
-                      &nbsp;</td>
-                  <td class="DataEntry">
-                      &nbsp;</td>
-              </tr>
+                    <td class="FormLabel"><asp:CheckBox ID="chkRefering" Text="Refer To" runat="server" AutoPostBack="true" /></td>
+                    <td class="DataEntry">
+                        <asp:DropDownList runat="server" ID="ddlRefer"></asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="rfddlRefer" runat="server" ErrorMessage="*"
+                        ControlToValidate="ddlRefer" ValidationGroup="check" Visible="True" ForeColor="Red" Display="Dynamic"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
           </table>
                     </asp:Panel>
                     <table class="catlabel" style="height: 10px !important;">
@@ -1277,8 +1325,8 @@ In case of dispute arising out or in relation to the use of the program, it is s
                 <td align="center">
                     <asp:Button ID="B_ADD" runat="server" Text='<%$ Resources:Resource,B_ADD%>' />
                 </td>
-                   <td align="right" id="td1" runat="server" visible="true">
-                    <asp:Button ID="btnRestore" runat="server" Text='<%$ Resources:Resource,B_RESTORE%>' />
+                   <td align="right" id="td1" runat="server" visible="false">
+                    <asp:Button ID="btnRestore" runat="server" Text='<%$ Resources:Resource,B_RESTORE%>' Visible="false" />
                 </td>
                 <td align="right" id="tdPrintW" runat="server" visible="false">
                     <asp:Button ID="btnPrint" runat="server" Text='<%$ Resources:Resource,B_PRINT%>' />

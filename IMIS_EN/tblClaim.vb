@@ -61,6 +61,11 @@ Partial Public Class tblClaim
     Public ClaimServices As New tblClaimServices
 
     Public Property Attachment As Integer
+    Public Property ReferFrom As Integer
+    Public Property ReferTo As Integer
+    Public Property ReferFromData As String
+    Public Property ReferToData As String
+    Public Property CareType As String
 
     Public Overridable Property tblBatchRun As tblBatchRun
     Public Overridable Property tblClaimAdmin As tblClaimAdmin

@@ -132,9 +132,7 @@ Partial Public Class ChangeFamily
                 txtPermanentAddress.Text = eFamily.FamilyAddress
                 txtConfirmationNo1.Text = eFamily.ConfirmationNo
                 txtConfirmationType.Text = eFamily.ConfirmationType
-                If (eFamily.ConfirmationType Is "Normal") Then
-                    rfConfirmationNo.Enabled = False
-                End If
+
                 ddlRegion.SelectedValue = eFamily.RegionId
                 ddlDistrict.SelectedValue = eFamily.DistrictID
                 If dtRegions.Rows.Count > 0 Then
@@ -154,6 +152,9 @@ Partial Public Class ChangeFamily
                 ddlConfirmationType.DataTextField = If(Request.Cookies("CultureInfo").Value = "en", "ConfirmationType", "AltLanguage")
                 ddlConfirmationType.DataBind()
                 ddlConfirmationType.SelectedValue = eFamily.ConfirmationType
+                If eFamily.ConfirmationType = "Normal" Then
+                    rfConfirmationNo.Enabled = False
+                End If
                 ddlEthnicity.SelectedValue = eFamily.Ethnicity
                 txtConfirmationNo.Text = eFamily.ConfirmationNo
                 ddlConfirmationType.SelectedValue = eFamily.ConfirmationTypeCode
@@ -500,5 +501,12 @@ Partial Public Class ChangeFamily
     End Sub
     Private Sub ddlRegion_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlRegion.SelectedIndexChanged
         FillDistrict()
+    End Sub
+    Private Sub ddlConfirmationType_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddlConfirmationType.SelectedIndexChanged
+        If ddlConfirmationType.SelectedValue <> 1 Then
+            rfConfirmationNo.Enabled = True
+        Else
+            rfConfirmationNo.Enabled = False
+        End If
     End Sub
 End Class

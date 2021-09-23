@@ -100,6 +100,16 @@ Partial Public Class ClaimReviewNew
                 lblGuaranteeData.Text = eClaim.GuaranteeId.ToString
             End If
 
+            lblOPDIPDData.Text = If(eClaim.CareType = "O", "OPD", "IPD")
+            If eClaim.ReferFrom <> 0 Then
+                lblrefer.Text = "Refered From"
+                lblreferData.Text = eClaim.ReferFromData
+            End If
+            If eClaim.ReferTo <> 0 Then
+                lblrefer.Text = "Refered To"
+                lblreferData.Text = eClaim.ReferToData
+            End If
+
             hfClaimAdminId.Value = eClaim.tblClaimAdmin.ClaimAdminId
 
 

@@ -299,4 +299,20 @@ Public Class HealthFacilityBL
         Dim DAL As New IMIS_DAL.HealthFacilityDAL
         Return DAL.getHFUserLocation(UserId, Hfid)
     End Function
+    Public Function GetHFCodesAll() As DataTable
+        Dim hf As New IMIS_DAL.HealthFacilityDAL
+        Dim dthf As DataTable
+        Dim dtrow As DataRow
+        Dim hfId As Integer = 0
+        dthf = hf.GetHFCodesAll()
+        If dthf.Rows.Count = 0 Then Return dthf
+        If dthf.Rows.Count > 1 Or hfId = 0 Then
+            dtrow = dthf.NewRow
+            dtrow("HfID") = 0
+            dtrow("HFCode") = imisgen.getMessage("T_SELECTHFCODE")
+            dthf.Rows.InsertAt(dtrow, 0)
+        End If
+        Return dthf
+
+    End Function
 End Class

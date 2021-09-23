@@ -184,7 +184,7 @@ Public Class InsureeDAL
         'If Not strWhere = String.Empty Then
         '    strWhere = " WHERE" & strWhere.Remove(1, 4)
         'End If
-        If Not eInsuree.tblFamilies1.ConfirmationType Is Nothing Then
+        If eInsuree.tblFamilies1.ConfirmationType > 0 Then
             strWhere += " AND F.ConfirmationType = @ConfirmationType"
         End If
 
@@ -213,7 +213,7 @@ Public Class InsureeDAL
         data.params("@WardID", SqlDbType.Int, eInsuree.tblFamilies1.WardId)
         data.params("@Email", SqlDbType.NVarChar, 100, "%" & eInsuree.Email & "%")
         data.params("@dtMarital", dtMarital, "xAttributeV")
-        data.params("@ConfirmationType", SqlDbType.Char, 1, eInsuree.tblFamilies1.ConfirmationType)
+        data.params("@ConfirmationType", SqlDbType.Char, 2, eInsuree.tblFamilies1.ConfirmationType)
         Return data.Filldata
 
 

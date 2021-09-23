@@ -581,22 +581,31 @@ Partial Public Class Claim
     Protected WithEvents RequiredFieldValidator5 As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
-    '''lblGurantee control.
+    '''lblOPDIPD control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblGurantee As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblOPDIPD As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''txtGuaranteeId control.
+    '''ddlOPDIPD control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtGuaranteeId As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlOPDIPD As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''rfddlOPDIPD control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rfddlOPDIPD As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
     '''lblItemTotal control.
@@ -615,6 +624,51 @@ Partial Public Class Claim
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtItemTotal As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''lblGurantee control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblGurantee As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''txtGuaranteeId control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtGuaranteeId As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''chkRefering control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkRefering As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''ddlRefer control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlRefer As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''rfddlRefer control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rfddlRefer As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
     '''lblServiceDetails control.

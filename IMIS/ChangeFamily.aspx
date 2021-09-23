@@ -31,7 +31,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Body" Runat="Server">
 
-<script type="text/javascript" language="javascript">
+    <script type="text/javascript" language="javascript">
     function promptInsureeAdd(btn) {
         if (btn === "ok") {
             $("#<%=hfActivate.ClientID%>").val(1);
@@ -242,7 +242,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                                     <asp:Label ID="lblPoverty4" runat="server" Text="<%$ Resources:Resource,L_CONFIRMATIONTYPE %>"></asp:Label>
                                 </td>
                                 <td class="DataEntry">
-                                    <asp:DropDownList ID="ddlConfirmationType" runat="server" Width="150px">
+                                    <asp:DropDownList ID="ddlConfirmationType" runat="server" Width="150px" AutoPostBack="True">
                                     </asp:DropDownList>
                                 </td>
                                        <td>

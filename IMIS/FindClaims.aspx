@@ -619,6 +619,9 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
                <asp:BoundField DataField="HfID" > <ItemStyle CssClass="hidecol" /><HeaderStyle CssClass="hidecol"  /></asp:BoundField >
                <asp:TemplateField  ><ItemTemplate ><asp:Image runat="server" /> </ItemTemplate><ItemStyle Width="15px"   /></asp:TemplateField> 
                <asp:BoundField DataField="Attachment" > <ItemStyle CssClass="hidecol" /><HeaderStyle CssClass="hidecol"  /></asp:BoundField >
+      <asp:HyperLinkField DataNavigateUrlFields = "ClaimID" Text="Details" DataNavigateUrlFormatString = "ClaimDetails.aspx?c={0}" HeaderText='Details' HeaderStyle-Width ="100px"  >
+                         <HeaderStyle Width="50px" />
+                     </asp:HyperLinkField>
                 </Columns>
                 <PagerStyle CssClass="pgr" />
                 <SelectedRowStyle CssClass="srs" />

@@ -141,6 +141,7 @@
     <Content Include="ChangePassword.aspx" />
     <Content Include="Claim.aspx" />
     <Content Include="ClaimAdministrator.aspx" />
+    <Content Include="ClaimDetails.aspx" />
     <Content Include="ClaimFeedback.aspx" />
     <Content Include="ClaimOverview.aspx" />
     <Content Include="ClaimReview.aspx" />
@@ -418,6 +419,13 @@
     <Compile Include="ClaimAdministrator.aspx.vb">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>ClaimAdministrator.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClaimDetails.aspx.designer.vb">
+      <DependentUpon>ClaimDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClaimDetails.aspx.vb">
+      <DependentUpon>ClaimDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ClaimFeedback.aspx.designer.vb">
       <DependentUpon>ClaimFeedback.aspx</DependentUpon>

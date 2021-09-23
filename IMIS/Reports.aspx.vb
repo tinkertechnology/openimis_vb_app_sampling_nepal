@@ -1834,9 +1834,9 @@ Partial Public Class Reports
         End Try
     End Sub
 
-    Private Sub lstboxReportSelector_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstboxReportSelector.SelectedIndexChanged
-        selectedReport = lstboxReportSelector.SelectedValue
-    End Sub
+    'Private Sub lstboxReportSelector_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstboxReportSelector.SelectedIndexChanged
+    '   selectedReport = lstboxReportSelector.SelectedValue
+    'End Sub
     'Private Sub getCapitationDetails()
     '    Dim CatchmentLabel As String = ""
     '    If lstboxReportSelector.SelectedValue = 18 Then

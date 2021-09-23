@@ -120,7 +120,7 @@ title='<%$ Resources:Resource,L_Family%>'%>
                         ID="txtBirthDateFrom" 
                         runat="server" 
                         Width="120px"
-                        CssClass="dateCheck"  >
+                        CssClass="dateCheck FindFamilyFrom"  >
                     </asp:TextBox >
                     <asp:Button  
                         ID="btnDate" 

@@ -345,7 +345,7 @@ Public Class PolicyDAL
         data.setSQLCommand(sSQL, CommandType.Text)
         data.params("@UserId", SqlDbType.Int, ePolicy.AuditUserID)
         data.params("@RegionId", SqlDbType.Int, ePolicy.tblFamilies.RegionId)
-        data.params("@ConfirmationType", SqlDbType.Char, 1, ePolicy.tblFamilies.ConfirmationType)
+        data.params("@ConfirmationType", SqlDbType.Char, 2, ePolicy.tblFamilies.ConfirmationType)
         data.params("@DistrictID", SqlDbType.Int, ePolicy.tblFamilies.DistrictID)
 
         data.params("@EnrollDateFrom", SqlDbType.Date, ePolicy.EnrollDateFrom)

@@ -418,4 +418,15 @@ Public Class HealthFacilityDAL
 
         Return data.Filldata
     End Function
+    Public Function GetHFCodesAll(Optional ByRef Hfid As Integer = 0) As DataTable
+        Dim data As New ExactSQL
+        Dim sSQL As String = ""
+        sSQL = "select tblhf.HfID,tblhf.HfUUID,HFCode + ' - ' + HFNAME HFCODE from tblHF where validityto is null ORDER BY hfCode"
+
+        data.setSQLCommand(sSQL, CommandType.Text)
+
+        Dim dt As DataTable = data.Filldata
+        'Hfid = IIf(data.sqlParameters("@hfid").Equals(DBNull.Value), 0, data.sqlParameters("@hfid"))
+        Return dt
+    End Function
 End Class

@@ -521,6 +521,7 @@ Partial Public Class Report
 
                     Case "co"
                         Dim dt As DataTable = CType(Session("report"), DataTable)
+                        Dim hfname = dt.Rows(0)("HFName")
                         Dim dtDistinct As New DataTable
                         Dim ServiceQTY As Object = Nothing
                         Dim ItemQTY As Object = Nothing
@@ -529,7 +530,7 @@ Partial Public Class Report
                         Dim TotalApproved As Object = Nothing
                         Dim TotalPaid As Object = Nothing
 
-
+                        rpt.DisplayName = hfname
                         If Session("Scope") = 0 Then
                             rpt.ReportPath = "Reports\rptClaimOverviewClaimsOnly.rdlc"
                             Dim dtView As DataView = dt.DefaultView

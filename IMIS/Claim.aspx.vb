@@ -30,6 +30,7 @@ Partial Public Class Claim
     Inherits System.Web.UI.Page
     Private claim As New IMIS_BI.ClaimBI
     Private eClaim As New IMIS_EN.tblClaim
+    Private ClaimOverviews As New IMIS_BI.ClaimOverviewBI
     Protected imisgen As New IMIS_Gen
     Private eHF As New IMIS_EN.tblHF
     Private eClaimService As New IMIS_EN.tblClaimServices
@@ -93,7 +94,14 @@ Partial Public Class Claim
                 eHF.HfID = hfHFID.Value
                 'eHF.HfUUID = Guid.Parse(Request.QueryString("h"))
                 claim.getHFCodeAndName(eHF)
-
+                ddlRefer.DataSource = ClaimOverviews.GetHFCodesAll()
+                ddlRefer.DataValueField = "HfID"
+                ddlRefer.DataTextField = "HFCODE"
+                ddlRefer.DataBind()
+                ddlRefer.Visible = False
+                rfddlRefer.Enabled = False
+                chkRefering.Visible = False
+                'lblRefer.Visible = False
                 eClaim.tblHF = eHF
                 hfClaimID.Value = 0
                 txtHFCode.Text = eHF.HFCode
@@ -198,6 +206,20 @@ Partial Public Class Claim
             txtSTARTData.Text = If(eClaim.DateFrom = Nothing, "", eClaim.DateFrom)
             txtENDData.Text = If(eClaim.DateTo Is Nothing, "", eClaim.DateTo)
             txtEXPLANATION.Text = eClaim.Explanation
+            ddlRefer.DataSource = ClaimOverviews.GetHFCodesAll()
+            ddlRefer.DataValueField = "HfID"
+            ddlRefer.DataTextField = "HFCODE"
+            ddlRefer.DataBind()
+            ddlOPDIPD.SelectedValue = eClaim.CareType
+            If eClaim.ReferFrom <> 0 Then
+                chkRefering.Visible = False
+                ddlRefer.SelectedValue = eClaim.ReferFrom
+            End If
+            If eClaim.ReferTo <> 0 Then
+                chkRefering.Visible = True
+                chkRefering.Checked = True
+                ddlRefer.SelectedValue = eClaim.ReferTo
+            End If
 
             If Not eClaim.ClaimID = 0 Then
                 StoreClaimDetails()
@@ -480,7 +502,13 @@ Partial Public Class Claim
             hfPrevItemRows.Value = 30
             hfPrevServiceRows.Value = 30
             ddlVisitType.SelectedValue = ""
+            chkRefering.Checked = False
+            ddlRefer.SelectedValue = 0
             txtGuaranteeId.Text = ""
+            ddlOPDIPD.SelectedValue = 0
+            chkRefering.Visible = False
+            'lblRefer.Visible = False
+            ddlRefer.Visible = False
             'hfClaimAdminId.Value = 0
             'txtClaimAdminCode.Text = String.Empty
 
@@ -597,11 +625,21 @@ Partial Public Class Claim
                 Return "Exit"
             End If
 
-            Dim days As Integer = (Date.ParseExact(txtClaimDate.Text, "dd/MM/yyyy", Nothing) - Date.ParseExact(txtSTARTData.Text, "dd/MM/yyyy", Nothing)).Days
-            If days > CInt(System.Configuration.ConfigurationManager.AppSettings("ClaimAllowedDays")) Then
-                imisgen.Alert("Visit From Date should be less than " & System.Configuration.ConfigurationManager.AppSettings("ClaimAllowedDays").ToString() & " days.", pnlButtons, alertPopupTitle:="IMIS")
-                Return "Exit"
+            If ddlOPDIPD.SelectedValue = "O" Then
+                Dim days As Integer = (Date.ParseExact(txtClaimDate.Text, "dd/MM/yyyy", Nothing) - Date.ParseExact(txtSTARTData.Text, "dd/MM/yyyy", Nothing)).Days
+                If days > CInt(System.Configuration.ConfigurationManager.AppSettings("ClaimAllowedDays")) Then
+                    imisgen.Alert("Visit From Date should be less than " & System.Configuration.ConfigurationManager.AppSettings("ClaimAllowedDays").ToString() & " days.", pnlButtons, alertPopupTitle:="IMIS")
+                    Return "Exit"
+                End If
             End If
+            If ddlOPDIPD.SelectedValue = "I" Then
+                Dim days As Integer = (Date.ParseExact(txtClaimDate.Text, "dd/MM/yyyy", Nothing) - Date.ParseExact(txtENDData.Text, "dd/MM/yyyy", Nothing)).Days
+                If days > CInt(System.Configuration.ConfigurationManager.AppSettings("ClaimAllowedDays")) Then
+                    imisgen.Alert("Visit To Date should be less than " & System.Configuration.ConfigurationManager.AppSettings("ClaimAllowedDays").ToString() & " days.", pnlButtons, alertPopupTitle:="IMIS")
+                    Return "Exit"
+                End If
+            End If
+
 
             eHF.HfID = hfHFID.Value
             eClaim.tblHF = eHF
@@ -700,6 +738,14 @@ Partial Public Class Claim
                         End If
                         eClaim.tblClaimAdmin = eClaimAdmin
                         eClaim.GuaranteeId = txtGuaranteeId.Text
+                        eClaim.CareType = ddlOPDIPD.SelectedValue
+                        If ddlVisitType.SelectedValue = "R" Then
+                            eClaim.ReferFrom = ddlRefer.SelectedValue
+                        Else
+                            If chkRefering.Checked Then
+                                eClaim.ReferTo = ddlRefer.SelectedValue
+                            End If
+                        End If
                         chkSaveClaim = claim.SaveClaim(eClaim)
                         hfClaimID.Value = eClaim.ClaimID
                         txtCLAIMCODEData.Attributes.Add("ClaimCodetag", eClaim.ClaimCode)
@@ -1084,5 +1130,31 @@ Partial Public Class Claim
             'EventLog.WriteEntry("IMIS", Page.Title & " : " & imisgen.getLoginName(Session("User")) & " : " & ex.Message, EventLogEntryType.Error, 999)
             Return
         End Try
+    End Sub
+    Private Sub ddlVisitType_IndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddlVisitType.SelectedIndexChanged
+        If ddlVisitType.SelectedValue = "R" Then
+            ddlRefer.Visible = True
+            rfddlRefer.Enabled = True
+            chkRefering.Visible = False
+            'lblRefer.Visible = True
+            'lblRefer.Text = "Refered From:"
+        Else
+            ddlRefer.Visible = False
+            rfddlRefer.Enabled = False
+            chkRefering.Visible = True
+            'lblRefer.Visible = False
+        End If
+    End Sub
+    Private Sub chkRefering_checked(ByVal sender As Object, ByVal e As System.EventArgs) Handles chkRefering.CheckedChanged
+        If chkRefering.Checked Then
+            ddlRefer.Visible = True
+            rfddlRefer.Enabled = True
+            'lblRefer.Visible = True
+            'lblRefer.Text = "Refer To:"
+        Else
+            ddlRefer.Visible = False
+            rfddlRefer.Enabled = False
+            'lblRefer.Visible = False
+        End If
     End Sub
 End Class

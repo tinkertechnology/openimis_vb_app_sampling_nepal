@@ -249,10 +249,17 @@ In case of dispute arising out or in relation to the use of the program, it is s
              <tr>
                   <td><asp:Label ID="lblVisitType" runat="server" Text="<%$ Resources:Resource,L_VISITTYPE %>" CssClass="FormLabel"></asp:Label></td>
                   <td><asp:Label ID="lblVisitTypeData" runat="server"  CssClass="DataEntry"></asp:Label></td>
-                  <td><asp:Label ID="lblGuaranteeNo" runat="server" Text="<%$ Resources:Resource,L_GUARANTEE %>" CssClass="FormLabel"></asp:Label></td>
+                 <td><asp:Label ID="lblOPDIPD" runat="server" CssClass="FormLabel" Text="OPD/IPD"></asp:Label></td>
+                 <td><asp:Label ID="lblOPDIPDData" runat="server" CssClass="DataEntry"></asp:Label></td>
+                 <td><asp:Label ID="lblrefer" runat="server" CssClass="FormLabel"></asp:Label></td>
+                 <td><asp:Label ID="lblreferData" runat="server" CssClass="DataEntry"></asp:Label></td>
+                 
+              </tr>  
+              <tr>
+                   <td><asp:Label ID="lblGuaranteeNo" runat="server" Text="<%$ Resources:Resource,L_GUARANTEE %>" CssClass="FormLabel"></asp:Label></td>
                   <td><asp:Label ID="lblGuaranteeData" runat="server"  CssClass="DataEntry"></asp:Label></td>
-                  <td colspan="2"><asp:Label ID="lblAttachment" runat="server"> <a id="lnkViewDocument" target="_blank" style="color:red;font-size:large">View Document</a></asp:Label></td>
-              </tr>         
+                   <td colspan="2"><asp:Label ID="lblAttachment" runat="server"> <a id="lnkViewDocument" target="_blank" style="color:red;font-size:large">View Document</a></asp:Label></td>
+              </tr>
          
           </table>
            

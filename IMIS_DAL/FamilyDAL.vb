@@ -293,6 +293,9 @@ Public Class FamilyDAL
         If eFamily.tblInsuree.Email.Trim.Length > 0 Then
             sSQL += " AND I.Email like @Email"
         End If
+        If eFamily.ConfirmationType > 0 Then
+            sSQL += " And  F.ConfirmationType =  @ConfirmationType"
+        End If
 
         'sSQL += " GROUP BY  F.isOffline,F.FamilyId,I.CHFID,I.LastName,I.Othernames,L.DistrictName,L.WardName, L.VillageName,F.Poverty ,"
         sSQL += " GROUP BY F.isOffline, F.FamilyID, I.CHFID, I.LastName, I.OtherNames, L.DistrictName, L.WardName, L.VillageName, F.Poverty,F.ConfirmationType,F.Ethnicity,  RegionName,F.validityfrom, F.validityTo, F.FamilyUUID "
@@ -321,7 +324,7 @@ Public Class FamilyDAL
         data.params("@dtYesNo", GetYesNo, "xAttributeV")
         data.params("@ConfirmationNo", SqlDbType.NVarChar, 12, eFamily.ConfirmationNo & "%")
         data.params("@Email", SqlDbType.NVarChar, 50, eFamily.tblInsuree.Email & "%")
-
+        data.params("@ConfirmationType", SqlDbType.NVarChar, 2, eFamily.ConfirmationType)
 
         Return data.Filldata
     End Function

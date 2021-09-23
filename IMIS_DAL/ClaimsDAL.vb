@@ -32,26 +32,26 @@ Public Class ClaimsDAL
         Dim dt As New DataTable
         Dim sSQLClaim As String
 
-        sSQLClaim = "SELECT H.HFID,H.HFCode, H.HFName,H.HFCareType,C.ICDID,C.InsureeId,I.CHFID" &
-               ",I.LastName,I.OtherNames,C.DateFrom,C.DateTo,C.ClaimCode,C.DateClaimed,C.DateProcessed" &
-               ",IC.ICDCode,C.Claimed,C.Approved,C.Explanation,C.Valuated,C.Explanation,C.Adjustment" &
-               ",C.ClaimStatus,C.ReviewStatus,C.FeedbackStatus,FB.FeedbackID,FB.FeedbackDate,FB.CareRendered" &
-               ",FB.DrugPrescribed,FB.DrugReceived,FB.PaymentAsked,FB.Asessment,FB.CHFOfficerCode" &
-               ",Cadm.ClaimAdminID,Cadm.ClaimAdminCode,Cadm.LastName CadminLastName,Cadm.OtherNames CadminOtherNames" &
-               " ,C.ICDID1, C.ICDID2, C.ICDID3, C.ICDID4, C.VisitType,IC1.ICDCode ICDCode1,IC2.ICDCode ICDCode2,IC3.ICDCode ICDCode3,IC4.ICDCode ICDCode4,GuaranteeId" &
-                ",ISNULL(CS.RejectionReason,NULL) ServiceRejectionReason,ISNULL(CI.RejectionReason,NULL) ItemRejectionReason, Attachment " &
-               " FROM tblClaim C" &
-               " INNER JOIN tblInsuree I ON C.InsureeID = I.InsureeID INNER JOIN tblHF H ON C.HfID = H.HfID" &
-               " INNER JOIN tblICDCodes IC ON C.ICDID = IC.ICDID" &
-               " LEFT JOIN tblICDCodes IC1 ON C.ICDID1 = IC1.ICDID" &
-               " LEFT JOIN tblICDCodes IC2 ON C.ICDID2 = IC2.ICDID" &
-               " LEFT JOIN tblICDCodes IC3 ON C.ICDID3 = IC3.ICDID" &
-               " LEFT JOIN tblICDCodes IC4 ON C.ICDID4 = IC4.ICDID" &
-               " LEFT JOIN tblFeedback FB ON C.ClaimID = FB.ClaimID" &
-               " LEFT JOIN tblClaimAdmin Cadm ON Cadm.ClaimAdminId = C.ClaimAdminId" &
-               " LEFT OUTER JOIN tblClaimServices CS ON CS.ClaimID = C.ClaimID" &
-               " LEFT OUTER JOIN tblClaimItems CI ON CI.ClaimID = C.ClaimID" &
-               " WHERE C.ClaimID = @ClaimID"
+        'sSQLClaim = "SELECT H.HFID,H.HFCode, H.HFName,H.HFCareType,C.ICDID,C.InsureeId,I.CHFID" &
+        '       ",I.LastName,I.OtherNames,C.DateFrom,C.DateTo,C.ClaimCode,C.DateClaimed,C.DateProcessed" &
+        '       ",IC.ICDCode,C.Claimed,C.Approved,C.Explanation,C.Valuated,C.Explanation,C.Adjustment" &
+        '       ",C.ClaimStatus,C.ReviewStatus,C.FeedbackStatus,FB.FeedbackID,FB.FeedbackDate,FB.CareRendered" &
+        '       ",FB.DrugPrescribed,FB.DrugReceived,FB.PaymentAsked,FB.Asessment,FB.CHFOfficerCode" &
+        '       ",Cadm.ClaimAdminID,Cadm.ClaimAdminCode,Cadm.LastName CadminLastName,Cadm.OtherNames CadminOtherNames" &
+        '       " ,C.ICDID1, C.ICDID2, C.ICDID3, C.ICDID4, C.VisitType,IC1.ICDCode ICDCode1,IC2.ICDCode ICDCode2,IC3.ICDCode ICDCode3,IC4.ICDCode ICDCode4,GuaranteeId" &
+        '        ",ISNULL(CS.RejectionReason,NULL) ServiceRejectionReason,ISNULL(CI.RejectionReason,NULL) ItemRejectionReason, Attachment " &
+        '       " FROM tblClaim C" &
+        '       " INNER JOIN tblInsuree I ON C.InsureeID = I.InsureeID INNER JOIN tblHF H ON C.HfID = H.HfID" &
+        '       " INNER JOIN tblICDCodes IC ON C.ICDID = IC.ICDID" &
+        '       " LEFT JOIN tblICDCodes IC1 ON C.ICDID1 = IC1.ICDID" &
+        '       " LEFT JOIN tblICDCodes IC2 ON C.ICDID2 = IC2.ICDID" &
+        '       " LEFT JOIN tblICDCodes IC3 ON C.ICDID3 = IC3.ICDID" &
+        '       " LEFT JOIN tblICDCodes IC4 ON C.ICDID4 = IC4.ICDID" &
+        '       " LEFT JOIN tblFeedback FB ON C.ClaimID = FB.ClaimID" &
+        '       " LEFT JOIN tblClaimAdmin Cadm ON Cadm.ClaimAdminId = C.ClaimAdminId" &
+        '       " LEFT OUTER JOIN tblClaimServices CS ON CS.ClaimID = C.ClaimID" &
+        '       " LEFT OUTER JOIN tblClaimItems CI ON CI.ClaimID = C.ClaimID" &
+        '       " WHERE C.ClaimID = @ClaimID"
 
 #If HIB Then
         sSQLClaim = "SELECT H.HFID,H.HFCode, H.HFName,H.HFCareType,C.ICDID,C.InsureeId,I.CHFID" &
@@ -62,10 +62,12 @@ Public Class ClaimsDAL
                ",Cadm.ClaimAdminID,Cadm.ClaimAdminCode,Cadm.LastName CadminLastName,Cadm.OtherNames CadminOtherNames" &
                " ,C.ICDID1,  C.VisitType,IC1.ICDCode ICDCode1,GuaranteeId" &
                 ",ISNULL(CS.RejectionReason,NULL) ServiceRejectionReason,ISNULL(CI.RejectionReason,NULL) ItemRejectionReason, Attachment " &
-                 ",IC.ICDName, IC1.ICDName ICDName1 " &
+                 ",IC.ICDName, IC1.ICDName ICDName1, HFF.HFName ReferF, HFT.HFName ReferT, C.CareType, C.referFrom, C.referTo  " &
                " FROM tblClaim C" &
                " INNER JOIN tblInsuree I ON C.InsureeID = I.InsureeID INNER JOIN tblHF H ON C.HfID = H.HfID" &
                " INNER JOIN tblICDCodes IC ON C.ICDID = IC.ICDID" &
+               " LEFT JOIN tblHF HFF ON C.referFrom = HFF.HfID" &
+               " LEFT JOIN tblHF HFT ON C.referTo = HFT.HfID" &
                 " LEFT JOIN tblICDCodes IC1 ON C.ICDID1 = IC1.ICDID" &
                " LEFT JOIN tblFeedback FB ON C.ClaimID = FB.ClaimID" &
                " LEFT JOIN tblClaimAdmin Cadm ON Cadm.ClaimAdminId = C.ClaimAdminId" &
@@ -154,6 +156,11 @@ Public Class ClaimsDAL
             eClaim.ClaimItems = eClaimItems
             eClaim.ClaimServices = eClaimServices
             eClaim.Attachment = dr("Attachment")
+            eClaim.ReferFrom = dr("ReferFrom")
+            eClaim.ReferTo = dr("ReferTo")
+            eClaim.ReferFromData = If(dr("ReferF") Is DBNull.Value, Nothing, dr("ReferF"))
+            eClaim.ReferToData = If(dr("ReferT") Is DBNull.Value, Nothing, dr("ReferT"))
+            eClaim.CareType = If(dr("CareType") Is DBNull.Value, Nothing, dr("CareType"))
 
 
         End If
@@ -212,8 +219,8 @@ Public Class ClaimsDAL
     Public Sub InsertClaim(ByRef eClaim As IMIS_EN.tblClaim)
 
         data.setSQLCommand("Insert Into tblClaim ([InsureeID],[HFID],[ClaimCode],[DateFrom],[DateTo],[ICDID],[Explanation],[Claimed]," _
-                           & "[DateClaimed],[ValidityFrom],[AuditUserID],ClaimAdminID,ICDID1,ICDID2,ICDID3,ICDID4,VisitType,GuaranteeId)" _
-                           & "VALUES(@InsureeID, @HFID, @ClaimCode, @DateFrom, @DateTo, @ICDID, @Explanation,@Claimed, @DateClaimed, getdate(), @AuditUserID,@ClaimAdminID,@ICDID1,@ICDID2,@ICDID3,@ICDID4,@VisitType,@GuaranteeId);select @claimID = scope_identity()", CommandType.Text)
+                           & "[DateClaimed],[ValidityFrom],[AuditUserID],ClaimAdminID,ICDID1,ICDID2,ICDID3,ICDID4,VisitType,GuaranteeId,CareType,ReferFrom,ReferTo)" _
+                           & "VALUES(@InsureeID, @HFID, @ClaimCode, @DateFrom, @DateTo, @ICDID, @Explanation,@Claimed, @DateClaimed, getdate(), @AuditUserID,@ClaimAdminID,@ICDID1,@ICDID2,@ICDID3,@ICDID4,@VisitType,@GuaranteeId,@CareType, @ReferFrom, @ReferTo);select @claimID = scope_identity()", CommandType.Text)
         data.params("@claimID", SqlDbType.Int, eClaim.ClaimID, ParameterDirection.Output)
         data.params("@InsureeID", SqlDbType.Int, eClaim.tblInsuree.InsureeID)
         data.params("@HFID", SqlDbType.Int, eClaim.tblHF.HfID)
@@ -232,6 +239,9 @@ Public Class ClaimsDAL
         data.params("@ICDID4", SqlDbType.Int, eClaim.ICDID4)
         data.params("@VisitType", SqlDbType.Char, 1, eClaim.VisitType)
         data.params("@GuaranteeId", SqlDbType.NVarChar, 50, eClaim.GuaranteeId)
+        data.params("@CareType", SqlDbType.Char, 1, eClaim.CareType)
+        data.params("@ReferFrom", SqlDbType.Int, eClaim.ReferFrom)
+        data.params("@ReferTo", SqlDbType.Int, eClaim.ReferTo)
 
         data.ExecuteCommand()
         eClaim.ClaimID = data.sqlParameters("@claimID")
@@ -240,13 +250,13 @@ Public Class ClaimsDAL
 
         data.setSQLCommand("Insert Into tblClaim ([InsureeID],[HFID],[ClaimCode],[DateFrom],[DateTo],[ICDID],[ClaimStatus],[Adjuster],[Adjustment],[Claimed]" _
                            & ",[Approved],[Reinsured],[Valuated],[DateClaimed],[DateProcessed],[Feedback],[FeedbackID],[Explanation],[FeedbackStatus]" _
-                           & ",[ReviewStatus],[ApprovalStatus],[RejectionReason],[ValidityFrom],[ValidityTo],[LegacyID],[AuditUserID],[RunID],[CLaimAdminId],[ICDID1],[ICDID2],[ICDID3],[ICDID4],[VisitType],GuaranteeId)" _
+                           & ",[ReviewStatus],[ApprovalStatus],[RejectionReason],[ValidityFrom],[ValidityTo],[LegacyID],[AuditUserID],[RunID],[CLaimAdminId],[ICDID1],[ICDID2],[ICDID3],[ICDID4],[VisitType],GuaranteeId,CareType)" _
                            & "SELECT [InsureeID],[HFID],[ClaimCode],[DateFrom],[DateTo],[ICDID],[ClaimStatus],[Adjuster],[Adjustment],[Claimed],[Approved],[Reinsured]" _
                            & ",[Valuated],[DateClaimed],[DateProcessed],[Feedback],[FeedbackID],[Explanation],[FeedbackStatus],[ReviewStatus],[ApprovalStatus]," _
-                           & "[RejectionReason],[ValidityFrom],getdate(),[ClaimID],[AuditUserID],[RunID],[ClaimAdminId],[ICDID1],[ICDID2],[ICDID3],[ICDID4],[VisitType],GuaranteeId FROM tblClaim WHERE ClaimID=@ClaimID;" _
+                           & "[RejectionReason],[ValidityFrom],getdate(),[ClaimID],[AuditUserID],[RunID],[ClaimAdminId],[ICDID1],[ICDID2],[ICDID3],[ICDID4],[VisitType],GuaranteeId,CareType FROM tblClaim WHERE ClaimID=@ClaimID;" _
                            & " UPDATE [tblClaim] SET [ClaimCode]= @ClaimCode,[InsureeId]= @InsureeId,[ICDID]= @ICDId,[DateFrom]= @DateFrom,[DateTo]= @DateTo,[DateClaimed]= @DateClaimed,[Explanation]= @Explanation," _
-                           & "[Claimed] = @Claimed,[ValidityFrom] = Getdate(),[AuditUserID] = @AuditUserID,ClaimAdminID = @ClaimAdminID " & _
-                           " ,ICDID1 = @ICDID1,ICDID2 = @ICDID2,ICDID3 = @ICDID3,ICDID4 = @ICDID4,VisitType = @VisitType,GuaranteeId = @GuaranteeId " & _
+                           & "[Claimed] = @Claimed,[ValidityFrom] = Getdate(),[AuditUserID] = @AuditUserID,ClaimAdminID = @ClaimAdminID " &
+                           " ,ICDID1 = @ICDID1,ICDID2 = @ICDID2,ICDID3 = @ICDID3,ICDID4 = @ICDID4,VisitType = @VisitType,GuaranteeId = @GuaranteeId, CareType=@CareType " &
                            " WHERE claimID = @claimID", CommandType.Text)
 
         data.params("@claimID", SqlDbType.Int, eClaim.ClaimID)
@@ -267,6 +277,7 @@ Public Class ClaimsDAL
         data.params("@VisitType", SqlDbType.Char, 1, eClaim.VisitType)
         data.params("@GuaranteeId", SqlDbType.NVarChar, 50, eClaim.GuaranteeId)
         data.params("@ClaimStatus", SqlDbType.TinyInt, eClaim.ClaimStatus)
+        data.params("@CareType", SqlDbType.Char, 1, eClaim.CareType)
 
         data.ExecuteCommand()
     End Sub

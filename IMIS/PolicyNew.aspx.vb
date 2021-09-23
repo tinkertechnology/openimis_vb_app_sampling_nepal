@@ -441,6 +441,11 @@ Partial Public Class PolicyNew
                 efamily.isOffline = IMIS_Gen.offlineHF Or IMIS_Gen.OfflineCHF
                 'ePolicy.PolicyID = Request.QueryString("p")
                 ePolicy.EnrollDate = Date.ParseExact(txtEnrollmentDate.Text, "dd/MM/yyyy", Nothing)
+                Dim days As Integer = (Date.ParseExact(Now.Date(), "dd/MM/yyyy", Nothing) - Date.ParseExact(txtEnrollmentDate.Text, "dd/MM/yyyy", Nothing)).Days
+                If days < 1 Then
+                    imisgen.Alert("Enroll Day should be less than today!", pnlButtons, alertPopupTitle:="IMIS")
+                    Return
+                End If
                 If Not ePolicy.PolicyID = 0 Then
 
                     If IsDate(txtEffectiveDate.Text) Then

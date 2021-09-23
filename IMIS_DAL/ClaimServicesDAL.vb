@@ -32,8 +32,11 @@ Public Class ClaimServicesDAL
     Public Sub InsertClaimServices(ByRef eClaimServices As IMIS_EN.tblClaimServices)
         Dim data As New ExactSQL
 
-        data.setSQLCommand("Insert Into tblClaimServices ([ClaimID],[ServiceID],[QtyProvided],[PriceAsked],[Explanation],[ValidityFrom],[AuditUserID])" _
-                           & "VALUES(@ClaimID,@ServiceID,@QtyProvided,@PriceAsked,@Explanation,getdate(),@AuditUserID)", CommandType.Text)
+        'data.setSQLCommand("Insert Into tblClaimServices ([ClaimID],[ServiceID],[QtyProvided],[PriceAsked],[Explanation],[ValidityFrom],[AuditUserID])" _
+        '                   & "VALUES(@ClaimID,@ServiceID,@QtyProvided,@PriceAsked,@Explanation,getdate(),@AuditUserID)", CommandType.Text)
+
+        data.setSQLCommand("If Not Exists(select * from tblClaimServices where ClaimID=@ClaimID and ServiceID=@ServiceID) Begin Insert Into tblClaimServices ([ClaimID],[ServiceID],[QtyProvided],[PriceAsked],[Explanation],[ValidityFrom],[AuditUserID])" _
+                           & "VALUES(@ClaimID,@ServiceID,@QtyProvided,@PriceAsked,@Explanation,getdate(),@AuditUserID) End", CommandType.Text)
 
         data.params("@ClaimID", SqlDbType.Int, eClaimServices.tblClaim.ClaimID)
         data.params("@ServiceID", SqlDbType.Int, eClaimServices.tblServices.ServiceID)

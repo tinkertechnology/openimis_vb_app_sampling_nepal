@@ -78,7 +78,8 @@ In case of dispute arising out or in relation to the use of the program, it is s
             var flag = true;
             $criterias.find("select, input[type=text]").each(function () {
 
-                if ($(this).is("input[type=text]") || $(this).is("input[type=text]").attr("class") != "cp") {
+                //if ($(this).is("input[type=text]") || $(this).is("input[type=text]").attr("class") != "cp") {
+                    if ($(this).is("input[type=text]")) {
                     var lstBoxID = $lstBox.val();
                     if (lstBoxID == 20) { return true; }
                     flag = isValidJSDate($(this).val());

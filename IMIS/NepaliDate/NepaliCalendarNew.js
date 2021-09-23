@@ -50,6 +50,10 @@
                 minDate = -100;
                 maxDate = 0;
             }
+            else if ($(this).attr("class") === 'dateCheck FindFamilyFrom') {
+                minDate = -2555;
+                maxDate = 0;
+            }
             else {
                 minDate = -10;
                 maxDate = +10;
