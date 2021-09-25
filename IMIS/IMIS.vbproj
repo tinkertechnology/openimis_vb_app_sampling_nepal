@@ -141,7 +141,6 @@
     <Content Include="ChangePassword.aspx" />
     <Content Include="Claim.aspx" />
     <Content Include="ClaimAdministrator.aspx" />
-    <Content Include="ClaimDetails.aspx" />
     <Content Include="ClaimFeedback.aspx" />
     <Content Include="ClaimOverview.aspx" />
     <Content Include="ClaimReview.aspx" />
@@ -156,6 +155,7 @@
     <Content Include="favicon.ico" />
     <Content Include="FeedbackPrompt.aspx" />
     <Content Include="FindClaimAdministrator.aspx" />
+    <Content Include="ClaimSamplings.aspx" />
     <Content Include="FindClaims.aspx" />
     <Content Include="FindFamily.aspx" />
     <Content Include="FindHealthFacility.aspx" />
@@ -288,6 +288,7 @@
     <Content Include="Images\Updated\dummy.dmd" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="AutoCompleteHandlers\AutoCompleteHandler.ashx" />
+    <Content Include="App_GlobalResources\Resource.designer.zip" />
     <None Include="IMISDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>IMISDataSet.Designer.vb</LastGenOutput>
@@ -325,51 +326,7 @@
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>AddFunding.aspx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\Resource.designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\Resource.en_CM.designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.en_CM.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\Resource.en_TZ1.designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.en_TZ.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\Resource.es_ES.designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.es_ES.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\Resource.fr.designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.fr.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\Resource.fr_CD.designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.fr_CD.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\Resource.fr_DJ.designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.fr_DJ.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\Resource.fr_TD.designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.fr_TD.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\Resource.sw.designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.sw.resx</DependentUpon>
-    </Compile>
+    <Compile Include="App_GlobalResources\Resource.designer.vb" />
     <Compile Include="App_GlobalResources\Resource1.designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -419,13 +376,6 @@
     <Compile Include="ClaimAdministrator.aspx.vb">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>ClaimAdministrator.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ClaimDetails.aspx.designer.vb">
-      <DependentUpon>ClaimDetails.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ClaimDetails.aspx.vb">
-      <DependentUpon>ClaimDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ClaimFeedback.aspx.designer.vb">
       <DependentUpon>ClaimFeedback.aspx</DependentUpon>
@@ -510,6 +460,13 @@
     <Compile Include="FindClaimAdministrator.aspx.vb">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>FindClaimAdministrator.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClaimSamplings.aspx.designer.vb">
+      <DependentUpon>ClaimSamplings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClaimSamplings.aspx.vb">
+      <DependentUpon>ClaimSamplings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FindClaims.aspx.designer.vb">
       <DependentUpon>FindClaims.aspx</DependentUpon>
@@ -908,42 +865,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\Resource.resx">
-      <SubType>Designer</SubType>
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Resource1.designer.vb</LastGenOutput>
-    </Content>
-    <Content Include="App_GlobalResources\Resource.fr.resx">
-      <SubType>Designer</SubType>
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resource.fr.designer.vb</LastGenOutput>
-    </Content>
-    <Content Include="App_GlobalResources\Resource.sw.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resource.sw.designer.vb</LastGenOutput>
-    </Content>
-    <Content Include="App_GlobalResources\Resource.en_CM.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resource.en_CM.designer.vb</LastGenOutput>
-    </Content>
-    <Content Include="App_GlobalResources\Resource.en_TZ.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resource.en_TZ1.designer.vb</LastGenOutput>
-    </Content>
-    <Content Include="App_GlobalResources\Resource.es_ES.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resource.es_ES.designer.vb</LastGenOutput>
-    </Content>
-    <Content Include="App_GlobalResources\Resource.fr_CD.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resource.fr_CD.designer.vb</LastGenOutput>
-    </Content>
-    <Content Include="App_GlobalResources\Resource.fr_DJ.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resource.fr_DJ.designer.vb</LastGenOutput>
-    </Content>
-    <Content Include="App_GlobalResources\Resource.fr_TD.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resource.fr_TD.designer.vb</LastGenOutput>
     </Content>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

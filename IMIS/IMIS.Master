@@ -460,6 +460,9 @@
                             <asp:Label ID="lblClaimsLink" runat="server" Text='<%$ Resources:Resource,B_CLAIM %>'></asp:Label>
                             </a>
                             <ul>
+                                <li><a class="candisable" href="ClaimSamplings.aspx">
+                                    <asp:Label ID="Label8" runat="server" Text='<%$ Resources:Resource,L_HFCLAIM %>'></asp:Label> Sampling
+                                    </a></li>
                                 <li><a class="candisable" href="FindClaims.aspx">
                                     <asp:Label ID="SubClaimOverview" runat="server" Text='<%$ Resources:Resource,L_HFCLAIM %>'></asp:Label>
                                     </a></li>
