@@ -22,7 +22,7 @@ sustained by you or third parties or a failure of the program to operate with an
 advised of the possibility of such damages.
 
 In case of dispute arising out or in relation to the use of the program, it is subject to the public law of Switzerland. The place of jurisdiction is Berne.--%>
-<%@ Page Language="vb" AutoEventWireup="false" MasterPageFile="~/IMIS.Master" CodeBehind="ClaimSamplings.aspx.vb" Inherits="IMIS.FindClaims" 
+<%@ Page Language="vb" AutoEventWireup="false" MasterPageFile="~/IMIS.Master" CodeBehind="ClaimSamplings.aspx.vb" Inherits="IMIS.ClaimSamplings" 
 Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
 
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajax" %>
@@ -622,6 +622,10 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
     
                     <asp:BoundField DataField="Claimed"  DataFormatString="{0:n2}" HeaderText='<%$ Resources:Resource,L_CLAIMED %>' SortExpression="Claimed" ItemStyle-HorizontalAlign="Right">
                      <HeaderStyle Width="50px" />  
+                        <ItemStyle HorizontalAlign="Right" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="jpt"  DataFormatString="{0:n2}" HeaderText='jpt' SortExpression="jpt" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Right">  
+                        <HeaderStyle Width="70px" />
                         <ItemStyle HorizontalAlign="Right" />
                     </asp:BoundField>
                     <asp:BoundField DataField="Approved"  DataFormatString="{0:n2}" HeaderText='<%$ Resources:Resource,L_APPROVED %>' SortExpression="Approved" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Right">  
