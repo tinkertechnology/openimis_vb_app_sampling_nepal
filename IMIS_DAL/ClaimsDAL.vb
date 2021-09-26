@@ -1181,6 +1181,21 @@ Public Class ClaimsDAL
 
         data.ExecuteCommand()
     End Sub
+
+    Public Sub UpdateClaimSample(ByRef eClaim As IMIS_EN.tblClaim)
+        'Update tblClaims set give_amount = givamount, batch_id = batchid where id = id'
+        'Dim sSQL = "Update tblClaims Set ClaimAmountPayment =" + givamount + ", ClaimSampleBatchID = " + batchid + "where id =" + id'
+        Dim sSQL = "Update tblClaims Set ClaimAmountPayment = @ClaimAmountPayment,ClaimSampleBatchID=@ClaimSampleBatchID where ClaimID = @ClaimID"
+
+        data.setSQLCommand(sSQL, CommandType.Text)
+
+        data.params("@claimID", SqlDbType.Int, eClaim.ClaimID)
+        data.params("@ClaimAmountPayment", SqlDbType.Int, eClaim.ClaimAmountPayment)
+        data.params("@ClaimSampleBatchID", SqlDbType.Int, eClaim.ClaimSampleBatchID)
+
+
+        data.ExecuteCommand()
+    End Sub
     Public Function GetClaimIdByUUID(ByVal uuid As Guid) As DataTable
         Dim sSQL As String = ""
         Dim data As New ExactSQL

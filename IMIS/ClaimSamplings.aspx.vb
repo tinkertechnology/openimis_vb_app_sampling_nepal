@@ -27,10 +27,12 @@
 '
 
 
+
 Partial Public Class ClaimSamplings
     Inherits System.Web.UI.Page
     Private eClaim As New IMIS_EN.tblClaim
     Protected imisgen As New IMIS_Gen
+    Dim ClaimsDAL As New IMIS_DAL.ClaimsDAL
     Private ClaimSamplingsB As New IMIS_BI.FindClaimsBI
     Private eUsers As New IMIS_EN.tblUsers
     Dim eHF As New IMIS_EN.tblHF
@@ -634,15 +636,22 @@ Partial Public Class ClaimSamplings
 
         'batchid = insert into batch. get inserted last batchid'
         Dim batchid = 1
+        Dim eClaim = New IMIS_EN.tblClaim
         For i = 0 To count
             Dim row = gvClaims.Rows(i)
             Dim id = row.Cells(9).Text
             Dim claimAmount = Convert.ToDouble(row.Cells(11).Text)
-
+            Dim SampleAmountDecrease = 1
             Dim givamount = claimAmount - (claimAmount * percent)
             'Update tblClaims set give_amount = givamount, batch_id = batchid where id = id'
-            'Update tblClaims Set give_amount = givamount, batch_id = batchid where id = id'
-            'Data.setSQLCommand(sSQL, CommandType.Text)'
+            eClaim.ClaimID = id
+            eClaim.ClaimAmountPayment = givamount
+            eClaim.SampleAmountDecrease = SampleAmountDecrease
+            eClaim.SampleAmountPercent = percent
+            eClaim.ClaimSampleBatchID = batchid
+
+            ClaimsDAL.UpdateClaimSample(eClaim)
+
         Next
 
         Return
