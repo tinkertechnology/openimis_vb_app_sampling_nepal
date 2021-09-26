@@ -327,7 +327,13 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
                   
                   $('.mGrid tr').hide();
                   var rand10 = [];
-                  for (i = 0; i < 9; i++) { rand10.push(Math.floor((Math.random() * 10000) % 19)); }
+                  var sample_percent = $('#Body_sample_percent').val()
+                  console.log('sa', sample_percent);
+                  var count = $('.mGrid tr').length
+                  console.log('count', count);
+                  var no_of_sample = sample_percent * 0.01 * count;
+                  console.log('no_of_sample', no_of_sample);
+                  for (i = 0; i < no_of_sample; i++) { rand10.push(Math.floor((Math.random() * 10000) % count)); }
                   $('.mGrid tr').each(function (i, v) { if (rand10.includes(i)) { $(v).show() } });
 
 
@@ -573,6 +579,10 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
                     <asp:Button class="button" ID="samplebtn" runat="server" 
                           Text='sample' >
                     </asp:Button>
+
+                    <asp:Button class="button" ID="btnSampleSubmit" runat="server" 
+                          Text='SampleSubmit' >
+                    </asp:Button>
                 </td>
                
                 </tr>
@@ -592,7 +602,6 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
             <asp:GridView ID="gvClaims" runat="server" 
                 AutoGenerateColumns="False"
                 GridLines="None"
-                AllowPaging="false"
                 CssClass="mGrid"
                 EmptyDataText='<%$ Resources:Resource,M_NOCLAIMS %>'
                 PagerStyle-CssClass="pgr"
@@ -624,14 +633,13 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
                      <HeaderStyle Width="50px" />  
                         <ItemStyle HorizontalAlign="Right" />
                     </asp:BoundField>
-                    <asp:BoundField DataField="jpt"  DataFormatString="{0:n2}" HeaderText='jpt' SortExpression="jpt" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Right">  
-                        <HeaderStyle Width="70px" />
-                        <ItemStyle HorizontalAlign="Right" />
-                    </asp:BoundField>
                     <asp:BoundField DataField="Approved"  DataFormatString="{0:n2}" HeaderText='<%$ Resources:Resource,L_APPROVED %>' SortExpression="Approved" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Right">  
                         <HeaderStyle Width="70px" />
                         <ItemStyle HorizontalAlign="Right" />
                     </asp:BoundField>
+
+                     
+
                      <asp:BoundField DataField="ClaimStatus"   HeaderText='<%$ Resources:Resource,L_CLAIMSTATUS %>' SortExpression="ClaimStatus" >
                      <HeaderStyle Width="60px" /> </asp:BoundField>
                     <asp:TemplateField  >
@@ -652,6 +660,15 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
       <asp:HyperLinkField DataNavigateUrlFields = "ClaimID" Text="Details" DataNavigateUrlFormatString = "ClaimDetails.aspx?c={0}" HeaderText='Details' HeaderStyle-Width ="100px"  >
                          <HeaderStyle Width="50px" />
                      </asp:HyperLinkField>
+
+                    <asp:TemplateField>
+                                    <ItemTemplate >
+                                    <%--<asp:CheckBox ID="chkbgridSubmit" runat="server"  CssClass="ConditionCheck" Checked="false"  Enabled ="false"/>--%> 
+                                    <asp:textbox ID="txtRemainingBalance" runat="server" Text="" BorderStyle="Solid"  ></asp:textbox>
+                                       
+                                    </ItemTemplate>
+                     </asp:TemplateField>
+                    
                 </Columns>
                 <PagerStyle CssClass="pgr" />
                 <SelectedRowStyle CssClass="srs" />

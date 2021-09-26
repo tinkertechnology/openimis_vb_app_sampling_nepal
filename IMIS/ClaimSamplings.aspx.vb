@@ -409,6 +409,7 @@ Partial Public Class ClaimSamplings
             Return
         End Try
     End Sub
+
     Private Sub ButtonDisplayControl(ByVal GridCount As Integer)
 
         Dim UserID As Integer = imisgen.getUserId(Session("User"))
@@ -618,5 +619,191 @@ Partial Public Class ClaimSamplings
                 ImgClaimDocumentURL.ImageUrl = "Images/attach.png"
             End If
         End If
+    End Sub
+
+    Protected Sub btnSampleSubmitHandle(sender As Object, e As EventArgs) Handles btnSampleSubmit.Click
+        Dim total = 0.0
+        Dim sampleTotal = 0.0
+        Dim count = gvClaims.Rows.Count
+        For i = 0 To count
+            Dim row = gvClaims.Rows(i)
+            total += Convert.ToDouble(row.Cells(11).Text)
+            sampleTotal += Convert.ToDouble(row.Cells(11).Text)
+        Next
+        Dim percent = sampleTotal / total
+
+        'batchid = insert into batch. get inserted last batchid'
+        Dim batchid = 1
+        For i = 0 To count
+            Dim row = gvClaims.Rows(i)
+            Dim id = row.Cells(9).Text
+            Dim claimAmount = Convert.ToDouble(row.Cells(11).Text)
+
+            Dim givamount = claimAmount - (claimAmount * percent)
+            'Update tblClaims set give_amount = givamount, batch_id = batchid where id = id'
+            'Update tblClaims Set give_amount = givamount, batch_id = batchid where id = id'
+            'Data.setSQLCommand(sSQL, CommandType.Text)'
+        Next
+
+        Return
+
+        Try
+            Dim eBatchRun As New IMIS_EN.tblBatchRun
+            Dim eICDCodes As New IMIS_EN.tblICDCodes
+            Dim eInsuree As New IMIS_EN.tblInsuree
+
+            If (Not Request.QueryString("c") = Nothing) And (ScriptManager.GetCurrent(Me.Page).IsInAsyncPostBack() = False) Then
+
+                Dim dic As New Dictionary(Of String, String)
+                If Not Session("FindClaimsFilter") Is Nothing Then
+                    dic = CType(Session("FindClaimsFilter"), Dictionary(Of String, String))
+                End If
+                eClaim.LegacyID = Val(dic("LocationId")) 'Used as a carrier for DistrictID
+                eHF.HfID = dic("HFID")
+                eClaim.FeedbackStatus = dic("FeedbackStatus")
+                eClaim.ReviewStatus = dic("ReviewStatus")
+                eClaim.ClaimStatus = dic("ClaimStatus")
+                eICDCodes.ICDID = dic("ICDID")
+
+                If Not dic("CHFNo") = "" Then
+                    eInsuree.CHFID = dic("CHFNo")
+                End If
+                If Not dic("VisitDateTo") = "" Then
+                    eClaim.DateTo = Date.Parse(dic("VisitDateTo"))
+                End If
+
+                If Not dic("VisitDateFrom") = "" Then
+                    eClaim.DateFrom = Date.Parse(dic("VisitDateFrom"))
+                End If
+                If Not dic("ClaimedDateFrom") = "" Then
+                    eClaim.DateClaimed = Date.Parse(dic("ClaimedDateFrom"))
+                End If
+
+                If Not dic("ClaimedDateTo") = "" Then
+                    eClaim.DateProcessed = Date.Parse(dic("ClaimedDateTo")) 'Used as a carrier for ClaimedDate to range 
+                End If
+                If Not dic("HFName") = "" Then
+                    eHF.HFName = dic("HFName")
+                End If
+                If Not dic("BatchRunID") = "" Then
+                    eBatchRun.RunID = dic("BatchRunID")
+                End If
+                If Not dic("ClaimCode") = "" Then
+                    eClaim.ClaimCode = dic("ClaimCode")
+                End If
+                If dic("ClaimAdminID") IsNot Nothing Then
+                    If dic("ClaimAdminID").Trim <> String.Empty Then
+                        eClaimAdmin.ClaimAdminId = dic("ClaimAdminID")
+                    End If
+                End If
+                eClaim.VisitType = dic("VisitType")
+                eClaim.tblClaimAdmin = eClaimAdmin
+                ddlRegion.SelectedValue = Val(dic("RegionId"))
+                FillDistricts()
+                ddlDistrict.SelectedValue = eClaim.LegacyID
+                ddlHFCode.SelectedValue = eHF.HfID
+                FillClaimAdminCodes()
+                ddlFBStatus.SelectedValue = eClaim.FeedbackStatus
+                ddlReviewStatus.SelectedValue = eClaim.ReviewStatus
+                ddlClaimStatus.SelectedValue = eClaim.ClaimStatus
+                'txtICDCode.SelectedValue = eICDCodes.ICDID
+                hfICDCode.Value = eICDCodes.ICDID
+                txtClaimCode.Text = If(eClaim.ClaimCode Is Nothing, "", eClaim.ClaimCode)
+                txtHFName.Text = eHF.HFName
+                txtCHFID.Text = eInsuree.CHFID
+                txtVisitDateTo.Text = If(eClaim.DateTo Is Nothing, "", eClaim.DateTo)
+                txtVisitDateFrom.Text = If(eClaim.DateFrom = Nothing, "", eClaim.DateFrom)
+                txtClaimedDateFrom.Text = If(eClaim.DateClaimed = Nothing, "", eClaim.DateClaimed)
+                txtClaimedDateTo.Text = If(eClaim.DateProcessed Is Nothing, "", eClaim.DateProcessed) 'Used as a carrier for ClaimedDate to range 
+                ddlBatchRun.SelectedValue = If(eBatchRun.RunID = Nothing, Nothing, eBatchRun.RunID)
+                ddlClaimAdmin.SelectedValue = eClaim.tblClaimAdmin.ClaimAdminId
+                ddlVisitType.SelectedValue = eClaim.VisitType
+                'chkAttachment.Checked = If(eClaim.Attachment > 1, True, False)
+                If chkAttachment.Checked = True Then
+                    eClaim.Attachment = 1
+                End If
+
+                '''''clear Session("FindClaimsFilter")....
+                Session.Remove("FindClaimsFilter")
+            Else
+                If Not ddlBatchRun.SelectedValue = "" Then
+                    eBatchRun.RunID = ddlBatchRun.SelectedValue
+                End If
+                If ddlHFCode.SelectedIndex >= 0 Then
+                    eHF.HfID = ddlHFCode.SelectedValue
+                End If
+                If Not txtHFName.Text = "" Then
+                    eHF.HFName = txtHFName.Text
+                End If
+
+                eHF.RegionId = Val(ddlRegion.SelectedValue)
+                eHF.DistrictId = Val(ddlDistrict.SelectedValue)
+
+                eClaim.FeedbackStatus = ddlFBStatus.SelectedValue
+                eClaim.ReviewStatus = ddlReviewStatus.SelectedValue
+                eClaim.ClaimStatus = ddlClaimStatus.SelectedValue
+                If Not hfICDID.Value = "" Then
+                    eICDCodes.ICDID = CInt(Int(hfICDID.Value))
+                Else
+                    eICDCodes.ICDID = 0
+                End If
+
+                If Not txtClaimCode.Text = "" Then
+                    eClaim.ClaimCode = txtClaimCode.Text
+                End If
+
+                If Not txtVisitDateTo.Text = "" Then
+                    eClaim.DateTo = Date.Parse(txtVisitDateTo.Text)
+                End If
+
+                If Not txtVisitDateFrom.Text = "" Then
+                    eClaim.DateFrom = Date.Parse(txtVisitDateFrom.Text)
+                End If
+                If Not txtClaimedDateFrom.Text = "" Then
+                    eClaim.DateClaimed = Date.Parse(txtClaimedDateFrom.Text)
+                End If
+
+                If Not txtClaimedDateTo.Text = "" Then
+                    eClaim.DateProcessed = Date.Parse(txtClaimedDateTo.Text) 'Used as a carrier for ClaimedDate to range 
+                End If
+                If Not txtCHFID.Text = "" Then
+                    eInsuree.CHFID = txtCHFID.Text
+                End If
+                If ddlClaimAdmin.SelectedIndex > -1 Then
+                    eClaimAdmin.ClaimAdminId = ddlClaimAdmin.SelectedValue
+                End If
+                eClaim.VisitType = ddlVisitType.SelectedValue
+                eClaim.Attachment = 0
+                If chkAttachment.Checked = True Then
+                    eClaim.Attachment = 1
+                End If
+            End If
+
+            eClaim.tblBatchRun = eBatchRun
+            eClaim.tblHF = eHF
+            eClaim.tblInsuree = eInsuree
+            eClaim.tblICDCodes = eICDCodes
+            eClaim.tblClaimAdmin = eClaimAdmin
+
+            If ClaimSamplingsB.GetClaimsCount(eClaim, imisgen.getUserId(Session("User"))) = 1 Then
+                imisgen.Alert(imisgen.getMessage("M_CLAIMSEXCEEDLIMIT"), pnlButtons, alertPopupTitle:="IMIS")
+                Return
+            End If
+
+            Dim dtClaims As DataTable = ClaimSamplingsB.GetClaims(eClaim, imisgen.getUserId(Session("User")))
+            L_CLAIMSFOUND.Text = If(dtClaims.Rows.Count = 0, imisgen.getMessage("L_NO"), Format(dtClaims.Rows.Count, "#,###")) & " " & imisgen.getMessage("L_CLAIMSFOUND")
+            gvClaims.DataSource = dtClaims
+            gvClaims.SelectedIndex = 0
+            gvClaims.DataBind()
+
+            ButtonDisplayControl(gvClaims.Rows.Count)
+            GetFilterCriteria()
+        Catch ex As Exception
+            'lblMsg.Text = imisgen.getMessage("M_ERRORMESSAGE")
+            imisgen.Alert(imisgen.getMessage("M_ERRORMESSAGE"), pnlButtons, alertPopupTitle:="IMIS")
+            imisgen.Log(Page.Title & " : " & imisgen.getLoginName(Session("User")), ex)
+            'EventLog.WriteEntry("IMIS", Page.Title & " : " & imisgen.getLoginName(Session("User")) & " : " & ex.Message, EventLogEntryType.Error, 999)
+            Return
+        End Try
     End Sub
 End Class
