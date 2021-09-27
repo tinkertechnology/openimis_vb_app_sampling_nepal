@@ -999,6 +999,10 @@
       <Project>{53d67c82-cf46-4bb2-8319-3fd91fa92737}</Project>
       <Name>IMIS_BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IMIS_DAL\IMIS_DAL.vbproj">
+      <Project>{4FA70042-5378-4AE5-BC4F-C55F6A4A4807}</Project>
+      <Name>IMIS_DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IMIS_EN\IMIS_EN.vbproj">
       <Project>{a57fc2fd-3b24-4f9e-9514-cf370e411401}</Project>
       <Name>IMIS_EN</Name>
@@ -1168,7 +1172,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_DetectChanges="False" BuildVersion_UseGlobalSettings="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2012/1/1" />
+      <UserProperties BuildVersion_StartDate="2012/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UseGlobalSettings="True" BuildVersion_DetectChanges="False" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

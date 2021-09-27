@@ -664,7 +664,7 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
                     <asp:TemplateField>
                                     <ItemTemplate >
                                     <%--<asp:CheckBox ID="chkbgridSubmit" runat="server"  CssClass="ConditionCheck" Checked="false"  Enabled ="false"/>--%> 
-                                    <asp:textbox ID="txtRemainingBalance" runat="server" Text="" BorderStyle="Solid"  ></asp:textbox>
+                                    <asp:textbox ID="txtbSampleAmountDecrease" runat="server" Text="" BorderStyle="Solid"  ></asp:textbox>
                                        
                                     </ItemTemplate>
                      </asp:TemplateField>

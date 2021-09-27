@@ -625,17 +625,30 @@ Partial Public Class ClaimSamplings
 
     Protected Sub btnSampleSubmitHandle(sender As Object, e As EventArgs) Handles btnSampleSubmit.Click
         Dim total = 0.0
-        Dim sampleTotal = 0.0
+        Dim dineTotal = 0.0
         Dim count = gvClaims.Rows.Count
-        For i = 0 To count
-            Dim row = gvClaims.Rows(i)
-            total += Convert.ToDouble(row.Cells(11).Text)
-            sampleTotal += Convert.ToDouble(row.Cells(11).Text)
+
+        Dim dt As New DataTable
+
+        For Each r As GridViewRow In gvClaims.Rows
+            Dim strSampleAmountDecrease = CType(r.FindControl("txtbSampleAmountDecrease"), TextBox).Text
+            Dim strClaimed = gvClaims.DataKeys(r.RowIndex).Values("Claimed")
+
+            If Not String.IsNullOrWhiteSpace(strSampleAmountDecrease) Then
+                Dim Claimed = Convert.ToDouble(strClaimed)
+                Dim SampleAmountDecrease = Convert.ToDouble(strSampleAmountDecrease)
+                Dim dineAmount = Claimed - SampleAmountDecrease
+
+                total += Convert.ToDouble(strClaimed)
+                dineTotal += dineAmount
+            End If
+
         Next
-        Dim percent = sampleTotal / total
+
+        Dim percent = dineTotal / total
 
         'batchid = insert into batch. get inserted last batchid'
-        Dim batchid = 1
+        Dim batchid = ClaimsDAL.SaveSampleBatch(percent)
         Dim eClaim = New IMIS_EN.tblClaim
         For i = 0 To count
             Dim row = gvClaims.Rows(i)

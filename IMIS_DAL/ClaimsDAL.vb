@@ -1196,6 +1196,17 @@ Public Class ClaimsDAL
 
         data.ExecuteCommand()
     End Sub
+
+    Public Function SaveSampleBatch(ClaimSamplePercent) As Integer
+
+        Dim sSQL = "insert into tblClaimSampleBatch (ClaimSamplePercent) values(@ClaimSamplePercent)"
+
+        data.setSQLCommand(sSQL, CommandType.Text)
+
+        data.params("@ClaimSamplePercent", SqlDbType.Int, ClaimSamplePercent)
+        data.ExecuteCommand()
+        Return 1
+    End Function
     Public Function GetClaimIdByUUID(ByVal uuid As Guid) As DataTable
         Dim sSQL As String = ""
         Dim data As New ExactSQL
