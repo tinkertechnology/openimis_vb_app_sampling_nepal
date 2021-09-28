@@ -627,12 +627,12 @@ Partial Public Class ClaimSamplings
         Dim total = 0.0
         Dim dineTotal = 0.0
         Dim count = gvClaims.Rows.Count
-
+        count = 11
         Dim dt As New DataTable
 
         For Each r As GridViewRow In gvClaims.Rows
             Dim strSampleAmountDecrease = CType(r.FindControl("txtbSampleAmountDecrease"), TextBox).Text
-            Dim strClaimed = gvClaims.DataKeys(r.RowIndex).Values("Claimed")
+            Dim strClaimed = CType(r.FindControl("lblClaimed"), Label).Text 'gvClaims.DataKeys(r.RowIndex).Values("Claimed")
 
             If Not String.IsNullOrWhiteSpace(strSampleAmountDecrease) Then
                 Dim Claimed = Convert.ToDouble(strClaimed)
@@ -645,25 +645,44 @@ Partial Public Class ClaimSamplings
 
         Next
 
-        Dim percent = dineTotal / total
-
+        Dim long_percent = dineTotal / total
+        Dim percent = Math.Round(long_percent * 100.0F) / 100.0F
         'batchid = insert into batch. get inserted last batchid'
         Dim batchid = ClaimsDAL.SaveSampleBatch(percent)
         Dim eClaim = New IMIS_EN.tblClaim
-        For i = 0 To count
-            Dim row = gvClaims.Rows(i)
-            Dim id = row.Cells(9).Text
-            Dim claimAmount = Convert.ToDouble(row.Cells(11).Text)
-            Dim SampleAmountDecrease = 1
+        For Each r As GridViewRow In gvClaims.Rows
+            Dim id = CType(r.FindControl("lblClaimID"), Label).Text
+            Dim strClaimed = CType(r.FindControl("lblClaimed"), Label).Text
+            Dim strSampleAmountDecrease = CType(r.FindControl("txtbSampleAmountDecrease"), TextBox).Text
+
+            Dim claimAmount = Convert.ToDouble(strClaimed)
+            Dim SampleAmountDecrease = Convert.ToDouble(0)
+            If Not String.IsNullOrEmpty(strSampleAmountDecrease) Then
+                SampleAmountDecrease = Convert.ToDouble(strSampleAmountDecrease)
+            End If
+
             Dim givamount = claimAmount - (claimAmount * percent)
+
             'Update tblClaims set give_amount = givamount, batch_id = batchid where id = id'
             eClaim.ClaimID = id
             eClaim.ClaimAmountPayment = givamount
             eClaim.SampleAmountDecrease = SampleAmountDecrease
             eClaim.SampleAmountPercent = percent
             eClaim.ClaimSampleBatchID = batchid
+            Try
+                ClaimsDAL.UpdateClaimSample(eClaim)
+            Catch err As Exception
+                Throw (err)
+            End Try
 
-            ClaimsDAL.UpdateClaimSample(eClaim)
+
+
+        Next
+
+
+        For i = 0 To count
+            Dim row = gvClaims.Rows(i)
+
 
         Next
 

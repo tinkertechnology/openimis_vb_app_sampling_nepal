@@ -662,11 +662,49 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
                      </asp:HyperLinkField>
 
                     <asp:TemplateField>
-                                    <ItemTemplate >
-                                    <%--<asp:CheckBox ID="chkbgridSubmit" runat="server"  CssClass="ConditionCheck" Checked="false"  Enabled ="false"/>--%> 
-                                    <asp:textbox ID="txtbSampleAmountDecrease" runat="server" Text="" BorderStyle="Solid"  ></asp:textbox>
-                                       
-                                    </ItemTemplate>
+                        <ItemTemplate>
+                                  
+                            <asp:Label  runat="server" Text='<%# Eval("ClaimAmountPayment") %>' />
+                            
+                            
+
+                            
+                        </ItemTemplate>
+                     </asp:TemplateField>
+
+                     <asp:TemplateField>
+                        <ItemTemplate>
+                                  
+                            
+                            
+                            <asp:Label  runat="server" Text='<%# Eval("SampleAmountPercent") %>' />
+                            
+
+
+                        </ItemTemplate>
+                     </asp:TemplateField>
+
+                     <asp:TemplateField>
+                        <ItemTemplate>
+                                  
+                            
+                            <asp:Label  runat="server" Text='<%# Eval("ClaimSampleBatchID") %>' />
+
+                            
+                        </ItemTemplate>
+                     </asp:TemplateField>
+
+                     
+
+                     <asp:TemplateField>
+                        <ItemTemplate>
+                                  
+                            <asp:Label ID="lblClaimed"  Visible="false" runat="server" Text='<%# Eval("Claimed") %>' />
+
+                            <asp:Label ID="lblClaimID"  Visible="false" runat="server" Text='<%# Eval("ClaimID") %>' />
+
+                            <asp:textbox ID="txtbSampleAmountDecrease" runat="server" Text='<%# Eval("SampleAmountDecrease") %>' BorderStyle="Solid"  ></asp:textbox>
+                        </ItemTemplate>
                      </asp:TemplateField>
                     
                 </Columns>
