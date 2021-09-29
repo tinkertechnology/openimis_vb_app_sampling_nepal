@@ -661,30 +661,23 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
                          <HeaderStyle Width="50px" />
                      </asp:HyperLinkField>
 
-                    <asp:TemplateField>
-                        <ItemTemplate>
-                                  
-                            <asp:Label  runat="server" Text='<%# Eval("ClaimAmountPayment") %>' />
-                            
-                            
-
-                            
-                        </ItemTemplate>
-                     </asp:TemplateField>
-
-                     <asp:TemplateField>
-                        <ItemTemplate>
-                                  
-                            
-                            
-                            <asp:Label  runat="server" Text='<%# Eval("SampleAmountPercent") %>' />
-                            
+<asp:BoundField DataField="ClaimAmountPayment"  DataFormatString="{0:n2}" HeaderText='Payment' SortExpression="Approved" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Right">  
+                        <HeaderStyle Width="70px" />
+                        <ItemStyle HorizontalAlign="Right" />
+                    </asp:BoundField>
 
 
-                        </ItemTemplate>
-                     </asp:TemplateField>
 
-                     <asp:TemplateField>
+<asp:BoundField DataField="SampleAmountPercent"  DataFormatString="{0:n2}" HeaderText='Percent' SortExpression="Approved" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Right">  
+                        <HeaderStyle Width="70px" />
+                        <ItemStyle HorizontalAlign="Right" />
+                    </asp:BoundField>
+
+                    
+
+
+
+                     <asp:TemplateField HeaderText='BATCH'>
                         <ItemTemplate>
                                   
                             
@@ -696,7 +689,7 @@ Title = '<%$ Resources:Resource,L_FINDCLAIM %>'%>
 
                      
 
-                     <asp:TemplateField>
+                     <asp:TemplateField HeaderText='Sample Amount'>
                         <ItemTemplate>
                                   
                             <asp:Label ID="lblClaimed"  Visible="false" runat="server" Text='<%# Eval("Claimed") %>' />
