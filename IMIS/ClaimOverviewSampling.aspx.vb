@@ -799,12 +799,25 @@
     End Sub
 
     Private Sub btnSampleSubmit_Click(sender As Object, e As EventArgs) Handles btnSampleSubmit.Click
+        Dim ClaimSamplePercent = Convert.ToDouble(txtClaimSamplePercent.Text)
+        'todo:
+        '
+        'step1
+        ' create batch
+        ' set batchid to submitted rows
+        ' assign flag as IsBatchSampleVerify to each rows of tblClaims
+        '
+        'step2:
+        'if all rows are ok: i.e. batchid + approved(flag:16)
+        'set all batch rows in tblclaims by calcn: approved amt, approved flag
+        '
         Dim total = 0.0
         Dim dineTotal = 0.0
         Dim count = gvClaims.Rows.Count
-        count = 11
+        count = 12
         Dim dt As New DataTable
 
+        'do later on another btn press
         For Each r As GridViewRow In gvClaims.Rows
             Dim strSampleAmountDecrease = CType(r.FindControl("txtbSampleAmountDecrease"), TextBox).Text
             Dim strClaimed = CType(r.FindControl("lblClaimed"), Label).Text 'gvClaims.DataKeys(r.RowIndex).Values("Claimed")
@@ -820,6 +833,7 @@
 
         Next
 
+        'do later on another btn press
         Dim long_percent = dineTotal / total
         Dim percent = Math.Round(long_percent * 100.0F) / 100.0F
         'batchid = insert into batch. get inserted last batchid'

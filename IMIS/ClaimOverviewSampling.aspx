@@ -549,7 +549,7 @@
 
             $('.mGrid tr').hide();
             var rand10 = [];
-            var sample_percent = $('#Body_TextBox4').val()
+            var sample_percent = $('#Body_txtClaimSamplePercent').val()
             console.log('sa', sample_percent);
             var count = $('.mGrid tr').length
             console.log('count', count);
@@ -657,7 +657,7 @@
         <asp:HiddenField ID="hfICDCode" runat="server"/>
         <table align="center">
                         <td class="DataEntry">
-                                 <asp:TextBox ID="TextBox4" runat="server" maxlength="12"></asp:TextBox>
+                                 <asp:TextBox ID="txtClaimSamplePercent" runat="server" maxlength="12"></asp:TextBox>
                              </td>
                            <td class="FormLabel">
                                <asp:Button class="button" ID="Button2" runat="server" 

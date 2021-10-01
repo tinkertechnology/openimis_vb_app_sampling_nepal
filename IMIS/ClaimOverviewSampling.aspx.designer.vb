@@ -41,13 +41,13 @@ Partial Public Class ClaimOverviewSampling
     Protected WithEvents hfICDCode As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
-    '''TextBox4 control.
+    '''txtClaimSamplePercent control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TextBox4 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtClaimSamplePercent As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''Button2 control.
