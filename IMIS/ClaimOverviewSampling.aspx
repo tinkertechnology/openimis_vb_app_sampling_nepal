@@ -539,6 +539,26 @@
          }
          return flagUpdateSelect;
      }); 
+
+      $("#Body_Button2").click(function (e) {
+            e.preventDefault();
+            alert('jpt');
+            //$('.cmb').change(function () {
+            //    $('.cmb').val = 4;
+            //})
+
+            $('.mGrid tr').hide();
+            var rand10 = [];
+            var sample_percent = $('#Body_TextBox4').val()
+            console.log('sa', sample_percent);
+            var count = $('.mGrid tr').length
+            console.log('count', count);
+            var no_of_sample = sample_percent * 0.01 * count;
+            console.log('no_of_sample', no_of_sample);
+            for (i = 0; i < no_of_sample; i++) { rand10.push(Math.floor((Math.random() * 10000) % count)); }
+            $('.mGrid tr').each(function (i, v) { if (rand10.includes(i)) { $(v).show() } });
+            $('.cmb').val('4');
+        });
      
      $("#<%=chkRandom.ClientID %>").change(function() {
 
@@ -635,6 +655,34 @@
   <div class="divBody" >
         <asp:HiddenField ID="hfICDID" runat="server"/>
         <asp:HiddenField ID="hfICDCode" runat="server"/>
+        <table align="center">
+                        <td class="DataEntry">
+                                 <asp:TextBox ID="TextBox4" runat="server" maxlength="12"></asp:TextBox>
+                             </td>
+                           <td class="FormLabel">
+                               <asp:Button class="button" ID="Button2" runat="server" 
+                                      Text='sample' >
+                                </asp:Button>
+                            </td>
+                            <td class ="DataEntry">
+                                <asp:Button class="button" ID="btnSampleSubmit" runat="server" 
+                                      Text='SampleSubmit' >
+                                </asp:Button>
+                            </td>
+            <td class="DataEntry">
+                <asp:Label>batch no</asp:Label>
+                                 <asp:TextBox ID="txtClaimSampleBatchID" runat="server" maxlength="12"></asp:TextBox>
+                             </td>
+
+                    <td class ="DataEntry">
+                                <asp:Button class="button" ID="btnBatch" runat="server" 
+                                      Text='loadbatch' >
+                                </asp:Button>
+                            </td>
+                
+                        </tr>
+                   </table>
+
         <table class="catlabel">
             <tr>
                 <td >
@@ -918,6 +966,7 @@
         </table>
                 </td>
             </tr>
+
         </table>
         </asp:Panel>
         <table>

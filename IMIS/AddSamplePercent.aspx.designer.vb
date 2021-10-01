@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class AddSamplePercent
-    
+
     '''<summary>
     '''pnlBody control.
     '''</summary>
@@ -21,124 +21,7 @@ Partial Public Class AddSamplePercent
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents pnlBody As Global.System.Web.UI.WebControls.Panel
-    
-    '''<summary>
-    '''L_Region control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents L_Region As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''UpRegion control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents UpRegion As Global.System.Web.UI.UpdatePanel
-    
-    '''<summary>
-    '''ddlRegion control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlRegion As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''L_Payer control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents L_Payer As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''UpDistrict control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents UpDistrict As Global.System.Web.UI.UpdatePanel
-    
-    '''<summary>
-    '''ddlDistrict control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlDistrict As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''Label1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''UpProduct control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents UpProduct As Global.System.Web.UI.UpdatePanel
-    
-    '''<summary>
-    '''ddlProduct control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlProduct As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''RequiredFieldValidatorPremiumPaid1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents RequiredFieldValidatorPremiumPaid1 As Global.System.Web.UI.WebControls.RequiredFieldValidator
-    
-    '''<summary>
-    '''Label2 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Label2 As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''UpdatePanel1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents UpdatePanel1 As Global.System.Web.UI.UpdatePanel
-    
-    '''<summary>
-    '''ddlPayer control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlPayer As Global.System.Web.UI.WebControls.DropDownList
-    
+
     '''<summary>
     '''Label3 control.
     '''</summary>
@@ -147,106 +30,124 @@ Partial Public Class AddSamplePercent
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Label3 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
-    '''txtPaymentDate control.
+    '''label6 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtPaymentDate As Global.System.Web.UI.WebControls.TextBox
-    
+    Protected WithEvents label6 As Global.System.Web.UI.WebControls.Label
+
     '''<summary>
-    '''Button1 control.
+    '''private_min control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Button1 As Global.System.Web.UI.WebControls.Button
-    
+    Protected WithEvents private_min As Global.System.Web.UI.WebControls.TextBox
+
     '''<summary>
-    '''CalendarExtender1 control.
+    '''label7 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents CalendarExtender1 As Global.AjaxControlToolkit.CalendarExtender
-    
+    Protected WithEvents label7 As Global.System.Web.UI.WebControls.Label
+
     '''<summary>
-    '''RequiredFieldPaymentDate control.
+    '''private_max control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents RequiredFieldPaymentDate As Global.System.Web.UI.WebControls.RequiredFieldValidator
-    
+    Protected WithEvents private_max As Global.System.Web.UI.WebControls.TextBox
+
     '''<summary>
-    '''RegularExpressionValidator2 control.
+    '''label8 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents RegularExpressionValidator2 As Global.System.Web.UI.WebControls.RegularExpressionValidator
-    
+    Protected WithEvents label8 As Global.System.Web.UI.WebControls.Label
+
     '''<summary>
-    '''Label4 control.
+    '''private_percent control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Label4 As Global.System.Web.UI.WebControls.Label
-    
+    Protected WithEvents private_percent As Global.System.Web.UI.WebControls.TextBox
+
     '''<summary>
-    '''txtPremiumPaid control.
+    '''Label1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtPremiumPaid As Global.System.Web.UI.WebControls.TextBox
-    
+    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
+
     '''<summary>
-    '''RequiredFieldValidatorPremiumPaid control.
+    '''label2 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents RequiredFieldValidatorPremiumPaid As Global.System.Web.UI.WebControls.RequiredFieldValidator
-    
+    Protected WithEvents label2 As Global.System.Web.UI.WebControls.Label
+
     '''<summary>
-    '''Label5 control.
+    '''public_min control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Label5 As Global.System.Web.UI.WebControls.Label
-    
+    Protected WithEvents public_min As Global.System.Web.UI.WebControls.TextBox
+
     '''<summary>
-    '''txtReceiptNumber control.
+    '''label4 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtReceiptNumber As Global.System.Web.UI.WebControls.TextBox
-    
+    Protected WithEvents label4 As Global.System.Web.UI.WebControls.Label
+
     '''<summary>
-    '''RequiredFieldValidatorReceiptNumber control.
+    '''public_max control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents RequiredFieldValidatorReceiptNumber As Global.System.Web.UI.WebControls.RequiredFieldValidator
-    
+    Protected WithEvents public_max As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''label5 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents label5 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''public_percent control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents public_percent As Global.System.Web.UI.WebControls.TextBox
+
     '''<summary>
     '''pnlButtons control.
     '''</summary>
@@ -255,7 +156,7 @@ Partial Public Class AddSamplePercent
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents pnlButtons As Global.System.Web.UI.WebControls.Panel
-    
+
     '''<summary>
     '''B_SAVE control.
     '''</summary>
@@ -264,7 +165,7 @@ Partial Public Class AddSamplePercent
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents B_SAVE As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''B_CANCEL control.
     '''</summary>

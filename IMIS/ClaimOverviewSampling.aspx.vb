@@ -1,5 +1,7 @@
 ﻿Public Class ClaimOverviewSampling
     Inherits System.Web.UI.Page
+
+    Dim ClaimsDAL As New IMIS_DAL.ClaimsDAL
     Protected imisgen As New IMIS_Gen
     Private eClaim As New IMIS_EN.tblClaim
     Private Family As New IMIS_BI.FamilyBI
@@ -416,6 +418,7 @@
                     eClaim.DateFrom = Date.Parse(txtClaimFrom.Text)
 
                 End If
+
                 If Not txtClaimedDateFrom.Text = "" Then
                     eClaim.DateClaimed = Date.Parse(txtClaimedDateFrom.Text)
                 End If
@@ -450,9 +453,12 @@
                 'End If
 
                 'Change By Purushottam Ends
+                If txtClaimSampleBatchID.Text <> "" Then
+                    eClaim.ClaimSampleBatchID = Convert.ToInt32(txtClaimSampleBatchID.Text)
+                End If
             End If
 
-            eClaim.tblHF = eHF
+                eClaim.tblHF = eHF
             eClaim.tblInsuree = eInsuree
             eClaim.tblICDCodes = eICDCodes
             eClaim.tblBatchRun = eBatchRun
@@ -791,4 +797,61 @@
     Private Sub ddlRegion_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlRegion.SelectedIndexChanged
         FillDistrict()
     End Sub
+
+    Private Sub btnSampleSubmit_Click(sender As Object, e As EventArgs) Handles btnSampleSubmit.Click
+        Dim total = 0.0
+        Dim dineTotal = 0.0
+        Dim count = gvClaims.Rows.Count
+        count = 11
+        Dim dt As New DataTable
+
+        For Each r As GridViewRow In gvClaims.Rows
+            Dim strSampleAmountDecrease = CType(r.FindControl("txtbSampleAmountDecrease"), TextBox).Text
+            Dim strClaimed = CType(r.FindControl("lblClaimed"), Label).Text 'gvClaims.DataKeys(r.RowIndex).Values("Claimed")
+
+            If Not String.IsNullOrWhiteSpace(strSampleAmountDecrease) Then
+                Dim Claimed = Convert.ToDouble(strClaimed)
+                Dim SampleAmountDecrease = Convert.ToDouble(strSampleAmountDecrease)
+                Dim dineAmount = Claimed - SampleAmountDecrease
+
+                total += Convert.ToDouble(strClaimed)
+                dineTotal += dineAmount
+            End If
+
+        Next
+
+        Dim long_percent = dineTotal / total
+        Dim percent = Math.Round(long_percent * 100.0F) / 100.0F
+        'batchid = insert into batch. get inserted last batchid'
+        Dim batchid = ClaimsDAL.SaveSampleBatch(percent)
+        Dim eClaim = New IMIS_EN.tblClaim
+        For Each r As GridViewRow In gvClaims.Rows
+            Dim id = CType(r.FindControl("lblClaimID"), Label).Text
+            Dim strClaimed = CType(r.FindControl("lblClaimed"), Label).Text
+            Dim strSampleAmountDecrease = CType(r.FindControl("txtbSampleAmountDecrease"), TextBox).Text
+
+            Dim claimAmount = Convert.ToDouble(strClaimed)
+            Dim SampleAmountDecrease = Convert.ToDouble(0)
+            If Not String.IsNullOrEmpty(strSampleAmountDecrease) Then
+                SampleAmountDecrease = Convert.ToDouble(strSampleAmountDecrease)
+            End If
+
+            Dim givamount = claimAmount - (claimAmount * percent)
+
+            'Update tblClaims set give_amount = givamount, batch_id = batchid where id = id'
+            eClaim.ClaimID = id
+            eClaim.ClaimAmountPayment = givamount
+            eClaim.SampleAmountDecrease = SampleAmountDecrease
+            eClaim.SampleAmountPercent = percent
+            eClaim.ClaimSampleBatchID = batchid
+            Try
+                ClaimsDAL.UpdateClaimSample(eClaim)
+            Catch err As Exception
+                Throw (err)
+            End Try
+
+        Next
+    End Sub
+
+
 End Class

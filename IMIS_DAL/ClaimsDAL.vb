@@ -463,7 +463,9 @@ Public Class ClaimsDAL
         sSQL += " WHERE tblClaim.ValidityTo IS NULL AND @FeedbackStatus & tblClaim.FeedbackStatus > 0"
         sSQL += " AND @ReviewStatus & tblClaim.ReviewStatus > 0 AND @ClaimStatus & tblClaim.ClaimStatus  > 0"
         sSQL += " AND (CASE WHEN @ICDID = 0 THEN 0 ELSE tblICDCodes.ICDID END) = @ICDID"
-
+        If eClaims.ClaimSampleBatchID <> 0 Then
+            sSQL += "AND tblClaim.ClaimSampleBatchID=@ClaimSampleBatchID"
+        End If
         If eClaims.Attachment = 1 Then
             sSQL += " AND tblClaim.Attachment= 1"
         End If
@@ -536,7 +538,7 @@ Public Class ClaimsDAL
 
         sSQL += " order by ClaimID desc"
         data.setSQLCommand(sSQL, CommandType.Text)
-
+        data.params("@ClaimSampleBatchID", SqlDbType.Int, eClaims.ClaimSampleBatchID)
         data.params("@UserID", SqlDbType.Int, UserID)
         data.params("@FeedbackStatus", SqlDbType.TinyInt, eClaims.FeedbackStatus)
         data.params("@ReviewStatus", SqlDbType.TinyInt, eClaims.ReviewStatus)
@@ -1237,4 +1239,41 @@ Public Class ClaimsDAL
 
         Return data.Filldata
     End Function
+
+
+    Public Sub AddUpdateClaimPercentSetting(ByRef eClaim As IMIS_EN.tblClaim)
+
+        'Dim strSQL As String = "select top 1 ClaimID from tblClaim where validityFromReview is null and ClaimID = @ClaimID;if @@rowcount > 0 begin UPDATE tblClaim SET  [Adjustment] = @Adjustment, [ValidityFromReview] = getdate(), [AudituserIdReview] = @AuditUserID "
+        'If Not eClaim.Approved Is Nothing Then
+        '    strSQL += ", [Approved] = @Approved"
+        'End If
+        'If Not eClaim.ReviewStatus Is Nothing Then
+        '    strSQL += " ,[ReviewStatus] = @ReviewStatus"
+        'End If
+
+        'strSQL += " WHERE ClaimID = @ClaimID; end else begin Insert Into tblClaim ([InsureeID],[HFID],[ClaimCode],[DateFrom],[DateTo],[ICDID], [ClaimStatus],[Adjuster],[Adjustment],[Claimed],[Approved],[Reinsured],[Valuated],[DateClaimed],[DateProcessed],[Feedback],[FeedbackID],[Explanation],[FeedbackStatus],[ReviewStatus],[ApprovalStatus],[RejectionReason],[ValidityFrom],[ValidityTo],[LegacyID], [AuditUserID],[ValidityFromReview],[ValidityToReview],[AuditUserIDReview]) SELECT [InsureeID],[HFID],[ClaimCode],[DateFrom],[DateTo],[ICDID], [ClaimStatus],[Adjuster],[Adjustment],[Claimed],[Approved],[Reinsured],[Valuated],[DateClaimed],[DateProcessed], [Feedback],[FeedbackID],[Explanation],[FeedbackStatus],[ReviewStatus],[ApprovalStatus],[RejectionReason],[ValidityFrom],getdate(),[ClaimID], [AuditUserID],[ValidityFromReview],[ValidityToReview],[AuditUserIDReview] FROM tblClaim WHERE ClaimID = @ClaimID; UPDATE tblClaim SET  [Adjustment] = @Adjustment ,[ValidityFromReview] = getdate(), [AudituserIdReview] = @AuditUserID"
+
+        'If Not eClaim.Approved Is Nothing Then
+        '    strSQL += ", [Approved] = @Approved"
+        'End If
+        'If Not eClaim.ReviewStatus Is Nothing Then
+        '    strSQL += ",[ReviewStatus] = @ReviewStatus"
+        'End If
+
+        'strSQL += " Where ClaimID = @ClaimID; End"
+        'data.setSQLCommand(strSQL, CommandType.Text)
+
+        'data.params("@claimID", SqlDbType.Int, eClaim.ClaimID)
+        'data.params("@Adjustment", SqlDbType.NText, eClaim.Adjustment, ParameterDirection.Input)
+        'data.params("@AuditUserID", SqlDbType.Int, eClaim.AuditUserID)
+
+        'If Not eClaim.Approved Is Nothing Then
+        '    data.params("@Approved", SqlDbType.Decimal, eClaim.Approved)
+        'End If
+        'If Not eClaim.ReviewStatus Is Nothing Then
+        '    data.params("@ReviewStatus", SqlDbType.TinyInt, eClaim.ReviewStatus)
+        'End If
+
+        'data.ExecuteCommand()
+    End Sub
 End Class

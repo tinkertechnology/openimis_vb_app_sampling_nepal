@@ -27,24 +27,25 @@
 '
 
 Public Class AddSamplePercentBI
-    Public Function GetDistricts(ByVal userID As Integer, Optional ByVal showSelect As Boolean = False, Optional RegionId As Integer = 0) As DataTable
-        Dim getDataTable As New IMIS_BL.LocationsBL
-        Return getDataTable.GetDistricts(userID, showSelect, RegionId)
+    'Public Function GetDistricts(ByVal userID As Integer, Optional ByVal showSelect As Boolean = False, Optional RegionId As Integer = 0) As DataTable
+    '    Dim getDataTable As New IMIS_BL.LocationsBL
+    '    Return getDataTable.GetDistricts(userID, showSelect, RegionId)
+    'End Function
+    'Public Function GetProducts(ByVal LocationId As Integer, ByVal userID As Integer, ByVal ShowSelect As Boolean) As DataTable
+    '    Dim getDataTable As New IMIS_BL.ProductsBL
+    '    Return getDataTable.GetProductsStict(LocationId, userID, ShowSelect)
+    'End Function
+    'Public Function GetPayers(ByVal RegionId As Integer, ByVal Districtid As Integer, ByVal userId As Integer, ByVal showSelect As Boolean) As DataTable
+    '    Dim Premimum As New IMIS_BL.PayersBL
+    '    Return Premimum.GetPayers(RegionId, Districtid, userId, True)
+    'End Function
+    Public Function AddUpdateSamplePercentSetting(eSamplePercent As IMIS_EN.tblSamplePercent, ID As Integer) As Integer
+        Dim SamplePercent As New IMIS_BL.SamplePercentBL
+        Return 5
+        'Return SamplePercent. (eSamplePercent, ID)
     End Function
-    Public Function GetProducts(ByVal LocationId As Integer, ByVal userID As Integer, ByVal ShowSelect As Boolean) As DataTable
-        Dim getDataTable As New IMIS_BL.ProductsBL
-        Return getDataTable.GetProductsStict(LocationId, userID, ShowSelect)
-    End Function
-    Public Function GetPayers(ByVal RegionId As Integer, ByVal Districtid As Integer, ByVal userId As Integer, ByVal showSelect As Boolean) As DataTable
-        Dim Premimum As New IMIS_BL.PayersBL
-        Return Premimum.GetPayers(RegionId, Districtid, userId, True)
-    End Function
-    Public Function AddFund(ePremium As IMIS_EN.tblPremium, ProdId As Integer) As Integer
-        Dim Fund As New IMIS_BL.PremiumBL
-        Return Fund.AddFund(ePremium, ProdId)
-    End Function
-    Public Function GetRegions(UserId As Integer, Optional ShowSelect As Boolean = True) As DataTable
-        Dim BL As New IMIS_BL.LocationsBL
-        Return BL.GetRegions(UserId, ShowSelect)
-    End Function
+    'Public Function GetRegions(UserId As Integer, Optional ShowSelect As Boolean = True) As DataTable
+    '    Dim BL As New IMIS_BL.LocationsBL
+    '    Return BL.GetRegions(UserId, ShowSelect)
+    'End Function
 End Class

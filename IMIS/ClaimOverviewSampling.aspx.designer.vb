@@ -41,6 +41,51 @@ Partial Public Class ClaimOverviewSampling
     Protected WithEvents hfICDCode As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
+    '''TextBox4 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TextBox4 As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Button2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Button2 As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnSampleSubmit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnSampleSubmit As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''txtClaimSampleBatchID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtClaimSampleBatchID As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''btnBatch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnBatch As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''L_SELECTCRITERIA control.
     '''</summary>
     '''<remarks>

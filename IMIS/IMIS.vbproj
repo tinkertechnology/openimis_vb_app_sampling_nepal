@@ -332,7 +332,7 @@
     <Compile Include="AddSamplePercent.aspx.designer.vb">
       <DependentUpon>AddSamplePercent.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AddSamplePercent.vb">
+    <Compile Include="AddSamplePercent.aspx.vb">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="App_GlobalResources\Resource.designer.vb" />
