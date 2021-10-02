@@ -799,7 +799,40 @@
     End Sub
 
     Private Sub btnSampleSubmit_Click(sender As Object, e As EventArgs) Handles btnSampleSubmit.Click
-        Dim ClaimSamplePercent = Convert.ToDouble(txtClaimSamplePercent.Text)
+        Dim ClaimSelectSamplePercent = Convert.ToDouble(txtClaimSelectSamplePercent.Text)
+        Dim batchid = ClaimsDAL.SaveSampleBatch(ClaimSelectSamplePercent)
+
+        Dim TotalClaimsCount = gvClaims.Rows.Count
+        Dim SampleCount = TotalClaimsCount * 0.01 * ClaimSelectSamplePercent
+        Dim random As New Random()
+        Dim randweight = random.Next(0, SampleCount)
+        Dim modBy = Math.Round(TotalClaimsCount / SampleCount)
+        If modBy < 1 Then
+            modBy = SampleCount
+        End If
+
+
+        Dim eClaim = New IMIS_EN.tblClaim
+        For Each r As GridViewRow In gvClaims.Rows
+            eClaim.IsBatchSampleForVerify = False 'dbg
+            Dim modrem = (r.RowIndex + randweight) Mod modBy
+            If modrem = 0 Then
+                eClaim.IsBatchSampleForVerify = True
+            End If
+            eClaim.ClaimID = CType(r.FindControl("lblClaimID"), Label).Text
+            eClaim.ClaimSampleBatchID = batchid
+
+            Try
+                ClaimsDAL.UpdateClaimSample(eClaim)
+            Catch err As Exception
+                Throw (err)
+            End Try
+
+        Next
+    End Sub
+
+    Private Sub btnFillBatchCalcFromSamples_Click1(sender As Object, e As EventArgs)
+        Dim ClaimSamplePercent = Convert.ToDouble(txtClaimSelectSamplePercent.Text)
         'todo:
         '
         'step1
@@ -807,7 +840,7 @@
         ' set batchid to submitted rows
         ' assign flag as IsBatchSampleVerify to each rows of tblClaims
         '
-        'step2:
+        'step2::
         'if all rows are ok: i.e. batchid + approved(flag:16)
         'set all batch rows in tblclaims by calcn: approved amt, approved flag
         '

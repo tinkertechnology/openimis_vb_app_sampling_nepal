@@ -549,7 +549,7 @@
 
             $('.mGrid tr').hide();
             var rand10 = [];
-            var sample_percent = $('#Body_txtClaimSamplePercent').val()
+            var sample_percent = $('#Body_txtClaimSelectSamplePercent').val()
             console.log('sa', sample_percent);
             var count = $('.mGrid tr').length
             console.log('count', count);
@@ -657,7 +657,7 @@
         <asp:HiddenField ID="hfICDCode" runat="server"/>
         <table align="center">
                         <td class="DataEntry">
-                                 <asp:TextBox ID="txtClaimSamplePercent" runat="server" maxlength="12"></asp:TextBox>
+                                 <asp:TextBox ID="txtClaimSelectSamplePercent" runat="server" maxlength="12"></asp:TextBox>
                              </td>
                            <td class="FormLabel">
                                <asp:Button class="button" ID="Button2" runat="server" 
@@ -1076,6 +1076,13 @@
                        <ItemStyle Width="15px"   />
                      </asp:TemplateField>
                     <asp:BoundField DataField="Attachment" > <ItemStyle CssClass="hidecol" /><HeaderStyle CssClass="hidecol"  /></asp:BoundField >
+
+                    <asp:TemplateField>
+                        <ItemTemplate>                                  
+                            <asp:Label ID="lblClaimed"  Visible="false" runat="server" Text='<%# Eval("Claimed") %>' />
+                            <asp:Label ID="lblClaimID"  Visible="false" runat="server" Text='<%# Eval("ClaimID") %>' />                            
+                        </ItemTemplate>
+                     </asp:TemplateField>
                 </Columns>
                 <PagerStyle CssClass="pgr" />
                 <SelectedRowStyle CssClass="srs" />
