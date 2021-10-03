@@ -806,11 +806,12 @@
 
 
     Private Sub btnSampleSubmit_Click(sender As Object, e As EventArgs) Handles btnSampleSubmit.Click
-        Dim ClaimSelectSamplePercent = Convert.ToDouble(txtClaimSelectSamplePercent.Text)
-        Dim batchid = ClaimsDAL.SaveSampleBatch(ClaimSelectSamplePercent)
+        Dim sb As IMIS_EN.tblClaimSampleBatch = New IMIS_EN.tblClaimSampleBatch
+        sb.ClaimSelectSamplePercent = Convert.ToDouble(txtClaimSelectSamplePercent.Text)
+        Dim batchid = ClaimsDAL.SaveSampleBatch(sb)
 
         Dim TotalClaimsCount = gvClaims.Rows.Count
-        Dim SampleCount = TotalClaimsCount * 0.01 * ClaimSelectSamplePercent
+        Dim SampleCount = TotalClaimsCount * 0.01 * sb.ClaimSelectSamplePercent
         Dim random As New Random()
         Dim randweight = random.Next(0, SampleCount)
         Dim modBy = Math.Round(TotalClaimsCount / SampleCount)
@@ -877,7 +878,7 @@
         Dim long_percent = dineTotal / total
         Dim percent = Math.Round(long_percent * 100.0F) / 100.0F
         'batchid = insert into batch. get inserted last batchid'
-        Dim batchid = ClaimsDAL.SaveSampleBatch(percent)
+        Dim batchid = ClaimsDAL.SaveSampleBatch(Nothing)
         Dim eClaim = New IMIS_EN.tblClaim
         For Each r As GridViewRow In gvClaims.Rows
             Dim id = CType(r.FindControl("lblClaimID"), Label).Text
