@@ -458,18 +458,24 @@
                 End If
             End If
 
-                eClaim.tblHF = eHF
+            eClaim.tblHF = eHF
             eClaim.tblInsuree = eInsuree
             eClaim.tblICDCodes = eICDCodes
             eClaim.tblBatchRun = eBatchRun
             eClaim.tblClaimAdmin = eClaimAdmin
 
-            If ClaimOverviews.GetReviewClaimsCount(eClaim, imisgen.getUserId(Session("User"))) = 1 Then
-                imisgen.Alert(imisgen.getMessage("M_CLAIMSEXCEEDLIMIT"), pnlButtons, alertPopupTitle:="IMIS")
-                Return
-            End If
 
-            Dim dt As DataTable = ClaimOverviews.GetReviewClaims(eClaim, imisgen.getUserId(Session("User")))
+
+            Dim dt As DataTable
+            If eClaim.ClaimSampleBatchID <> 0 Then
+                dt = ClaimOverviews.GetBatchClaims(eClaim, imisgen.getUserId(Session("User")))
+            Else
+                If ClaimOverviews.GetReviewClaimsCount(eClaim, imisgen.getUserId(Session("User"))) = 1 Then
+                    imisgen.Alert(imisgen.getMessage("M_CLAIMSEXCEEDLIMIT"), pnlButtons, alertPopupTitle:="IMIS")
+                    Return
+                End If
+                dt = ClaimOverviews.GetReviewClaims(eClaim, imisgen.getUserId(Session("User")))
+            End If
 
             L_CLAIMSSELECTED.Text = If(dt.Rows.Count = 0, imisgen.getMessage("L_NO"), Format(dt.Rows.Count, "#,###")) & " " & imisgen.getMessage("L_CLAIMSFOUND")
 
@@ -798,6 +804,7 @@
         FillDistrict()
     End Sub
 
+
     Private Sub btnSampleSubmit_Click(sender As Object, e As EventArgs) Handles btnSampleSubmit.Click
         Dim ClaimSelectSamplePercent = Convert.ToDouble(txtClaimSelectSamplePercent.Text)
         Dim batchid = ClaimsDAL.SaveSampleBatch(ClaimSelectSamplePercent)
@@ -900,5 +907,59 @@
         Next
     End Sub
 
+    Private Sub btnSampleDoCalc_Click(sender As Object, e As EventArgs) Handles btnSampleDoCalc.Click
+        Dim batchid = 35
 
+        Dim filterClaim = New IMIS_EN.tblClaim
+        filterClaim.ClaimSampleBatchID = batchid
+        Dim claims = ClaimsDAL.GetSampleBatchClaims(filterClaim)
+        Dim claimRows = claims.Rows
+
+        Dim SampleApprovedTotal = 0
+        Dim SampleClaimedTotal = 0
+        For Each r As DataRow In claimRows
+            Dim ClaimID As Integer = r("ClaimID")
+            Dim Claimed As Double = r("Claimed")
+            Dim Approved As Double = r("Approved")
+            Dim IsBatchSampleForVerify As Boolean = r("IsBatchSampleForVerify")
+
+            If IsBatchSampleForVerify Then
+                If Approved = 0 Then
+                    lblMessage.Text = $"All sample should be approved"
+                    Return
+                End If
+
+                SampleApprovedTotal += Approved
+                SampleClaimedTotal += Claimed
+            End If
+        Next
+        Dim long_percent = SampleApprovedTotal / SampleClaimedTotal
+        Dim percent = Math.Round(long_percent * 100.0F) / 100.0F
+
+        For Each r As DataRow In claimRows
+            Dim ClaimID As Integer = r("ClaimID")
+            Dim ClaimSampleBatchID As Integer = r("ClaimSampleBatchID")
+            Dim Claimed As Double = r("Claimed")
+            Dim Approved As Double = r("Approved")
+            Dim IsBatchSampleForVerify As Boolean = r("IsBatchSampleForVerify")
+
+            If Not IsBatchSampleForVerify Then
+                Dim givamount = Claimed - (Claimed * percent)
+                eClaim.ClaimID = ClaimID
+                eClaim.ClaimSampleBatchID = ClaimSampleBatchID
+                eClaim.IsBatchSampleForVerify = IsBatchSampleForVerify
+                eClaim.ClaimAmountPayment = Claimed - Claimed * percent
+                'todo: set 16 flag, status verified maybe 
+                ' approved amt cha bhane na chalaune teslai
+                eClaim.SampleAmountPercent = percent
+
+                Try
+                    ClaimsDAL.UpdateClaimSample(eClaim)
+                Catch err As Exception
+                    Throw (err)
+                End Try
+            End If
+        Next
+
+    End Sub
 End Class

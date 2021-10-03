@@ -41,6 +41,15 @@ Partial Public Class ClaimOverviewSampling
     Protected WithEvents hfICDCode As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
+    '''lblMessage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''txtClaimSelectSamplePercent control.
     '''</summary>
     '''<remarks>
@@ -66,6 +75,15 @@ Partial Public Class ClaimOverviewSampling
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnSampleSubmit As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnSampleDoCalc control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnSampleDoCalc As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''txtClaimSampleBatchID control.

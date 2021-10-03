@@ -656,30 +656,27 @@
         <asp:HiddenField ID="hfICDID" runat="server"/>
         <asp:HiddenField ID="hfICDCode" runat="server"/>
         <table align="center">
-                        <td class="DataEntry">
-                                 <asp:TextBox ID="txtClaimSelectSamplePercent" runat="server" maxlength="12"></asp:TextBox>
-                             </td>
-                           <td class="FormLabel">
-                               <asp:Button class="button" ID="Button2" runat="server" 
-                                      Text='sample' >
-                                </asp:Button>
+            <tr>
+                <td><asp:Label ID="lblMessage" runat="server" ></asp:Label> </td>
+            </tr>
+                        <tr>
+                            <td class="DataEntry">
+                                <asp:TextBox ID="txtClaimSelectSamplePercent" runat="server" maxlength="12"></asp:TextBox>
                             </td>
-                            <td class ="DataEntry">
-                                <asp:Button class="button" ID="btnSampleSubmit" runat="server" 
-                                      Text='SampleSubmit' >
-                                </asp:Button>
+                            <td class="FormLabel">
+                                <asp:Button ID="Button2" runat="server" class="button" Text="sample" />
                             </td>
-            <td class="DataEntry">
-                <asp:Label>batch no</asp:Label>
-                                 <asp:TextBox ID="txtClaimSampleBatchID" runat="server" maxlength="12"></asp:TextBox>
-                             </td>
-
-                    <td class ="DataEntry">
-                                <asp:Button class="button" ID="btnBatch" runat="server" 
-                                      Text='loadbatch' >
-                                </asp:Button>
+                            <td class="DataEntry">
+                                <asp:Button ID="btnSampleSubmit" runat="server" class="button" Text="SampleSubmit" />
+                                <asp:Button ID="btnSampleDoCalc" runat="server" class="button" Text="DoCalc" />
                             </td>
-                
+                            <td class="DataEntry">
+                                <asp:Label>batch no</asp:Label>
+                                <asp:TextBox ID="txtClaimSampleBatchID" runat="server" maxlength="12"></asp:TextBox>
+                            </td>
+                            <td class="DataEntry">
+                                <asp:Button ID="btnBatch" runat="server" class="button" Text="loadbatch" />
+                            </td>
                         </tr>
                    </table>
 
@@ -1077,10 +1074,16 @@
                      </asp:TemplateField>
                     <asp:BoundField DataField="Attachment" > <ItemStyle CssClass="hidecol" /><HeaderStyle CssClass="hidecol"  /></asp:BoundField >
 
+                   
+
                     <asp:TemplateField>
-                        <ItemTemplate>                                  
+                        <ItemTemplate>
+                            <asp:Label  Visible="true" runat="server" Text='<%# Eval("ClaimSampleBatchID") %>' />,
+                                <asp:Label  Visible="true" runat="server" Text='<%# Eval("IsBatchSampleForVerify") %>' />,
+                            
+                                
                             <asp:Label ID="lblClaimed"  Visible="false" runat="server" Text='<%# Eval("Claimed") %>' />
-                            <asp:Label ID="lblClaimID"  Visible="false" runat="server" Text='<%# Eval("ClaimID") %>' />                            
+                            <asp:Label ID="lblClaimID"  Visible="false" runat="server" Text='<%# Eval("ClaimID") %>' />
                         </ItemTemplate>
                      </asp:TemplateField>
                 </Columns>
