@@ -79,6 +79,15 @@ Public Class ClaimsBL
             Case Else : Return getMessage("T_SELECTSTATUS")
         End Select
     End Function
+
+    Public Function GetClaimSampleBatches(Optional ByVal RetrievalValue As Integer = 0) As DataTable
+        Dim data As New IMIS_DAL.ExactSQL
+        Dim sSQL As String = ""
+        sSQL = "Select ClaimSampleBatchID as Value, ltrim(ClaimSampleBatchID) as Text   from tblclaimsamplebatch where IsCalcDone=0 union select 0, '-sample batch-' "
+        data.setSQLCommand(sSQL, CommandType.Text)
+        Return data.Filldata
+    End Function
+
     Public Function GetReviewStatus(Optional ByVal RetrievalValue As Integer = 0) As DataTable
         Dim dtbl As New DataTable
         Dim dr As DataRow
@@ -303,6 +312,10 @@ Public Class ClaimsBL
 
     End Function
 
+
+    Public Function GetBatchClaims(ByRef eClaims As IMIS_EN.tblClaim, ByVal UserID As Integer) As DataTable
+        Return clm.GetBatchClaims(eClaims, GetClaimStatus, UserID)
+    End Function
 
     Public Function GetReviewClaims(ByRef eClaims As IMIS_EN.tblClaim, ByVal UserID As Integer) As DataTable
         Return clm.GetReviewClaims(eClaims, GetClaimStatus, UserID)

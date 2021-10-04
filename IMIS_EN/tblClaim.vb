@@ -77,11 +77,12 @@ Partial Public Class tblClaim
     Public Overridable Property tblClaimItems As ICollection(Of tblClaimItems) = New HashSet(Of tblClaimItems)
     Public Overridable Property tblClaimServices As ICollection(Of tblClaimServices) = New HashSet(Of tblClaimServices)
     Public Overridable Property tblFeedback1 As ICollection(Of tblFeedback) = New HashSet(Of tblFeedback)
+    
     Public Property ClaimAmountPayment As Nullable(Of Decimal)
     Public Property SampleAmountDecrease As Nullable(Of Decimal)
-
     Public Property SampleAmountPercent As Double
     Public Property ClaimSampleBatchID As Nullable(Of Integer)
+    Public Property IsBatchSampleForVerify As Double
 
 
 End Class

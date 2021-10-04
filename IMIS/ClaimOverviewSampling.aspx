@@ -982,23 +982,24 @@
             </tr>
         </table>
         <asp:Panel ID="Panel2" runat="server"  CssClass="panel" height="50px">
-            <table align="center">
-                <tr align="center">
+            <table>
+                <tr>
                     <td>
                         <table align="center">
                             <tr align="center">
-                                <td class="FormLabel">
+                                <td class="GridHeader">
                                     <asp:Label ID="lblRandom0" runat="server" Text="Sample Percent"></asp:Label>
                                 </td>
                                 <td class="DataEntry">
                                     <asp:TextBox ID="txtClaimSelectSamplePercent" runat="server" maxlength="12"></asp:TextBox>
                                 </td>
                                 
-                                <td class="DataEntry">
-                                    <asp:Button ID="btnSampleSubmit" runat="server" class="button" Text="Sample Submit" />
+                                <td class="DataEntry"> 
+                                    <asp:Button ID="btnSampleSubmit" runat="server" class="button" Text="Select Batch Samples"  Width="150px" />
                                 </td>
                                 <td class="DataEntry">
-                                    <asp:Button ID="btnSampleDoCalc" runat="server" class="button" Text="Calculate Sample" Width="150px" />
+				    <div style="xwidth:400px"></div>
+                                    <asp:Button ID="btnSampleDoCalc" runat="server" class="button" Text="Approve Batch Amount" Width="150px" />
                                 </td>
                                 
                             </tr>
@@ -1006,6 +1007,7 @@
                     </td>
                 </tr>
             </table>
+            
         </asp:Panel>
         <%--Random Claim Sampling--%>
 

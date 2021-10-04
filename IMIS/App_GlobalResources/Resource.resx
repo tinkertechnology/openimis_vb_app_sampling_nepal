@@ -5111,4 +5111,7 @@ adults/children)
   <data name="CLAIM_SAMPLE_SETTING" xml:space="preserve">
     <value>Claim Sampling Setting</value>
   </data>
+  <data name="CLAIM_SAMPLING" xml:space="preserve">
+    <value>Claim Sampling</value>
+  </data>
 </root>

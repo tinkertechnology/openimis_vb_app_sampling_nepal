@@ -466,6 +466,9 @@
                 If ddlClaimSampleBatch.SelectedValue <> "0" Then 'If txtClaimSampleBatchID.Text <> "" Then
                     eClaim.ClaimSampleBatchID = Convert.ToInt32(ddlClaimSampleBatch.SelectedValue)
                 End If
+                If txtClaimSampleBatchID.Text <> "" Then
+                    eClaim.ClaimSampleBatchID = Convert.ToInt32(txtClaimSampleBatchID.Text)
+                End If
             End If
 
             eClaim.tblHF = eHF
@@ -477,9 +480,12 @@
 
 
             Dim dt As DataTable
-            If ddlClaimSampleBatch.SelectedValue <> "0" Then
+            If eClaim.ClaimSampleBatchID <> 0 Then
                 dt = ClaimOverviews.GetBatchClaims(eClaim, imisgen.getUserId(Session("User")))
             Else
+                eClaim.ClaimStatus = 4 'Only Checked status allowed to be filterd for new claimSampleBatch
+                ddlClaimStatus.SelectedValue = "4"
+                eClaim.ClaimSampleBatchID = Nothing 'dont select rows which already have batch id
                 If ClaimOverviews.GetReviewClaimsCount(eClaim, imisgen.getUserId(Session("User"))) = 1 Then
                     imisgen.Alert(imisgen.getMessage("M_CLAIMSEXCEEDLIMIT"), pnlButtons, alertPopupTitle:="IMIS")
                     Return

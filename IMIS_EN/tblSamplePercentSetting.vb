@@ -12,11 +12,17 @@ Imports System.Collections.Generic
 
 Partial Public Class tblSamplePercent
     Public Property ID As Integer
-    Public Property MinValue As Decimal
-    Public Property  MaxValue As Decimal
-    Public Property Percent As Double
 
-    Public Property Type As String
-    
+    Public Property TypePrivate As String
+    Public Property MinValuePrivate As Decimal
+    Public Property MaxValuePrivate As Decimal
+    Public Property PercentPrivate As Double
+
+
+    Public Property TypePublic As String
+    Public Property MinValuePublic As Decimal
+    Public Property MaxValuePublic As Decimal
+    Public Property PercentPublic As Double
+
 
 End Class

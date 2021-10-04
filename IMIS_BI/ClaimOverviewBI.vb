@@ -41,6 +41,9 @@ Public Class ClaimOverviewBI
     Public Function GetReviewClaims(ByRef eClaims As IMIS_EN.tblClaim, ByVal UserID As Integer) As DataTable
         Return ClaimOverview.GetReviewClaims(eClaims, UserID)
     End Function
+    Public Function GetBatchClaims(ByRef eClaims As IMIS_EN.tblClaim, ByVal UserID As Integer) As DataTable
+        Return ClaimOverview.GetBatchClaims(eClaims, UserID)
+    End Function
     Public Function GetReviewClaimsCount(ByRef eClaims As IMIS_EN.tblClaim, ByVal UserID As Integer) As Integer
         Return ClaimOverview.GetReviewClaimsCount(eClaims, UserID)
     End Function
@@ -61,6 +64,10 @@ Public Class ClaimOverviewBI
     Public Function GetReviewStatus(Optional ByVal RetrievalValue As Integer = 0) As DataTable
         Dim GetDataTable As New IMIS_BL.ClaimsBL
         Return GetDataTable.GetReviewStatus(RetrievalValue)
+    End Function
+    Public Function GetClaimSampleBatches(Optional ByVal RetrievalValue As Integer = 0) As DataTable
+        Dim GetDataTable As New IMIS_BL.ClaimsBL
+        Return GetDataTable.GetClaimSampleBatches(RetrievalValue)
     End Function
     Public Function GetClaimStatus(Optional ByVal RetrievalValue As Integer = 0) As DataTable
         Dim GetDataTable As New IMIS_BL.ClaimsBL
