@@ -533,6 +533,15 @@ Namespace Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Claim Sampling Setting.
+        '''</summary>
+        Friend Shared ReadOnly Property CLAIM_SAMPLE_SETTING() As String
+            Get
+                Return ResourceManager.GetString("CLAIM_SAMPLE_SETTING", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Claim Administrator Details.
         '''</summary>
         Friend Shared ReadOnly Property G_CLAIMADMINISTRATOR() As String

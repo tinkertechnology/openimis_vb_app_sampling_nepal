@@ -27,13 +27,29 @@ Public Class AddSamplePercent
     Inherits System.Web.UI.Page
     Private userBI As New IMIS_BI.UserBI
     Protected imisgen As New IMIS_Gen
-    Private FundBI As New IMIS_BI.AddSamplePercentBI
-    Private ePremium As New IMIS_EN.tblPremium
-    Private ePayer As New IMIS_EN.tblPayer
+    Private eSamplePercent As New IMIS_EN.tblSamplePercent
+
+    Private SamplePercentSettingBI As New IMIS_BI.AddSamplePercentBI
+
+
 
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If IsPostBack = False Then
+            'Dim dt As DataTable = loadSampleData.LoadSamplePercentSetting()
+            Dim dt As DataTable = SamplePercentSettingBI.getSamplePercentSetting()
+            If dt.Rows.Count > 0 Then
+                private_min.Text = dt(0)("PrivateMinValue")
+                private_max.Text = dt(0)("PrivateMaxValue")
+                private_percent.Text = dt(0)("PrivatePercent")
+                public_min.Text = dt(0)("PublicMinValue")
+                public_max.Text = dt(0)("PublicMaxValue")
+                public_percent.Text = dt(0)("PublicPercent")
 
+
+            End If
+
+        End If
     End Sub
 
 
@@ -52,6 +68,7 @@ Public Class AddSamplePercent
 
 
     Private Sub B_SAVE_Click(sender As Object, e As EventArgs) Handles B_SAVE.Click
+
         Dim privateMin As String = private_min.Text
         Dim privateMax As String = private_max.Text
         Dim privatePercent As String = private_percent.Text
@@ -59,39 +76,15 @@ Public Class AddSamplePercent
         Dim publicMax As String = public_max.Text
         Dim publicPercent As String = public_percent.Text
 
+        eSamplePercent.MaxValuePrivate = privateMax
+        eSamplePercent.MinValuePrivate = privateMin
+        eSamplePercent.PercentPrivate = privatePercent
+        eSamplePercent.MinValuePublic = publicMin
+        eSamplePercent.MaxValuePublic = publicMax
+        eSamplePercent.PercentPublic = publicPercent
 
+        SamplePercentSettingBI.AddUpdateSamplePercentSetting(eSamplePercent)
 
-
-
-
-        'Try
-        '    Dim msg As String = String.Empty
-        '    If Not String.IsNullOrWhiteSpace(ddlProduct.Text) Then
-
-        '        SetEntity()
-        '        Dim Result As Integer = FundBI.AddFund(ePremium, ddlProduct.SelectedValue)
-        '        Select Case Result
-        '            Case 0
-        '                msg = imisgen.getMessage("M_FUNDADDED")
-        '            Case 99
-        '                msg = imisgen.getMessage("M_AJAXERROR")
-        '        End Select
-
-        '        Session("msg") = msg
-        '        Response.Redirect("Home.aspx")
-        '        'Added by Emmanuel
-        '    Else
-        '        imisgen.Alert(imisgen.getMessage("M_MUSTFILLPRODUCT"), pnlBody, alertPopupTitle:="IMIS")
-        '    End If
-
-        '    'imisgen.Alert(msg, pnlBody, alertPopupTitle:="IMIS-Funding"    Commeted by developer initially
-
-        'Catch ex As Exception
-        '    imisgen.Alert(imisgen.getMessage("M_ERRORMESSAGE"), pnlBody, alertPopupTitle:="IMIS")
-        '    imisgen.Log(Page.Title & " : " & imisgen.getLoginName(Session("User")), ex, 1)
-        '    'EventLog.WriteEntry("IMIS", Page.Title & " : " & imisgen.getLoginName(Session("User")) & " : " & ex.ToString(), EventLogEntryType.Error, 1)
-        '    Return
-        'End Try
     End Sub
 
     Private Sub B_CANCEL_Click(sender As Object, e As EventArgs) Handles B_CANCEL.Click

@@ -22,7 +22,7 @@ sustained by you or third parties or a failure of the program to operate with an
 advised of the possibility of such damages.
 
 In case of dispute arising out or in relation to the use of the program, it is subject to the public law of Switzerland. The place of jurisdiction is Berne.--%>
-<%@ Page Title='<%$ Resources:Resource,L_FUNDING %>' Language="vb" AutoEventWireup="false" MasterPageFile="~/IMIS.Master" CodeBehind="AddSamplePercent.aspx.vb" Inherits="IMIS.AddSamplePercent" EnableEventValidation="true" %>
+<%@ Page Title='<%$ Resources:Resource,CLAIM_SAMPLE_SETTING %>' Language="vb" AutoEventWireup="false" MasterPageFile="~/IMIS.Master" CodeBehind="AddSamplePercent.aspx.vb" Inherits="IMIS.AddSamplePercent" EnableEventValidation="true" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
@@ -45,7 +45,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                             Text='PRIVATE'></asp:Label>
                     </td>
                     <td class="DataEntry">
-                         <asp:Label ID="label6" runat="server" Text="MIN RS"></asp:Label>
+                         <asp:Label ID="label6" runat="server"  Text="MIN RS"></asp:Label>
                         <asp:TextBox ID="private_min" runat="server" Width="132px" MaxLength="10"></asp:TextBox>
 
 
