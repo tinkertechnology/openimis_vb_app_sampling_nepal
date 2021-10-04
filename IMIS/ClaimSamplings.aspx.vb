@@ -552,7 +552,7 @@ Partial Public Class ClaimSamplings
                                     imisgen.getMessage("M_SERVICESREJECTED") & "</td><td>" & ServicesRejected & "</td></tr></table>"
 
             If IMIS_Gen.offlineHF Then
-                WriteToXml(dt)
+                wRiteToXml(dt)
             End If
             loadgrid()
         Catch ex As Exception
