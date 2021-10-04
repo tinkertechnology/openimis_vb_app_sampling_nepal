@@ -482,33 +482,6 @@ Partial Public Class ClaimOverviewSampling
     Protected WithEvents ddlGender As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''lblBatchNo control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblBatchNo As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''ddlClaimSampleBatch control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlClaimSampleBatch As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''txtClaimSampleBatchID control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtClaimSampleBatchID As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
     '''lblAttachment control.
     '''</summary>
     '''<remarks>
@@ -534,6 +507,42 @@ Partial Public Class ClaimOverviewSampling
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnSearch As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''lblBatchNo0 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblBatchNo0 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''txtClaimSampleBatchID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtClaimSampleBatchID As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''lblBatchNo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblBatchNo As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''ddlClaimSampleBatch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlClaimSampleBatch As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''l_claimselectionupdate control.
@@ -689,13 +698,13 @@ Partial Public Class ClaimOverviewSampling
     Protected WithEvents Panel2 As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
-    '''lblMessage control.
+    '''lblRandom0 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblRandom0 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''txtClaimSelectSamplePercent control.
@@ -723,6 +732,15 @@ Partial Public Class ClaimOverviewSampling
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnSampleDoCalc As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''lblMessage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''L_CLAIMSSELECTED control.

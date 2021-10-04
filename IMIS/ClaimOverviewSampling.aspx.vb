@@ -842,7 +842,7 @@
 
             If modrem = 0 Then
                 eClaim.IsBatchSampleForVerify = True
-                eClaim.ReviewStatus = 16 'SelectedForReview
+                eClaim.ReviewStatus = 4 'SelectedForReview
             End If
             eClaim.ClaimID = CType(r.FindControl("lblClaimID"), Label).Text
             eClaim.ClaimSampleBatchID = batchid
