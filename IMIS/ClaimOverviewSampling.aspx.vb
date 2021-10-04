@@ -99,6 +99,8 @@
             'ddlICD.DataValueField = "ICDID"
             'ddlICD.DataBind()
 
+            FillClaimSampleBatch()
+
             FillVisitTypes()
 
             HFCodeAndBatchRunBinding(UserID)
@@ -127,6 +129,14 @@
         ddlDistrict.DataTextField = "DistrictName"
         ddlDistrict.DataBind()
     End Sub
+
+    Private Sub FillClaimSampleBatch()
+        ddlClaimSampleBatch.DataSource = ClaimOverviews.GetClaimSampleBatches()
+        ddlClaimSampleBatch.DataValueField = "Value"
+        ddlClaimSampleBatch.DataTextField = "Text"
+        ddlClaimSampleBatch.DataBind()
+    End Sub
+
     Private Sub FillVisitTypes()
         ddlVisitType.DataSource = ClaimOverviews.GetVisitTypes(True)
         ddlVisitType.DataValueField = "Code"
@@ -453,8 +463,8 @@
                 'End If
 
                 'Change By Purushottam Ends
-                If txtClaimSampleBatchID.Text <> "" Then
-                    eClaim.ClaimSampleBatchID = Convert.ToInt32(txtClaimSampleBatchID.Text)
+                If ddlClaimSampleBatch.SelectedValue <> "0" Then 'If txtClaimSampleBatchID.Text <> "" Then
+                    eClaim.ClaimSampleBatchID = Convert.ToInt32(ddlClaimSampleBatch.SelectedValue)
                 End If
             End If
 
@@ -467,7 +477,7 @@
 
 
             Dim dt As DataTable
-            If eClaim.ClaimSampleBatchID <> 0 Then
+            If ddlClaimSampleBatch.SelectedValue <> "0" Then
                 dt = ClaimOverviews.GetBatchClaims(eClaim, imisgen.getUserId(Session("User")))
             Else
                 If ClaimOverviews.GetReviewClaimsCount(eClaim, imisgen.getUserId(Session("User"))) = 1 Then
@@ -824,8 +834,15 @@
         For Each r As GridViewRow In gvClaims.Rows
             eClaim.IsBatchSampleForVerify = False 'dbg
             Dim modrem = (r.RowIndex + randweight) Mod modBy
+            Try
+                eClaim.ReviewStatus = Convert.ToInt32(CType(r.FindControl("ddlClaimReviewStatus"), DropDownList).Text)
+            Catch err As Exception
+
+            End Try
+
             If modrem = 0 Then
                 eClaim.IsBatchSampleForVerify = True
+                eClaim.ReviewStatus = 16 'SelectedForReview
             End If
             eClaim.ClaimID = CType(r.FindControl("lblClaimID"), Label).Text
             eClaim.ClaimSampleBatchID = batchid
@@ -909,7 +926,7 @@
     End Sub
 
     Private Sub btnSampleDoCalc_Click(sender As Object, e As EventArgs) Handles btnSampleDoCalc.Click
-        Dim batchid = 35
+        Dim batchid = Convert.ToInt32(ddlClaimSampleBatch.SelectedValue)
 
         Dim filterClaim = New IMIS_EN.tblClaim
         filterClaim.ClaimSampleBatchID = batchid
@@ -927,7 +944,7 @@
             If IsBatchSampleForVerify Then
                 If Approved = 0 Then
                     lblMessage.Text = $"All sample should be approved"
-                    Return
+                    'Return
                 End If
 
                 SampleApprovedTotal += Approved
@@ -947,6 +964,7 @@
             If Not IsBatchSampleForVerify Then
                 Dim givamount = Claimed - (Claimed * percent)
                 eClaim.ClaimID = ClaimID
+                eClaim.ReviewStatus = r("ReviewStatus")
                 eClaim.ClaimSampleBatchID = ClaimSampleBatchID
                 eClaim.IsBatchSampleForVerify = IsBatchSampleForVerify
                 eClaim.ClaimAmountPayment = Claimed - Claimed * percent
@@ -961,6 +979,11 @@
                 End Try
             End If
         Next
+
+        Dim sb = ClaimsDAL.GetClaimSampleBatchByIdUpdate(batchid)
+        sb.IsCalcDone = True
+        ClaimsDAL.SaveSampleBatch(sb)
+
 
     End Sub
 End Class

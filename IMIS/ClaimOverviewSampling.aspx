@@ -549,7 +549,7 @@
 
             $('.mGrid tr').hide();
             var rand10 = [];
-            var sample_percent = $('#Body_txtClaimSelectSamplePercent').val()
+            var sample_percent = $('#Body_TextBox4').val()
             console.log('sa', sample_percent);
             var count = $('.mGrid tr').length
             console.log('count', count);
@@ -655,31 +655,8 @@
   <div class="divBody" >
         <asp:HiddenField ID="hfICDID" runat="server"/>
         <asp:HiddenField ID="hfICDCode" runat="server"/>
-        <table align="center">
-            <tr>
-                <td><asp:Label ID="lblMessage" runat="server" ></asp:Label> </td>
-            </tr>
-                        <tr>
-                            <td class="DataEntry">
-                                <asp:TextBox ID="txtClaimSelectSamplePercent" runat="server" maxlength="12"></asp:TextBox>
-                            </td>
-                            <td class="FormLabel">
-                                <asp:Button ID="Button2" runat="server" class="button" Text="sample" />
-                            </td>
-                            <td class="DataEntry">
-                                <asp:Button ID="btnSampleSubmit" runat="server" class="button" Text="SampleSubmit" />
-                                <asp:Button ID="btnSampleDoCalc" runat="server" class="button" Text="DoCalc" />
-                            </td>
-                            <td class="DataEntry">
-                                <asp:Label>batch no</asp:Label>
-                                <asp:TextBox ID="txtClaimSampleBatchID" runat="server" maxlength="12"></asp:TextBox>
-                            </td>
-                            <td class="DataEntry">
-                                <asp:Button ID="btnBatch" runat="server" class="button" Text="loadbatch" />
-                            </td>
-                        </tr>
-                   </table>
-
+        
+        <%--Claim Selection Criteria--%>
         <table class="catlabel">
             <tr>
                 <td >
@@ -881,9 +858,16 @@
                     <asp:DropDownList ID="ddlGender" runat="server" Width="150px">
                                 </asp:DropDownList>
                 </td>
+
                 <td class="FormLabel">
-                    
+                   <asp:Label ID="lblBatchNo" runat="server" Text="Batch No"></asp:Label>
+                    <asp:DropDownList ID="ddlClaimSampleBatch" runat="server" >
+                     </asp:DropDownList>
+                    <asp:TextBox ID="txtClaimSampleBatchID" runat="server" MaxLength="12" Width="60px"></asp:TextBox>
                 </td>
+               <%--<td class="DataEntry"></td>--%>
+                
+
                 <td class="FormLabel">
                     <asp:Label ID="lblAttachment" runat="server" Text="Attachment"></asp:Label>  <asp:CheckBox ID="chkAttachment" runat="server" />
                 </td>
@@ -895,68 +879,70 @@
           </tr>           
        </table>               
         </asp:Panel>
+        <%--Claim Selection Criteria--%>
         
-        <table class="catlabel">
+        <%--Claim Selection Update--%>
+        <table class="catlabel" style="display:none">
             <tr>
                 <td >
                    <asp:label  
-                           ID="L_CLAIMSELECTIONUPDATE"  
+                           id="l_claimselectionupdate"  
                            runat="server" 
-                           Text='<%$ Resources:Resource,L_CLAIMSELECTIONUPDATE %>'> </asp:label>                     
+                           text='<%$ resources:resource,l_claimselectionupdate %>'> </asp:label>                     
                 </td>
                 
             </tr>
         </table>
-        <asp:Panel ID="pnlMiddle" runat="server"  CssClass="panel" height="50px" GroupingText='<%$ Resources:Resource,L_CRITERIADETAILS %>'>
-           <table align="center">
+        <asp:panel id="pnlmiddle" runat="server"  cssclass="panel1" height="0px" groupingtext=''>
+           <table align="center" style="display:none">
             <tr align="center">
                 <td>
                    <table align="center">
          
             <tr align="center">
-            <td class="DataEntry">
-                     <asp:DropDownList ID="ddlSelectionType" runat="server" 
-                         style="text-align:center" AutoPostBack="True">
-                     </asp:DropDownList>
+            <td class="dataentry">
+                     <asp:dropdownlist id="ddlselectiontype" runat="server" 
+                         style="text-align:center" autopostback="true">
+                     </asp:dropdownlist>
                  </td>
-               <td class="FormLabel">
-                    <asp:Label ID="lblRandom" runat="server" 
-                        Text='<%$ Resources:Resource,L_RANDOM%>'></asp:Label>
+               <td class="formlabel">
+                    <asp:label id="lblrandom" runat="server" 
+                        text='<%$ resources:resource,l_random%>'></asp:label>
                 </td>
-                <td class ="DataEntry">
-                    <asp:CheckBox ID="chkRandom" runat="server" />
+                <td class ="dataentry">
+                    <asp:checkbox id="chkrandom" runat="server" />
                 </td>
-                <td class ="DataEntry" style="width:150px">
-                    <asp:TextBox ID="txtRandom" runat="server" size="3" MaxLength="3"  style="text-align:right" Enabled="false" CssClass="numbersOnly" Width ="100px"></asp:TextBox>
-                    <asp:Label ID="lblRandomPercentageMark" runat="server" 
-                        Text='%'></asp:Label>
+                <td class ="dataentry" style="width:150px">
+                    <asp:textbox id="txtrandom" runat="server" size="3" maxlength="3"  style="text-align:right" enabled="false" cssclass="numbersonly" width ="100px"></asp:textbox>
+                    <asp:label id="lblrandompercentagemark" runat="server" 
+                        text='%'></asp:label>
                 </td>
-                <td class="FormLabel">
-                     <asp:Label ID="lblValue" runat="server" Text='<%$ Resources:Resource,L_VALUE%>'></asp:Label>
+                <td class="formlabel">
+                     <asp:label id="lblvalue" runat="server" text='<%$ resources:resource,l_value%>'></asp:label>
                 </td>
-                <td class ="DataEntry">
-                    <asp:CheckBox ID="chkValue" runat="server"  />
+                <td class ="dataentry">
+                    <asp:checkbox id="chkvalue" runat="server"  />
                 </td>
-                <td class ="DataEntry">
-                    <asp:TextBox ID="txtValue" runat="server" MaxLength="20" size="10" style="text-align:right" 
-                         CssClass="numbersOnly" ></asp:TextBox>
+                <td class ="dataentry">
+                    <asp:textbox id="txtvalue" runat="server" maxlength="20" size="10" style="text-align:right" 
+                         cssclass="numbersonly" ></asp:textbox>
                     
                 </td>
-                 <td class ="FormLabel">
-                     <asp:Label ID="lblVariance" runat="server" 
-                        Text='<%$ Resources:Resource,L_VARIANCE%>'></asp:Label>
+                 <td class ="formlabel">
+                     <asp:label id="lblvariance" runat="server" 
+                        text='<%$ resources:resource,l_variance%>'></asp:label>
                  </td>
-                 <td class="DataEntry">
-                     <asp:CheckBox ID="chkVariance" runat="server" />
+                 <td class="dataentry">
+                     <asp:checkbox id="chkvariance" runat="server" />
                  </td>
-                 <td class ="DataEntry" style="width:150px">
-                    <asp:TextBox ID="txtVariance" runat="server" size="3" MaxLength="3" style="text-align:right" Enabled="false" CssClass="numbersOnly" Width="100px"></asp:TextBox>
-                    <asp:Label ID="lblVariancePercentageMark" runat="server" 
-                        Text='%'></asp:Label>
+                 <td class ="dataentry" style="width:150px">
+                    <asp:textbox id="txtvariance" runat="server" size="3" maxlength="3" style="text-align:right" enabled="false" cssclass="numbersonly" width="100px"></asp:textbox>
+                    <asp:label id="lblvariancepercentagemark" runat="server" 
+                        text='%'></asp:label>
                 </td>
                 
                  <td align="right">
-                     <asp:Button ID="btnSelectionExecute" runat="server" Text='<%$ Resources:Resource,B_UPDATE%>' />
+                     <asp:button id="btnselectionexecute" runat="server" text='<%$ resources:resource,b_update%>' />
                  </td>
             </tr>
             
@@ -965,7 +951,52 @@
             </tr>
 
         </table>
+        </asp:panel>
+        <%--Claim Selection Update--%>
+
+
+        
+        <%--Random Claim Sampling--%>
+        <table class="catlabel">
+            <tr>
+                <td >
+                   <asp:label  
+                           ID="RandomSamplingCriteria"  
+                           runat="server" 
+                           Text='Random Sampling Criteria'> </asp:label>                     
+                </td>
+            </tr>
+        </table>
+        <asp:Panel ID="Panel2" runat="server"  CssClass="panel" height="50px">
+            <table align="center">
+            <tr>
+                <td><asp:Label ID="lblMessage" runat="server" ></asp:Label> </td>
+            </tr>
+                        <tr>
+                            <td class="DataEntry">
+                                <asp:TextBox ID="txtClaimSelectSamplePercent" runat="server" maxlength="12"></asp:TextBox>
+                            </td>
+                            <%--<td class="FormLabel">
+                                <asp:Button ID="Button7" runat="server" class="button" Text="sample" />
+                            </td>--%>
+                            <td class="DataEntry">
+                                <asp:Button ID="btnSampleSubmit" runat="server" class="button" Text="SampleSubmit" />
+                                <asp:Button ID="btnSampleDoCalc" runat="server" class="button" Text="Calculate Sample" Width="150px" />
+                            </td>
+                            <%--<td class="DataEntry">
+                                <asp:Label ID="lblBatchNo" runat="server" Text='Batch No'></asp:Label> 
+                                <asp:TextBox ID="TextBox12" runat="server" maxlength="12"></asp:TextBox>
+                            </td>--%>
+                            <%--<td class="DataEntry">
+                                <asp:Button ID="Button9" runat="server" class="button" Text="loadbatch" />
+                            </td>--%>
+                        </tr>
+                   </table>
         </asp:Panel>
+        <%--Random Claim Sampling--%>
+
+
+        <%--Claim Selection--%>
         <table>
         <tr>
         <td>
@@ -991,6 +1022,7 @@
         </td>
         </tr>
         </table>
+        <%--Claim Selection--%>
         
         <asp:Panel ID="pnlBody" runat="server"  CssClass="panelBody" Height="200px"  ScrollBars ="Vertical">
             <asp:GridView ID="gvClaims" runat="server"
@@ -1073,18 +1105,14 @@
                        <ItemStyle Width="15px"   />
                      </asp:TemplateField>
                     <asp:BoundField DataField="Attachment" > <ItemStyle CssClass="hidecol" /><HeaderStyle CssClass="hidecol"  /></asp:BoundField >
+                    <asp:TemplateField  >
+                        <ItemTemplate >
+                            <asp:Label    runat="server" Text='<%# Eval("IsBatchSampleForVerify") %>' />,
+                            <asp:Label   runat="server" Text='<%# Eval("ClaimSampleBatchID") %>' />
 
-                   
-
-                    <asp:TemplateField>
-                        <ItemTemplate>
-                            <asp:Label  Visible="true" runat="server" Text='<%# Eval("ClaimSampleBatchID") %>' />,
-                                <asp:Label  Visible="true" runat="server" Text='<%# Eval("IsBatchSampleForVerify") %>' />,
-                            
-                                
-                            <asp:Label ID="lblClaimed"  Visible="false" runat="server" Text='<%# Eval("Claimed") %>' />
                             <asp:Label ID="lblClaimID"  Visible="false" runat="server" Text='<%# Eval("ClaimID") %>' />
                         </ItemTemplate>
+                       <ItemStyle Width="15px"   />
                      </asp:TemplateField>
                 </Columns>
                 <PagerStyle CssClass="pgr" />
