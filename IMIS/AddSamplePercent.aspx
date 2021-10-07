@@ -33,43 +33,58 @@ In case of dispute arising out or in relation to the use of the program, it is s
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Body" runat="server">
     <div class="divBody">
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" xDataSourceID="SqlDataSource1" Height="240px">
-            <Columns>
-                <asp:CommandField ShowSelectButton="True" />
-                <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
-                <asp:BoundField DataField="ClaimedMin" HeaderText="ClaimedMin" SortExpression="PrivateMinValue" />
-                <asp:BoundField DataField="ClaimedMax" HeaderText="ClaimedMax" SortExpression="PrivateMaxValue" />
-                <asp:BoundField DataField="SamplePercent" HeaderText="SamplePercent" SortExpression="PrivatePercent" />
-                <asp:BoundField DataField="TypeHF" HeaderText="TypeHF" SortExpression="PublicMinValue" />
-                <asp:TemplateField  >
-                <ItemTemplate>
-                        <%--<asp:LinkButon Text="Edit" runat="server" OnClick="onEdit" />--%>
-                    iphone
-                    <asp:Button Text="text" runat="server" OnClick="OnEdit" />
+        
 
-                                            tero bau
-<%--<asp:Label ID="txtID"  Visible="false" runat="server" Text='<%# Eval("ID") %>' />--%>
-<asp:TextBox runat="server" ID="txtID" Visible="false"  Text='<%# Eval("ID") %>' ></asp:TextBox>
-                        apple
-  <asp:Button ID="btnONOFF" runat="server" CausesValidation="false"  OnClick="btnONOFF_Click" Text="Button" />
+        <asp:Panel ID="Panel1" runat="server"  style="flex-grow:0" CssClass="panelBody" Height="242px"  ScrollBars ="Vertical">
+            <asp:GridView ID="GridView1" runat="server"
+                AutoGenerateColumns="False"
+                GridLines="None"
+                CssClass="mGrid"
+                EmptyDataText='No data available'
+                style="flex-grow:0">
+                <Columns>
+                    <asp:BoundField DataField="ID" HeaderText='ID' SortExpression="ID" HeaderStyle-Width="70px">
+                        <HeaderStyle Width="0px" />
+                    </asp:BoundField> 
+                    
+                    <asp:BoundField DataField="ClaimedMin" HeaderText='ClaimedMin' SortExpression="PrivateMinValue" HeaderStyle-Width="70px">
+                        <HeaderStyle Width="0px" />
+                    </asp:BoundField>
 
+                    <asp:BoundField DataField="ClaimedMax" HeaderText='ClaimedMax' SortExpression="PrivateMaxValue" HeaderStyle-Width="70px">
+                        <HeaderStyle Width="0px" />
+                    </asp:BoundField>
 
-                 </ItemTemplate>
-                    </asp:TemplateField  >
-           </Columns>
-        </asp:GridView>
+                    <asp:BoundField DataField="SamplePercent" HeaderText='SamplePercent' SortExpression="PrivatePercent" HeaderStyle-Width="70px">
+                        <HeaderStyle Width="0px" />
+                    </asp:BoundField>
+
+                    <asp:BoundField DataField="TypeHF" HeaderText='TypeHF' SortExpression="PublicMinValue" HeaderStyle-Width="70px">
+                        <HeaderStyle Width="0px" />
+                    </asp:BoundField>
+
+                    <asp:TemplateField>
+                        <ItemTemplate >
+                            <asp:Button Text="Edit" runat="server" OnClick="OnEdit" />
+                            <asp:TextBox runat="server" ID="txtID" Visible="false"  Text='<%# Eval("ID") %>' ></asp:TextBox>
+                        </ItemTemplate>
+                        <ItemStyle Width="15px"  />
+                     </asp:TemplateField>
+                </Columns>
+                <PagerStyle CssClass="pgr" />
+                <SelectedRowStyle CssClass="srs" />
+                <AlternatingRowStyle CssClass="alt" />
+                <RowStyle CssClass="normal" />
+            </asp:GridView>
+        </asp:Panel>
+        
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:IMISConnectionString %>" SelectCommand="SELECT * FROM [tblSamplePercentSetting]"></asp:SqlDataSource>
-        <asp:Panel ID="pnlBody" runat="server" ScrollBars="Auto" CssClass="panel" GroupingText="Sampling Percent">
-
+        
+        <asp:Panel ID="pnlBody" runat="server" ScrollBars="Auto" CssClass="panel" GroupingText="Sampling Percent" style="flex-grow:0">
             <table>
 
                 <tr>
-                    <td class="FormLabel">
-                        <asp:Label
-                            ID="Label3"
-                            runat="server"
-                            Text='PRIVATE'></asp:Label>
-                    </td>
+              
                     <td class="DataEntry">
                          <asp:Label ID="label6" runat="server"  Text="MIN RS"></asp:Label>
                         <asp:TextBox ID="txtClaimedMin" xRequired="True" runat="server" Width="132px" MaxLength="10"></asp:TextBox>
@@ -94,7 +109,20 @@ In case of dispute arising out or in relation to the use of the program, it is s
 				     <asp:ListItem Text="O" Value="O" />
 			    </asp:DropDownList>
 		</td>
-			                    
+			                      <td align="left">
+
+                    <asp:Button
+                        ID="B_SAVE"
+                        runat="server"
+                        Text='<%$ Resources:Resource,B_SAVE%>'
+                        ValidationGroup="check" />
+                </td> 
+                    <td align="right">
+                    <asp:Button
+                        ID="B_CANCEL"
+                        runat="server"
+                        Text='<%$ Resources:Resource,B_CANCEL%>' />
+                </td>
                 </tr>
 
                                 <tr style="display:none;">
@@ -131,26 +159,6 @@ In case of dispute arising out or in relation to the use of the program, it is s
     </div>
     <asp:Panel ID="pnlButtons" runat="server" CssClass="panel">
         <table width="100%" cellpadding="10 10 10 10">
-            <tr>
-
-                <td align="left">
-
-                    <asp:Button
-                        ID="B_SAVE"
-                        runat="server"
-                        Text='<%$ Resources:Resource,B_SAVE%>'
-                        ValidationGroup="check" />
-                </td>
-
-
-                <td align="right">
-                    <asp:Button
-                        ID="B_CANCEL"
-                        runat="server"
-                        Text='<%$ Resources:Resource,B_CANCEL%>' />
-                </td>
-
-            </tr>
         </table>
 
     </asp:Panel>

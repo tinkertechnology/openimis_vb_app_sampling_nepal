@@ -96,6 +96,7 @@ Public Class AddSamplePercent
         eSamplePercent.TypeHF = ddlTypeHF.Text
 
         SamplePercentSettingBI.AddUpdateSamplePercentSetting(eSamplePercent)
+        Server.TransferRequest(Request.Path)
 
     End Sub
 
@@ -116,6 +117,7 @@ Public Class AddSamplePercent
             txtSamplePercent.Text = dr("SamplePercent").ToString()
             ddlTypeHF.Text = dr("TypeHF").ToString()
         End If
+
     End Sub
 
     Protected Sub btnONOFF_Click(sender As Object, e As EventArgs)

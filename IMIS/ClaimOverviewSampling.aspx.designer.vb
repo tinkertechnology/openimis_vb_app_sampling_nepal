@@ -689,6 +689,15 @@ Partial Public Class ClaimOverviewSampling
     Protected WithEvents RandomSamplingCriteria As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''lblMessage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Panel2 control.
     '''</summary>
     '''<remarks>
@@ -732,15 +741,6 @@ Partial Public Class ClaimOverviewSampling
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnSampleDoCalc As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''lblMessage control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''L_CLAIMSSELECTED control.

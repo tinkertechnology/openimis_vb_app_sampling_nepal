@@ -28,14 +28,15 @@
 
 Public Class SamplePercentBL
     Private imisgen As New GeneralBL
+    Dim SamplePercentSetting As New IMIS_DAL.SamplePercentDAL
 
     Public Function AddUpdate(eSamplePercent) As Integer
         Dim SamplePercentDAL As New IMIS_DAL.SamplePercentDAL
         SamplePercentDAL.AddUpdate(eSamplePercent)
+        Return 1
     End Function
 
     Public Function getSamplePercentSetting(id As Integer) As DataTable
-        Dim SamplePercentSetting As New IMIS_DAL.SamplePercentDAL
         Return SamplePercentSetting.LoadSamplePercentSetting(id)
     End Function
 
@@ -44,5 +45,8 @@ Public Class SamplePercentBL
     '    SamplePercentDAL.AddUpdate(eSamplePercent)
     'End Function
 
+    Public Function ObtainHFClaimSamplePercent(ByRef eSamplePercent As IMIS_EN.tblSamplePercent, hfId As Integer) As Double
+        Return SamplePercentSetting.ObtainHFClaimSamplePercent(eSamplePercent, hfId)
+    End Function
 
 End Class

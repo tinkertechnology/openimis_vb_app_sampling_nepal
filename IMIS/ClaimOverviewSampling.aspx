@@ -979,6 +979,9 @@
                            runat="server" 
                            Text='Random Sampling Criteria'> </asp:label>                     
                 </td>
+                <td align="right">
+                                 <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
+                            </td>
             </tr>
         </table>
         <asp:Panel ID="Panel2" runat="server"  CssClass="panel" height="50px">
@@ -1023,7 +1026,7 @@
             <table align="center">
                 <tr>
                     <td>
-                        <asp:Label ID="lblMessage" runat="server"></asp:Label>
+                       
                     </td>
                 </tr>
                 <tr>
@@ -1049,6 +1052,7 @@
                             <td>
                                 <asp:Label ID="L_CLAIMSSELECTED" runat="server" Text="<%$ Resources:Resource,L_CLAIMSSELECTED %>"></asp:Label>
                             </td>
+                            
                         </tr>
                     </table>
                 </td>

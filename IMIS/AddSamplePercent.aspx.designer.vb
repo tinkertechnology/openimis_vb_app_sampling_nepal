@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class AddSamplePercent
 
     '''<summary>
+    '''Panel1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Panel1 As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
     '''GridView1 control.
     '''</summary>
     '''<remarks>
@@ -39,15 +48,6 @@ Partial Public Class AddSamplePercent
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents pnlBody As Global.System.Web.UI.WebControls.Panel
-
-    '''<summary>
-    '''Label3 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Label3 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''label6 control.
@@ -122,6 +122,24 @@ Partial Public Class AddSamplePercent
     Protected WithEvents ddlTypeHF As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''B_SAVE control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents B_SAVE As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''B_CANCEL control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents B_CANCEL As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''Label1 control.
     '''</summary>
     '''<remarks>
@@ -192,22 +210,4 @@ Partial Public Class AddSamplePercent
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents pnlButtons As Global.System.Web.UI.WebControls.Panel
-
-    '''<summary>
-    '''B_SAVE control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents B_SAVE As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''B_CANCEL control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents B_CANCEL As Global.System.Web.UI.WebControls.Button
 End Class

@@ -820,11 +820,31 @@
         FillDistrict()
     End Sub
 
+    Private Function calcSamplePercent() As Double
+        Dim min = txtMinAmount.Text
+        Dim max = txtMaxAmount.Text
+        Dim dal = New IMIS_DAL.SamplePercentDAL
 
+        Dim sb = New IMIS_EN.tblSamplePercent
+        sb.ClaimedMin = Convert.ToDouble(min)
+        sb.ClaimedMax = Convert.ToDouble(max)
+        Return dal.ObtainHFClaimSamplePercent(sb, Convert.ToInt32(ddlHFCode.SelectedValue))
+    End Function
     Private Sub btnSampleSubmit_Click(sender As Object, e As EventArgs) Handles btnSampleSubmit.Click
+        lblMessage.Text = ""
         Dim sb As IMIS_EN.tblClaimSampleBatch = New IMIS_EN.tblClaimSampleBatch
-        sb.ClaimSelectSamplePercent = Convert.ToDouble(txtClaimSelectSamplePercent.Text)
+        If Not String.IsNullOrWhiteSpace(txtClaimSelectSamplePercent.Text) Then
+            sb.ClaimSelectSamplePercent = Convert.ToDouble(txtClaimSelectSamplePercent.Text)
+        Else
+            sb.ClaimSelectSamplePercent = calcSamplePercent()
+        End If
+        If sb.ClaimSelectSamplePercent = 0 Then
+            lblMessage.Text = "No sample percent."
+            Return
+        End If
+
         Dim batchid = ClaimsDAL.SaveSampleBatch(sb)
+
 
         Dim TotalClaimsCount = gvClaims.Rows.Count
         Dim SampleCount = TotalClaimsCount * 0.01 * sb.ClaimSelectSamplePercent
@@ -860,6 +880,9 @@
             End Try
 
         Next
+        txtClaimSampleBatchID.Text = batchid.ToString()
+        loadGrid()
+
     End Sub
 
     Private Sub btnFillBatchCalcFromSamples_Click1(sender As Object, e As EventArgs)

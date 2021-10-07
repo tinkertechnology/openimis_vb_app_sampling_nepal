@@ -69,7 +69,7 @@ Public Class SamplePercentDAL
             data.params("@ClaimedMin", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.ClaimedMin))
             data.params("@ClaimedMax", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.ClaimedMax))
             data.params("@SamplePercent", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.SamplePercent))
-            data.params("@TypeHF", SqlDbType.VarChar, eSamplePercent.SamplePercent)
+            data.params("@TypeHF", SqlDbType.VarChar, 5, eSamplePercent.TypeHF)
             data.params("@ID", SqlDbType.Int, eSamplePercent.ID)
 
             data.ExecuteCommand()
@@ -95,6 +95,34 @@ Public Class SamplePercentDAL
         Dim dt As DataTable = data.Filldata
 
         Return dt
+
+    End Function
+
+    Public Function ObtainHFClaimSamplePercent(eSamplePercent As IMIS_EN.tblSamplePercent, hfId As Integer) As Double
+        Dim sSQL As String = $" SELECT  
+          *
+	   FROM tblSamplePercentSetting 
+        where  TypeHF=( select top 1 legalform from tblhf where hfid={hfId})
+		and ClaimedMin<=@ClaimedMin  and @ClaimedMax < ClaimedMax "
+
+        Dim samplepercent As Double = 0
+        Dim data As New ExactSQL
+
+        data.setSQLCommand(sSQL, CommandType.Text)
+        data.params("@ClaimedMin", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.ClaimedMin))
+        data.params("@ClaimedMax", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.ClaimedMax))
+        data.params("@SamplePercent", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.SamplePercent))
+        data.params("@TypeHF", SqlDbType.VarChar, eSamplePercent.SamplePercent)
+        data.ExecuteCommand()
+
+        Dim dt As DataTable = data.Filldata
+
+        For Each r In dt.Rows
+            samplepercent = r("SamplePercent")
+            Exit For
+        Next
+
+        Return samplepercent
 
     End Function
 
