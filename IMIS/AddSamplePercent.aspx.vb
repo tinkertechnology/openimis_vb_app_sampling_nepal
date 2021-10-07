@@ -37,11 +37,14 @@ Public Class AddSamplePercent
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If IsPostBack = False Then
             'Dim dt As DataTable = loadSampleData.LoadSamplePercentSetting()
-            Dim dt As DataTable = SamplePercentSettingBI.getSamplePercentSetting()
-            If dt.Rows.Count > 0 Then
-                private_min.Text = dt(0)("PrivateMinValue")
-                private_max.Text = dt(0)("PrivateMaxValue")
-                private_percent.Text = dt(0)("PrivatePercent")
+            Dim dt As DataTable = SamplePercentSettingBI.getSamplePercentSetting(0)
+            GridView1.DataSource = dt
+            GridView1.DataBind()
+
+            If dt.Rows.Count > 0 And False Then
+                'private_min.Text = dt(0)("PrivateMinValue")
+                'private_max.Text = dt(0)("PrivateMaxValue")
+                'private_percent.Text = dt(0)("PrivatePercent")
                 public_min.Text = dt(0)("PublicMinValue")
                 public_max.Text = dt(0)("PublicMaxValue")
                 public_percent.Text = dt(0)("PublicPercent")
@@ -68,20 +71,29 @@ Public Class AddSamplePercent
 
 
     Private Sub B_SAVE_Click(sender As Object, e As EventArgs) Handles B_SAVE.Click
+        If False Then
+            'Dim privateMin As String = private_min.Text
+            'Dim privateMax As String = private_max.Text
+            'Dim privatePercent As String = private_percent.Text
+            Dim publicMin As String = public_min.Text
+            Dim publicMax As String = public_max.Text
+            Dim publicPercent As String = public_percent.Text
 
-        Dim privateMin As String = private_min.Text
-        Dim privateMax As String = private_max.Text
-        Dim privatePercent As String = private_percent.Text
-        Dim publicMin As String = public_min.Text
-        Dim publicMax As String = public_max.Text
-        Dim publicPercent As String = public_percent.Text
+            'eSamplePercent.MaxValuePrivate = privateMax
+            'eSamplePercent.MinValuePrivate = privateMin
+            'eSamplePercent.PercentPrivate = privatePercent
+            eSamplePercent.MinValuePublic = publicMin
+            eSamplePercent.MaxValuePublic = publicMax
+            eSamplePercent.PercentPublic = publicPercent
+        End If
 
-        eSamplePercent.MaxValuePrivate = privateMax
-        eSamplePercent.MinValuePrivate = privateMin
-        eSamplePercent.PercentPrivate = privatePercent
-        eSamplePercent.MinValuePublic = publicMin
-        eSamplePercent.MaxValuePublic = publicMax
-        eSamplePercent.PercentPublic = publicPercent
+        If Not String.IsNullOrWhiteSpace(txtID.Text) Then
+            eSamplePercent.ID = Convert.ToInt32(txtID.Text)
+        End If
+        eSamplePercent.ClaimedMin = Convert.ToDouble(txtClaimedMin.Text)
+        eSamplePercent.ClaimedMax = Convert.ToDouble(txtClaimedMax.Text)
+        eSamplePercent.SamplePercent = Convert.ToDouble(txtSamplePercent.Text)
+        eSamplePercent.TypeHF = ddlTypeHF.Text
 
         SamplePercentSettingBI.AddUpdateSamplePercentSetting(eSamplePercent)
 
@@ -92,4 +104,22 @@ Public Class AddSamplePercent
     End Sub
 
 
+    Protected Sub OnEdit(sender As Object, e As EventArgs)
+        Dim row As GridViewRow = TryCast(TryCast(sender, Button).NamingContainer, GridViewRow)
+        Dim id As Integer = Convert.ToInt32(TryCast(row.FindControl("txtID"), TextBox).Text)
+        Dim rows = SamplePercentSettingBI.getSamplePercentSetting(id)
+        If rows.Rows.Count > 0 Then
+            Dim dr = rows(0)
+            txtClaimedMax.Text = dr("ClaimedMax").ToString()
+            txtClaimedMin.Text = dr("ClaimedMin").ToString()
+            txtID.Text = dr("ID").ToString()
+            txtSamplePercent.Text = dr("SamplePercent").ToString()
+            ddlTypeHF.Text = dr("TypeHF").ToString()
+        End If
+    End Sub
+
+    Protected Sub btnONOFF_Click(sender As Object, e As EventArgs)
+
+        '     // your code
+    End Sub
 End Class

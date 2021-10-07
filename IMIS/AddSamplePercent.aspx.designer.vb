@@ -14,6 +14,24 @@ Option Explicit On
 Partial Public Class AddSamplePercent
 
     '''<summary>
+    '''GridView1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents GridView1 As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''SqlDataSource1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents SqlDataSource1 As Global.System.Web.UI.WebControls.SqlDataSource
+
+    '''<summary>
     '''pnlBody control.
     '''</summary>
     '''<remarks>
@@ -41,13 +59,22 @@ Partial Public Class AddSamplePercent
     Protected WithEvents label6 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''private_min control.
+    '''txtClaimedMin control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents private_min As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtClaimedMin As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtID As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''label7 control.
@@ -59,13 +86,13 @@ Partial Public Class AddSamplePercent
     Protected WithEvents label7 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''private_max control.
+    '''txtClaimedMax control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents private_max As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtClaimedMax As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''label8 control.
@@ -77,13 +104,22 @@ Partial Public Class AddSamplePercent
     Protected WithEvents label8 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''private_percent control.
+    '''txtSamplePercent control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents private_percent As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtSamplePercent As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''ddlTypeHF control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlTypeHF As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''Label1 control.

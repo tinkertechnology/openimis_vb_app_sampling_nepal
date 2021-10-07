@@ -15,7 +15,7 @@ limited to, the implied warranties of merchantability and fitness for a particul
 performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair or correction.
 
 Limitation of Liability 
-In no event unless required by applicable law or agreed to in writing will any copyright holder, or any other party who modifies and/or 
+In no event unless xRequired by applicable law or agreed to in writing will any copyright holder, or any other party who modifies and/or 
 conveys the program as permitted above, be liable to you for damages, including any general, special, incidental or consequential damages 
 arising out of the use or inability to use the program (including but not limited to loss of data or data being rendered inaccurate or losses 
 sustained by you or third parties or a failure of the program to operate with any other programs), even if such holder or other party has been 
@@ -33,6 +33,32 @@ In case of dispute arising out or in relation to the use of the program, it is s
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Body" runat="server">
     <div class="divBody">
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" xDataSourceID="SqlDataSource1" Height="240px">
+            <Columns>
+                <asp:CommandField ShowSelectButton="True" />
+                <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
+                <asp:BoundField DataField="ClaimedMin" HeaderText="ClaimedMin" SortExpression="PrivateMinValue" />
+                <asp:BoundField DataField="ClaimedMax" HeaderText="ClaimedMax" SortExpression="PrivateMaxValue" />
+                <asp:BoundField DataField="SamplePercent" HeaderText="SamplePercent" SortExpression="PrivatePercent" />
+                <asp:BoundField DataField="TypeHF" HeaderText="TypeHF" SortExpression="PublicMinValue" />
+                <asp:TemplateField  >
+                <ItemTemplate>
+                        <%--<asp:LinkButon Text="Edit" runat="server" OnClick="onEdit" />--%>
+                    iphone
+                    <asp:Button Text="text" runat="server" OnClick="OnEdit" />
+
+                                            tero bau
+<%--<asp:Label ID="txtID"  Visible="false" runat="server" Text='<%# Eval("ID") %>' />--%>
+<asp:TextBox runat="server" ID="txtID" Visible="false"  Text='<%# Eval("ID") %>' ></asp:TextBox>
+                        apple
+  <asp:Button ID="btnONOFF" runat="server" CausesValidation="false"  OnClick="btnONOFF_Click" Text="Button" />
+
+
+                 </ItemTemplate>
+                    </asp:TemplateField  >
+           </Columns>
+        </asp:GridView>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:IMISConnectionString %>" SelectCommand="SELECT * FROM [tblSamplePercentSetting]"></asp:SqlDataSource>
         <asp:Panel ID="pnlBody" runat="server" ScrollBars="Auto" CssClass="panel" GroupingText="Sampling Percent">
 
             <table>
@@ -46,24 +72,32 @@ In case of dispute arising out or in relation to the use of the program, it is s
                     </td>
                     <td class="DataEntry">
                          <asp:Label ID="label6" runat="server"  Text="MIN RS"></asp:Label>
-                        <asp:TextBox ID="private_min" runat="server" Width="132px" MaxLength="10"></asp:TextBox>
+                        <asp:TextBox ID="txtClaimedMin" xRequired="True" runat="server" Width="132px" MaxLength="10"></asp:TextBox>
 
-
+			<asp:TextBox ID="txtID" xRequired="True" runat="server" Visible="False" Width="132px" MaxLength="10"></asp:TextBox>
                         
                     </td>
                     <td class="DataEntry">
-                         <asp:Label ID="label7" runat="server" Text="MAXIMUM RS"></asp:Label>
-                        <asp:TextBox ID="private_max" runat="server" Width="132px" MaxLength="10"></asp:TextBox>
+                         <asp:Label ID="label7" xRequired="True" runat="server" Text="MAXIMUM RS"></asp:Label>
+                        <asp:TextBox ID="txtClaimedMax" runat="server" Width="132px" MaxLength="10"></asp:TextBox>
                     </td>
 
                     <td class="DataEntry">
-                         <asp:Label ID="label8" runat="server" Text="PERCENT"></asp:Label>
-                        <asp:TextBox ID="private_percent" runat="server" Width="132px" MaxLength="10"></asp:TextBox>
+                         <asp:Label ID="label8" xRequired="True" runat="server" Text="PERCENT"></asp:Label>
+                        <asp:TextBox ID="txtSamplePercent" xRequired="True" runat="server" Width="132px" MaxLength="10"></asp:TextBox>
                     </td>
-                    
+    		<td>
+			    <asp:DropDownList ID="ddlTypeHF" AppendDataBoundItems="true" runat="server">
+		  		<%--  <asp:ListItem Text="G" Value="G" />	 --%> 
+				     <asp:ListItem Text="G" Value="G" />
+				     <asp:ListItem Text="P" Value="P" />
+				     <asp:ListItem Text="O" Value="O" />
+			    </asp:DropDownList>
+		</td>
+			                    
                 </tr>
 
-                                <tr>
+                                <tr style="display:none;">
                     <td class="FormLabel">
                         <asp:Label
                             ID="Label1"
