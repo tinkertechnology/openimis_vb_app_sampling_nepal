@@ -24,5 +24,9 @@ Partial Public Class tblSamplePercent
     Public Property MaxValuePublic As Decimal
     Public Property PercentPublic As Double
 
+    Public Property TypeHF As String
+    Public Property ClaimedMin As Double
+    Public Property ClaimedMax As Double
+    Public Property SamplePercent As Double
 
 End Class

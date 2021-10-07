@@ -51,71 +51,43 @@ Public Class SamplePercentDAL
     End Function
     Public Sub AddUpdate(ByRef eSamplePercent As IMIS_EN.tblSamplePercent)
         Dim data As New ExactSQL
-
+        Dim sSql As String
 
         Try
             Dim check = CheckExistsID()
-            If check = 0 Then
-                Dim sSql As String
+            If eSamplePercent.ID = 0 Then
                 sSql = "insert into tblSamplePercentSetting 
-                (PrivateMinValue, PrivateMaxValue, PrivatePercent,PublicMinValue, PublicMaxvalue, PublicPercent) 
-                values(@MinValuePrivate,@MaxValuePrivate,@PrivatePercent,@MinValuePublic,@MaxValuePublic,@PercentPublic)"
-                data.setSQLCommand(sSql, CommandType.Text)
+                (ClaimedMin, ClaimedMax, SamplePercent,TypeHF ) values
+                (@ClaimedMin,@ClaimedMax,@SamplePercent,@TypeHF)"
             Else
-
-                Dim sSQL As String = "update tblSamplePercentSetting set PrivateMinValue = @MinValuePrivate,PrivateMaxValue=@MaxValuePrivate,PrivatePercent = @PrivatePercent,"
-
-                sSQL += "PublicMinValue = @MinValuePublic , PublicMaxValue=@MaxValuePublic, PublicPercent=@PercentPublic "
-
-                Dim jpt = sSQL
-                sSQL += "where ID=" + check.ToString
-                data.setSQLCommand(sSQL, CommandType.Text)
+                sSql = "update tblSamplePercentSetting set "
+                sSql += "ClaimedMin = @ClaimedMin, ClaimedMax=@ClaimedMax, SamplePercent=@SamplePercent,TypeHF=@TypeHF  "
+                sSql += "where ID=@ID"
             End If
+            data.setSQLCommand(sSql, CommandType.Text)
 
-
-            data.params("@MinValuePrivate", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.MinValuePrivate))
-            data.params("@MaxValuePrivate", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.MaxValuePrivate))
-            data.params("@PrivatePercent", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.PercentPrivate))
-            data.params("@MinValuePublic", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.MinValuePublic))
-            data.params("@MaxValuePublic", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.MaxValuePublic))
-            data.params("@PercentPublic", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.PercentPublic))
+            data.params("@ClaimedMin", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.ClaimedMin))
+            data.params("@ClaimedMax", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.ClaimedMax))
+            data.params("@SamplePercent", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.SamplePercent))
+            data.params("@TypeHF", SqlDbType.VarChar, eSamplePercent.SamplePercent)
+            data.params("@ID", SqlDbType.Int, eSamplePercent.ID)
 
             data.ExecuteCommand()
 
-            'Dim sSQL As String = "update tblSamplePercentSetting set , tblSamplePercentSetting.PrivateMinValue = @MinValuePrivate,tblSamplingPercentSetting.PrivateMaxValue=@MaxValuePrivate,tblSamplingPercentSetting.PrivatePercent = @PrivatePercent "
-
-            '    sSQL += "tblSamplingPercentSetting.PublicMinValue = @MinValuePublic , PublicMinValue=@MaxValuePublic, PublicPercent=@PublicPercent"
-
-            '    data.setSQLCommand(sSQL, CommandType.Text)
-
-
-            'data.params("@MinValuePrivate", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.MinValuePrivate))
-            'data.params("@MaxValuePrivate", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.MaxValuePrivate))
-            'data.params("@PrivatePercent", SqlDbType.Float, Convert.ToDouble(eSamplePercent.PercentPrivate))
-            'data.params("@MinValuePublic", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.MinValuePublic))
-            'data.params("@MinValuePrivate", SqlDbType.Decimal, Convert.ToDecimal(eSamplePercent.MinValuePublic))
-            'data.params("@PercentPublic", SqlDbType.Decimal, Convert.ToDouble(eSamplePercent.PercentPublic))
-
         Catch ex As Exception
-            Dim terobau = 1
-
+            Dim x = ex
         End Try
-
-
-
-        'data.params("@PolicyID", SqlDbType.Int, ePremium.tblPolicy.PolicyID)
-
 
 
     End Sub
 
-    Public Function LoadSamplePercentSetting() As DataTable
-        Dim sSQL As String = "SELECT TOP 1  PrivateMinValue
-          ,PrivateMaxValue
-          ,PrivatePercent
-          ,PublicMinValue
-          ,PublicMaxValue
-          ,PublicPercent  FROM tblSamplePercentSetting"
+    Public Function LoadSamplePercentSetting(id As Integer) As DataTable
+        Dim sSQL As String = " SELECT  
+          *
+	   FROM tblSamplePercentSetting "
+        If id > 0 Then
+            sSQL += $" Where id={id} "
+        End If
         Dim data As New ExactSQL
 
         data.setSQLCommand(sSQL, CommandType.Text)

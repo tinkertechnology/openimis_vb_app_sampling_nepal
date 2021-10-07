@@ -29,9 +29,9 @@
 Public Class AddSamplePercentBI
 
 
-    Public Function getSamplePercentSetting() As DataTable
+    Public Function getSamplePercentSetting(id As Integer) As DataTable
         Dim SamplePercentBL As New IMIS_BL.SamplePercentBL
-        Return SamplePercentBL.getSamplePercentSetting()
+        Return SamplePercentBL.getSamplePercentSetting(id)
     End Function
     Public Function AddUpdateSamplePercentSetting(eSamplePercent As IMIS_EN.tblSamplePercent) As Integer
         Dim SamplePercentBL As New IMIS_BL.SamplePercentBL

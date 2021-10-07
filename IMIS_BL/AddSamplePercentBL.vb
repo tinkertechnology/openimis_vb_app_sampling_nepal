@@ -34,9 +34,9 @@ Public Class SamplePercentBL
         SamplePercentDAL.AddUpdate(eSamplePercent)
     End Function
 
-    Public Function getSamplePercentSetting() As DataTable
+    Public Function getSamplePercentSetting(id As Integer) As DataTable
         Dim SamplePercentSetting As New IMIS_DAL.SamplePercentDAL
-        Return SamplePercentSetting.LoadSamplePercentSetting()
+        Return SamplePercentSetting.LoadSamplePercentSetting(id)
     End Function
 
     'Public Function RetriveSampleSetting() As DataTable
