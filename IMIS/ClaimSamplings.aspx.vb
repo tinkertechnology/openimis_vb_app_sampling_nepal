@@ -648,7 +648,7 @@ Partial Public Class ClaimSamplings
         Dim long_percent = dineTotal / total
         Dim percent = Math.Round(long_percent * 100.0F) / 100.0F
         'batchid = insert into batch. get inserted last batchid'
-        Dim batchid = ClaimsDAL.SaveSampleBatch(Nothing)
+        Dim batchid = ClaimsDAL.SaveSampleBatch(Nothing, 4)
         Dim eClaim = New IMIS_EN.tblClaim
         For Each r As GridViewRow In gvClaims.Rows
             Dim id = CType(r.FindControl("lblClaimID"), Label).Text

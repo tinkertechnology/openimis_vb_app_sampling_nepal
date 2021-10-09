@@ -1148,7 +1148,7 @@
                     <asp:TemplateField  >
                         <ItemTemplate >
                             <asp:Label    runat="server" Text='<%# Eval("IsBatchSampleForVerify") %>' />,
-                            <asp:Label   runat="server" Text='<%# Eval("ClaimSampleBatchID") %>' />
+                            <asp:Label ID="lblClaimSampleBatchID"   runat="server" Text='<%# Eval("ClaimSampleBatchID") %>' />
 
                             <asp:Label ID="lblClaimID"  Visible="false" runat="server" Text='<%# Eval("ClaimID") %>' />
                         </ItemTemplate>

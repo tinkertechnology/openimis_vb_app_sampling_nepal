@@ -26,7 +26,8 @@
 
     End Sub
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        txtValue.Enabled = chkValue.Checked
+        lblMessage.Text = ""
+        txtvalue.Enabled = chkvalue.Checked
         If Not IsPostBack = True Then
             If Not HttpContext.Current.Request.QueryString("i") Is Nothing Then
                 txtCHFID.Text = HttpContext.Current.Request.QueryString("i")
@@ -36,7 +37,7 @@
 
         End If
 
-        If Request.Form("__EVENTTARGET") = btnSelectionExecute.ClientID Then
+        If Request.Form("__EVENTTARGET") = btnselectionexecute.ClientID Then
             btnSelectionExecute_Click(sender, New System.EventArgs)
         End If
         If Request.Form("__EVENTTARGET") = B_ProcessClaimStatus.ClientID Then
@@ -74,10 +75,10 @@
             txtMaxAmount.Text = 1000000
             ' add by Purushottam Sapkota
 
-            ddlSelectionType.DataSource = ClaimOverviews.GetReviewSelection(True)
-            ddlSelectionType.DataTextField = "ReviewText"
-            ddlSelectionType.DataValueField = "ReviewCode"
-            ddlSelectionType.DataBind()
+            ddlselectiontype.DataSource = ClaimOverviews.GetReviewSelection(True)
+            ddlselectiontype.DataTextField = "ReviewText"
+            ddlselectiontype.DataValueField = "ReviewCode"
+            ddlselectiontype.DataBind()
 
             ddlFBStatus.DataSource = ClaimOverviews.GetFeedbackStatus()
             ddlFBStatus.DataTextField = "Status"
@@ -465,9 +466,11 @@
                 'Change By Purushottam Ends
                 If ddlClaimSampleBatch.SelectedValue <> "0" Then 'If txtClaimSampleBatchID.Text <> "" Then
                     eClaim.ClaimSampleBatchID = Convert.ToInt32(ddlClaimSampleBatch.SelectedValue)
+                    txtClaimSampleBatchID.Text = ""
                 End If
                 If txtClaimSampleBatchID.Text <> "" Then
                     eClaim.ClaimSampleBatchID = Convert.ToInt32(txtClaimSampleBatchID.Text)
+                    ddlClaimSampleBatch.SelectedValue = "0"
                 End If
             End If
 
@@ -485,7 +488,7 @@
             Else
                 eClaim.ClaimStatus = 4 'Only Checked status allowed to be filterd for new claimSampleBatch
                 ddlClaimStatus.SelectedValue = "4"
-                eClaim.ClaimSampleBatchID = Nothing 'dont select rows which already have batch id
+                eClaim.ClaimSampleBatchID = -1 'dont select rows which already have batch id
                 If ClaimOverviews.GetReviewClaimsCount(eClaim, imisgen.getUserId(Session("User"))) = 1 Then
                     imisgen.Alert(imisgen.getMessage("M_CLAIMSEXCEEDLIMIT"), pnlButtons, alertPopupTitle:="IMIS")
                     Return
@@ -838,12 +841,16 @@
         Else
             sb.ClaimSelectSamplePercent = calcSamplePercent()
         End If
+        txtClaimSelectSamplePercent.Text = sb.ClaimSelectSamplePercent.ToString()
         If sb.ClaimSelectSamplePercent = 0 Then
             lblMessage.Text = "No sample percent."
             Return
         End If
-
-        Dim batchid = ClaimsDAL.SaveSampleBatch(sb)
+        If gvClaims.Rows.Count = 0 Then
+            lblMessage.Text = "No rows."
+            Return
+        End If
+        Dim batchid = ClaimsDAL.SaveSampleBatch(sb, imisgen.getUserId(Session("User")))
 
 
         Dim TotalClaimsCount = gvClaims.Rows.Count
@@ -855,6 +862,13 @@
             modBy = SampleCount
         End If
 
+        For Each r As GridViewRow In gvClaims.Rows
+            Dim strClaimSampleBatchID = CType(r.FindControl("lblClaimSampleBatchID"), Label).Text
+            If Not String.IsNullOrWhiteSpace(strClaimSampleBatchID) Then
+                lblMessage.Text = "Some Claim already in batch."
+                Return
+            End If
+        Next
 
         Dim eClaim = New IMIS_EN.tblClaim
         For Each r As GridViewRow In gvClaims.Rows
@@ -924,7 +938,7 @@
         Dim long_percent = dineTotal / total
         Dim percent = Math.Round(long_percent * 100.0F) / 100.0F
         'batchid = insert into batch. get inserted last batchid'
-        Dim batchid = ClaimsDAL.SaveSampleBatch(Nothing)
+        Dim batchid = ClaimsDAL.SaveSampleBatch(Nothing, imisgen.getLoginName(Session("User")))
         Dim eClaim = New IMIS_EN.tblClaim
         For Each r As GridViewRow In gvClaims.Rows
             Dim id = CType(r.FindControl("lblClaimID"), Label).Text
@@ -956,7 +970,13 @@
 
     Private Sub btnSampleDoCalc_Click(sender As Object, e As EventArgs) Handles btnSampleDoCalc.Click
         Dim batchid = Convert.ToInt32(ddlClaimSampleBatch.SelectedValue)
-
+        If batchid = 0 Then
+            batchid = Convert.ToInt32(txtClaimSampleBatchID.Text)
+        End If
+        If batchid = 0 Then
+            lblMessage.Text = "Batch required."
+            Return
+        End If 'todo: check batchid exist , ClaimDone=True: return already  batch finished.
         Dim filterClaim = New IMIS_EN.tblClaim
         filterClaim.ClaimSampleBatchID = batchid
         Dim claims = ClaimsDAL.GetSampleBatchClaims(filterClaim)
@@ -968,12 +988,14 @@
             Dim ClaimID As Integer = r("ClaimID")
             Dim Claimed As Double = r("Claimed")
             Dim Approved As Double = r("Approved")
+            Dim ReviewStatus As Integer = r("ReviewStatus")
             Dim IsBatchSampleForVerify As Boolean = r("IsBatchSampleForVerify")
 
             If IsBatchSampleForVerify Then
-                If Approved = 0 Then
+                'If Approved = 0 Then ' approved amount=claimed amount cha bhane , approved=null
+                If ReviewStatus < 8 Then ' 8=Reviewed 
                     lblMessage.Text = $"All sample should be approved"
-                    'Return
+                    Return
                 End If
 
                 SampleApprovedTotal += Approved
@@ -1003,6 +1025,7 @@
 
                 Try
                     ClaimsDAL.UpdateClaimSample(eClaim)
+                    ClaimsDAL.UpdateClaimItemsAndServices(eClaim)
                 Catch err As Exception
                     Throw (err)
                 End Try
@@ -1011,7 +1034,7 @@
 
         Dim sb = ClaimsDAL.GetClaimSampleBatchByIdUpdate(batchid)
         sb.IsCalcDone = True
-        ClaimsDAL.SaveSampleBatch(sb)
+        ClaimsDAL.SaveSampleBatch(sb, imisgen.getUserId(Session("User")))
 
 
     End Sub
