@@ -30,6 +30,7 @@ Imports IMIS_EN
 
 Public Class ClaimsDAL
     Dim data As New ExactSQL
+
     Public Sub LoadClaim(ByRef eClaim As IMIS_EN.tblClaim, Optional ByRef eExtra As Dictionary(Of String, Object) = Nothing)
         Dim dt As New DataTable
         Dim sSQLClaim As String
@@ -493,7 +494,10 @@ Public Class ClaimsDAL
         sSQL += " WHERE tblClaim.ValidityTo IS NULL AND @FeedbackStatus & tblClaim.FeedbackStatus > 0"
         sSQL += " AND @ReviewStatus & tblClaim.ReviewStatus > 0 AND @ClaimStatus & tblClaim.ClaimStatus  > 0"
         sSQL += " AND (CASE WHEN @ICDID = 0 THEN 0 ELSE tblICDCodes.ICDID END) = @ICDID"
-        If eClaims.ClaimSampleBatchID <> 0 Then
+
+        If eClaims.ClaimSampleBatchID = -1 Then
+            sSQL += " AND tblClaim.ClaimSampleBatchID is null "
+        ElseIf eClaims.ClaimSampleBatchID <> 0 Then
             sSQL += " AND tblClaim.ClaimSampleBatchID=@ClaimSampleBatchID"
         End If
         If eClaims.Attachment = 1 Then
@@ -562,9 +566,6 @@ Public Class ClaimsDAL
         'End If
         If eClaims.ClaimCategory IsNot Nothing Then
             sSQL += " and tblInsuree.Gender = @ClaimCategory" 'used for carrier for gender
-        End If
-        If eClaims.ClaimSampleBatchID <> 0 Then
-            sSQL += " and tblClaim.ClaimSampleBatchID = @ClaimSampleBatchID"
         End If
         'If eClaims.Attachment = 1 Then
         'sSQL += " AND tblClaim.ClaimID in (select claim_id from claim_ClaimAttachmentsCountView where attachments_count>=1)"
@@ -1257,9 +1258,11 @@ Public Class ClaimsDAL
     End Sub
 
     Public Sub UpdateClaimSample(ByRef eClaim As IMIS_EN.tblClaim)
+        ' todo fix approvedAmount'
         Dim sSQL = "
             Update tblClaim Set 
                 ClaimAmountPayment = @ClaimAmountPayment,
+                Approved = @ClaimAmountPayment, 
                 SampleAmountDecrease = @SampleAmountDecrease, 
                 IsBatchSampleForVerify = @IsBatchSampleForVerify,
                 ClaimSampleBatchID=@ClaimSampleBatchID,
@@ -1277,7 +1280,21 @@ Public Class ClaimsDAL
         data.params("@ReviewStatus", SqlDbType.Int, eClaim.ReviewStatus)
         data.ExecuteCommand()
     End Sub
+    Public Sub UpdateClaimItemsAndServices(ByRef eClaim As IMIS_EN.tblClaim)
+        Dim sSQL = "
+            Update tblClaimItems Set 
+                PriceApproved = QtyProvided*(PriceAsked- PriceAsked*@SampleAmountPercent)
+            where ClaimID = @ClaimID; 
+            Update tblClaimServices Set 
+                PriceApproved = QtyProvided*(PriceAsked- PriceAsked*@SampleAmountPercent)
+            where ClaimID = @ClaimID; 
 
+            "
+        data.setSQLCommand(sSQL, CommandType.Text)
+        data.params("@ClaimID", SqlDbType.Int, eClaim.ClaimID)
+        data.params("@SampleAmountPercent", SqlDbType.Float, eClaim.SampleAmountPercent)
+        data.ExecuteCommand()
+    End Sub
     Public Function GetDataTableClaimSampleBatchById(ByVal id As Integer) As DataTable
         Dim sSQL As String = "Select 
             *
@@ -1298,9 +1315,11 @@ Public Class ClaimsDAL
     End Function
 
 
-    Public Function SaveSampleBatch(ByRef mdl As IMIS_EN.tblClaimSampleBatch) As Integer
+    Public Function SaveSampleBatch(ByRef mdl As IMIS_EN.tblClaimSampleBatch, UserID As Integer) As Integer
         'ClaimSelectSamplePercent ClaimDeltaPercent
-        Dim sSQL = "insert into tblClaimSampleBatch (ClaimSelectSamplePercent) values (@ClaimSelectSamplePercent)"
+        Dim sSQL = "insert into tblClaimSampleBatch (ClaimSelectSamplePercent, CreatedByUserID)
+            values (@ClaimSelectSamplePercent, @CreatedByUserID)"
+
         If mdl.__UPDATE__ Then
             sSQL = "
                 Update tblClaimSampleBatch Set 
@@ -1315,6 +1334,7 @@ Public Class ClaimsDAL
         data.params("@ClaimSelectSamplePercent", SqlDbType.Float, mdl.ClaimSelectSamplePercent)
         data.params("@ClaimDeltaPercent", SqlDbType.Float, mdl.ClaimDeltaPercent)
         data.params("@IsCalcDone", SqlDbType.Bit, mdl.IsCalcDone)
+        data.params("@CreatedByUserID", SqlDbType.Int, UserID)
         data.ExecuteCommand()
 
         If mdl.__UPDATE__ Then

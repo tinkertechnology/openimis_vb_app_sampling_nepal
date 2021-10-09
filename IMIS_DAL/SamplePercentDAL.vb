@@ -103,7 +103,7 @@ Public Class SamplePercentDAL
           *
 	   FROM tblSamplePercentSetting 
         where  TypeHF=( select top 1 legalform from tblhf where hfid={hfId})
-		and ClaimedMin<=@ClaimedMin  and @ClaimedMax < ClaimedMax "
+		and ClaimedMin<=@ClaimedMin  and @ClaimedMax <= ClaimedMax "
 
         Dim samplepercent As Double = 0
         Dim data As New ExactSQL
