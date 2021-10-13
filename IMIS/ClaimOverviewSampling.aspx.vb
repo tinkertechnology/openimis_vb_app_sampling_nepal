@@ -14,6 +14,7 @@
     Private claimBI As New IMIS_BI.ClaimBI
     Dim ClaimUUID As Guid
     Dim ClaimID As Integer
+    Dim ClaimSampleBatchId As Integer
 
     Private Sub FormatForm()
 
@@ -53,7 +54,10 @@
             'ClaimID = If(ClaimUUID.Equals(Guid.Empty), 0, claimBI.GetClaimIdByUUID(ClaimUUID))            
             ClaimID = If(ClaimUUID.Equals(Guid.Empty), 0, Request.QueryString("c"))
         End If
-
+        If Request.QueryString("ClaimSampleBatchId") IsNot Nothing Then
+            ClaimSampleBatchId = Convert.ToInt32(Request.QueryString("ClaimSampleBatchId"))
+            txtClaimSampleBatchID.Text = ClaimSampleBatchId
+        End If
         Try
             Dim UserID As Integer
             UserID = imisgen.getUserId(Session("User"))
@@ -111,7 +115,7 @@
             '  ClaimCodeTxtControl()
             ButtonDisplayControl(0)
 
-            If eHF.HfID = 0 And ClaimID = 0 Then
+            If eHF.HfID = 0 And ClaimID = 0 And ClaimSampleBatchId = 0 Then
                 Exit Sub
             End If
             loadGrid()

@@ -1283,10 +1283,12 @@ Public Class ClaimsDAL
     Public Sub UpdateClaimItemsAndServices(ByRef eClaim As IMIS_EN.tblClaim)
         Dim sSQL = "
             Update tblClaimItems Set 
-                PriceApproved = QtyProvided*(PriceAsked- PriceAsked*@SampleAmountPercent)
+                -- PriceApproved = QtyProvided*(PriceAsked- PriceAsked*@SampleAmountPercent)
+                PriceApproved = PriceAsked- PriceAsked*@SampleAmountPercent
             where ClaimID = @ClaimID; 
             Update tblClaimServices Set 
-                PriceApproved = QtyProvided*(PriceAsked- PriceAsked*@SampleAmountPercent)
+                -- PriceApproved = QtyProvided*(PriceAsked- PriceAsked*@SampleAmountPercent)
+                PriceApproved = PriceAsked- PriceAsked*@SampleAmountPercent
             where ClaimID = @ClaimID; 
 
             "

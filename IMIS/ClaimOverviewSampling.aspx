@@ -352,6 +352,25 @@
              }
 
          });
+	 $('.aHrefClaimId').click(function(e){ //todo: maybe unverified claims of batch first, reviewed claims to bottom
+	 	e.preventDefault();
+		console.log(e);
+		var jSender = $(this);
+		var href=this.href;
+		console.log(href);
+		var url = new URL(href);
+		var search = url.search;
+		console.log(search);
+
+		var batchId=$('#<%=ddlClaimSampleBatch.ClientID %>').val();
+		batchId=batchId && batchId != "0"
+			? batchId 
+			: $('#<%=txtClaimSampleBatchID.ClientID %>').val(); 
+		//alert('todo: use onclick, not req: last / in url caused problem.==== no jquery bind, because nginx is not loading jquery on redir or bind, maybe');
+		window.location=href+'&ClaimSampleBatchId='+batchId;
+		//alert('todo: redir on Review btn click on this page');
+
+	 });
          $('#<%=btnUpdateClaims.ClientID %>').click(function() {
              $("#<%=hfClaimID.ClientID %>").val("");
          });
@@ -1078,11 +1097,13 @@
                 SelectedRowStyle-CssClass="srs" PageSize="8" DataKeyNames="ClaimID,ReviewStatus,FeedbackStatus,RowID" >
                 <Columns>
 
-                    <%--<asp:HyperLinkField DataNavigateUrlFields = "ClaimID" DataTextField="ClaimCode" DataNavigateUrlFormatString = "ClaimReview.aspx?c={0}" HeaderText='<%$ Resources:Resource,L_CLAIMCODE %>' HeaderStyle-Width ="30px" > 
+                    <%--<asp:HyperLinkField DataNavigateUrlFields = "ClaimID" DataTextField="ClaimCode" DataNavigateUrlFormatString = "ClaimReview.aspx?c={0}" HeaderText='<%$ Resources:Resource,L_CLAIMCODE %>' HeaderStyle-Width ="30px"> 
                     <HeaderStyle Width="30px" />
+		    <ControlStyle CssClass="WhiteLink"/>
                     </asp:HyperLinkField>--%>
-                    <asp:HyperLinkField DataTextField="ClaimCode" DataNavigateUrlFields = "ClaimID" DataNavigateUrlFormatString = "ClaimReviewNew.aspx?c={0}"  HeaderText='<%$ Resources:Resource,L_CLAIMCODE %>' SortExpression="ClaimCode" HeaderStyle-Width="30px">  
+                    <asp:HyperLinkField  DataTextField="ClaimCode" DataNavigateUrlFields="ClaimID" DataNavigateUrlFormatString = "ClaimReviewNew.aspx?c={0}&referer=/ClaimOverviewSampling.aspx"  HeaderText='<%$ Resources:Resource,L_CLAIMCODE %>' SortExpression="ClaimCode" HeaderStyle-Width="30px">  
                        <HeaderStyle Width="30px" />
+		    <ControlStyle CssClass="aHrefClaimId"/>   
                     </asp:HyperLinkField>
                          <asp:BoundField DataField="CHFID"   HeaderText='NSHI Number' SortExpression="CHFID" HeaderStyle-Width="30px" >  
                        <HeaderStyle Width="30px" /> 
