@@ -367,11 +367,14 @@
 			? batchId 
 			: $('#<%=txtClaimSampleBatchID.ClientID %>').val(); 
 		//alert('todo: use onclick, not req: last / in url caused problem.==== no jquery bind, because nginx is not loading jquery on redir or bind, maybe');
-		alert("$('#ClaimID12115865').attr('tabindex', -1).focus().parent().css('background', '#adadad')");
 		window.location=href+'&ClaimSampleBatchId='+batchId;
 		//alert('todo: redir on Review btn click on this page');
 
 
+	 });
+	 $(document).ready(function(){
+	 	var claimId=window.location.href.split('c=')[1].split('&')[0];
+		$('#ClaimID'+claimId).attr('tabindex', -1).focus().parent().css('background', '#adadad');
 	 });
          $('#<%=btnUpdateClaims.ClientID %>').click(function() {
              $("#<%=hfClaimID.ClientID %>").val("");
