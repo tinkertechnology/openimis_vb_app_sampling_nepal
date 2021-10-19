@@ -367,8 +367,10 @@
 			? batchId 
 			: $('#<%=txtClaimSampleBatchID.ClientID %>').val(); 
 		//alert('todo: use onclick, not req: last / in url caused problem.==== no jquery bind, because nginx is not loading jquery on redir or bind, maybe');
+		alert("$('#ClaimID12115865').attr('tabindex', -1).focus().parent().css('background', '#adadad')");
 		window.location=href+'&ClaimSampleBatchId='+batchId;
 		//alert('todo: redir on Review btn click on this page');
+
 
 	 });
          $('#<%=btnUpdateClaims.ClientID %>').click(function() {
@@ -1101,7 +1103,7 @@
                     <HeaderStyle Width="30px" />
 		    <ControlStyle CssClass="WhiteLink"/>
                     </asp:HyperLinkField>--%>
-                    <asp:HyperLinkField  DataTextField="ClaimCode" DataNavigateUrlFields="ClaimID" DataNavigateUrlFormatString = "ClaimReviewNew.aspx?c={0}&referer=/ClaimOverviewSampling.aspx"  HeaderText='<%$ Resources:Resource,L_CLAIMCODE %>' SortExpression="ClaimCode" HeaderStyle-Width="30px">  
+                    <asp:HyperLinkField DataTextField="ClaimCode" DataNavigateUrlFields="ClaimID" DataNavigateUrlFormatString = "ClaimReviewNew.aspx?c={0}&referer=/ClaimOverviewSampling.aspx"  HeaderText='<%$ Resources:Resource,L_CLAIMCODE %>' SortExpression="ClaimCode" HeaderStyle-Width="30px">  
                        <HeaderStyle Width="30px" />
 		    <ControlStyle CssClass="aHrefClaimId"/>   
                     </asp:HyperLinkField>
@@ -1172,6 +1174,9 @@
                             <asp:Label ID="lblClaimSampleBatchID"   runat="server" Text='<%# Eval("ClaimSampleBatchID") %>' />
 
                             <asp:Label ID="lblClaimID"  Visible="false" runat="server" Text='<%# Eval("ClaimID") %>' />
+			  
+                            <div Visible="false"  ID='ClaimID<%# Eval("ClaimID") %>' /></div>
+			   
                         </ItemTemplate>
                        <ItemStyle Width="15px"   />
                      </asp:TemplateField>
