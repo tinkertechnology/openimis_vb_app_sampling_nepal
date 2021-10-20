@@ -1025,9 +1025,10 @@
                                     <asp:Button ID="btnSampleSubmit" runat="server" class="button" Text="Select Batch Samples"  Width="150px" />
                                 </td>
                                 <td class="DataEntry">
-				    <div style="xwidth:400px"></div>
                                     <asp:Button ID="btnSampleDoCalc" runat="server" class="button" Text="Approve Batch Amount" Width="150px" />
                                 </td>
+                                
+                                <td class="DataEntry">All Batch Claims:  <asp:CheckBox ID="chkLoadAllBatchClaims" runat="server" /> </td>
                                 
                             </tr>
                         </table>

@@ -313,7 +313,7 @@ Public Class ClaimsBL
     End Function
 
 
-    Public Function GetBatchClaims(ByRef eClaims As IMIS_EN.tblClaim, ByVal UserID As Integer) As DataTable
+    Public Function GetBatchClaims(ByRef eClaims As IMIS_EN.tblClaimFilter, ByVal UserID As Integer) As DataTable
         Return clm.GetBatchClaims(eClaims, GetClaimStatus, UserID)
     End Function
 

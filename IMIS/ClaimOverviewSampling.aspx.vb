@@ -3,7 +3,7 @@
 
     Dim ClaimsDAL As New IMIS_DAL.ClaimsDAL
     Protected imisgen As New IMIS_Gen
-    Private eClaim As New IMIS_EN.tblClaim
+    Private eClaim As New IMIS_EN.tblClaimFilter
     Private Family As New IMIS_BI.FamilyBI
     Private ClaimOverviews As New IMIS_BI.ClaimOverviewBI
 
@@ -475,6 +475,10 @@
                 If txtClaimSampleBatchID.Text <> "" Then
                     eClaim.ClaimSampleBatchID = Convert.ToInt32(txtClaimSampleBatchID.Text)
                     ddlClaimSampleBatch.SelectedValue = "0"
+                End If
+
+                If chkLoadAllBatchClaims.Checked Then
+                    eClaim.LoadAllBatchClaims = 1
                 End If
             End If
 

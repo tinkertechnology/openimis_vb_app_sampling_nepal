@@ -637,9 +637,7 @@ Public Class ClaimsDAL
         Return data.Filldata
     End Function
 
-    Public Function GetBatchClaims(ByRef eClaims As IMIS_EN.tblClaim, ByVal claimStatus As DataTable, ByVal UserID As Integer) As DataTable
-
-        'Dim sSQL As String = ""
+    Public Function GetBatchClaims(ByRef eClaims As IMIS_EN.tblClaimFilter, ByVal claimStatus As DataTable, ByVal UserID As Integer) As DataTable
         Dim sSQL As String = SelectClaims()
         sSQL += " WHERE 1=1"
         sSQL += " AND tblUsersDistricts.UserID = @UserID"
@@ -647,8 +645,10 @@ Public Class ClaimsDAL
             sSQL += " AND tblClaim.ClaimSampleBatchID=@ClaimSampleBatchID"
         End If
 
+        If eClaims.LoadAllBatchClaims = 0 Then
+            sSQL += " AND tblClaim.IsBatchSampleForVerify=1 "
+        End If
 
-        ' Change By Purushottam Ends
         If eClaims.ClaimSampleBatchID <> 0 Then
             sSQL += " order by  IsBatchSampleForVerify desc"
         Else

@@ -743,6 +743,15 @@ Partial Public Class ClaimOverviewSampling
     Protected WithEvents btnSampleDoCalc As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
+    '''chkLoadAllBatchClaims control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkLoadAllBatchClaims As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
     '''L_CLAIMSSELECTED control.
     '''</summary>
     '''<remarks>
