@@ -1006,9 +1006,14 @@
                     Return
                 End If
 
+                If Approved = 0 Then
+                    Approved = Claimed
+                End If
+
                 SampleApprovedTotal += Approved
-                SampleClaimedTotal += Claimed
-            End If
+                    SampleClaimedTotal += Claimed
+
+                End If
         Next
         Dim long_percent = SampleApprovedTotal / SampleClaimedTotal
         Dim percent = Math.Round(long_percent * 100.0F) / 100.0F
