@@ -1284,11 +1284,13 @@ Public Class ClaimsDAL
         Dim sSQL = "
             Update tblClaimItems Set 
                 -- PriceApproved = QtyProvided*(PriceAsked- PriceAsked*@SampleAmountPercent)
-                PriceApproved = PriceAsked- PriceAsked*@SampleAmountPercent
+                -- PriceApproved = PriceAsked- PriceAsked*@SampleAmountPercent
+                   PriceApproved = (PriceAsked*@SampleAmountPercent)
             where ClaimID = @ClaimID; 
             Update tblClaimServices Set 
                 -- PriceApproved = QtyProvided*(PriceAsked- PriceAsked*@SampleAmountPercent)
-                PriceApproved = PriceAsked- PriceAsked*@SampleAmountPercent
+                -- PriceApproved = PriceAsked- PriceAsked*@SampleAmountPercent
+                PriceApproved = (PriceAsked*@SampleAmountPercent)
             where ClaimID = @ClaimID; 
 
             "

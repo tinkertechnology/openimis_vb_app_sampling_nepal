@@ -1011,9 +1011,9 @@
                 End If
 
                 SampleApprovedTotal += Approved
-                    SampleClaimedTotal += Claimed
+                SampleClaimedTotal += Claimed
 
-                End If
+            End If
         Next
         Dim long_percent = SampleApprovedTotal / SampleClaimedTotal
         Dim percent = Math.Round(long_percent * 100.0F) / 100.0F
@@ -1026,12 +1026,12 @@
             Dim IsBatchSampleForVerify As Boolean = r("IsBatchSampleForVerify")
 
             If Not IsBatchSampleForVerify Then
-                Dim givamount = Claimed - (Claimed * percent)
+                Dim givamount = (Claimed * percent)
                 eClaim.ClaimID = ClaimID
-                eClaim.ReviewStatus = r("ReviewStatus")
+                eClaim.ReviewStatus = 8 'r("ReviewStatus")
                 eClaim.ClaimSampleBatchID = ClaimSampleBatchID
                 eClaim.IsBatchSampleForVerify = IsBatchSampleForVerify
-                eClaim.ClaimAmountPayment = Claimed - Claimed * percent
+                eClaim.ClaimAmountPayment = givamount
                 'todo: set 16 flag, status verified maybe 
                 ' approved amt cha bhane na chalaune teslai
                 eClaim.SampleAmountPercent = percent
