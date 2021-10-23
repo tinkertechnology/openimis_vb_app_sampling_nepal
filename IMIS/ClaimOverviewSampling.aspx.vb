@@ -862,6 +862,10 @@
 
 
         Dim TotalClaimsCount = gvClaims.Rows.Count
+        If Not String.IsNullOrWhiteSpace(txtBatchTotal.Text) Then
+            TotalClaimsCount = Convert.ToInt32(txtBatchTotal.Text)
+        End If
+
         Dim SampleCount = TotalClaimsCount * 0.01 * sb.ClaimSelectSamplePercent
         Dim random As New Random()
         Dim randweight = random.Next(0, SampleCount)
@@ -870,22 +874,30 @@
             modBy = SampleCount
         End If
 
+        Dim batchIndex = 0
+
+        'todo: maybe ignore batch
         For Each r As GridViewRow In gvClaims.Rows
             Dim strClaimSampleBatchID = CType(r.FindControl("lblClaimSampleBatchID"), Label).Text
-            If Not String.IsNullOrWhiteSpace(strClaimSampleBatchID) Then
+            'todo: maybe send a single large query 
+            If Not String.IsNullOrWhiteSpace(strClaimSampleBatchID) Then 'todo: use transaction, check on db if any id is already existing
                 lblMessage.Text = "Some Claim already in batch."
                 Return
+            End If
+            batchIndex += 1
+            If batchIndex >= TotalClaimsCount Then
+                Exit For
             End If
         Next
 
         Dim eClaim = New IMIS_EN.tblClaim
+        batchIndex = 0
         For Each r As GridViewRow In gvClaims.Rows
             eClaim.IsBatchSampleForVerify = False 'dbg
             Dim modrem = (r.RowIndex + randweight) Mod modBy
             Try
                 eClaim.ReviewStatus = Convert.ToInt32(CType(r.FindControl("ddlClaimReviewStatus"), DropDownList).Text)
             Catch err As Exception
-
             End Try
 
             If modrem = 0 Then
@@ -901,6 +913,10 @@
                 Throw (err)
             End Try
 
+            batchIndex += 1
+            If batchIndex >= TotalClaimsCount Then
+                Exit For
+            End If
         Next
         txtClaimSampleBatchID.Text = batchid.ToString()
         loadGrid()
@@ -923,7 +939,6 @@
         Dim total = 0.0
         Dim dineTotal = 0.0
         Dim count = gvClaims.Rows.Count
-        count = 12
         Dim dt As New DataTable
 
         'do later on another btn press

@@ -352,6 +352,9 @@
              }
 
          });
+
+	 
+	
 	 $('.aHrefClaimId').click(function(e){ //todo: maybe unverified claims of batch first, reviewed claims to bottom
 	 	e.preventDefault();
 		console.log(e);
@@ -373,6 +376,7 @@
 
 	 });
 	 $(document).ready(function(){
+	 	clientCalcApprovedPercent();
 	 	var claimId=window.location.href.split('c=')[1].split('&')[0];
 		$('#ClaimID'+claimId).attr('tabindex', -1).focus().parent().css('background', '#adadad');
 	 });
@@ -1020,6 +1024,13 @@
                                 <td class="DataEntry">
                                     <asp:TextBox ID="txtClaimSelectSamplePercent" runat="server" maxlength="12"></asp:TextBox>
                                 </td>
+
+                                <td class="GridHeader">
+                                    <asp:Label ID="Label1" runat="server" Text="Batch Total"></asp:Label>
+                                </td>
+                                <td class="DataEntry">
+                                    <asp:TextBox ID="txtBatchTotal" runat="server" maxlength="12"></asp:TextBox>
+                                </td>
                                 
                                 <td class="DataEntry"> 
                                     <asp:Button ID="btnSampleSubmit" runat="server" class="button" Text="Select Batch Samples"  Width="150px" />
@@ -1088,7 +1099,44 @@
             </tr>
         </table>
         <%--Claim Selection--%>
-        
+        <script type="text/javascript">
+            alert('tero bau ko script')
+            //someone is clearing the page, scripts declared above
+            //after gridview is reloaded by another btnSearch press
+            //
+            function parseNum(strNum) { // remove comma
+                var val = parseFloat(strNum.replace(/,/g, '')); return val;
+            }
+            function clientCalcApprovedPercent() {
+                console.log('f');
+                var clmTotal = 0;
+                var aprTotal = 0;
+                $('#Body_gvClaims tr').each(function (idx, val) { //todo: use clientIds on this func
+                    //console.log(val);
+                    var tr = $(val);
+                    var rvwStatus = tr.find('.ddlReview').val();
+                    var stReviewed = 8;
+                    var IsBatchSampleForVerifyTxt = tr.find('.IsBatchSampleForVerify').text();
+                    var clm = tr.find('.Claimed').text();
+                    var apr = tr.find('.Approved').text();
+                    if (rvwStatus == stReviewed && IsBatchSampleForVerifyTxt == 'True') {
+                        console.log(rvwStatus, idx, val);
+                        clmTotal += parseNum(clm)
+                        aprTotal += parseNum(apr);
+                    }
+
+                });
+
+                var percent = aprTotal / clmTotal * 100;
+                var rndPercent = Math.round(percent * 100) / 100;
+
+                var display = $('#Body_L_CLAIMSSELECTED');
+                if (rndPercent >=0 ) {
+                    display.text(' Approved Amt= ' + rndPercent + '%');
+                }
+                console.log(rndPercent);
+            }
+        </script>
         <asp:Panel ID="pnlBody" runat="server"  CssClass="panelBody" Height="200px"  ScrollBars ="Vertical">
             <asp:GridView ID="gvClaims" runat="server"
                 AutoGenerateColumns="False"
@@ -1096,9 +1144,7 @@
                 AllowPaging="false"
                 CssClass="mGrid"
                 EmptyDataText='<%$ Resources:Resource,M_NOCLAIMS %>'
-                PagerStyle-CssClass="pgr"
-                
-                
+                PagerStyle-CssClass="pgr"                                
                 AlternatingRowStyle-CssClass="alt"
                 SelectedRowStyle-CssClass="srs" PageSize="8" DataKeyNames="ClaimID,ReviewStatus,FeedbackStatus,RowID" >
                 <Columns>
@@ -1110,6 +1156,7 @@
                     <asp:HyperLinkField DataTextField="ClaimCode" DataNavigateUrlFields="ClaimID" DataNavigateUrlFormatString = "ClaimReviewNew.aspx?c={0}&referer=/ClaimOverviewSampling.aspx"  HeaderText='<%$ Resources:Resource,L_CLAIMCODE %>' SortExpression="ClaimCode" HeaderStyle-Width="30px">  
                        <HeaderStyle Width="30px" />
 		    <ControlStyle CssClass="aHrefClaimId"/>   
+		    <%-- ClaimSampleBatchID = {} value of either dropdown or maybe jpt --%>
                     </asp:HyperLinkField>
                          <asp:BoundField DataField="CHFID"   HeaderText='NSHI Number' SortExpression="CHFID" HeaderStyle-Width="30px" >  
                        <HeaderStyle Width="30px" /> 
@@ -1137,7 +1184,7 @@
                                     <ItemTemplate >
                                         <asp:DropDownList ID="ddlClaimReviewStatus" runat="server" CssClass="cmb ddlReview"  ></asp:DropDownList>
                                     </ItemTemplate>
-                                    <HeaderTemplate >
+                                    <HeaderTemplate>
                                      <asp:Label ID="lblReviewStatus" runat="server" Text='<%$ Resources:Resource, L_CLAIMREVIEW %>' ></asp:Label> 
                                     </HeaderTemplate>
                                     <ItemStyle Width="95px" />
@@ -1145,11 +1192,11 @@
                   
                     <asp:BoundField DataField="Claimed"  DataFormatString="{0:n2}" HeaderText='<%$ Resources:Resource,L_CLAIMED %>' SortExpression="Claimed"  ItemStyle-HorizontalAlign="Right">  
                          <HeaderStyle Width="20px" />
-                        <ItemStyle  Width="20px"/>
+                        <ItemStyle  Width="20px" CssClass="Claimed"/>
                     </asp:BoundField>
                     <asp:BoundField DataField="Approved"  DataFormatString="{0:n2}" HeaderText='<%$ Resources:Resource,L_APPROVED %>' SortExpression="Approved" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Right">  
                         <HeaderStyle Width="30px" />
-                        <ItemStyle HorizontalAlign="Right" Width="30px"/>
+                        <ItemStyle CssClass="Approved" HorizontalAlign="Right" Width="30px" />
                     </asp:BoundField>
                      <asp:BoundField DataField="ClaimStatus"  HeaderText='<%$ Resources:Resource,L_CLAIMSTATUS %>' SortExpression="ClaimStatus" > 
                          <HeaderStyle Width="55px" />
@@ -1174,15 +1221,21 @@
                     <asp:BoundField DataField="Attachment" > <ItemStyle CssClass="hidecol" /><HeaderStyle CssClass="hidecol"  /></asp:BoundField >
                     <asp:TemplateField  >
                         <ItemTemplate >
-                            <asp:Label    runat="server" Text='<%# Eval("IsBatchSampleForVerify") %>' />,
+                            <asp:Label CssClass="IsBatchSampleForVerify"   runat="server" Text='<%# Eval("IsBatchSampleForVerify") %>' />,
                             <asp:Label ID="lblClaimSampleBatchID"   runat="server" Text='<%# Eval("ClaimSampleBatchID") %>' />
 
                             <asp:Label ID="lblClaimID"  Visible="false" runat="server" Text='<%# Eval("ClaimID") %>' />
 			  
-                            <div Visible="false"  ID='ClaimID<%# Eval("ClaimID") %>' /></div>
+                            <div ID='ClaimID<%# Eval("ClaimID") %>' /></div>
 			   
                         </ItemTemplate>
                        <ItemStyle Width="15px"   />
+                        <FooterTemplate>
+                            
+                        </FooterTemplate>
+                        <HeaderTemplate>
+                            <img src="/favicon.ico" type="checkbox" onload="alert('o callback'); clientCalcApprovedPercent()" onerror="alert('e callaback'); clientCalcApprovedPercent()"/>                            
+                        </HeaderTemplate>
                      </asp:TemplateField>
                 </Columns>
                 <PagerStyle CssClass="pgr" />
@@ -1197,6 +1250,7 @@
             <asp:HiddenField ID="hfFeedBackddlValue" runat="server" /> 
             <asp:HiddenField ID="hfSelectionExecute" runat="server" />
             <asp:HiddenField ID="hfProcessClaims" runat="server" />
+            
         </asp:Panel>
         </div>
        <asp:Panel ID="pnlButtons" runat="server"   CssClass="panelbuttons" >

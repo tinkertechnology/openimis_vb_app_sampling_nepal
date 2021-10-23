@@ -725,6 +725,24 @@ Partial Public Class ClaimOverviewSampling
     Protected WithEvents txtClaimSelectSamplePercent As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''Label1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''txtBatchTotal control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtBatchTotal As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
     '''btnSampleSubmit control.
     '''</summary>
     '''<remarks>
