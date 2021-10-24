@@ -858,8 +858,6 @@
             lblMessage.Text = "No rows."
             Return
         End If
-        Dim batchid = ClaimsDAL.SaveSampleBatch(sb, imisgen.getUserId(Session("User")))
-
 
         Dim TotalClaimsCount = gvClaims.Rows.Count
         If Not String.IsNullOrWhiteSpace(txtBatchTotal.Text) Then
@@ -875,10 +873,11 @@
         End If
 
         Dim batchIndex = 0
-
+        Dim strClaimIds As String = ""
         'todo: maybe ignore batch
         For Each r As GridViewRow In gvClaims.Rows
             Dim strClaimSampleBatchID = CType(r.FindControl("lblClaimSampleBatchID"), Label).Text
+            strClaimIds += CType(r.FindControl("lblClaimID"), Label).Text + ","
             'todo: maybe send a single large query 
             If Not String.IsNullOrWhiteSpace(strClaimSampleBatchID) Then 'todo: use transaction, check on db if any id is already existing
                 lblMessage.Text = "Some Claim already in batch."
@@ -890,6 +889,13 @@
             End If
         Next
 
+        strClaimIds = strClaimIds.Substring(0, strClaimIds.Length - 1) 'remove last comma
+        If ClaimsDAL.HasBatchForClaims(strClaimIds) Then
+            lblMessage.Text = " Some Claim already in batch. "
+            Return
+        End If
+
+        Dim batchid = ClaimsDAL.SaveSampleBatch(sb, imisgen.getUserId(Session("User"))) 'all success gen batch
         Dim eClaim = New IMIS_EN.tblClaim
         batchIndex = 0
         For Each r As GridViewRow In gvClaims.Rows
