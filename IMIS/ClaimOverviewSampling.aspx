@@ -1100,7 +1100,7 @@
         </table>
         <%--Claim Selection--%>
         <script type="text/javascript">
-            alert('tero bau ko script')
+            //alert('tero bau ko script')
             //someone is clearing the page, scripts declared above
             //after gridview is reloaded by another btnSearch press
             //
@@ -1234,7 +1234,7 @@
                             
                         </FooterTemplate>
                         <HeaderTemplate>
-                            <img src="/favicon.ico" type="checkbox" onload="alert('o callback'); clientCalcApprovedPercent()" onerror="alert('e callaback'); clientCalcApprovedPercent()"/>                            
+                            <img src="/favicon.ico" type="checkbox" onload="console.log('o callback'); clientCalcApprovedPercent()" onerror="console.log('e callaback'); clientCalcApprovedPercent()"/>                            
                         </HeaderTemplate>
                      </asp:TemplateField>
                 </Columns>
