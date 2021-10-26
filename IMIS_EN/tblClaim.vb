@@ -82,7 +82,10 @@ Partial Public Class tblClaim
     Public Property SampleAmountDecrease As Nullable(Of Decimal)
     Public Property SampleAmountPercent As Double
     Public Property ClaimSampleBatchID As Nullable(Of Integer)
+
+    Public Property AssignedClaimReviewerID As Nullable(Of Integer)
     Public Property IsBatchSampleForVerify As Double
+
 
 
 End Class

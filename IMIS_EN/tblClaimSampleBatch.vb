@@ -12,6 +12,9 @@ Imports System.Collections.Generic
 
 Partial Public Class tblClaimSampleBatch
     Public Property ClaimSampleBatchID As Integer
+    Public Property ClaimedAssignedReviewerID As Integer
+    Public Property UserID As Integer
+
     Public Property ClaimSelectSamplePercent As Double
     Public Property ClaimDeltaPercent As Double?
     Public Property IsCalcDone As Boolean

@@ -37,7 +37,9 @@
             End If
 
         End If
+        Dim noob = ClaimsDAL.GetUserRoleID(imisgen.getUserId(Session("User")))
 
+        'ddlClaimReviewers.Visible = False
         If Request.Form("__EVENTTARGET") = btnselectionexecute.ClientID Then
             btnSelectionExecute_Click(sender, New System.EventArgs)
         End If
@@ -58,6 +60,8 @@
             ClaimSampleBatchId = Convert.ToInt32(Request.QueryString("ClaimSampleBatchId"))
             txtClaimSampleBatchID.Text = ClaimSampleBatchId
         End If
+
+
         Try
             Dim UserID As Integer
             UserID = imisgen.getUserId(Session("User"))
@@ -104,8 +108,8 @@
             'ddlICD.DataValueField = "ICDID"
             'ddlICD.DataBind()
 
-            FillClaimSampleBatch()
-
+            FillClaimSampleBatch(imisgen.getUserId(Session("User")))
+            FillReviewers()
             FillVisitTypes()
 
             HFCodeAndBatchRunBinding(UserID)
@@ -135,11 +139,18 @@
         ddlDistrict.DataBind()
     End Sub
 
-    Private Sub FillClaimSampleBatch()
-        ddlClaimSampleBatch.DataSource = ClaimOverviews.GetClaimSampleBatches()
+    Private Sub FillClaimSampleBatch(UserID)
+        ddlClaimSampleBatch.DataSource = ClaimOverviews.GetClaimSampleBatches(UserID)
         ddlClaimSampleBatch.DataValueField = "Value"
         ddlClaimSampleBatch.DataTextField = "Text"
         ddlClaimSampleBatch.DataBind()
+    End Sub
+    'reviewers'
+    Private Sub FillReviewers()
+        ddlClaimReviewers.DataSource = ClaimOverviews.GetClaimReviewers()
+        ddlClaimReviewers.DataValueField = "UserID"
+        ddlClaimReviewers.DataTextField = "Name"
+        ddlClaimReviewers.DataBind()
     End Sub
 
     Private Sub FillVisitTypes()
@@ -850,6 +861,8 @@
             sb.ClaimSelectSamplePercent = calcSamplePercent()
         End If
         txtClaimSelectSamplePercent.Text = sb.ClaimSelectSamplePercent.ToString()
+        sb.ClaimedAssignedReviewerID = ddlClaimReviewers.Text
+        'txtAssignedClaimReviewer.Text = sb.Cl
         If sb.ClaimSelectSamplePercent = 0 Then
             lblMessage.Text = "No sample percent."
             Return
@@ -894,6 +907,7 @@
             lblMessage.Text = " Some Claim already in batch. "
             Return
         End If
+
 
         Dim batchid = ClaimsDAL.SaveSampleBatch(sb, imisgen.getUserId(Session("User"))) 'all success gen batch
         Dim eClaim = New IMIS_EN.tblClaim
@@ -1067,6 +1081,7 @@
         Next
 
         Dim sb = ClaimsDAL.GetClaimSampleBatchByIdUpdate(batchid)
+
         sb.IsCalcDone = True
         ClaimsDAL.SaveSampleBatch(sb, imisgen.getUserId(Session("User")))
 

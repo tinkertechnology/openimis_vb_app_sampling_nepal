@@ -918,7 +918,30 @@
                     </asp:DropDownList>
                 </td>
                 <td class="FormLabel">&nbsp;</td>
+
+
             </tr>
+
+            <%--<tr>
+                <td class="FormLabel">
+                    <asp:Label ID="Label3" runat="server" Text="Batch No"></asp:Label>
+                </td>
+                <td class="DataEntry">
+                    <asp:TextBox ID="TextBox1" runat="server" MaxLength="12" Width="60px"></asp:TextBox>
+                </td>
+                <td class="FormLabel">&nbsp;</td>
+                <td class="DataEntry">&nbsp;</td>
+                <td class="FormLabel">
+                    <asp:Label ID="Label5" runat="server" Text="Assign Batch"></asp:Label>
+                </td>
+                <td class="FormLabel">
+                    <asp:DropDownList ID="DropDownList1" runat="server">
+                    </asp:DropDownList>
+                </td>
+                <td class="FormLabel">&nbsp;</td>
+
+
+            </tr>--%>
        </table>               
         </asp:Panel>
         <%--Claim Selection Criteria--%>
@@ -986,6 +1009,11 @@
                  <td align="right">
                      <asp:button id="btnselectionexecute" runat="server" text='<%$ resources:resource,b_update%>' />
                  </td>
+                <button>jpt</button>
+                <td class="FormLabel">
+                    <asp:DropDownList ID="DropDownList1" runat="server">
+                    </asp:DropDownList>
+                </td>
             </tr>
             
         </table>
@@ -1055,7 +1083,9 @@
         <table>
         <tr>
         <td>
-            &nbsp;</td>
+            <asp:DropDownList ID="ddlClaimReviewers" runat="server">
+            </asp:DropDownList>
+            </td>
         
         
         <td align="right" >
