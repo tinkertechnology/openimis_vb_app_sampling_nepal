@@ -1103,11 +1103,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="DataEntry">&nbsp;</td>
+                    <td class="DataEntry">
+                        <asp:Button ID="btnSampleCancel" runat="server" class="button" Text="Cancel" Width="79px" />
+                    </td>
                     <%--<td class="FormLabel">
                                 <asp:Button ID="Button7" runat="server" class="button" Text="sample" />
                             </td>--%>
-                    <td class="DataEntry">&nbsp;</td>
+                    <td class="DataEntry">
+                        &nbsp;</td>
                     <%--<td class="DataEntry">
                                 <asp:Label ID="lblBatchNo" runat="server" Text='Batch No'></asp:Label> 
                                 <asp:TextBox ID="TextBox12" runat="server" maxlength="12"></asp:TextBox>

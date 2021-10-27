@@ -1346,36 +1346,42 @@ Public Class ClaimsDAL
 
     Public Function SaveSampleBatch(ByRef mdl As IMIS_EN.tblClaimSampleBatch, UserID As Integer) As Integer
         'ClaimSelectSamplePercent ClaimDeltaPercent
-        Dim sSQL = "insert into tblClaimSampleBatch (ClaimSelectSamplePercent, CreatedByUserID, AssignedClaimReviewerID)
+        Try
+
+
+            Dim sSQL = "insert into tblClaimSampleBatch (ClaimSelectSamplePercent, CreatedByUserID, AssignedClaimReviewerID)
             values (@ClaimSelectSamplePercent, @CreatedByUserID, @AssignedClaimReviewerID)"
 
-        If mdl.__UPDATE__ Then
-            sSQL = "
+            If mdl.__UPDATE__ Then
+                sSQL = "
                 Update tblClaimSampleBatch Set 
                     ClaimSelectSamplePercent=@ClaimSelectSamplePercent,
                     ClaimDeltaPercent=@ClaimDeltaPercent,
                     IsCalcDone=@IsCalcDone
                 WHERE ClaimSampleBatchID=@ClaimSampleBatchID
             "
-        End If
-        data.setSQLCommand(sSQL, CommandType.Text)
-        data.params("@ClaimSampleBatchID", SqlDbType.Int, mdl.ClaimSampleBatchID)
-        data.params("@ClaimSelectSamplePercent", SqlDbType.Float, mdl.ClaimSelectSamplePercent)
-        data.params("@ClaimDeltaPercent", SqlDbType.Float, mdl.ClaimDeltaPercent)
-        data.params("@IsCalcDone", SqlDbType.Bit, mdl.IsCalcDone)
-        data.params("@CreatedByUserID", SqlDbType.Int, UserID)
-        data.params("@AssignedClaimReviewerID", SqlDbType.Int, mdl.ClaimedAssignedReviewerID)
-        data.ExecuteCommand()
+            End If
+            data.setSQLCommand(sSQL, CommandType.Text)
+            data.params("@ClaimSampleBatchID", SqlDbType.Int, mdl.ClaimSampleBatchID)
+            data.params("@ClaimSelectSamplePercent", SqlDbType.Float, mdl.ClaimSelectSamplePercent)
+            data.params("@ClaimDeltaPercent", SqlDbType.Float, mdl.ClaimDeltaPercent)
+            data.params("@IsCalcDone", SqlDbType.Bit, mdl.IsCalcDone)
+            data.params("@CreatedByUserID", SqlDbType.Int, UserID)
+            data.params("@AssignedClaimReviewerID", SqlDbType.Int, mdl.ClaimedAssignedReviewerID)
+            data.ExecuteCommand()
 
-        If mdl.__UPDATE__ Then
-            Return mdl.ClaimSampleBatchID
-        End If
+            If mdl.__UPDATE__ Then
+                Return mdl.ClaimSampleBatchID
+            End If
 
-        sSQL = "select MAX(ClaimSampleBatchID) from tblClaimSampleBatch"
-        data.setSQLCommand(sSQL, CommandType.Text)
-        data.ExecuteCommand()
-        Dim maxID = data.Filldata
-        Return maxID(0)(0)
+            sSQL = "select MAX(ClaimSampleBatchID) from tblClaimSampleBatch"
+            data.setSQLCommand(sSQL, CommandType.Text)
+            data.ExecuteCommand()
+            Dim maxID = data.Filldata
+            Return maxID(0)(0)
+        Catch ex As Exception
+
+        End Try
     End Function
     Public Function GetClaimIdByUUID(ByVal uuid As Guid) As DataTable
         Dim sSQL As String = ""
@@ -1416,6 +1422,25 @@ Public Class ClaimsDAL
 
     End Function
 
+
+    Public Function cancelSampleByBatchByID(ByVal id As Integer) As Integer
+
+        Try
+            Dim dt As New DataTable
+            Dim sSQL As String = ""
+            Dim data As New ExactSQL
+            sSQL = "update tblClaim set ClaimSampleBatchID = NULL, ClaimStatus = 1 where ClaimSampleBatchID=@BatchID; "
+            sSQL += "update tblClaimSampleBatch set IsCalcDone=1 where ClaimSampleBatchID = @BatchID"
+            data.setSQLCommand(sSQL, CommandType.Text)
+            data.params("@BatchID", SqlDbType.Int, id)
+            data.ExecuteCommand()
+            Return True
+        Catch ex As Exception
+            Return Nothing
+        End Try
+
+
+    End Function
     Public Sub AddUpdateClaimPercentSetting(ByRef eClaim As IMIS_EN.tblClaim)
 
         'Dim strSQL As String = "select top 1 ClaimID from tblClaim where validityFromReview is null and ClaimID = @ClaimID;if @@rowcount > 0 begin UPDATE tblClaim SET  [Adjustment] = @Adjustment, [ValidityFromReview] = getdate(), [AudituserIdReview] = @AuditUserID "
