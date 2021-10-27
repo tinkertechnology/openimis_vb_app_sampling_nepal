@@ -893,8 +893,8 @@
             strClaimIds += CType(r.FindControl("lblClaimID"), Label).Text + ","
             'todo: maybe send a single large query 
             If Not String.IsNullOrWhiteSpace(strClaimSampleBatchID) Then 'todo: use transaction, check on db if any id is already existing
-                lblMessage.Text = "Some Claim already in batch."
-                Return
+                ' lblMessage.Text = "Some Claim already in batch."
+                ' Return
             End If
             batchIndex += 1
             If batchIndex >= TotalClaimsCount Then
@@ -903,13 +903,29 @@
         Next
 
         strClaimIds = strClaimIds.Substring(0, strClaimIds.Length - 1) 'remove last comma
-        If ClaimsDAL.HasBatchForClaims(strClaimIds) Then
-            lblMessage.Text = " Some Claim already in batch. "
+        Dim guiBatchId = getBatchIdFromGui()
+        Dim batchid = 0
+        If guiBatchId = 0 Then
+            ' generating new batch
+            If ClaimsDAL.HasBatchForClaims(strClaimIds) Then
+                lblMessage.Text = " Some Claim already in batch. "
+                Return
+            End If
+            batchid = ClaimsDAL.SaveSampleBatch(sb, imisgen.getUserId(Session("User"))) 'all success gen batch
+        Else
+            'adding samples to existing batch
+            If ClaimsDAL.IsSampleSelectedBatchClaims(strClaimIds, guiBatchId) Then
+                lblMessage.Text = " Some Claim are already selected as samples. "
+                Return
+            End If
+            batchid = guiBatchId
+        End If
+
+        If batchid = 0 Then
+            lblMessage.Text = " Unknown batch. "
             Return
         End If
 
-
-        Dim batchid = ClaimsDAL.SaveSampleBatch(sb, imisgen.getUserId(Session("User"))) 'all success gen batch
         Dim eClaim = New IMIS_EN.tblClaim
         batchIndex = 0
         For Each r As GridViewRow In gvClaims.Rows
@@ -1011,11 +1027,16 @@
         Next
     End Sub
 
-    Private Sub btnSampleDoCalc_Click(sender As Object, e As EventArgs) Handles btnSampleDoCalc.Click
+    Private Function getBatchIdFromGui() As Integer
         Dim batchid = Convert.ToInt32(ddlClaimSampleBatch.SelectedValue)
         If batchid = 0 Then
             batchid = Convert.ToInt32(txtClaimSampleBatchID.Text)
         End If
+        Return batchid
+    End Function
+
+    Private Sub btnSampleDoCalc_Click(sender As Object, e As EventArgs) Handles btnSampleDoCalc.Click
+        Dim batchid = getBatchIdFromGui()
         If batchid = 0 Then
             lblMessage.Text = "Batch required."
             Return
@@ -1036,7 +1057,7 @@
 
             If IsBatchSampleForVerify Then
                 'If Approved = 0 Then ' approved amount=claimed amount cha bhane , approved=null
-                If ReviewStatus < 8 Then ' 8=Reviewed 
+                If ReviewStatus <8 Then ' 8=Reviewed 
                     lblMessage.Text = $"All sample should be approved"
                     Return
                 End If
@@ -1063,13 +1084,13 @@
             If Not IsBatchSampleForVerify Then
                 Dim givamount = (Claimed * percent)
                 eClaim.ClaimID = ClaimID
-                eClaim.ReviewStatus = 8 'r("ReviewStatus")
+                eClaim.ReviewStatus = 8 ' r("ReviewStatus")
                 eClaim.ClaimSampleBatchID = ClaimSampleBatchID
                 eClaim.IsBatchSampleForVerify = IsBatchSampleForVerify
                 eClaim.ClaimAmountPayment = givamount
                 'todo: set 16 flag, status verified maybe 
-                ' approved amt cha bhane na chalaune teslai
-                eClaim.SampleAmountPercent = percent
+                                        ' approved amt cha bhane na chalaune teslai
+                                        eClaim.SampleAmountPercent = percent
 
                 Try
                     ClaimsDAL.UpdateClaimSample(eClaim)
