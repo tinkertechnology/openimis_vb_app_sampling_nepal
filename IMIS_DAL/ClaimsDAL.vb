@@ -645,7 +645,9 @@ Public Class ClaimsDAL
             sSQL += " AND tblClaim.ClaimSampleBatchID=@ClaimSampleBatchID"
         End If
 
-        If eClaims.LoadAllBatchClaims = 0 Then
+        If eClaims.LoadBatchNonSamples = 1 Then
+            sSQL += " AND tblClaim.IsBatchSampleForVerify=0 "
+        ElseIf eClaims.LoadAllBatchClaims = 0 Then
             sSQL += " AND tblClaim.IsBatchSampleForVerify=1 "
         End If
 

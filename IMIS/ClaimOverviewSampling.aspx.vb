@@ -480,6 +480,10 @@
                 If chkLoadAllBatchClaims.Checked Then
                     eClaim.LoadAllBatchClaims = 1
                 End If
+
+                If chkIncreaseBatchSamples.Checked Then
+                    eClaim.LoadBatchNonSamples = 1
+                End If
             End If
 
             eClaim.tblHF = eHF
@@ -1071,5 +1075,11 @@
         ClaimsDAL.SaveSampleBatch(sb, imisgen.getUserId(Session("User")))
 
 
+    End Sub
+
+
+    Protected Sub chkIncreaseBatchSamples_CheckedChanged(sender As Object, e As EventArgs) Handles chkIncreaseBatchSamples.CheckedChanged
+        loadGrid()
+        chkIncreaseBatchSamples.Checked = False
     End Sub
 End Class

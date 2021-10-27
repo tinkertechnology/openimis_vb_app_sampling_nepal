@@ -1040,7 +1040,14 @@
                                 </td>
                                 
                                 <td class="DataEntry">All Batch Claims:  <asp:CheckBox ID="chkLoadAllBatchClaims" runat="server" /> </td>
-                                
+
+                                <td class="DataEntry"> 
+                                    New batch samples: <asp:CheckBox ID="chkIncreaseBatchSamples" runat="server" />
+                                </td>
+                                <td class="DataEntry">
+                                    <asp:TextBox ID="txtClaimReSelectSamplePercent" runat="server" maxlength="12"></asp:TextBox>
+                                </td>
+
                             </tr>
                         </table>
                     </td>

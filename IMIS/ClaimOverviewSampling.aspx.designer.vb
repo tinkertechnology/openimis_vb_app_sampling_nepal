@@ -770,6 +770,24 @@ Partial Public Class ClaimOverviewSampling
     Protected WithEvents chkLoadAllBatchClaims As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
+    '''chkIncreaseBatchSamples control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkIncreaseBatchSamples As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''txtClaimReSelectSamplePercent control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtClaimReSelectSamplePercent As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
     '''L_CLAIMSSELECTED control.
     '''</summary>
     '''<remarks>
