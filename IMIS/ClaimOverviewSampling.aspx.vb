@@ -1032,11 +1032,16 @@
     End Sub
 
     Private Function getBatchIdFromGui() As Integer
-        Dim batchid = Convert.ToInt32(ddlClaimSampleBatch.SelectedValue)
-        If batchid = 0 Then
-            batchid = Convert.ToInt32(txtClaimSampleBatchID.Text)
-        End If
-        Return batchid
+        Try
+            Dim batchid = Convert.ToInt32(ddlClaimSampleBatch.SelectedValue)
+            If batchid = 0 Then
+                batchid = Convert.ToInt32(txtClaimSampleBatchID.Text)
+            End If
+            Return batchid
+        Catch ex As Exception
+
+        End Try
+        Return 0
     End Function
 
     Private Sub btnSampleDoCalc_Click(sender As Object, e As EventArgs) Handles btnSampleDoCalc.Click

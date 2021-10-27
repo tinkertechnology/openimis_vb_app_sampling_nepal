@@ -363,7 +363,7 @@ Public Class ClaimsBL
         End If
     End Function
 
-  
+
     Public Function GetReviewSelection(Optional ByVal showselect As Boolean = False) As DataTable
 
         Dim dt As New DataTable
@@ -404,7 +404,7 @@ Public Class ClaimsBL
 
     End Function
 
-   
+
     Public Function IsClaimStatusChanged(ByRef eClaim As IMIS_EN.tblClaim) As Boolean
         Dim dt As DataTable = clm.IsClaimStatusChanged(eClaim)
         If dt.Rows.Count > 0 Then
@@ -449,7 +449,7 @@ Public Class ClaimsBL
 
     End Sub
 
-   
+
 
     Public Sub ZipXMLs()
         Dim Extracts As New IMIS_BL.IMISExtractsBL
