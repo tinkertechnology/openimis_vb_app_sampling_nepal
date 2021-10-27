@@ -37,7 +37,9 @@
             End If
 
         End If
+        Dim noob = ClaimsDAL.GetUserRoleID(imisgen.getUserId(Session("User")))
 
+        'ddlClaimReviewers.Visible = False
         If Request.Form("__EVENTTARGET") = btnselectionexecute.ClientID Then
             btnSelectionExecute_Click(sender, New System.EventArgs)
         End If
@@ -58,6 +60,8 @@
             ClaimSampleBatchId = Convert.ToInt32(Request.QueryString("ClaimSampleBatchId"))
             txtClaimSampleBatchID.Text = ClaimSampleBatchId
         End If
+
+
         Try
             Dim UserID As Integer
             UserID = imisgen.getUserId(Session("User"))
@@ -104,8 +108,8 @@
             'ddlICD.DataValueField = "ICDID"
             'ddlICD.DataBind()
 
-            FillClaimSampleBatch()
-
+            FillClaimSampleBatch(imisgen.getUserId(Session("User")))
+            FillReviewers()
             FillVisitTypes()
 
             HFCodeAndBatchRunBinding(UserID)
@@ -135,11 +139,18 @@
         ddlDistrict.DataBind()
     End Sub
 
-    Private Sub FillClaimSampleBatch()
-        ddlClaimSampleBatch.DataSource = ClaimOverviews.GetClaimSampleBatches()
+    Private Sub FillClaimSampleBatch(UserID)
+        ddlClaimSampleBatch.DataSource = ClaimOverviews.GetClaimSampleBatches(UserID)
         ddlClaimSampleBatch.DataValueField = "Value"
         ddlClaimSampleBatch.DataTextField = "Text"
         ddlClaimSampleBatch.DataBind()
+    End Sub
+    'reviewers'
+    Private Sub FillReviewers()
+        ddlClaimReviewers.DataSource = ClaimOverviews.GetClaimReviewers()
+        ddlClaimReviewers.DataValueField = "UserID"
+        ddlClaimReviewers.DataTextField = "Name"
+        ddlClaimReviewers.DataBind()
     End Sub
 
     Private Sub FillVisitTypes()
@@ -204,7 +215,7 @@
             If userBI.RunPageSecurity(IMIS_EN.Enums.Pages.ClaimOverview, Page) Then
                 btnUpdateClaims.Visible = userBI.checkRights(IMIS_EN.Enums.Rights.ClaimUpdate, UserID)
                 B_ProcessClaimStatus.Visible = userBI.checkRights(IMIS_EN.Enums.Rights.ClaimProcess, UserID)
-                pnlMiddle.Enabled = userBI.checkRights(IMIS_EN.Enums.Rights.ClaimUpdate, UserID)
+                pnlmiddle.Enabled = userBI.checkRights(IMIS_EN.Enums.Rights.ClaimUpdate, UserID)
                 B_FEEDBACK.Visible = userBI.checkRights(IMIS_EN.Enums.Rights.ClaimFeedback, UserID)
                 B_REVIEW.Visible = userBI.checkRights(IMIS_EN.Enums.Rights.ClaimReview, UserID)
                 btnSearch.Visible = userBI.checkRights(IMIS_EN.Enums.Rights.ClaimSearch, UserID)
@@ -212,7 +223,7 @@
                 If Not btnUpdateClaims.Visible And Not B_ProcessClaimStatus.Visible Then
                     pnlBody.Enabled = False
                 End If
-                btnSelectionExecute.Visible = btnUpdateClaims.Visible
+                btnselectionexecute.Visible = btnUpdateClaims.Visible
 
             Else
                 Server.Transfer("Redirect.aspx?perm=0&page=" & IMIS_EN.Enums.Pages.ClaimOverview.ToString & "&retUrl=" & RefUrl)
@@ -535,7 +546,7 @@
             B_ProcessClaimStatus.Visible = B_ProcessClaimStatus.Visible
             B_REVIEW.Visible = B_REVIEW.Visible
             btnUpdateClaims.Visible = btnUpdateClaims.Visible
-            btnSelectionExecute.Visible = btnSelectionExecute.Visible
+            btnselectionexecute.Visible = btnselectionexecute.Visible
             lblSelectToProcess.Visible = True
             chkboxSelectToProcess.Visible = True
         Else
@@ -543,7 +554,7 @@
             B_ProcessClaimStatus.Visible = False
             B_REVIEW.Visible = False
             btnUpdateClaims.Visible = False
-            btnSelectionExecute.Visible = False
+            btnselectionexecute.Visible = False
             lblSelectToProcess.Visible = False
             chkboxSelectToProcess.Visible = False
         End If
@@ -688,14 +699,14 @@
         End Try
     End Sub
 
-    Private Sub btnSelectionExecute_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSelectionExecute.Click
+    Private Sub btnSelectionExecute_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnselectionexecute.Click
         RunPageSecurity(1)
         Try
             GetFilterCriteria()
             Dim Submitted, Selected, NotSelected As Integer
-            ClaimOverviews.ReviewFeedbackSelection(ClaimIDDatatable(), getValue, ddlSelectionType.SelectedValue, getSelectionType(), GetSelectionValue(), Submitted, Selected, NotSelected)
+            ClaimOverviews.ReviewFeedbackSelection(ClaimIDDatatable(), getValue, ddlselectiontype.SelectedValue, getSelectionType(), GetSelectionValue(), Submitted, Selected, NotSelected)
             loadGrid()
-            ddlSelectionType.SelectedValue = 0
+            ddlselectiontype.SelectedValue = 0
             hfSelectionExecute.Value = "<h4><u>" & imisgen.getMessage("M_SUBMITTEDTOUPDATE") & "</u></h4>" & "<br>" &
                                     "<table><tr><td>" & imisgen.getMessage("M_SUBMITTED") & "</td><td>" & Submitted & "</td></tr><tr><td>" &
                                     imisgen.getMessage("M_SELECTED") & "</td><td>" & Selected & "</td></tr><tr><td>" & imisgen.getMessage("M_NOTSELECTED") &
@@ -712,26 +723,26 @@
     End Sub
 
     Private Function getSelectionType() As Integer
-        If chkRandom.Checked Then
+        If chkrandom.Checked Then
             Return 1
-        ElseIf chkVariance.Checked Then
+        ElseIf chkvariance.Checked Then
             Return 2
         Else
             Return 0
         End If
     End Function
     Private Function getValue() As Decimal
-        If chkValue.Checked = True Then
-            Return If(txtValue.Text = "", 0, txtValue.Text)
+        If chkvalue.Checked = True Then
+            Return If(txtvalue.Text = "", 0, txtvalue.Text)
         Else
             Return 0
         End If
     End Function
     Private Function GetSelectionValue() As Decimal
-        If chkRandom.Checked Then
-            Return If(txtRandom.Text = "", 100, txtRandom.Text)
-        ElseIf chkVariance.Checked Then
-            Return If(txtVariance.Text = "", 0, txtVariance.Text)
+        If chkrandom.Checked Then
+            Return If(txtrandom.Text = "", 100, txtrandom.Text)
+        ElseIf chkvariance.Checked Then
+            Return If(txtvariance.Text = "", 0, txtvariance.Text)
         Else
             Return 0
         End If
@@ -752,7 +763,7 @@
 
     End Sub
 
-    Protected Sub ddlSelectionType_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles ddlSelectionType.SelectedIndexChanged
+    Protected Sub ddlSelectionType_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles ddlselectiontype.SelectedIndexChanged
         FilterGrid()
     End Sub
 
@@ -770,9 +781,9 @@
     Private Function FilterDataTable() As DataTable
 
         Dim filter As String = ""
-        If ddlSelectionType.SelectedValue = 0 Then
+        If ddlselectiontype.SelectedValue = 0 Then
             filter = ""
-        ElseIf ddlSelectionType.SelectedValue = 1 Then
+        ElseIf ddlselectiontype.SelectedValue = 1 Then
             filter = "ReviewStatus=1 and ClaimStatus <> '" & imisgen.getMessage("T_VALUATED") & "' and ClaimStatus <> '" &
                     imisgen.getMessage("T_PROCESSED") & "' and ClaimStatus <> '" & imisgen.getMessage("T_REJECTED") & "' "
         Else
@@ -797,7 +808,7 @@
 
     End Function
 
-    Protected Sub txtValue_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtValue.TextChanged
+    Protected Sub txtValue_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtvalue.TextChanged
         FilterGrid()
     End Sub
 
@@ -815,8 +826,8 @@
         End Try
     End Sub
 
-    Protected Sub chkValue_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkValue.CheckedChanged
-        If chkValue.Checked Then
+    Protected Sub chkValue_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkvalue.CheckedChanged
+        If chkvalue.Checked Then
             FilterGrid()
         End If
     End Sub
@@ -854,6 +865,8 @@
             sb.ClaimSelectSamplePercent = calcSamplePercent()
         End If
         txtClaimSelectSamplePercent.Text = sb.ClaimSelectSamplePercent.ToString()
+        sb.ClaimedAssignedReviewerID = ddlClaimReviewers.Text
+        'txtAssignedClaimReviewer.Text = sb.Cl
         If sb.ClaimSelectSamplePercent = 0 Then
             lblMessage.Text = "No sample percent."
             Return
@@ -898,6 +911,7 @@
             lblMessage.Text = " Some Claim already in batch. "
             Return
         End If
+
 
         Dim batchid = ClaimsDAL.SaveSampleBatch(sb, imisgen.getUserId(Session("User"))) 'all success gen batch
         Dim eClaim = New IMIS_EN.tblClaim
@@ -1071,6 +1085,7 @@
         Next
 
         Dim sb = ClaimsDAL.GetClaimSampleBatchByIdUpdate(batchid)
+
         sb.IsCalcDone = True
         ClaimsDAL.SaveSampleBatch(sb, imisgen.getUserId(Session("User")))
 

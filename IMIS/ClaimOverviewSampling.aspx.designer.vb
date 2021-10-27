@@ -680,6 +680,15 @@ Partial Public Class ClaimOverviewSampling
     Protected WithEvents btnselectionexecute As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
+    '''DropDownList1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents DropDownList1 As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''RandomSamplingCriteria control.
     '''</summary>
     '''<remarks>
@@ -786,6 +795,15 @@ Partial Public Class ClaimOverviewSampling
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtClaimReSelectSamplePercent As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''ddlClaimReviewers control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlClaimReviewers As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''L_CLAIMSSELECTED control.

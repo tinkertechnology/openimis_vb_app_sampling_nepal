@@ -83,10 +83,25 @@ Public Class ClaimsBL
     Public Function GetClaimSampleBatches(Optional ByVal RetrievalValue As Integer = 0) As DataTable
         Dim data As New IMIS_DAL.ExactSQL
         Dim sSQL As String = ""
-        sSQL = "Select ClaimSampleBatchID as Value, ltrim(ClaimSampleBatchID) as Text   from tblclaimsamplebatch where IsCalcDone=0 union select 0, '-sample batch-' "
+        'sSQL = "Select ClaimSampleBatchID as Value, ltrim(ClaimSampleBatchID) as Text   from tblclaimsamplebatch where IsCalcDone=0 union select 0, '-sample batch-' "
+        'If RetrievalValue = 0 Then
+        '    sSQL = "Select ClaimSampleBatchID as Value, ltrim(ClaimSampleBatchID) as Text   from tblclaimsamplebatch where IsCalcDone=0 union select 0, '-sample batch-'"
+        'Else
+        '    sSQL = "Select ClaimSampleBatchID as Value, ltrim(ClaimSampleBatchID) as Text   from tblclaimsamplebatch where IsCalcDone=0 and AssignedClaimReviewerID = 5637 union select 0, '-sample batch-' "
+        'End If
+        sSQL = "Select ClaimSampleBatchID as Value, ltrim(ClaimSampleBatchID) as Text   from tblclaimsamplebatch where IsCalcDone=0 and AssignedClaimReviewerID = 5637 union select 0, '-sample batch-' "
         data.setSQLCommand(sSQL, CommandType.Text)
         Return data.Filldata
     End Function
+
+    Public Function GetClaimReviewers() As DataTable
+        Dim data As New IMIS_DAL.ExactSQL
+        Dim sSQL As String = ""
+        sSQL = "select UserID, OtherNames + ' '+ LastName as Name from tblUsers where RoleID = 10"
+        data.setSQLCommand(sSQL, CommandType.Text)
+        Return data.Filldata
+    End Function
+
 
     Public Function GetReviewStatus(Optional ByVal RetrievalValue As Integer = 0) As DataTable
         Dim dtbl As New DataTable

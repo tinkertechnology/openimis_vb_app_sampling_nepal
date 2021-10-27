@@ -441,6 +441,18 @@ Public Class ClaimsDAL
         Return data.Filldata
     End Function
 
+    'this function will return user who reviews the claim for sampling'
+    Public Function GetClaimReviewers() As DataTable
+
+        Dim sSQL As String
+        sSQL = "select * from tblUsers where RoleID = 10"
+
+        data.setSQLCommand(sSQL, CommandType.Text)
+        'data.params("@ClaimSampleBatchID", SqlDbType.Int, eClaims.ClaimSampleBatchID)
+
+        Return data.Filldata
+    End Function
+
     Public Function IsClaimStatusChecked(ByVal eClaim As IMIS_EN.tblClaim) As DataTable
         Dim str As String = "select ClaimStatus from tblClaim where ClaimID = @ClaimID and ValidityTo is null"
         data.setSQLCommand(str, CommandType.Text)
@@ -1334,8 +1346,8 @@ Public Class ClaimsDAL
 
     Public Function SaveSampleBatch(ByRef mdl As IMIS_EN.tblClaimSampleBatch, UserID As Integer) As Integer
         'ClaimSelectSamplePercent ClaimDeltaPercent
-        Dim sSQL = "insert into tblClaimSampleBatch (ClaimSelectSamplePercent, CreatedByUserID)
-            values (@ClaimSelectSamplePercent, @CreatedByUserID)"
+        Dim sSQL = "insert into tblClaimSampleBatch (ClaimSelectSamplePercent, CreatedByUserID, AssignedClaimReviewerID)
+            values (@ClaimSelectSamplePercent, @CreatedByUserID, @AssignedClaimReviewerID)"
 
         If mdl.__UPDATE__ Then
             sSQL = "
@@ -1352,6 +1364,7 @@ Public Class ClaimsDAL
         data.params("@ClaimDeltaPercent", SqlDbType.Float, mdl.ClaimDeltaPercent)
         data.params("@IsCalcDone", SqlDbType.Bit, mdl.IsCalcDone)
         data.params("@CreatedByUserID", SqlDbType.Int, UserID)
+        data.params("@AssignedClaimReviewerID", SqlDbType.Int, mdl.ClaimedAssignedReviewerID)
         data.ExecuteCommand()
 
         If mdl.__UPDATE__ Then
@@ -1385,6 +1398,23 @@ Public Class ClaimsDAL
         Return data.Filldata
     End Function
 
+    Public Function GetUserRoleID(ByVal id As Integer) As Integer
+
+        Try
+            Dim dt As New DataTable
+            Dim sSQL As String = ""
+            Dim data As New ExactSQL
+            sSQL = "select top 1  RoleID from tblUsers where UserID = @UserID"
+
+            data.setSQLCommand(sSQL, CommandType.Text)
+            data.params("@UserID", SqlDbType.Int, id)
+            Return data.Filldata.Rows(0)("RoleID")
+        Catch
+            Return Nothing
+        End Try
+
+
+    End Function
 
     Public Sub AddUpdateClaimPercentSetting(ByRef eClaim As IMIS_EN.tblClaim)
 
