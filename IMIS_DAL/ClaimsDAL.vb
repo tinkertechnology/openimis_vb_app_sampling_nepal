@@ -1303,6 +1303,20 @@ Public Class ClaimsDAL
         Return x > 0
     End Function
 
+    Public Function IsSampleSelectedBatchClaims(ByRef strClaimIds As String, ByVal batchId As Integer) As Boolean
+        Dim sSQL = $" 
+            Select count(*) from tblClaim 
+                where ClaimId in ({strClaimIds}) 
+                and ClaimSampleBatchID >0 and ClaimSampleBatchID is not null
+                and IsBatchSampleForVerify = 1 
+                and ClaimSampleBatchID={batchId}
+        "
+        data.setSQLCommand(sSQL, CommandType.Text)
+        data.ExecuteCommand()
+        Dim x As Integer = data.Filldata.Rows(0)(0)
+        Return x > 0
+    End Function
+
     Public Sub UpdateClaimItemsAndServices(ByRef eClaim As IMIS_EN.tblClaim)
         Dim sSQL = "
             Update tblClaimItems Set 
