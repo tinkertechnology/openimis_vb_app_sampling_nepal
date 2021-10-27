@@ -1038,7 +1038,6 @@
 
         End Try
         Return 0
-
     End Function
 
     Private Sub btnSampleDoCalc_Click(sender As Object, e As EventArgs) Handles btnSampleDoCalc.Click
