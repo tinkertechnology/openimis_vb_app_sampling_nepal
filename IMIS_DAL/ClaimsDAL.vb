@@ -1443,7 +1443,7 @@ Public Class ClaimsDAL
             Dim dt As New DataTable
             Dim sSQL As String = ""
             Dim data As New ExactSQL
-            sSQL = "update tblClaim set ClaimSampleBatchID = NULL, ClaimStatus = 1 where ClaimSampleBatchID=@BatchID; "
+            sSQL = "update tblClaim set ClaimSampleBatchID = NULL, ReviewStatus = 1 where ClaimSampleBatchID=@BatchID; "
             sSQL += "update tblClaimSampleBatch set IsCalcDone=1 where ClaimSampleBatchID = @BatchID"
             data.setSQLCommand(sSQL, CommandType.Text)
             data.params("@BatchID", SqlDbType.Int, id)

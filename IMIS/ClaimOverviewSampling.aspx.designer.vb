@@ -752,6 +752,15 @@ Partial Public Class ClaimOverviewSampling
     Protected WithEvents txtBatchTotal As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''ddlClaimReviewers control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlClaimReviewers As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''btnSampleSubmit control.
     '''</summary>
     '''<remarks>
@@ -770,13 +779,13 @@ Partial Public Class ClaimOverviewSampling
     Protected WithEvents btnSampleDoCalc As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''chkLoadAllBatchClaims control.
+    '''btnSampleCancel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chkLoadAllBatchClaims As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents btnSampleCancel As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''chkIncreaseBatchSamples control.
@@ -797,22 +806,13 @@ Partial Public Class ClaimOverviewSampling
     Protected WithEvents txtClaimReSelectSamplePercent As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''ddlClaimReviewers control.
+    '''chkLoadAllBatchClaims control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlClaimReviewers As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''btnSampleCancel control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnSampleCancel As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents chkLoadAllBatchClaims As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
     '''L_CLAIMSSELECTED control.

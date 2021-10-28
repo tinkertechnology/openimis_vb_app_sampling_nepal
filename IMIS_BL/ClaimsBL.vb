@@ -97,7 +97,7 @@ Public Class ClaimsBL
     Public Function GetClaimReviewers() As DataTable
         Dim data As New IMIS_DAL.ExactSQL
         Dim sSQL As String = ""
-        sSQL = "select UserID, OtherNames + ' '+ LastName as Name from tblUsers where RoleID = 10"
+        sSQL = "select UserID, LoginName + ' ' + ltrim(UserID) + ' ' + OtherNames + ' '+ LastName as Name from tblUsers where RoleID = 10"
         data.setSQLCommand(sSQL, CommandType.Text)
         Return data.Filldata
     End Function

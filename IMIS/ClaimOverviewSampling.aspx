@@ -7,7 +7,7 @@
 #popup-div table
 {
     margin:auto;
-        }
+}
         #popup-div table tr > td
         {
            text-align:right
@@ -1033,14 +1033,14 @@
                    <asp:label  
                            ID="RandomSamplingCriteria"  
                            runat="server" 
-                           Text='Random Sampling Criteria'> </asp:label>                     
+                           Text='Random Sampling'> </asp:label>                     
                 </td>
                 <td align="right">
                                  <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
                             </td>
             </tr>
         </table>
-        <asp:Panel ID="Panel2" runat="server"  CssClass="panel" height="50px">
+        <asp:Panel ID="Panel2" runat="server"  CssClass="panel" height="60px">
             <table>
                 <tr>
                     <td>
@@ -1059,7 +1059,10 @@
                                 <td class="DataEntry">
                                     <asp:TextBox ID="txtBatchTotal" runat="server" maxlength="12"></asp:TextBox>
                                 </td>
-                                
+                                <td>
+                                <asp:DropDownList ID="ddlClaimReviewers" runat="server">
+                                </asp:DropDownList>
+                                </td>
                                 <td class="DataEntry"> 
                                     <asp:Button ID="btnSampleSubmit" runat="server" class="button" Text="Select Batch Samples"  Width="150px" />
                                 </td>
@@ -1067,34 +1070,22 @@
                                     <asp:Button ID="btnSampleDoCalc" runat="server" class="button" Text="Approve Batch Amount" Width="150px" />
                                 </td>
                                 
-                                <td class="DataEntry">All Batch Claims:  <asp:CheckBox ID="chkLoadAllBatchClaims" runat="server" /> </td>
+                    <td class="DataEntry">
+                        <asp:Button ID="btnSampleCancel" runat="server" class="button" Text="Cancel" Width="79px" />
+                    </td>
+                               
+
+                            </tr>
+
+<tr>
+        
+         
 
                                 <td class="DataEntry"> 
                                     New batch samples: <asp:CheckBox ID="chkIncreaseBatchSamples" runat="server" />
+                                    <asp:TextBox ID="txtClaimReSelectSamplePercent" Visible="false" runat="server" maxlength="12"></asp:TextBox>
                                 </td>
-                                <td class="DataEntry">
-                                    <asp:TextBox ID="txtClaimReSelectSamplePercent" runat="server" maxlength="12"></asp:TextBox>
-                                </td>
-
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-            
-        </asp:Panel>
-        <%--Random Claim Sampling--%>
-
-
-        <%--Claim Selection--%>
-        <table>
-        <tr>
-        <td>
-            <asp:DropDownList ID="ddlClaimReviewers" runat="server">
-            </asp:DropDownList>
-            </td>
-        
-        
+        <td class="DataEntry">All Batch Claims:  <asp:CheckBox ID="chkLoadAllBatchClaims" runat="server" /> </td>
         <td align="right" >
             <table align="center">
                 <tr>
@@ -1103,9 +1094,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="DataEntry">
-                        <asp:Button ID="btnSampleCancel" runat="server" class="button" Text="Cancel" Width="79px" />
-                    </td>
                     <%--<td class="FormLabel">
                                 <asp:Button ID="Button7" runat="server" class="button" Text="sample" />
                             </td>--%>
@@ -1120,7 +1108,24 @@
                 </tr>
             </table>
         </td>
-        </tr>
+</tr>
+
+
+
+
+
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            
+        </asp:Panel>
+        <%--Random Claim Sampling--%>
+
+
+        <%--Claim Selection--%>
+        <table>
+
             <tr>
                 <td>
                     <table class="catlabel">
