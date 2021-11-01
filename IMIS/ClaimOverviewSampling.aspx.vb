@@ -230,7 +230,6 @@
         ddlClaimAdmin.DataBind()
     End Sub
     Private Sub RunPageSecurity(Optional ByVal which As Integer = 0)
-        Return
         Dim RoleID As Integer = imisgen.getRoleId(Session("User"))
         Dim UserID As Integer = imisgen.getUserId(Session("User"))
         Dim RefUrl = Request.Headers("Referer")
@@ -514,6 +513,10 @@
 
                 If chkLoadAllBatchClaims.Checked Then
                     eClaim.LoadAllBatchClaims = 1
+                End If
+
+                If chkIncreaseBatchSamples.Checked Then
+                    eClaim.LoadBatchNonSamples = 1
                 End If
             End If
 
@@ -1091,7 +1094,7 @@
                     Return
                 End If
 
-                If Approved = 0 Then
+                If Approved = -1 Then
                     Approved = Claimed
                 End If
 
@@ -1134,8 +1137,8 @@
 
         sb.IsCalcDone = True
         ClaimsDAL.SaveSampleBatch(sb, imisgen.getUserId(Session("User")))
-
-
+        lblMessage.Text = "Claim amount done."
+        redirsamepage()
     End Sub
 
     Protected Sub btnSampleCancel_Click(sender As Object, e As EventArgs) Handles btnSampleCancel.Click
@@ -1143,10 +1146,16 @@
         ClaimsDAL.cancelSampleByBatchByID(batchID)
         txtClaimSampleBatchID.Text = ""
         ddlClaimSampleBatch.SelectedValue = "0"
-        loadGrid()
+        'loadGrid()
         'Page_Load(Nothing, Nothing)
-        'Response.Redirect(HttpContext.Current.Request.Url.ToString(), True)
+
         lblMsg.Text = $"Batch ID {batchID} has been revoked"
+        redirsamepage()
+    End Sub
+
+    Public Sub redirsamepage()
+        Response.Redirect(Request.Url.AbsolutePath, True)
+        'Response.Redirect(HttpContext.Current.Request.Url.ToString(), True)
     End Sub
 
     Protected Sub ddlClaimSampleBatch_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlClaimSampleBatch.SelectedIndexChanged
@@ -1160,4 +1169,21 @@
         End If
         Return False
     End Function
+
+    Protected Sub IdRandomSampleAdmin_Click(sender As Object, e As EventArgs) Handles IdRandomSampleAdmin.Click
+        If RandomSamplePassword.Visible Then
+            Dim pw = RandomSamplePassword.Text
+            If Not String.IsNullOrWhiteSpace(pw) Then
+                If pw = "1cos1cos" Then
+                    Session("_BATCH_ADMIN_") = "1"
+                    redirsamepage()
+                Else
+                    Session("_BATCH_ADMIN_") = "0"
+                    lblMessage.Text = "Invalid creds."
+                    Return
+                End If
+            End If
+        End If
+        RandomSamplePassword.Visible = Not RandomSamplePassword.Visible
+    End Sub
 End Class

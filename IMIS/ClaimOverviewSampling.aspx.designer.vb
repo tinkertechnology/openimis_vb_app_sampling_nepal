@@ -689,13 +689,22 @@ Partial Public Class ClaimOverviewSampling
     Protected WithEvents DropDownList1 As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''RandomSamplingCriteria control.
+    '''IdRandomSampleAdmin control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents RandomSamplingCriteria As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents IdRandomSampleAdmin As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''RandomSamplePassword control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents RandomSamplePassword As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''lblMessage control.

@@ -31,7 +31,7 @@
  var clearflag = false;
  
  /** Ruzo Grid Row Selection 29 Aug 2014 >> Start **/
- function bindRowSelection() {
+ FUnction bindRowSelection() {
          var $trs = $('#<%=gvClaims.ClientID%> tr')
          $trs.unbind("hover").hover(function () {
              if ($(this).index() < 1 || $(this).is(".pgr")) return;
@@ -1029,11 +1029,10 @@
         <%--Random Claim Sampling--%>
         <table class="catlabel">
             <tr>
-                <td >
-                   <asp:label  
-                           ID="RandomSamplingCriteria"  
-                           runat="server" 
-                           Text='Random Sampling'> </asp:label>                     
+                <td>       
+                    <asp:Button ID="IdRandomSampleAdmin" 
+                        runat="server" Text="Random Sampling" />
+                    <asp:TextBox ID="RandomSamplePassword" Visible="false" Type="Password" runat="server" maxlength="12"></asp:TextBox>
                 </td>
                 <td align="right">
                                  <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
@@ -1149,7 +1148,7 @@
             //someone is clearing the page, scripts declared above
             //after gridview is reloaded by another btnSearch press
             //
-            function parseNum(strNum) { // remove comma
+            function parseNum(sTRNum) { // remove comma
                 var val = parseFloat(strNum.replace(/,/g, '')); return val;
             }
             function clientCalcApprovedPercent() {

@@ -428,7 +428,7 @@ Public Class ClaimsDAL
         Dim sSQL As String
         sSQL = "SELECT " + UtilitiesDAL.GetEnvMaxRows()
 
-        sSQL += " tblClaim.ClaimID, Claimed, ISNULL(Approved, 0) as Approved, "
+        sSQL += " tblClaim.ClaimID, Claimed, ISNULL(Approved,-1) as Approved, "
         sSQL += " ClaimSampleBatchID, IsBatchSampleForVerify, ReviewStatus "
         sSQL += " from tblClaim where 1=1"
         If eClaims.ClaimSampleBatchID <> 0 Then
