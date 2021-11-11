@@ -1148,7 +1148,7 @@
             //someone is clearing the page, scripts declared above
             //after gridview is reloaded by another btnSearch press
             //
-            function parseNum(sTRNum) { // remove comma
+            function parseNum(strNum) { // remove comma
                 var val = parseFloat(strNum.replace(/,/g, '')); return val;
             }
             function clientCalcApprovedPercent() {

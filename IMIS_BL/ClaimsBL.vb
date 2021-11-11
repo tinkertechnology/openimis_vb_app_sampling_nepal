@@ -83,7 +83,13 @@ Public Class ClaimsBL
     Public Function GetClaimSampleBatches(Optional ByVal RetrievalValue As Integer = 0) As DataTable
         Dim data As New IMIS_DAL.ExactSQL
         Dim sSQL As String = ""
-        sSQL = "Select ClaimSampleBatchID as Value, ltrim(ClaimSampleBatchID) as Text   from tblclaimsamplebatch where IsCalcDone=0 union select 0, '-sample batch-' "
+        sSQL = $"
+        Select ClaimSampleBatchID as Value, ltrim(ClaimSampleBatchID) + ' ' + u.LoginName as Text   from tblclaimsamplebatch b
+        inner join tblUsers u on u.UserID = b.AssignedClaimReviewerID 
+        where IsCalcDone=0 and (AssignedClaimReviewerID={RetrievalValue} or {RetrievalValue}=0)
+        
+        union select 0, '-sample batch-' 
+        "
         'If RetrievalValue = 0 Then
         '    sSQL = "Select ClaimSampleBatchID as Value, ltrim(ClaimSampleBatchID) as Text   from tblclaimsamplebatch where IsCalcDone=0 union select 0, '-sample batch-'"
         'Else
@@ -97,7 +103,17 @@ Public Class ClaimsBL
     Public Function GetClaimReviewers() As DataTable
         Dim data As New IMIS_DAL.ExactSQL
         Dim sSQL As String = ""
-        sSQL = "select UserID, LoginName + ' ' + ltrim(UserID) + ' ' + OtherNames + ' '+ LastName as Name from tblUsers where RoleID = 10"
+        'sSQL = "select UserID, LoginName + ' ' + ltrim(UserID) /* + ' ' + OtherNames + ' '+ LastName */ as Name from tblUsers where RoleID = 10"
+        sSQL = "select UserID, LoginName + ' ' + ltrim(UserID) as Name from tblUsers 
+                where ValidityTo is null
+                order bY LoginName
+                "
+        sSQL = "
+           select distinct u.UserID as UserId, LoginName as Name from tblUserRole UR
+            INNER JOIN tblRoleRight RR ON RR.RoleID = UR.RoleID
+            INNER JOIN tblRole ROLES ON ROLES.RoleID = UR.RoleID -- AND ISNULL(UR.Assign,0) & 1 > 0
+		    inner join tblUsers u on u.UserID=ur.UserID
+		    where  rolename = 'Medical Officer'"
         data.setSQLCommand(sSQL, CommandType.Text)
         Return data.Filldata
     End Function

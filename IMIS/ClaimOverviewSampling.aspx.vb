@@ -163,7 +163,11 @@
     End Sub
 
     Private Sub FillClaimSampleBatch(UserID)
-        ddlClaimSampleBatch.DataSource = ClaimOverviews.GetClaimSampleBatches(UserID)
+        If HasBatchPrivilege() Then
+            ddlClaimSampleBatch.DataSource = ClaimOverviews.GetClaimSampleBatches(0)
+        Else
+            ddlClaimSampleBatch.DataSource = ClaimOverviews.GetClaimSampleBatches(UserID)
+        End If
         ddlClaimSampleBatch.DataValueField = "Value"
         ddlClaimSampleBatch.DataTextField = "Text"
         ddlClaimSampleBatch.DataBind()
@@ -1104,7 +1108,7 @@
             End If
         Next
         Dim long_percent = SampleApprovedTotal / SampleClaimedTotal
-        Dim percent = Math.Round(long_percent * 100.0F) / 100.0F
+        Dim percent = Math.Round(long_percent * 10000.0F) / 10000.0F
 
         For Each r As DataRow In claimRows
             Dim ClaimID As Integer = r("ClaimID")
