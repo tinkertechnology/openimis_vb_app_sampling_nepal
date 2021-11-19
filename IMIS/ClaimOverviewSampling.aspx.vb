@@ -534,7 +534,8 @@
 
             Dim dt As DataTable
             If eClaim.ClaimSampleBatchID <> 0 Then
-                dt = ClaimOverviews.GetBatchClaims(eClaim, imisgen.getUserId(Session("User")))
+                'dt = ClaimOverviews.GetBatchClaims(eClaim, imisgen.getUserId(Session("User")))
+                dt = ClaimOverviews.GetReviewClaims(eClaim, imisgen.getUserId(Session("User")))
             Else
                 eClaim.ClaimStatus = 4 'Only Checked status allowed to be filterd for new claimSampleBatch
                 ddlClaimStatus.SelectedValue = "4"
@@ -1189,5 +1190,9 @@
             End If
         End If
         RandomSamplePassword.Visible = Not RandomSamplePassword.Visible
+    End Sub
+
+    Private Sub btnSampleDoCalc_Load(sender As Object, e As EventArgs) Handles btnSampleDoCalc.Load
+
     End Sub
 End Class

@@ -497,7 +497,7 @@ Public Class ClaimsDAL
     End Function
 
     'Corrected by Rogers
-    Public Function GetReviewClaims(ByRef eClaims As IMIS_EN.tblClaim, ByVal claimStatus As DataTable, ByVal UserID As Integer) As DataTable
+    Public Function GetReviewClaims(ByRef eClaims As IMIS_EN.tblClaimFilter, ByVal claimStatus As DataTable, ByVal UserID As Integer) As DataTable
 
         'Dim sSQL As String = ""
         Dim sSQL As String = SelectClaims()
@@ -584,6 +584,13 @@ Public Class ClaimsDAL
         'End If
 
         ' Change By Purushottam Ends
+
+        If eClaims.LoadBatchNonSamples = 1 Then
+            sSQL += " AND tblClaim.IsBatchSampleForVerify=0 "
+        ElseIf eClaims.LoadAllBatchClaims = 0 Then
+            sSQL += " AND tblClaim.IsBatchSampleForVerify=1 "
+        End If
+
         If eClaims.ClaimSampleBatchID <> 0 Then
             sSQL += " order by  tblClaim.ClaimSampleBatchID desc"
         Else
@@ -1323,13 +1330,14 @@ Public Class ClaimsDAL
                 -- PriceApproved = QtyProvided*(PriceAsked- PriceAsked*@SampleAmountPercent)
                 -- PriceApproved = PriceAsked- PriceAsked*@SampleAmountPercent
                    PriceApproved = (PriceAsked*@SampleAmountPercent),
-                   RejectionReason = 20
+                --   RejectionReason = 20,
+                   RejectionReason = 0
             where ClaimID = @ClaimID; 
             Update tblClaimServices Set 
                 -- PriceApproved = QtyProvided*(PriceAsked- PriceAsked*@SampleAmountPercent)
                 -- PriceApproved = PriceAsked- PriceAsked*@SampleAmountPercent
                 PriceApproved = (PriceAsked*@SampleAmountPercent),
-                RejectionReason = 20
+                RejectionReason = 0
             where ClaimID = @ClaimID; 
 
             "

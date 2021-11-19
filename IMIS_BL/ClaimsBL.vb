@@ -348,7 +348,7 @@ Public Class ClaimsBL
         Return clm.GetBatchClaims(eClaims, GetClaimStatus, UserID)
     End Function
 
-    Public Function GetReviewClaims(ByRef eClaims As IMIS_EN.tblClaim, ByVal UserID As Integer) As DataTable
+    Public Function GetReviewClaims(ByRef eClaims As IMIS_EN.tblClaimFilter, ByVal UserID As Integer) As DataTable
         Return clm.GetReviewClaims(eClaims, GetClaimStatus, UserID)
     End Function
     Public Function GetReviewClaimsCount(ByRef eClaims As IMIS_EN.tblClaim, ByVal UserID As Integer) As Integer

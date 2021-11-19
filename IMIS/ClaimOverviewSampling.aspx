@@ -31,7 +31,7 @@
  var clearflag = false;
  
  /** Ruzo Grid Row Selection 29 Aug 2014 >> Start **/
- FUnction bindRowSelection() {
+ function bindRowSelection() {
          var $trs = $('#<%=gvClaims.ClientID%> tr')
          $trs.unbind("hover").hover(function () {
              if ($(this).index() < 1 || $(this).is(".pgr")) return;
@@ -378,7 +378,11 @@
 	 $(document).ready(function(){
 	 	clientCalcApprovedPercent();
 	 	var claimId=window.location.href.split('c=')[1].split('&')[0];
-		$('#ClaimID'+claimId).attr('tabindex', -1).focus().parent().css('background', '#adadad');
+         $('#ClaimID' + claimId).attr('tabindex', -1).focus()
+             .parent() //td
+             .parent() //tr
+             .addClass('srs');
+             //.css('background', '#0080ff');
 	 });
          $('#<%=btnUpdateClaims.ClientID %>').click(function() {
              $("#<%=hfClaimID.ClientID %>").val("");
@@ -1127,15 +1131,25 @@
 
             <tr>
                 <td>
-                    <table class="catlabel">
+                    <table class="catlabel" style="display:none;">
                         <tr>
                             <td>
-                                <asp:Label ID="L_CLAIMSSELECTED" runat="server" Text="<%$ Resources:Resource,L_CLAIMSSELECTED %>"></asp:Label>
+                                
+                                
+                               
+                               
                             </td>
                             
                         </tr>
                     </table>
+                    <asp:Label ID="L_CLAIMSSELECTED" runat="server" Text="<%$ Resources:Resource,L_CLAIMSSELECTED %>"></asp:Label>
                 </td>
+                <td> <span id="spanBatchPercent"></span></td>
+                <td> <span id="spanSampleClaimed"></span></td>
+                <td> <span id="spanSampleApproved"></span></td>
+                <td> <span id="spanClaimTotal"></span></td>
+                <td>  <span id="spanApproveTotal"></span></td>
+                <td> <span id="spanVisiblePercent"></span></td>
                 <td align="right">
                     <asp:Label ID="lblSelectToProcess" runat="server" CssClass="FormLabel" style="margin-left:573px" Text="<%$ Resources:Resource,L_SELECTTOPROCESS %>"></asp:Label>
                     <asp:CheckBox ID="chkboxSelectToProcess" runat="server" onClick="toggleCheck(this);" />
@@ -1149,12 +1163,15 @@
             //after gridview is reloaded by another btnSearch press
             //
             function parseNum(strNum) { // remove comma
+                if (!strNum) { return 0; }
                 var val = parseFloat(strNum.replace(/,/g, '')); return val;
             }
             function clientCalcApprovedPercent() {
                 console.log('f');
-                var clmTotal = 0;
-                var aprTotal = 0;
+                var clmBatchTotal = 0;
+                var aprBatchTotal = 0;
+                var claimTotal = 0;
+                var approveTotal = 0;
                 $('#Body_gvClaims tr').each(function (idx, val) { //todo: use clientIds on this func
                     //console.log(val);
                     var tr = $(val);
@@ -1163,20 +1180,30 @@
                     var IsBatchSampleForVerifyTxt = tr.find('.IsBatchSampleForVerify').text();
                     var clm = tr.find('.Claimed').text();
                     var apr = tr.find('.Approved').text();
+
+                    var claimValue = parseNum(clm);
+                    var approveValue = parseNum(apr);
                     if (rvwStatus == stReviewed && IsBatchSampleForVerifyTxt == 'True') {
                         console.log(rvwStatus, idx, val);
-                        clmTotal += parseNum(clm)
-                        aprTotal += parseNum(apr);
+                        clmBatchTotal += claimValue;
+                        aprBatchTotal += approveValue;
                     }
+                    claimTotal += claimValue;
+                    approveTotal += approveValue;
 
                 });
 
-                var percent = aprTotal / clmTotal * 100;
+                var percent = aprBatchTotal / clmBatchTotal * 100;
                 var rndPercent = Math.round(percent * 100) / 100;
 
-                var display = $('#Body_L_CLAIMSSELECTED');
-                if (rndPercent >=0 ) {
-                    display.text(' Approved Amt= ' + rndPercent + '%');
+                
+                if (rndPercent >=0 || true) {
+                    $('#spanBatchPercent').text(' Approved Amt= ' + rndPercent + '%');
+                    $('#spanSampleClaimed').text(' Sample Claimed= ' + Math.round(clmBatchTotal * 100) / 100);
+                    $('#spanSampleApproved').text(' Sample Approved= ' + Math.round(aprBatchTotal * 100) / 100);
+                    $('#spanClaimTotal').text('Visible Claimed= ' + Math.round(claimTotal * 100) / 100);
+                    $('#spanApproveTotal').text('Visible Approved= ' + Math.round(approveTotal * 100) / 100);
+                    $('#spanVisiblePercent').text('Visible= ' + (Math.round(approveTotal/claimTotal * 10000) / 10000)*100  + '%');
                 }
                 console.log(rndPercent);
             }
@@ -1278,7 +1305,7 @@
                             
                         </FooterTemplate>
                         <HeaderTemplate>
-                            <img src="/favicon.ico" type="checkbox" onload="console.log('o callback'); clientCalcApprovedPercent()" onerror="console.log('e callaback'); clientCalcApprovedPercent()"/>                            
+                            <img src="/favicon.icos" type="checkbox" onload="console.log('o callback'); clientCalcApprovedPercent()" onerror="console.log('e callaback'); clientCalcApprovedPercent()"/>                            
                         </HeaderTemplate>
                      </asp:TemplateField>
                 </Columns>
