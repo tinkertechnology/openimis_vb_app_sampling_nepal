@@ -54,49 +54,13 @@ Public Class ClaimOverviewSamplingBatch
         Dim RoleID As Integer = imisgen.getRoleId(Session("User"))
         Dim UserID As Integer = imisgen.getUserId(Session("User"))
         If userBI.RunPageSecurity(IMIS_EN.Enums.Pages.Funding, Page) Then
-            B_SAVE.Visible = userBI.checkRights(IMIS_EN.Enums.Rights.FundingSave, UserID)
-            If Not B_SAVE.Visible Then
-                pnlBody.Enabled = False
-            End If
+
         Else
             Server.Transfer("Home.aspx")
         End If
     End Sub
 
 
-    Private Sub B_SAVE_Click(sender As Object, e As EventArgs) 'Handles B_SAVE.Click
-        If False Then
-            'Dim privateMin As String = private_min.Text
-            'Dim privateMax As String = private_max.Text
-            'Dim privatePercent As String = private_percent.Text
-            Dim publicMin As String = public_min.Text
-            Dim publicMax As String = public_max.Text
-            Dim publicPercent As String = public_percent.Text
-
-            'eSamplePercent.MaxValuePrivate = privateMax
-            'eSamplePercent.MinValuePrivate = privateMin
-            'eSamplePercent.PercentPrivate = privatePercent
-            eSamplePercent.MinValuePublic = publicMin
-            eSamplePercent.MaxValuePublic = publicMax
-            eSamplePercent.PercentPublic = publicPercent
-        End If
-
-        If Not String.IsNullOrWhiteSpace(txtID.Text) Then
-            eSamplePercent.ID = Convert.ToInt32(txtID.Text)
-        End If
-        eSamplePercent.ClaimedMin = Convert.ToDouble(txtClaimedMin.Text)
-        eSamplePercent.ClaimedMax = Convert.ToDouble(txtClaimedMax.Text)
-        eSamplePercent.SamplePercent = Convert.ToDouble(txtSamplePercent.Text)
-        eSamplePercent.TypeHF = ddlTypeHF.Text
-
-        SamplePercentSettingBI.AddUpdateSamplePercentSetting(eSamplePercent)
-        Server.TransferRequest(Request.Path)
-
-    End Sub
-
-    Private Sub B_CANCEL_Click(sender As Object, e As EventArgs) 'Handles B_CANCEL.Click
-        Response.Redirect("Home.aspx")
-    End Sub
 
 
     Protected Sub OnEdit(sender As Object, e As EventArgs)
@@ -105,11 +69,7 @@ Public Class ClaimOverviewSamplingBatch
         Dim rows = SamplePercentSettingBI.getSamplePercentSetting(id)
         If rows.Rows.Count > 0 Then
             Dim dr = rows(0)
-            txtClaimedMax.Text = dr("ClaimedMax").ToString()
-            txtClaimedMin.Text = dr("ClaimedMin").ToString()
-            txtID.Text = dr("ID").ToString()
-            txtSamplePercent.Text = dr("SamplePercent").ToString()
-            ddlTypeHF.Text = dr("TypeHF").ToString()
+
         End If
 
     End Sub
