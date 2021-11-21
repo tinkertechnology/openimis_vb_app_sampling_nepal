@@ -1468,6 +1468,22 @@ Public Class ClaimsDAL
 
 
     End Function
+
+    Public Function GetDataTableClaimSampleBatches() As DataTable
+        Dim sSQL As String = "select 
+            b.claimsampleBatchId,
+            u.LoginName,
+            IsCalcDone
+            -- ,*
+             from tblclaimsamplebatch b
+            inner join tblusers u on  b.AssignedClaimReviewerID = u.UserId
+            order by IsCalcDone, b.claimsampleBatchId "
+
+        Dim data As New ExactSQL
+        data.setSQLCommand(sSQL, CommandType.Text)
+
+        Return data.Filldata
+    End Function
     Public Sub AddUpdateClaimPercentSetting(ByRef eClaim As IMIS_EN.tblClaim)
 
         'Dim strSQL As String = "select top 1 ClaimID from tblClaim where validityFromReview is null and ClaimID = @ClaimID;if @@rowcount > 0 begin UPDATE tblClaim SET  [Adjustment] = @Adjustment, [ValidityFromReview] = getdate(), [AudituserIdReview] = @AuditUserID "

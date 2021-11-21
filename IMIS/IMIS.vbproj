@@ -136,6 +136,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="AddFunding.aspx" />
+    <Content Include="ClaimOverviewSamplingBatch.aspx" />
     <Content Include="AddSamplePercent.aspx" />
     <Content Include="BgService.aspx" />
     <Content Include="CappedItemService.aspx" />
@@ -328,6 +329,13 @@
     <Compile Include="AddFunding.aspx.vb">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>AddFunding.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClaimOverviewSamplingBatch.aspx.designer.vb">
+      <DependentUpon>ClaimOverviewSamplingBatch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClaimOverviewSamplingBatch.aspx.vb">
+      <DependentUpon>ClaimOverviewSamplingBatch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AddSamplePercent.aspx.designer.vb">
       <DependentUpon>AddSamplePercent.aspx</DependentUpon>
@@ -1189,7 +1197,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_StartDate="2012/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UseGlobalSettings="True" BuildVersion_DetectChanges="False" />
+      <UserProperties BuildVersion_DetectChanges="False" BuildVersion_UseGlobalSettings="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2012/1/1" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

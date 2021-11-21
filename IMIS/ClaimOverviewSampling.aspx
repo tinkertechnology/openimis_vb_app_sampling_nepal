@@ -1087,6 +1087,7 @@
                                     <asp:TextBox ID="txtClaimReSelectSamplePercent" Visible="false" runat="server" maxlength="12"></asp:TextBox>
                                 </td>
         <td class="DataEntry">All Batch Claims:  <asp:CheckBox ID="chkLoadAllBatchClaims" runat="server" /> </td>
+    <td><a id="viewAllBatches" href="/ClaimOverviewSamplingBatch.aspx">Batches</a> <div id="displayAllBatches"></div> </td>
         <td align="right" >
             <table align="center">
                 <tr>
