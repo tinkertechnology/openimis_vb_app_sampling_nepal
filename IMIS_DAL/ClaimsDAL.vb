@@ -502,16 +502,21 @@ Public Class ClaimsDAL
         'Dim sSQL As String = ""
         Dim sSQL As String = SelectClaims()
 
-
         sSQL += " WHERE tblClaim.ValidityTo IS NULL AND @FeedbackStatus & tblClaim.FeedbackStatus > 0"
         sSQL += " AND @ReviewStatus & tblClaim.ReviewStatus > 0 AND @ClaimStatus & tblClaim.ClaimStatus  > 0"
         sSQL += " AND (CASE WHEN @ICDID = 0 THEN 0 ELSE tblICDCodes.ICDID END) = @ICDID"
 
         If eClaims.ClaimSampleBatchID = -1 Then
-            sSQL += " AND tblClaim.ClaimSampleBatchID is null "
+            If eClaims.ClaimCode <> 0 Then
+
+            Else
+                sSQL += " AND tblClaim.ClaimSampleBatchID is null "
+            End If
+
         ElseIf eClaims.ClaimSampleBatchID <> 0 Then
-            sSQL += " AND tblClaim.ClaimSampleBatchID=@ClaimSampleBatchID"
+                sSQL += " AND tblClaim.ClaimSampleBatchID=@ClaimSampleBatchID"
         End If
+
         If eClaims.Attachment = 1 Then
             sSQL += " AND tblClaim.Attachment= 1"
         End If

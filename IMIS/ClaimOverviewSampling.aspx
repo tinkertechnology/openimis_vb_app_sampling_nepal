@@ -372,8 +372,6 @@
 		//alert('todo: use onclick, not req: last / in url caused problem.==== no jquery bind, because nginx is not loading jquery on redir or bind, maybe');
 		window.location=href+'&ClaimSampleBatchId='+batchId;
 		//alert('todo: redir on Review btn click on this page');
-
-
 	 });
 	 $(document).ready(function(){
 	 	clientCalcApprovedPercent();
