@@ -357,7 +357,9 @@
 	
 	 $('.aHrefClaimId').click(function(e){ //todo: maybe unverified claims of batch first, reviewed claims to bottom
 	 	e.preventDefault();
-		console.log(e);
+
+         console.log(e);
+
 		var jSender = $(this);
 		var href=this.href;
 		console.log(href);
@@ -370,7 +372,20 @@
 			? batchId 
 			: $('#<%=txtClaimSampleBatchID.ClientID %>').val(); 
 		//alert('todo: use onclick, not req: last / in url caused problem.==== no jquery bind, because nginx is not loading jquery on redir or bind, maybe');
-		window.location=href+'&ClaimSampleBatchId='+batchId;
+         var newHref = href + '&ClaimSampleBatchId=' + batchId;
+         if (e.ctrlKey) {
+             //if ctrl key is pressed
+             //window.open(newHref, '_blank').focus();//
+             Object.assign(document.createElement('a'), {
+                 target: '_blank',
+                 href: href,
+             }).click();
+         }
+         else {
+             // if ctrl key is not pressed
+             window.location = newHref
+         }
+		
 		//alert('todo: redir on Review btn click on this page');
 	 });
 	 $(document).ready(function(){
