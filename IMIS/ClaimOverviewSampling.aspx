@@ -355,10 +355,11 @@
 
 	 
 	
-	 $('.aHrefClaimId').click(function(e){ //todo: maybe unverified claims of batch first, reviewed claims to bottom
-	 	e.preventDefault();
+        $('.aHrefClaimId').click(function (e) { //todo: maybe unverified claims of batch first, reviewed claims to bottom
+         //e.target.href=
+	 	//e.preventDefault();
 
-         console.log(e);
+        console.log(e);
 
 		var jSender = $(this);
 		var href=this.href;
@@ -372,14 +373,27 @@
 			? batchId 
 			: $('#<%=txtClaimSampleBatchID.ClientID %>').val(); 
 		//alert('todo: use onclick, not req: last / in url caused problem.==== no jquery bind, because nginx is not loading jquery on redir or bind, maybe');
-         var newHref = href + '&ClaimSampleBatchId=' + batchId;
+            if (href.indexOf("ClaimSampleBatchId=") > -1) {
+                return true;
+            }
+            var newHref = href + '&ClaimSampleBatchId=' + batchId;
+            e.target.href = newHref;
+            return true;
+
          if (e.ctrlKey) {
              //if ctrl key is pressed
              //window.open(newHref, '_blank').focus();//
-             Object.assign(document.createElement('a'), {
+            /* Object.assign(document.createElement('a'), {
                  target: '_blank',
                  href: href,
-             }).click();
+             }).click();*/
+             var a = document.createElement("a");
+             a.href = newHref;// window.location.pathname;
+             var evt = document.createEvent("MouseEvents");
+             //the tenth parameter of initMouseEvent sets ctrl key
+             evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,
+                 true, false, false, false, 0, null);
+             a.dispatchEvent(evt);
          }
          else {
              // if ctrl key is not pressed
