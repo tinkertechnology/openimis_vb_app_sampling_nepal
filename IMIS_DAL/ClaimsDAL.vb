@@ -1376,8 +1376,10 @@ Public Class ClaimsDAL
         Try
 
 
-            Dim sSQL = "insert into tblClaimSampleBatch (ClaimSelectSamplePercent, CreatedByUserID, AssignedClaimReviewerID)
-            values (@ClaimSelectSamplePercent, @CreatedByUserID, @AssignedClaimReviewerID)"
+            Dim sSQL = "insert into tblClaimSampleBatch 
+                (ClaimSelectSamplePercent, CreatedByUserID, AssignedClaimReviewerID, CreatedDateTime)
+             values
+                (@ClaimSelectSamplePercent, @CreatedByUserID, @AssignedClaimReviewerID, @CreatedDateTime)"
 
             If mdl.__UPDATE__ Then
                 sSQL = "
@@ -1395,6 +1397,7 @@ Public Class ClaimsDAL
             data.params("@IsCalcDone", SqlDbType.Bit, mdl.IsCalcDone)
             data.params("@CreatedByUserID", SqlDbType.Int, UserID)
             data.params("@AssignedClaimReviewerID", SqlDbType.Int, mdl.ClaimedAssignedReviewerID)
+            data.params("@CreatedDateTime", SqlDbType.DateTime, DateTime.Now)
             data.ExecuteCommand()
 
             If mdl.__UPDATE__ Then
@@ -1469,24 +1472,40 @@ Public Class ClaimsDAL
 
     End Function
 
-    Public Function GetDataTableClaimSampleBatches() As DataTable
+    Public Function GetDataTableClaimSampleBatches(ByRef batch As IMIS_EN.tblClaimSampleBatchFilter) As DataTable
         Dim sSQL As String = "select 
             b.claimsampleBatchId,
             u.LoginName,
-            IsCalcDone
+            IsCalcDone,
+            CreatedDateTime
             -- ,*
              from tblclaimsamplebatch b
             inner join tblusers u on  b.AssignedClaimReviewerID = u.UserId
-            order by IsCalcDone, b.claimsampleBatchId "
+            where 1=1 "
+            
+        If not String.IsNullOrWhiteSpace(batch.UserLoginName) Then
+            sSQL += " and u.LoginName=@UserLoginName "
+        End If
+        If Not String.IsNullOrWhiteSpace(batch.CreateDateTimeStart) Then
+            sSQL += " And CreatedDateTime >= @CreateDateTimeStart "
+        End If
+        If Not String.IsNullOrWhiteSpace(batch.CreateDateTimeEnd) Then
+            sSQL += " And CreatedDateTime <= @CreateDateTimeEnd "
+        End If
+        sSQL += " order by IsCalcDone, b.claimsampleBatchId "
 
         Dim data As New ExactSQL
         data.setSQLCommand(sSQL, CommandType.Text)
+        data.params("@UserLoginName", SqlDbType.NVarChar, 100, batch.UserLoginName)
+        data.params("@CreateDateTimeStart", SqlDbType.NVarChar, 100, batch.CreateDateTimeStart)
+        data.params("@CreateDateTimeEnd", SqlDbType.NVarChar, 100, batch.CreateDateTimeEnd)
 
         Return data.Filldata
     End Function
+
     Public Sub AddUpdateClaimPercentSetting(ByRef eClaim As IMIS_EN.tblClaim)
 
-        'Dim strSQL As String = "select top 1 ClaimID from tblClaim where validityFromReview is null and ClaimID = @ClaimID;if @@rowcount > 0 begin UPDATE tblClaim SET  [Adjustment] = @Adjustment, [ValidityFromReview] = getdate(), [AudituserIdReview] = @AuditUserID "
+        'Dim strSQL As String = "select top 1 ClaimID from tblClaim where validityFromReview Is null And ClaimID = @ClaimID;if @@rowcount > 0 begin UPDATE tblClaim SET  [Adjustment] = @Adjustment, [ValidityFromReview] = getdate(), [AudituserIdReview] = @AuditUserID "
         'If Not eClaim.Approved Is Nothing Then
         '    strSQL += ", [Approved] = @Approved"
         'End If

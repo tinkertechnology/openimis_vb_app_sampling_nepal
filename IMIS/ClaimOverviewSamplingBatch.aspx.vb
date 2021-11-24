@@ -32,13 +32,13 @@ Public Class ClaimOverviewSamplingBatch
     Private SamplePercentSettingBI As New IMIS_BI.AddSamplePercentBI
     Dim ClaimsDAL As New IMIS_DAL.ClaimsDAL
 
-
+    Dim tblClaimSampleBatchFilter As New IMIS_EN.tblClaimSampleBatchFilter
 
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If IsPostBack = False Then
             'Dim dt As DataTable = loadSampleData.LoadSamplePercentSetting()
-            Dim dt As DataTable = ClaimsDAL.GetDataTableClaimSampleBatches()
+            Dim dt As DataTable = ClaimsDAL.GetDataTableClaimSampleBatches(tblClaimSampleBatchFilter)
             GridView1.DataSource = dt
             GridView1.DataBind()
 
@@ -60,22 +60,12 @@ Public Class ClaimOverviewSamplingBatch
         End If
     End Sub
 
-
-
-
-    Protected Sub OnEdit(sender As Object, e As EventArgs)
-        Dim row As GridViewRow = TryCast(TryCast(sender, Button).NamingContainer, GridViewRow)
-        Dim id As Integer = Convert.ToInt32(TryCast(row.FindControl("txtID"), TextBox).Text)
-        Dim rows = SamplePercentSettingBI.getSamplePercentSetting(id)
-        If rows.Rows.Count > 0 Then
-            Dim dr = rows(0)
-
-        End If
-
-    End Sub
-
-    Protected Sub btnONOFF_Click(sender As Object, e As EventArgs)
-
-        '     // your code
+    Protected Sub B_SEARCH_Click(sender As Object, e As EventArgs) Handles B_SEARCH.Click
+        tblClaimSampleBatchFilter.UserLoginName = txtUserLoginName.Text
+        tblClaimSampleBatchFilter.CreateDateTimeStart = txtCreateDateTimeStart.Text
+        tblClaimSampleBatchFilter.CreateDateTimeEnd = txtCreateDateTimeEnd.Text
+        Dim dt As DataTable = ClaimsDAL.GetDataTableClaimSampleBatches(tblClaimSampleBatchFilter)
+        GridView1.DataSource = dt
+        GridView1.DataBind()
     End Sub
 End Class

@@ -14,6 +14,78 @@ Option Explicit On
 Partial Public Class ClaimOverviewSamplingBatch
 
     '''<summary>
+    '''pnlBody control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlBody As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''label6 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents label6 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''txtUserLoginName control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtUserLoginName As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''label7 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents label7 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''txtCreateDateTimeStart control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtCreateDateTimeStart As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''label8 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents label8 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''txtCreateDateTimeEnd control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtCreateDateTimeEnd As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''B_SEARCH control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents B_SEARCH As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''Panel1 control.
     '''</summary>
     '''<remarks>

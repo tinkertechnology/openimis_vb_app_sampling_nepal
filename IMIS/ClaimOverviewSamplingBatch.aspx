@@ -33,9 +33,37 @@ In case of dispute arising out or in relation to the use of the program, it is s
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Body" runat="server">
     <div class="divBody">
+            
         
+        <asp:Panel ID="pnlBody" runat="server" ScrollBars="Auto" CssClass="panel" GroupingText="Search"  Height="55px" style="flex-grow:0">
+            <table>
+                <tr>
+                    <td class="DataEntry">
+                        <asp:Label ID="label6" runat="server"  Text="username"></asp:Label>
+                        <asp:TextBox ID="txtUserLoginName" xRequired="True" runat="server" Width="132px" MaxLength="10"></asp:TextBox>
+                    </td>
+                    <td class="DataEntry">
+                         <asp:Label ID="label7" xRequired="True" runat="server" Text="Create Start" ></asp:Label>
+                        <asp:TextBox ID="txtCreateDateTimeStart" runat="server" Width="132px" MaxLength="10" Type="Date"></asp:TextBox>
+                    </td>
+                    <td class="DataEntry">
+                         <asp:Label ID="label8" xRequired="True" runat="server" Text="Create End"></asp:Label>
+                        <asp:TextBox ID="txtCreateDateTimeEnd" xRequired="True" runat="server" Width="132px" MaxLength="10" Type="Date"></asp:TextBox>
+                    </td>
 
-        <asp:Panel ID="Panel1" runat="server"  style="flex-grow:0" CssClass="panelBody" Height="242px"  ScrollBars ="Vertical">
+                <td align="left">
+                    <asp:Button
+                        ID="B_SEARCH"
+                        runat="server"
+                        Text='<%$ Resources:Resource,B_SEARCH%>'
+                        ValidationGroup="check" />
+                </td>
+
+                </tr>
+            </table>
+        </asp:Panel>
+
+        <asp:Panel ID="Panel1" runat="server"  style="flex-grow:0" CssClass="panelBody" Height="100%"  ScrollBars ="Vertical">
             <asp:GridView ID="GridView1" runat="server"
                 AutoGenerateColumns="False"
                 GridLines="None"
@@ -51,6 +79,10 @@ In case of dispute arising out or in relation to the use of the program, it is s
                         <HeaderStyle Width="0px" />
                     </asp:BoundField>
 
+                    <asp:BoundField DataField="CreatedDateTime" HeaderText='CreatedDate' SortExpression="IsCalcDone" HeaderStyle-Width="70px">
+                        <HeaderStyle Width="0px" />
+                    </asp:BoundField>
+
                     <asp:BoundField DataField="IsCalcDone" HeaderText='IsCalcDone' SortExpression="IsCalcDone" HeaderStyle-Width="70px">
                         <HeaderStyle Width="0px" />
                     </asp:BoundField>
@@ -58,7 +90,7 @@ In case of dispute arising out or in relation to the use of the program, it is s
                     <asp:TemplateField>
                         <ItemTemplate >
                             <div style="display:none">
-                            <asp:Button Text="Edit" runat="server" OnClick="OnEdit" />
+                            <asp:Button Text="Edit" runat="server" xOnClick="OnEdit" />
                             <asp:TextBox runat="server" ID="txtID" Visible="false"  Text='<%# Eval("ClaimsampleBatchId") %>' ></asp:TextBox>
                                 </div>
                         </ItemTemplate>
