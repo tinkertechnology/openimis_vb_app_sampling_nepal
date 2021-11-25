@@ -27,13 +27,9 @@ Public Class ClaimOverviewSamplingBatch
     Inherits System.Web.UI.Page
     Private userBI As New IMIS_BI.UserBI
     Protected imisgen As New IMIS_Gen
-    Private eSamplePercent As New IMIS_EN.tblSamplePercent
 
-    Private SamplePercentSettingBI As New IMIS_BI.AddSamplePercentBI
     Dim ClaimsDAL As New IMIS_DAL.ClaimsDAL
-
     Dim tblClaimSampleBatchFilter As New IMIS_EN.tblClaimSampleBatchFilter
-
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
