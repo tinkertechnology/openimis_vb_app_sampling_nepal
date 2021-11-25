@@ -36,7 +36,8 @@ Public Class ClaimOverviewSamplingBatch
 
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        If IsPostBack = False Then
+
+        If IsPostBack = False And False Then
             'Dim dt As DataTable = loadSampleData.LoadSamplePercentSetting()
             Dim dt As DataTable = ClaimsDAL.GetDataTableClaimSampleBatches(tblClaimSampleBatchFilter)
             GridView1.DataSource = dt
@@ -45,8 +46,8 @@ Public Class ClaimOverviewSamplingBatch
             If dt.Rows.Count > 0 And False Then
 
             End If
-
         End If
+
     End Sub
 
 
